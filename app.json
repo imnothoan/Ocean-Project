@@ -1,0 +1,20 @@
+{
+  "expo": {
+    "name": "Ocean Project",
+    "slug": "ocean-project",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "scheme": "oceanproject",
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#0D2B45"
+      },
+      "permissions": ["CAMERA"]
+    },
+    "plugins": ["expo-camera"]
+  }
+}
