@@ -6,13 +6,13 @@ Updated: 2026-11-15
 
 - Expo SDK upgraded from 54 to 58 (`expo ~58.0.25`, React Native `0.88.1`) to match the installed Expo Go SDK 58 client.
 - `npm run typecheck`, `npm test`, `npx expo-doctor`, and `npx expo export --platform web` pass after the upgrade.
-- Supabase URL and the provided publishable key are available only in ignored `.env.local`; the configured REST endpoint currently responds with HTTP 401 (`Secret API key required`), so remote connectivity remains blocked by the key/API configuration rather than the app code.
+- Supabase URL and the compatible anon JWT are available only in ignored `.env.local`; the provided `sb_publishable_*` value is not accepted by this project's REST endpoint, while the anon JWT is accepted.
 - The project anon JWT now verifies successfully against Supabase REST (`events`, HTTP 200) and Auth settings (`HTTP 200`). The profile shell now reflects the live Supabase session and supports sign-out.
 
 ## Honest status
 
 - Figma entries accounted for in the current inventory: 116 catalog entries.
-- Figma entries individually inspected through design context: selected frames, including Leaderboard `238:299`; full 116-frame audit remains incomplete.
+- Figma entries individually inspected through design context: selected frames including Mood Board `59:2155`, Leaderboard `238:299`, and Community Feed `101:2769`; full 116-frame audit remains incomplete.
 - Figma layer/group names inspected in browser: High-Fidelity groups and visible child names.
 - Actual feature UI implemented: core home/report/events/data/profile plus specialized flow renderers.
 - Generic catalog-only entries: still present and not counted as complete.
@@ -33,10 +33,10 @@ Audit basis: direct source inspection, catalog-to-file tracing, a fresh Figma br
 
 | Metric | Evidence-based result | Coverage |
 |---|---|---:|
-| Design inspection coverage | No individual frame opened through design context. The browser remained at Figma `Password required` after the provided password submission. Group/layer names only were available. | 0/116 (0%) |
+| Design inspection coverage | Selected frames opened through Figma design context; full frame-by-frame audit remains incomplete. | Partial |
 | Actual UI implementation coverage | 12 entries have dedicated reachable UI states: the 9 report-entry states plus report history, notification inbox and notification detail. The other catalog entries resolve to grouped/generic renderers or shared app surfaces. | 12/116 (10.3%) |
 | Functional test coverage | No test files or test runner exists in `package.json`; typecheck, Expo export and Expo Doctor validate build health, not per-screen behavior. | 0/116 (0%) |
-| Visual verification coverage | No Figma screenshot comparison was possible. | 0/116 (0%) |
+| Visual verification coverage | Selected runtime screens were compared against retrieved Figma screenshots; full per-frame verification remains incomplete. | Partial |
 | Backend integration coverage | 4 entry-level screens have direct backend operations in their dedicated UI: report submission, report history, notification inbox and notification detail. Existing event/donation/data operations are present in grouped renderers but are not evidence of per-frame implementation. | 4/116 (3.4%) |
 
 ### Audit findings

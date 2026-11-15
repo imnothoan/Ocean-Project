@@ -1,6 +1,6 @@
 # Known issues
 
-1. Figma MCP tools are not available in this session; the browser can inspect the shared file but cannot retrieve per-frame design context or assets.
+1. Figma MCP is connected for this project; selected frames such as Mood Board `59:2155`, Leaderboard `238:299`, and Community Feed `101:2769` have been retrieved. The complete 116-frame audit is still incomplete.
 2. Figma Prototype view requires an authenticated Figma account and cannot be tested from the anonymous session.
 3. `App.tsx` still contains the original core screens and should be extracted into feature modules.
 4. The 116-entry catalog is coverage metadata, not proof of 116 pixel-perfect implementations.
