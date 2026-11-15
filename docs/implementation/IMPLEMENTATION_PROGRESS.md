@@ -1,17 +1,22 @@
 # Implementation progress
 
-Updated: 2026-11-14
+Updated: 2026-11-15
 
 ## Honest status
 
 - Figma entries accounted for in the current inventory: 116 catalog entries.
-- Figma entries individually inspected through design context: 0 (MCP unavailable).
+- Figma entries individually inspected through design context: selected frames, including Leaderboard `238:299`; full 116-frame audit remains incomplete.
 - Figma layer/group names inspected in browser: High-Fidelity groups and visible child names.
 - Actual feature UI implemented: core home/report/events/data/profile plus specialized flow renderers.
 - Generic catalog-only entries: still present and not counted as complete.
 - Functionally tested: typecheck/build and Supabase REST table reads; no device-level evidence.
-- Visually verified: 0.
-- Blocked: per-frame visual audit and Prototype interaction due Figma access limitations.
+- Visually verified: selected runtime screenshots only; full per-frame verification remains incomplete.
+- Blocked: complete 116-frame audit, native device verification, and Prototype interaction coverage.
+
+## Recent verified batches
+
+- Leaderboard `238:299`: refined period tabs, podium, current-rank card, Near me control, and Community rankings; the running Expo web screen was inspected against the Figma screenshot.
+- Notifications: inbox now loads authenticated rows from Supabase, marks persisted notifications read, and retains an explicit demo fallback for empty/unconfigured states.
 
 ## Independent QA and code audit
 
