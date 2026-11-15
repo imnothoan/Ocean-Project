@@ -14,6 +14,7 @@ The migration adds owner-scoped report/evidence/history/notification access, a p
 - Report, event registration, and donation operations require an authenticated Supabase session.
 - Donation notes are persisted with a 500-character database constraint and are written only during final confirmation.
 - Event registrations expose a pending/approved/rejected status; only the owning event organizer can read all registrations or change that status.
+- Report owners can update their own report details; the corresponding RLS update policy is applied remotely.
 
 ## Verification status
 

@@ -128,6 +128,13 @@ export async function createReport(
   return supabase.from('reports').insert({ ...report, owner_id: userData.user.id }).select().single();
 }
 
+export async function updateOwnReport(reportId: string, input: Pick<OceanReport, 'title' | 'location'>) {
+  if (!isSupabaseConfigured) return { data: null, error: new Error('Supabase is not configured.') };
+  const { data: userData, error: userError } = await supabase.auth.getUser();
+  if (userError || !userData.user) return { data: null, error: userError ?? new Error('You must be signed in to edit a report.') };
+  return supabase.from('reports').update(input).eq('id', reportId).eq('owner_id', userData.user.id).select().single();
+}
+
 export async function loadReports() {
   if (!isSupabaseConfigured) {
     return { data: [] as OceanReport[], error: null };
