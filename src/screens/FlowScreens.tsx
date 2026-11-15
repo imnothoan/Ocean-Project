@@ -10,7 +10,7 @@ import { DonationFlowRoot } from '../features/donate/DonationScreens';
 import { VerifyReportScreen } from '../features/admin/VerifyReportScreen';
 import { TrainingScreen } from '../features/admin/TrainingScreens';
 import { NotificationFlowRoot, NotificationDetailScreen, PollutionSubmittedScreen, PollutionWizardScreen, RareSpeciesFlow, ReportManagementScreen, ReportStatusTrackerScreen } from '../features/reports/ReportStateScreens';
-import { BadgeCollectionScreen, ChallengesScreen, LeaderboardScreen, LearningQuizScreen } from '../features/gamification/GamificationScreens';
+import { AchievementsBadgesScreen, BadgeCollectionScreen, ChallengesScreen, DailyMissionScreen, KnowledgeHubScreen, LeaderboardScreen, LearningQuizScreen, LevelsRewardsScreen, LevelUpScreen, MyProfileEcoImpactScreen, ShareActivityScreen } from '../features/gamification/GamificationScreens';
 
 export function ScreenCatalogScreen({ onOpen }: { onOpen: (screen: ScreenDefinition) => void }) {
   const [query, setQuery] = useState('');
@@ -47,6 +47,13 @@ export function FlowDetailScreen({ screen, onBack }: { screen: ScreenDefinition;
   if (screen.title === 'Challenges' || screen.title === 'Challenge Detail') return <ChallengesScreen onBack={onBack} detail={screen.title === 'Challenge Detail'} />;
   if (screen.title === 'Badge Collection' || screen.title === 'Badge Detail') return <BadgeCollectionScreen onBack={onBack} detail={screen.title === 'Badge Detail'} />;
   if (screen.title === 'Learning Quiz') return <LearningQuizScreen onBack={onBack} />;
+  if (screen.title === 'Knowledge') return <KnowledgeHubScreen onBack={onBack} />;
+  if (screen.title === 'share') return <ShareActivityScreen onBack={onBack} />;
+  if (screen.title === 'Profile & Gamification') return <MyProfileEcoImpactScreen onBack={onBack} />;
+  if (screen.title === 'Rectangle 792') return <LevelsRewardsScreen onBack={onBack} />;
+  if (screen.title === 'Rectangle 793') return <AchievementsBadgesScreen onBack={onBack} />;
+  if (screen.title === 'Rectangle 794') return <DailyMissionScreen onBack={onBack} />;
+  if (screen.title === 'Rectangle 795') return <LevelUpScreen onBack={onBack} />;
   if (screen.title === 'Notification Settings' || screen.title === 'Account Settings') {
     return <SettingsFlow title={screen.title} onBack={onBack} />;
   }
