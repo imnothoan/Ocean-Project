@@ -69,6 +69,41 @@ export type OceanNotification = {
   user_id: string;
 };
 
+export type CommunityPost = {
+  id: string;
+  author_id: string;
+  body: string;
+  topic: string;
+  created_at: string;
+};
+
+export type EventMessage = {
+  id: string;
+  event_id: string;
+  user_id: string;
+  body: string;
+  created_at: string;
+};
+
+export type EventRecap = {
+  id: string;
+  event_id: string;
+  author_id: string;
+  body: string;
+  created_at: string;
+};
+
+export async function createCommunityPost(body: string, topic: string) {
+  if (!isSupabaseConfigured) {
+    return { data: null, error: new Error('Supabase is not configured.') };
+  }
+  const { data: userData, error: userError } = await supabase.auth.getUser();
+  if (userError || !userData.user) {
+    return { data: null, error: userError ?? new Error('You must be signed in to publish a post.') };
+  }
+  return supabase.from('community_posts').insert({ author_id: userData.user.id, body, topic }).select().single();
+}
+
 export async function createReport(
   report: Pick<OceanReport, 'category' | 'title' | 'location'>
 ) {
@@ -178,11 +213,78 @@ export async function registerForEvent(eventId: string, participantName: string,
     return { data: null, error: new Error('Supabase is not configured.') };
   }
 
+  const { data: userData, error: userError } = await supabase.auth.getUser();
+  if (userError || !userData.user) {
+    return { data: null, error: userError ?? new Error('You must be signed in to register for an event.') };
+  }
+
   return supabase
     .from('event_registrations')
-    .insert({ event_id: eventId, participant_name: participantName, participant_email: participantEmail })
+    .insert({ event_id: eventId, participant_name: participantName, participant_email: participantEmail, owner_id: userData.user.id })
     .select()
     .single();
+}
+
+export async function createEvent(input: Pick<OceanEvent, 'title' | 'description' | 'event_date' | 'location' | 'capacity'>) {
+  if (!isSupabaseConfigured) {
+    return { data: null, error: new Error('Supabase is not configured.') };
+  }
+
+  const { data: userData, error: userError } = await supabase.auth.getUser();
+  if (userError || !userData.user) {
+    return { data: null, error: userError ?? new Error('You must be signed in to create an event.') };
+  }
+  return supabase.from('events').insert({ ...input, owner_id: userData.user.id }).select().single();
+}
+
+export async function updateEvent(eventId: string, input: Partial<Pick<OceanEvent, 'title' | 'description' | 'event_date' | 'location' | 'capacity'>>) {
+  if (!isSupabaseConfigured) return { data: null, error: new Error('Supabase is not configured.') };
+  const { data: userData, error: userError } = await supabase.auth.getUser();
+  if (userError || !userData.user) return { data: null, error: userError ?? new Error('You must be signed in to edit an event.') };
+  return supabase.from('events').update(input).eq('id', eventId).eq('owner_id', userData.user.id).select().single();
+}
+
+export async function recordEventCheckIn(eventId: string, code: string) {
+  if (!isSupabaseConfigured) return { data: null, error: new Error('Supabase is not configured.') };
+  const { data: userData, error: userError } = await supabase.auth.getUser();
+  if (userError || !userData.user) return { data: null, error: userError ?? new Error('You must be signed in to check in.') };
+  return supabase.from('event_checkins').insert({ event_id: eventId, user_id: userData.user.id, code }).select().single();
+}
+
+export async function submitEventFeedback(eventId: string, rating: number, thoughts: string, enjoyed: string, joinAgain: string) {
+  if (!isSupabaseConfigured) return { data: null, error: new Error('Supabase is not configured.') };
+  const { data: userData, error: userError } = await supabase.auth.getUser();
+  if (userError || !userData.user) return { data: null, error: userError ?? new Error('You must be signed in to submit feedback.') };
+  return supabase.from('event_feedback').upsert({ event_id: eventId, user_id: userData.user.id, rating, thoughts, enjoyed, join_again: joinAgain }, { onConflict: 'event_id,user_id' }).select().single();
+}
+
+export async function loadEventMessages(eventId: string) {
+  if (!isSupabaseConfigured) return { data: [] as EventMessage[], error: null };
+  return supabase.from('event_messages').select('id, event_id, user_id, body, created_at').eq('event_id', eventId).order('created_at', { ascending: true });
+}
+
+export async function loadEventParticipants(eventId: string) {
+  if (!isSupabaseConfigured) return { data: [] as Array<{ participant_name: string; participant_email: string }>, error: null };
+  return supabase.from('event_registrations').select('participant_name, participant_email').eq('event_id', eventId).order('created_at', { ascending: true });
+}
+
+export async function sendEventMessage(eventId: string, body: string) {
+  if (!isSupabaseConfigured) return { data: null, error: new Error('Supabase is not configured.') };
+  const { data: userData, error: userError } = await supabase.auth.getUser();
+  if (userError || !userData.user) return { data: null, error: userError ?? new Error('You must be signed in to send a message.') };
+  return supabase.from('event_messages').insert({ event_id: eventId, user_id: userData.user.id, body }).select().single();
+}
+
+export async function createEventRecap(eventId: string, body: string) {
+  if (!isSupabaseConfigured) return { data: null, error: new Error('Supabase is not configured.') };
+  const { data: userData, error: userError } = await supabase.auth.getUser();
+  if (userError || !userData.user) return { data: null, error: userError ?? new Error('You must be signed in to publish a recap.') };
+  return supabase.from('event_recaps').insert({ event_id: eventId, author_id: userData.user.id, body }).select().single();
+}
+
+export async function loadEventRecaps(eventId: string) {
+  if (!isSupabaseConfigured) return { data: [] as EventRecap[], error: null };
+  return supabase.from('event_recaps').select('id, event_id, author_id, body, created_at').eq('event_id', eventId).order('created_at', { ascending: false });
 }
 
 export async function createDonation(donorName: string, amount: number, campaign: string) {
@@ -190,9 +292,14 @@ export async function createDonation(donorName: string, amount: number, campaign
     return { data: null, error: new Error('Supabase is not configured.') };
   }
 
+  const { data: userData, error: userError } = await supabase.auth.getUser();
+  if (userError || !userData.user) {
+    return { data: null, error: userError ?? new Error('You must be signed in to record a donation.') };
+  }
+
   return supabase
     .from('donations')
-    .insert({ donor_name: donorName, amount, campaign, status: 'pending' })
+    .insert({ donor_name: donorName, amount, campaign, status: 'pending', donor_id: userData.user.id })
     .select()
     .single();
 }

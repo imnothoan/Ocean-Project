@@ -36,4 +36,4 @@ Không đặt `sb_secret_*` hoặc database password vào `.env` của Expo. Sec
 
 ## Trạng thái xác minh
 
-Supabase REST đã được xác minh với HTTP 200 cho `reports`, `events`, `event_registrations`, `donations` và `impact_metrics`. `npm run typecheck`, `npx expo-doctor` và Expo web export đã pass.
+Trạng thái remote Supabase phải được xác minh lại bằng project credentials hợp lệ trước khi áp dụng migration. Không ghi service-role key hoặc database password vào `.env` của Expo. Local typecheck và test chỉ được coi là hợp lệ sau khi dependency lockfile được cài đặt thành công.

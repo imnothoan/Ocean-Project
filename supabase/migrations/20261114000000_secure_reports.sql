@@ -2,6 +2,8 @@
 -- The canonical schema is also kept in ../schema.sql for the prototype workflow.
 
 alter table public.reports add column if not exists owner_id uuid references auth.users(id) on delete cascade;
+alter table public.event_registrations add column if not exists owner_id uuid references auth.users(id) on delete cascade;
+alter table public.donations add column if not exists donor_id uuid references auth.users(id) on delete cascade;
 alter table public.report_status_history add column if not exists actor_id uuid references auth.users(id) on delete set null;
 alter table public.notifications add column if not exists user_id uuid references auth.users(id) on delete cascade;
 
@@ -18,6 +20,14 @@ create table if not exists public.report_evidence (
 alter table public.reports enable row level security;
 alter table public.report_status_history enable row level security;
 alter table public.notifications enable row level security;
+create table if not exists public.community_posts (
+  id uuid primary key default gen_random_uuid(),
+  author_id uuid not null references auth.users(id) on delete cascade,
+  body text not null check (char_length(body) between 3 and 2000),
+  topic text not null default 'General',
+  created_at timestamptz not null default now()
+);
+alter table public.community_posts enable row level security;
 alter table public.report_evidence enable row level security;
 
 drop policy if exists "public can read reports" on public.reports;
@@ -38,6 +48,23 @@ create policy "authenticated can read own notifications" on public.notifications
 drop policy if exists "public can update notifications" on public.notifications;
 drop policy if exists "authenticated can update own notifications" on public.notifications;
 create policy "authenticated can update own notifications" on public.notifications for update to authenticated using (user_id = auth.uid()) with check (user_id = auth.uid());
+drop policy if exists "public can read community posts" on public.community_posts;
+create policy "public can read community posts" on public.community_posts for select to anon, authenticated using (true);
+drop policy if exists "authenticated can create community posts" on public.community_posts;
+create policy "authenticated can create community posts" on public.community_posts for insert to authenticated with check (author_id = auth.uid());
+
+drop policy if exists "public can register events" on public.event_registrations;
+drop policy if exists "authenticated can register own events" on public.event_registrations;
+create policy "authenticated can register own events" on public.event_registrations for insert to authenticated with check (owner_id = auth.uid());
+drop policy if exists "authenticated can read own event registrations" on public.event_registrations;
+create policy "authenticated can read own event registrations" on public.event_registrations for select to authenticated using (owner_id = auth.uid());
+
+drop policy if exists "public can read donations" on public.donations;
+drop policy if exists "public can create donations" on public.donations;
+drop policy if exists "authenticated can read own donations" on public.donations;
+create policy "authenticated can read own donations" on public.donations for select to authenticated using (donor_id = auth.uid());
+drop policy if exists "authenticated can create own donations" on public.donations;
+create policy "authenticated can create own donations" on public.donations for insert to authenticated with check (donor_id = auth.uid());
 
 drop policy if exists "authenticated can read own evidence" on public.report_evidence;
 create policy "authenticated can read own evidence" on public.report_evidence for select to authenticated using (owner_id = auth.uid());

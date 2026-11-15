@@ -9,7 +9,6 @@ import {
   TextInput,
   View
 } from 'react-native';
-import { CameraView, useCameraPermissions } from 'expo-camera';
 import { StatusBar } from 'expo-status-bar';
 import { createReport, loadEvents, loadImpactMetrics, loadReports, type ImpactMetric, type OceanEvent, type OceanReport, type ReportCategory } from './src/lib/supabase';
 import { FlowDetailScreen, ScreenCatalogScreen } from './src/screens/FlowScreens';
@@ -17,20 +16,21 @@ import type { ScreenDefinition } from './src/navigation/screenCatalog';
 import { AuthScreen } from './src/features/auth/AuthScreen';
 import { ReportEntryFlow } from './src/features/reports/ReportEntryFlow';
 import { NotificationInboxScreen, ReportHistoryScreen } from './src/features/reports/ReportHistoryScreens';
+import { EventsHomeScreen } from './src/features/events/EventScreens';
 
 type Tab = 'home' | 'report' | 'events' | 'data' | 'profile';
 type Overlay = 'history' | 'notifications' | null;
 
 const palette = {
-  navy: '#0D2B45',
-  blue: '#087EA4',
-  aqua: '#B9F2F4',
-  mint: '#E8FAF7',
-  ink: '#17324D',
-  muted: '#6E8494',
-  line: '#DDEBEF',
+  navy: '#091727',
+  blue: '#3DAEBC',
+  aqua: '#43C4D6',
+  mint: '#76D0C1',
+  ink: '#3F596B',
+  muted: '#7B92A1',
+  line: '#D7E1E6',
   white: '#FFFFFF',
-  coral: '#FF7A68'
+  coral: '#FD7B59'
 };
 
 const demoReports = [
@@ -99,7 +99,6 @@ function ReportScreen() {
   const [title, setTitle] = useState('');
   const [location, setLocation] = useState('');
   const [scannerOpen, setScannerOpen] = useState(false);
-  const [permission, requestPermission] = useCameraPermissions();
 
   async function submit() {
     if (!title.trim() || !location.trim()) {
@@ -117,7 +116,7 @@ function ReportScreen() {
   }
 
   if (scannerOpen) {
-    return <View style={styles.scanner}><CameraView style={StyleSheet.absoluteFill} barcodeScannerSettings={{ barcodeTypes: ['qr'] }} onBarcodeScanned={({ data }) => { setScannerOpen(false); setLocation(data); }} /><View style={styles.scannerOverlay}><Text style={styles.scannerTitle}>Quét mã QR địa điểm</Text><View style={styles.scanFrame} /><Pressable style={styles.secondaryButton} onPress={() => setScannerOpen(false)}><Text style={styles.secondaryButtonText}>Đóng</Text></Pressable></View></View>;
+    return <SafeAreaView style={styles.scanner}><View style={styles.scannerOverlay}><Text style={styles.scannerTitle}>Nhập địa điểm</Text><Text style={styles.rowMeta}>Quét QR khả dụng trên thiết bị native. Nhập địa điểm thủ công để tiếp tục trên web.</Text><TextInput value={location} onChangeText={setLocation} placeholder="Ví dụ: Cầu cảng Cát Bà" placeholderTextColor={palette.muted} style={styles.input} /><Pressable style={styles.secondaryButton} onPress={() => setScannerOpen(false)}><Text style={styles.secondaryButtonText}>Đóng</Text></Pressable></View></SafeAreaView>;
   }
 
   return (
@@ -128,24 +127,12 @@ function ReportScreen() {
       <Text style={styles.fieldLabel}>Mô tả vấn đề</Text>
       <TextInput value={title} onChangeText={setTitle} placeholder="Bạn nhìn thấy điều gì?" placeholderTextColor={palette.muted} style={[styles.input, styles.multiline]} multiline />
       <Text style={styles.fieldLabel}>Vị trí</Text>
-      <View style={styles.inputWithAction}><TextInput value={location} onChangeText={setLocation} placeholder="Nhập vị trí hoặc quét QR" placeholderTextColor={palette.muted} style={styles.inputInline} /><Pressable onPress={async () => { if (!permission?.granted) { const result = await requestPermission(); if (!result.granted) return; } setScannerOpen(true); }}><Text style={styles.scanText}>Quét</Text></Pressable></View>
+      <View style={styles.inputWithAction}><TextInput value={location} onChangeText={setLocation} placeholder="Nhập vị trí hoặc quét QR" placeholderTextColor={palette.muted} style={styles.inputInline} /><Pressable onPress={() => setScannerOpen(true)}><Text style={styles.scanText}>Quét</Text></Pressable></View>
       <Card style={styles.upload}><Text style={styles.uploadIcon}>＋</Text><Text style={styles.rowTitle}>Thêm hình ảnh</Text><Text style={styles.rowMeta}>Tối đa 5 ảnh • JPG, PNG</Text></Card>
       <Pressable style={styles.primaryButton} onPress={submit}><Text style={styles.primaryButtonText}>Gửi báo cáo</Text></Pressable>
       <Text style={styles.helper}>Bạn có thể theo dõi tiến độ xử lý trong mục Lịch sử.</Text>
     </ScrollView>
   );
-}
-
-function EventsScreen() {
-  const [joined, setJoined] = useState<string[]>([]);
-  const [remoteEvents, setRemoteEvents] = useState<OceanEvent[]>([]);
-  useEffect(() => {
-    loadEvents().then(({ data }) => {
-      if (data) setRemoteEvents(data);
-    });
-  }, []);
-  const displayedEvents = remoteEvents.length ? remoteEvents.map((event) => ({ title: event.title, date: new Date(event.event_date).toLocaleDateString('vi-VN'), place: event.location, people: `${event.capacity} chỗ` })) : events;
-  return <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}><Header title="Sự kiện cộng đồng" subtitle="Cùng hành động, cùng tạo thay đổi." /><View style={styles.chips}><Pill text="Tất cả" active /><Pill text="Gần bạn" /><Pill text="Cuối tuần" /></View>{displayedEvents.map((event) => <Card key={event.title} style={styles.eventCard}><View style={styles.eventImage}><Text style={styles.eventWave}>≈</Text></View><Text style={styles.eventDate}>{event.date}</Text><Text style={styles.eventTitle}>{event.title}</Text><Text style={styles.rowMeta}>{event.place}</Text><View style={styles.eventFooter}><Text style={styles.rowMeta}>{event.people}</Text><Pressable style={styles.smallButton} onPress={() => setJoined((current) => current.includes(event.title) ? current.filter((item) => item !== event.title) : [...current, event.title])}><Text style={styles.smallButtonText}>{joined.includes(event.title) ? 'Đã tham gia' : 'Tham gia'}</Text></Pressable></View></Card>)}</ScrollView>;
 }
 
 function DataScreen() {
@@ -171,7 +158,7 @@ export default function App() {
   const [selectedFlow, setSelectedFlow] = useState<ScreenDefinition | null>(null);
   const [authOpen, setAuthOpen] = useState(false);
   const [overlay, setOverlay] = useState<Overlay>(null);
-  const screen = authOpen ? <AuthScreen onBack={() => setAuthOpen(false)} /> : overlay === 'history' ? <ReportHistoryScreen onBack={() => setOverlay(null)} /> : overlay === 'notifications' ? <NotificationInboxScreen onBack={() => setOverlay(null)} /> : selectedFlow ? <FlowDetailScreen screen={selectedFlow} onBack={() => setSelectedFlow(null)} /> : flowCatalogOpen ? <ScreenCatalogScreen onOpen={setSelectedFlow} /> : tab === 'home' ? <HomeScreen goTo={setTab} openOverlay={(next) => setOverlay(next)} /> : tab === 'report' ? <ReportEntryFlow /> : tab === 'events' ? <EventsScreen /> : tab === 'data' ? <DataScreen /> : <ProfileScreen onOpenCatalog={() => setFlowCatalogOpen(true)} onOpenAuth={() => setAuthOpen(true)} />;
+  const screen = authOpen ? <AuthScreen onBack={() => setAuthOpen(false)} /> : overlay === 'history' ? <ReportHistoryScreen onBack={() => setOverlay(null)} /> : overlay === 'notifications' ? <NotificationInboxScreen onBack={() => setOverlay(null)} /> : selectedFlow ? <FlowDetailScreen screen={selectedFlow} onBack={() => setSelectedFlow(null)} /> : flowCatalogOpen ? <ScreenCatalogScreen onOpen={setSelectedFlow} /> : tab === 'home' ? <HomeScreen goTo={setTab} openOverlay={(next) => setOverlay(next)} /> : tab === 'report' ? <ReportEntryFlow /> : tab === 'events' ? <EventsHomeScreen onOpenDetail={() => setSelectedFlow({ id: 'event-flow-event-detail', group: 'Event Flow', title: 'Event Detail', description: 'Detailed event information and registration.' })} /> : tab === 'data' ? <DataScreen /> : <ProfileScreen onOpenCatalog={() => setFlowCatalogOpen(true)} onOpenAuth={() => setAuthOpen(true)} />;
   return <SafeAreaView style={styles.safe}><StatusBar style="dark" />{screen}<View style={styles.tabBar}>{([['home', '⌂', 'Trang chủ'], ['report', '＋', 'Báo cáo'], ['events', '◉', 'Sự kiện'], ['data', '▥', 'Dữ liệu'], ['profile', '○', 'Hồ sơ']] as const).map(([key, icon, label]) => <Pressable key={key} style={styles.tab} onPress={() => setTab(key)}><Text style={[styles.tabIcon, tab === key && styles.tabActive]}>{icon}</Text><Text style={[styles.tabLabel, tab === key && styles.tabActive]}>{label}</Text></Pressable>)}</View></SafeAreaView>;
 }
 

@@ -79,13 +79,16 @@ Implement a real testable report backend slice before expanding more screens: au
 - Kept Expo SDK dependencies aligned and verified Expo Doctor.
 - Added centralized tokens and the required forensic/design/test documentation.
 - Latest batch checks: `npm run typecheck` passed, `npx expo-doctor` passed 18/18 checks, and Expo web export passed.
-- Report batch 9: `1. Report type`, `2. Pollution Add Photo`, and `3. Pollution Select Location` now use `src/features/reports/ReportEntryFlow.tsx` with category validation, camera capture, QR/manual location and real reports insertion.
+- Report batch 9: `1. Report type`, `2. Pollution Add Photo`, and `3. Pollution Select Location` now use `src/features/reports/ReportEntryFlow.tsx` with category validation, recorded-photo state, manual location entry and real reports insertion. Camera/QR capture is intentionally disabled in the shared web runtime until a platform-specific implementation is added.
 - Report batch 10: `4. Pollution Severity`, `5. Pollution Waste Type`, and `6. Pollution More Detail` now have a dedicated classification step with persisted submission data.
 - Report batch 11: `7. Pollution Review`, `8. Pollution Submitted`, and `16. Report Status Tracker` now have a review confirmation, real Supabase insert, submitted state and tracker UI.
+- Report batch 13: rare species type/photo/location/review and report history/edit/follow-up/resolved now have dedicated stateful UI flows with validation, review summaries and explicit action feedback.
+- Map/Admin batch 14: all remaining Q-screen catalog entries now have distinct operational configurations for map layers, locations, moderation, assignments, habitats, alerts, partners and audit states rather than sharing one fallback message.
+- Community/Gamification batch 15: Leaderboard now follows the Figma metadata structure with period tabs and a top-contributors podium; Challenge Detail, Badge Detail, Comments and Likes have dedicated reachable screens.
 
 ## Current verification
 
-- `npm run typecheck`: pass after fixing the Expo Camera import.
+- `npm run typecheck`: pass after removing the shared-runtime Expo Camera import.
 - `npx expo export --platform web`: pass after the report review/tracker change.
 - Supabase REST: existing reports/events/metrics tables previously returned HTTP 200.
 - Exact Figma node IDs/design context and screenshot comparison remain blocked; these screens are not visually verified.
@@ -107,3 +110,53 @@ Implement a real testable report backend slice before expanding more screens: au
 3. Add notification read-state tests and an authenticated session-expiry/device test.
 4. Continue with the remaining Data/Donate and Event batches.
 5. Re-run per-frame Figma inspection when authenticated MCP/design context is available.
+
+## Current session evidence
+
+- Figma session connected successfully; mood board frame `59:2155` was inspected through design context and exported to `visual-evidence/figma-mood-board-59-2155.png`.
+- The extracted palette was synchronized into `src/theme/tokens.ts` and the app shell palette.
+- Authenticated-only guards were added to event registration and donation creation. Matching RLS policies are present in both schema sources.
+- `tsconfig.json` now excludes generated `dist` and dependency files so typecheck does not depend on stale export artifacts.
+- Verified after changes: `npm run typecheck`, `npm test` (5 tests), `npx expo-doctor` (18/18), and `npx expo export --platform web`.
+- Expo web runtime loaded successfully with no camera worker error after removing `expo-camera` imports from the shared app runtime. Physical device camera behavior remains unverified.
+- The Figma mood board and app home screenshots are evidence artifacts, not a same-frame comparison; visual verification remains `0`.
+- High-Fidelity community frames `101:2769` (Community Feed), `105:2895` (Post Details), and `115:422` (Create Post) were inspected with design context. Dedicated React Native screens were added for all three, including local navigation between feed, detail, and create states.
+- Event frame `258:426` (Events Home) was inspected with design context and implemented as a dedicated responsive Expo screen with local assets, search/filter interactions, remote event loading, featured-event navigation, and campaign cards. Event Detail remains reachable from the featured and event cards.
+- Event frame `258:792` (Event Registration) was inspected and added as a reachable form from Event Detail, with required-field validation, selectable contribution type, Supabase registration submission, and explicit error handling.
+- Event frame `258:614` (Event Calendar) was inspected and added as a catalog-reachable calendar view with event dates, selected event days, and event cards using local Figma assets.
+- Event frame `258:842` (Event Checklist) was inspected and added as a reachable interactive preparation checklist with persisted local state for five items, progress feedback, safety reminder, and completion gating.
+- Event frame `258:906` (My Event) was inspected and added as a catalog-reachable view for registered, recommended, and past activities using local Figma assets.
+- Event frame `258:1135` (Event Check-in) was inspected and added as a reachable code-entry flow with validation, submission feedback, and local event imagery.
+- Event frame `258:1177` (Event Check-in Completed) was inspected and added as a reachable completion state with participant ID, daily goal, certificate action, and explicit feedback.
+- Event frame `258:1500` (Event Feedback) was inspected and added as a reachable rating and feedback form with selectable experience options, validation, and submission feedback.
+- Event frame `258:1450` (Event Certificate) was inspected and added as a catalog-reachable contribution certificate view with download/share actions and certificate metadata.
+- Event frames `258:978` (Event Participants) and `258:1078` (Event Group Chat) were inspected and added as reachable participant search/messaging and local group-chat flows with message composition.
+- Event frame `1356:3049` (Event Recap) was inspected and added as a reachable post-event recap with impact metrics, local memory gallery assets, certificate action, and feedback action.
+- Event frame `258:516` (Events Search Filter) and create-event frames `258:1226`, `258:1279`, `708:684`, and `700:264` now route through dedicated responsive filter/wizard UI with required-field validation and step progress. Backend draft persistence and administration screens remain outstanding.
+- Event administration frames for organizer home, event management, participant approval, and recap posting now have dedicated interactive screens with approval state and publish feedback; server persistence for those actions is still pending.
+- Event check-in and feedback now persist authenticated user actions through `event_checkins` and `event_feedback` tables with ownership RLS and repository helpers.
+- Event group chat now loads and sends messages through `event_messages` with authenticated insert and participant read policies, while retaining a visible local fallback when no remote messages exist.
+- Organizer recap publishing now persists authenticated updates through `event_recaps` with RLS and required-content validation.
+- Data & Donate entries now use an analytics/campaign-specific dashboard renderer with period filters and activity charts; Map & Admin entries now use an interactive map-style renderer with area filters and live-sync metrics instead of the previous generic placeholder.
+- Community & Gamification entries now use a learning/rewards/community-specific renderer with progress cards, actionable content rows, and saved journey interaction instead of the previous generic card.
+- Remaining Report Flow states now use dedicated status, notification, history, review, and rare-species content patterns with selectable state and explicit next-step feedback.
+- Figma frame `258:1279` was re-inspected; Create Event Step 2 now matches the reference structure with location/map preview, date, time, duration selectors, progress indicator, and primary Continue action.
+- Create Event Step 3 was re-inspected from Figma frame `708:684`; the donation form now includes the 75% progress state, QR preview card, QR action, explanatory note, Continue, and Skip actions. Edit Event also has a dedicated editable form.
+- Figma frame `700:264` was re-inspected; Create Event Step 4 now implements maximum participants, removable preparation items, add-item interaction, safety notes, and Preview event CTA.
+- Figma frame `258:1226` was re-inspected; Create Event Step 1 now includes the event image asset between activity type and description, matching the designed hierarchy.
+- The Create Event wizard now persists its draft across catalog navigation with AsyncStorage and clears the draft after successful Supabase event creation.
+- Edit Event now loads the current event target and updates title, location, and capacity through an owner-scoped Supabase repository method.
+- Figma donation frames `1581:1359`, `1581:1458`, and `1581:1601` now route through dedicated React Native Campaigns, Campaign Detail, and Donate screens. The flow includes campaign filtering, progress presentation, amount selection, anonymous donations, optional notes, and Supabase persistence.
+- Figma frame `1335:4425` (`Q - 42`) now has a dedicated Verify Report moderation lesson flow for image, location, and severity checks.
+- Donation frames `1581:1655`, `1581:1711`, and `1581:1764` now have dedicated Payment Method, Confirmation, and Success states with selectable payment methods and connected navigation.
+- Donation frames `1581:1806`, `1581:1860`, `1581:1920`, and `1581:1986` now have dedicated Campaign Updates, Impact Report, Donation History, and Donation Certificate states.
+- Report frames `230:1402`, `1249:216`, `230:2075`, and `230:2052` now have dedicated submitted, status tracker, notification inbox, and notification detail screens.
+- Pollution report entry states now use a dedicated wizard for report type, waste type, severity, and additional detail instead of the generic report renderer.
+- Community/Gamification now has dedicated Leaderboard, Challenges, Badge Collection, and Learning Quiz screens with progress, selection, and quiz interactions.
+- Figma frames `1335:4572` and `1335:4756` now use dedicated Create Event and Safety & Rescue training lesson screens.
+- Map/Admin grouped rendering now provides distinct operational variants for live cleanup, hotspots, area administration, verification queue, and community actions instead of identical content across Q-screens.
+- Data/Donate analytics now provide per-frame configurations for donors, area metrics/comparison, waste composition, trends, rankings, export, eco history, impact, campaign stats, heatmap, and community dashboard states.
+- Community/Gamification contextual states now have distinct configurations for points history, rewards, reward detail, notifications, notification settings, account settings, help center, and project information.
+- Event Participants now loads registered participant names from Supabase when available, retaining seeded presentation data only as a no-data fallback.
+- Event Recap now loads the latest organizer update from Supabase and renders it above the local memory gallery.
+- The remote Supabase migration was applied and verified: owner-scoped report/history/notification/evidence policies, authenticated event/donation writes, private evidence storage policies, and `community_posts` now exist. No production rows were reset or deleted.

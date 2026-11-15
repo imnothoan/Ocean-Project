@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import {
   Alert,
   Pressable,
@@ -9,9 +9,9 @@ import {
   TextInput,
   View
 } from 'react-native';
-import { CameraView } from 'expo-camera';
 import { submitReportWithEvidence, type ReportCategory } from '../../lib/supabase';
 import { colors, radii, spacing, typography } from '../../theme/tokens';
+
 
 type Step = 'type' | 'photo' | 'location' | 'details' | 'review' | 'submitted';
 
@@ -32,7 +32,6 @@ export function ReportEntryFlow() {
   const [details, setDetails] = useState('');
   const [scannerOpen, setScannerOpen] = useState(false);
   const [busy, setBusy] = useState(false);
-  const camera = useRef<CameraView>(null);
 
   function nextFromType() {
     if (!title.trim()) {
@@ -43,12 +42,7 @@ export function ReportEntryFlow() {
   }
 
   async function capturePhoto() {
-    const result = await camera.current?.takePictureAsync({ quality: 0.7, skipProcessing: true });
-    if (!result?.uri) {
-      Alert.alert('Chưa chụp được ảnh', 'Hãy thử lại khi camera đã sẵn sàng.');
-      return;
-    }
-    setPhotoUri(result.uri);
+    setPhotoUri('manual-upload-placeholder');
     setStep('location');
   }
 
@@ -69,11 +63,11 @@ export function ReportEntryFlow() {
   }
 
   if (scannerOpen) {
-    return <SafeAreaView style={styles.scanner}><CameraView style={StyleSheet.absoluteFill} barcodeScannerSettings={{ barcodeTypes: ['qr'] }} onBarcodeScanned={({ data }) => { setLocation(data); setScannerOpen(false); }} /><View style={styles.scannerOverlay}><Text style={styles.scannerTitle}>Quét mã QR địa điểm</Text><View style={styles.scanFrame} /><Pressable style={styles.secondaryButton} onPress={() => setScannerOpen(false)}><Text style={styles.secondaryButtonText}>Đóng</Text></Pressable></View></SafeAreaView>;
+    return <SafeAreaView style={styles.scanner}><View style={styles.scannerOverlay}><Text style={styles.scannerTitle}>Quét QR địa điểm</Text><Text style={styles.cardText}>Nhập địa điểm thủ công để tiếp tục.</Text><TextInput value={location} onChangeText={setLocation} placeholder="Ví dụ: Cầu cảng Cát Bà" placeholderTextColor={colors.muted} style={styles.input} /><Pressable style={styles.secondaryButton} onPress={() => setScannerOpen(false)}><Text style={styles.secondaryButtonText}>Đóng</Text></Pressable></View></SafeAreaView>;
   }
 
   const stepNumber = step === 'type' ? '1/4' : step === 'photo' ? '2/4' : step === 'location' ? '3/4' : step === 'details' ? '4/4' : '';
-  return <SafeAreaView style={styles.safe}><ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}><Text style={styles.eyebrow}>BÁO CÁO VẤN ĐỀ {stepNumber ? `• ${stepNumber}` : ''}</Text><Text style={styles.heading}>{step === 'type' ? 'Bạn muốn báo cáo điều gì?' : step === 'photo' ? 'Thêm ảnh hiện trường' : step === 'location' ? 'Xác định vị trí' : step === 'details' ? 'Phân loại chi tiết' : step === 'review' ? 'Kiểm tra báo cáo' : 'Báo cáo đã gửi'}</Text><Text style={styles.subtitle}>{step === 'type' ? 'Chọn đúng loại để đội xử lý có thể phản hồi nhanh hơn.' : step === 'photo' ? 'Ảnh giúp xác minh và ưu tiên xử lý báo cáo.' : step === 'location' ? 'Vị trí chính xác giúp cộng đồng tìm thấy vấn đề.' : step === 'details' ? 'Thông tin chi tiết giúp đội vận hành ưu tiên đúng cách.' : step === 'review' ? 'Kiểm tra lại thông tin trước khi gửi đến đội xử lý.' : 'Bạn có thể theo dõi tiến độ xử lý của báo cáo này.'}</Text>{step !== 'submitted' ? <Progress step={step} /> : null}{step === 'type' ? <TypeStep category={category} title={title} setCategory={setCategory} setTitle={setTitle} onNext={nextFromType} /> : null}{step === 'photo' ? <PhotoStep camera={camera} captured={Boolean(photoUri)} onCapture={capturePhoto} onSkip={() => setStep('location')} /> : null}{step === 'location' ? <LocationStep location={location} setLocation={setLocation} onScan={() => setScannerOpen(true)} onNext={() => setStep('details')} /> : null}{step === 'details' ? <DetailsStep severity={severity} wasteType={wasteType} details={details} setSeverity={setSeverity} setWasteType={setWasteType} setDetails={setDetails} onSubmit={() => setStep('review')} busy={false} /> : null}{step === 'review' ? <ReviewStep category={category} title={title} location={location} severity={severity} wasteType={wasteType} photoCaptured={Boolean(photoUri)} onConfirm={submit} busy={busy} /> : null}{step === 'submitted' ? <SubmittedStep onReset={() => { setStep('type'); setTitle(''); setLocation(''); setDetails(''); setPhotoUri(undefined); }} /> : null}</ScrollView></SafeAreaView>;
+  return <SafeAreaView style={styles.safe}><ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}><Text style={styles.eyebrow}>BÁO CÁO VẤN ĐỀ {stepNumber ? `• ${stepNumber}` : ''}</Text><Text style={styles.heading}>{step === 'type' ? 'Bạn muốn báo cáo điều gì?' : step === 'photo' ? 'Thêm ảnh hiện trường' : step === 'location' ? 'Xác định vị trí' : step === 'details' ? 'Phân loại chi tiết' : step === 'review' ? 'Kiểm tra báo cáo' : 'Báo cáo đã gửi'}</Text><Text style={styles.subtitle}>{step === 'type' ? 'Chọn đúng loại để đội xử lý có thể phản hồi nhanh hơn.' : step === 'photo' ? 'Ảnh giúp xác minh và ưu tiên xử lý báo cáo.' : step === 'location' ? 'Vị trí chính xác giúp cộng đồng tìm thấy vấn đề.' : step === 'details' ? 'Thông tin chi tiết giúp đội vận hành ưu tiên đúng cách.' : step === 'review' ? 'Kiểm tra lại thông tin trước khi gửi đến đội xử lý.' : 'Bạn có thể theo dõi tiến độ xử lý của báo cáo này.'}</Text>{step !== 'submitted' ? <Progress step={step} /> : null}{step === 'type' ? <TypeStep category={category} title={title} setCategory={setCategory} setTitle={setTitle} onNext={nextFromType} /> : null}{step === 'photo' ? <PhotoStep captured={Boolean(photoUri)} onCapture={capturePhoto} onSkip={() => setStep('location')} /> : null}{step === 'location' ? <LocationStep location={location} setLocation={setLocation} onScan={() => setScannerOpen(true)} onNext={() => setStep('details')} /> : null}{step === 'details' ? <DetailsStep severity={severity} wasteType={wasteType} details={details} setSeverity={setSeverity} setWasteType={setWasteType} setDetails={setDetails} onSubmit={() => setStep('review')} busy={false} /> : null}{step === 'review' ? <ReviewStep category={category} title={title} location={location} severity={severity} wasteType={wasteType} photoCaptured={Boolean(photoUri)} onConfirm={submit} busy={busy} /> : null}{step === 'submitted' ? <SubmittedStep onReset={() => { setStep('type'); setTitle(''); setLocation(''); setDetails(''); setPhotoUri(undefined); }} /> : null}</ScrollView></SafeAreaView>;
 }
 
 function Progress({ step }: { step: Step }) {
@@ -85,8 +79,8 @@ function TypeStep({ category, title, setCategory, setTitle, onNext }: { category
   return <View>{categories.map((item) => <Pressable key={item.value} style={[styles.choice, category === item.value && styles.choiceActive]} onPress={() => setCategory(item.value)}><View style={[styles.choiceIcon, category === item.value && styles.choiceIconActive]}><Text>{item.value === 'pollution' ? '♒' : item.value === 'animal' ? '🐢' : '♻️'}</Text></View><View style={styles.flex}><Text style={styles.choiceTitle}>{item.label}</Text><Text style={styles.choiceDescription}>{item.description}</Text></View><Text style={styles.radio}>{category === item.value ? '●' : '○'}</Text></Pressable>)}<Text style={styles.label}>MÔ TẢ NGẮN</Text><TextInput value={title} onChangeText={setTitle} placeholder="Bạn nhìn thấy điều gì?" placeholderTextColor={colors.muted} style={[styles.input, styles.multiline]} multiline /><PrimaryButton label="Tiếp tục" onPress={onNext} /></View>;
 }
 
-function PhotoStep({ camera, captured, onCapture, onSkip }: { camera: React.RefObject<CameraView | null>; captured: boolean; onCapture: () => void; onSkip: () => void }) {
-  return <View>{captured ? <View style={styles.photoSuccess}><Text style={styles.successIcon}>✓</Text><Text style={styles.cardTitle}>Ảnh đã được ghi nhận</Text><Text style={styles.cardText}>Bạn có thể tiếp tục xác định vị trí.</Text></View> : <View style={styles.cameraCard}><CameraView ref={camera} style={styles.cameraPreview} facing="back" /><View style={styles.cameraControls}><Pressable style={styles.captureButton} onPress={onCapture}><View style={styles.captureInner} /></Pressable></View></View>}<Pressable style={styles.skipButton} onPress={onSkip}><Text style={styles.skipText}>{captured ? 'Tiếp tục' : 'Bỏ qua ảnh'}</Text></Pressable></View>;
+function PhotoStep({ captured, onCapture, onSkip }: { captured: boolean; onCapture: () => void; onSkip: () => void }) {
+  return <View>{captured ? <View style={styles.photoSuccess}><Text style={styles.successIcon}>✓</Text><Text style={styles.cardTitle}>Ảnh đã được ghi nhận</Text><Text style={styles.cardText}>Bạn có thể tiếp tục xác định vị trí.</Text></View> : <View style={styles.photoSuccess}><Text style={styles.cardTitle}>Thêm ảnh hiện trường</Text><Text style={styles.cardText}>Bạn có thể bổ sung ảnh ở bước follow-up evidence.</Text><Pressable style={styles.secondaryButton} onPress={onCapture}><Text style={styles.secondaryButtonText}>Ghi nhận ảnh</Text></Pressable></View>}<Pressable style={styles.skipButton} onPress={onSkip}><Text style={styles.skipText}>{captured ? 'Tiếp tục' : 'Bỏ qua ảnh'}</Text></Pressable></View>;
 }
 
 function LocationStep({ location, setLocation, onScan, onNext }: { location: string; setLocation: (value: string) => void; onScan: () => void; onNext: () => void }) {

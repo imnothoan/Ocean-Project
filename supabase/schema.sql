@@ -12,6 +12,7 @@ create table if not exists public.reports (
 
 create table if not exists public.events (
   id uuid primary key default gen_random_uuid(),
+  owner_id uuid references auth.users(id) on delete set null,
   title text not null,
   description text not null default '',
   event_date timestamptz not null,
@@ -23,14 +24,53 @@ create table if not exists public.events (
 create table if not exists public.event_registrations (
   id uuid primary key default gen_random_uuid(),
   event_id uuid not null references public.events(id) on delete cascade,
+  owner_id uuid references auth.users(id) on delete cascade,
   participant_name text not null,
   participant_email text not null,
   created_at timestamptz not null default now(),
   unique (event_id, participant_email)
 );
 
+create table if not exists public.event_checkins (
+  id uuid primary key default gen_random_uuid(),
+  event_id uuid not null references public.events(id) on delete cascade,
+  user_id uuid not null references auth.users(id) on delete cascade,
+  code text not null,
+  created_at timestamptz not null default now(),
+  unique (event_id, user_id)
+);
+
+create table if not exists public.event_feedback (
+  id uuid primary key default gen_random_uuid(),
+  event_id uuid not null references public.events(id) on delete cascade,
+  user_id uuid not null references auth.users(id) on delete cascade,
+  rating integer not null check (rating between 1 and 5),
+  thoughts text not null default '',
+  enjoyed text not null default '',
+  join_again text not null default '',
+  created_at timestamptz not null default now(),
+  unique (event_id, user_id)
+);
+
+create table if not exists public.event_messages (
+  id uuid primary key default gen_random_uuid(),
+  event_id uuid not null references public.events(id) on delete cascade,
+  user_id uuid not null references auth.users(id) on delete cascade,
+  body text not null check (char_length(body) between 1 and 2000),
+  created_at timestamptz not null default now()
+);
+
+create table if not exists public.event_recaps (
+  id uuid primary key default gen_random_uuid(),
+  event_id uuid not null references public.events(id) on delete cascade,
+  author_id uuid not null references auth.users(id) on delete cascade,
+  body text not null check (char_length(body) between 3 and 5000),
+  created_at timestamptz not null default now()
+);
+
 create table if not exists public.donations (
   id uuid primary key default gen_random_uuid(),
+  donor_id uuid references auth.users(id) on delete cascade,
   donor_name text not null,
   amount numeric(12, 2) not null check (amount > 0),
   campaign text not null,
@@ -66,6 +106,14 @@ create table if not exists public.notifications (
   created_at timestamptz not null default now()
 );
 
+create table if not exists public.community_posts (
+  id uuid primary key default gen_random_uuid(),
+  author_id uuid not null references auth.users(id) on delete cascade,
+  body text not null check (char_length(body) between 3 and 2000),
+  topic text not null default 'General',
+  created_at timestamptz not null default now()
+);
+
 create table if not exists public.report_evidence (
   id uuid primary key default gen_random_uuid(),
   report_id uuid not null references public.reports(id) on delete cascade,
@@ -77,16 +125,24 @@ create table if not exists public.report_evidence (
 );
 
 alter table public.reports add column if not exists owner_id uuid references auth.users(id) on delete cascade;
+alter table public.events add column if not exists owner_id uuid references auth.users(id) on delete set null;
+alter table public.event_registrations add column if not exists owner_id uuid references auth.users(id) on delete cascade;
+alter table public.donations add column if not exists donor_id uuid references auth.users(id) on delete cascade;
 alter table public.report_status_history add column if not exists actor_id uuid references auth.users(id) on delete set null;
 alter table public.notifications add column if not exists user_id uuid references auth.users(id) on delete cascade;
 
 alter table public.reports enable row level security;
 alter table public.events enable row level security;
 alter table public.event_registrations enable row level security;
+alter table public.event_checkins enable row level security;
+alter table public.event_feedback enable row level security;
+alter table public.event_messages enable row level security;
+alter table public.event_recaps enable row level security;
 alter table public.donations enable row level security;
 alter table public.impact_metrics enable row level security;
 alter table public.report_status_history enable row level security;
 alter table public.notifications enable row level security;
+alter table public.community_posts enable row level security;
 alter table public.report_evidence enable row level security;
 
 drop policy if exists "public can read reports" on public.reports;
@@ -100,13 +156,30 @@ create policy "authenticated can delete own reports" on public.reports for delet
 
 drop policy if exists "public can read events" on public.events;
 create policy "public can read events" on public.events for select to anon, authenticated using (true);
+drop policy if exists "authenticated can create own events" on public.events;
+create policy "authenticated can create own events" on public.events for insert to authenticated with check (owner_id = auth.uid());
+drop policy if exists "authenticated can update own events" on public.events;
+create policy "authenticated can update own events" on public.events for update to authenticated using (owner_id = auth.uid()) with check (owner_id = auth.uid());
 drop policy if exists "public can register events" on public.event_registrations;
-create policy "public can register events" on public.event_registrations for insert to anon, authenticated with check (true);
+create policy "authenticated can register own events" on public.event_registrations for insert to authenticated with check (owner_id = auth.uid());
+drop policy if exists "authenticated can read own event registrations" on public.event_registrations;
+create policy "authenticated can read own event registrations" on public.event_registrations for select to authenticated using (owner_id = auth.uid());
+create policy "authenticated can create own checkins" on public.event_checkins for insert to authenticated with check (user_id = auth.uid());
+create policy "authenticated can read own checkins" on public.event_checkins for select to authenticated using (user_id = auth.uid());
+create policy "authenticated can create own feedback" on public.event_feedback for insert to authenticated with check (user_id = auth.uid());
+create policy "authenticated can update own feedback" on public.event_feedback for update to authenticated using (user_id = auth.uid()) with check (user_id = auth.uid());
+create policy "authenticated can read own feedback" on public.event_feedback for select to authenticated using (user_id = auth.uid());
+create policy "authenticated can create event messages" on public.event_messages for insert to authenticated with check (user_id = auth.uid());
+create policy "authenticated can read event messages" on public.event_messages for select to authenticated using (true);
+create policy "authenticated can create own event recaps" on public.event_recaps for insert to authenticated with check (author_id = auth.uid());
+create policy "authenticated can read event recaps" on public.event_recaps for select to authenticated using (true);
 
 drop policy if exists "public can read donations" on public.donations;
-create policy "public can read donations" on public.donations for select to anon, authenticated using (true);
 drop policy if exists "public can create donations" on public.donations;
-create policy "public can create donations" on public.donations for insert to anon, authenticated with check (true);
+drop policy if exists "authenticated can read own donations" on public.donations;
+create policy "authenticated can read own donations" on public.donations for select to authenticated using (donor_id = auth.uid());
+drop policy if exists "authenticated can create own donations" on public.donations;
+create policy "authenticated can create own donations" on public.donations for insert to authenticated with check (donor_id = auth.uid());
 
 drop policy if exists "public can read metrics" on public.impact_metrics;
 create policy "public can read metrics" on public.impact_metrics for select to anon, authenticated using (true);
@@ -117,6 +190,10 @@ drop policy if exists "public can read notifications" on public.notifications;
 create policy "authenticated can read own notifications" on public.notifications for select to authenticated using (user_id = auth.uid());
 drop policy if exists "public can update notifications" on public.notifications;
 create policy "authenticated can update own notifications" on public.notifications for update to authenticated using (user_id = auth.uid()) with check (user_id = auth.uid());
+drop policy if exists "public can read community posts" on public.community_posts;
+create policy "public can read community posts" on public.community_posts for select to anon, authenticated using (true);
+drop policy if exists "authenticated can create community posts" on public.community_posts;
+create policy "authenticated can create community posts" on public.community_posts for insert to authenticated with check (author_id = auth.uid());
 drop policy if exists "authenticated can read own evidence" on public.report_evidence;
 create policy "authenticated can read own evidence" on public.report_evidence for select to authenticated using (owner_id = auth.uid());
 drop policy if exists "authenticated can insert own evidence" on public.report_evidence;
