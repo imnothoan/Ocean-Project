@@ -2,6 +2,12 @@
 
 Updated: 2026-11-15
 
+## Latest environment update
+
+- Expo SDK upgraded from 54 to 58 (`expo ~58.0.25`, React Native `0.88.1`) to match the installed Expo Go SDK 58 client.
+- `npm run typecheck`, `npm test`, `npx expo-doctor`, and `npx expo export --platform web` pass after the upgrade.
+- Supabase URL and the provided publishable key are available only in ignored `.env.local`; the configured REST endpoint currently responds with HTTP 401 (`Secret API key required`), so remote connectivity remains blocked by the key/API configuration rather than the app code.
+
 ## Honest status
 
 - Figma entries accounted for in the current inventory: 116 catalog entries.

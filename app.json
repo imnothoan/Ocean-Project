@@ -13,8 +13,13 @@
       "adaptiveIcon": {
         "backgroundColor": "#0D2B45"
       },
-      "permissions": ["CAMERA"]
+      "permissions": [
+        "CAMERA"
+      ]
     },
-    "plugins": ["expo-camera"]
+    "plugins": [
+      "expo-camera",
+      "expo-status-bar"
+    ]
   }
 }

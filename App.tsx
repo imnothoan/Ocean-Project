@@ -215,7 +215,7 @@ const styles = StyleSheet.create({
   primaryButtonText: { color: palette.white, fontWeight: '800', fontSize: 15 },
   helper: { textAlign: 'center', color: palette.muted, fontSize: 12, marginTop: 12 },
   scanner: { flex: 1, backgroundColor: '#000' },
-  scannerOverlay: { ...StyleSheet.absoluteFillObject, alignItems: 'center', justifyContent: 'center', padding: 20 },
+  scannerOverlay: { position: 'absolute', top: 0, right: 0, bottom: 0, left: 0, alignItems: 'center', justifyContent: 'center', padding: 20 },
   scannerTitle: { color: palette.white, fontSize: 20, fontWeight: '800', marginBottom: 30 },
   scanFrame: { width: 250, height: 250, borderWidth: 2, borderColor: '#7EE1D1', borderRadius: 24, marginBottom: 35 },
   secondaryButton: { backgroundColor: palette.white, paddingHorizontal: 28, paddingVertical: 13, borderRadius: 20 },

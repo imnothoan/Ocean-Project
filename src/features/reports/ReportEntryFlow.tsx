@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
   inputInline: { color: colors.ink, flex: 1, paddingVertical: spacing.md },
   scanText: { color: colors.blue, fontSize: 12, fontWeight: '800', padding: spacing.md },
   scanner: { backgroundColor: '#000', flex: 1 },
-  scannerOverlay: { ...StyleSheet.absoluteFillObject, alignItems: 'center', justifyContent: 'center', padding: spacing.xl },
+  scannerOverlay: { position: 'absolute', top: 0, right: 0, bottom: 0, left: 0, alignItems: 'center', justifyContent: 'center', padding: spacing.xl },
   scannerTitle: { color: colors.white, fontSize: 20, fontWeight: '800', marginBottom: spacing.xxl },
   scanFrame: { borderColor: colors.aqua, borderRadius: radii.xl, borderWidth: 2, height: 250, marginBottom: spacing.xxxl, width: 250 },
   secondaryButton: { backgroundColor: colors.white, borderRadius: radii.pill, paddingHorizontal: spacing.xxl, paddingVertical: spacing.md },
