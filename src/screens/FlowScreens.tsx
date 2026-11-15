@@ -5,7 +5,7 @@ import { screenCatalog, type ScreenDefinition } from '../navigation/screenCatalo
 import { createDonation, loadEvents, registerForEvent, type OceanEvent } from '../lib/supabase';
 import { colors, radii, spacing, typography } from '../theme/tokens';
 import { CommunityFlowRoot, CommunityInteractionScreen, CommunityPostDetailsScreen, CreateCommunityPostScreen, GroupsOrganizationsRoot } from '../features/community/CommunityScreens';
-import { CreateEventScreen, EditEventScreen, EventAdminScreen, EventCalendarScreen, EventCertificateScreen, EventCheckInCompletedScreen, EventCheckInScreen, EventChecklistScreen, EventDetailScreen, EventFeedbackScreen, EventGroupChatScreen, EventParticipantsScreen, EventRecapScreen, EventSearchFilterScreen, MyEventScreen } from '../features/events/EventScreens';
+import { CreateEventScreen, EditEventScreen, EventAdminScreen, EventCalendarScreen, EventCertificateScreen, EventCheckInCompletedScreen, EventCheckInScreen, EventChecklistScreen, EventDetailScreen, EventFeedbackScreen, EventGroupChatScreen, EventParticipantsScreen, EventRecapScreen, EventSearchFilterScreen, EventsHomeScreen, MyEventScreen } from '../features/events/EventScreens';
 import { DonationFlowRoot } from '../features/donate/DonationScreens';
 import { VerifyReportScreen } from '../features/admin/VerifyReportScreen';
 import { TrainingScreen } from '../features/admin/TrainingScreens';
@@ -70,6 +70,9 @@ export function FlowDetailScreen({ screen, onBack }: { screen: ScreenDefinition;
   }
   if (screen.title === 'Event Detail') {
     return <EventDetailScreen onBack={onBack} />;
+  }
+  if (screen.title === 'Events Home') {
+    return <EventsHomeScreen onOpenDetail={() => Alert.alert('Event selected', 'Open Event Detail from the catalog to continue.')} />;
   }
   if (screen.title === 'Event Calendar') {
     return <EventCalendarScreen onBack={onBack} />;
