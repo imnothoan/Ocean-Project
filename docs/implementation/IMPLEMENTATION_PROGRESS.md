@@ -26,6 +26,7 @@ Updated: 2026-11-15
 - Community utility batch: Points History, Rewards, Reward Detail, Notifications, Help Center, and About Ocean Project now have dedicated responsive screen components instead of the contextual renderer.
 - Events Home is now directly connected to the catalog and uses its Supabase-backed event list and Figma-provided local imagery.
 - Profile & Gamification frame `721:366` was re-inspected from Figma metadata/screenshot; profile level copy now uses the designed `Eco Guardian` and `2,460 / 3,000 XP` values, with the reference saved in `visual-evidence/figma-profile-gamification-721-366.png`.
+- Levels & Rewards frame `240:442` was re-inspected and saved as `visual-evidence/figma-levels-rewards-240-442.png`; the implementation now includes the five-step level journey and the designed `Planet Protector` milestone.
 - Leaderboard `238:299`: refined period tabs, podium, current-rank card, Near me control, and Community rankings; the running Expo web screen was inspected against the Figma screenshot.
 - Notifications: inbox now loads authenticated rows from Supabase, marks persisted notifications read, and retains an explicit demo fallback for empty/unconfigured states.
 - Settings: Notification Settings and Account Settings now have dedicated responsive controls with AsyncStorage persistence rather than generic alert-only actions.
