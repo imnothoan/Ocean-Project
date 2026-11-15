@@ -12,7 +12,7 @@ Updated: 2026-11-15
 ## Honest status
 
 - Figma entries accounted for in the current inventory: 116 catalog entries.
-- Figma entries individually inspected through design context: selected frames including Mood Board `59:2155`, Leaderboard `238:299`, and Community Feed `101:2769`; full 116-frame audit remains incomplete.
+- Figma entries individually inspected through design context: selected frames including Mood Board `59:2155`, Leaderboard `238:299`, Community Feed `101:2769`, and Events Home `258:426`; full 116-frame audit remains incomplete.
 - Figma layer/group names inspected in browser: High-Fidelity groups and visible child names.
 - Actual feature UI implemented: core home/report/events/data/profile plus specialized flow renderers.
 - Generic catalog-only entries: still present and not counted as complete.
