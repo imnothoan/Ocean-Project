@@ -10,7 +10,7 @@ import {
   View
 } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
-import { createReport, loadEvents, loadImpactMetrics, loadReports, type ImpactMetric, type OceanEvent, type OceanReport, type ReportCategory } from './src/lib/supabase';
+import { createReport, loadEvents, loadImpactMetrics, loadReports, supabase, type ImpactMetric, type OceanEvent, type OceanReport, type ReportCategory } from './src/lib/supabase';
 import { FlowDetailScreen, ScreenCatalogScreen } from './src/screens/FlowScreens';
 import type { ScreenDefinition } from './src/navigation/screenCatalog';
 import { AuthScreen } from './src/features/auth/AuthScreen';
@@ -148,8 +148,8 @@ function DataScreen() {
   return <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}><Header title="Dữ liệu đại dương" subtitle="Minh bạch để cùng tạo tác động lớn hơn." /><Card style={styles.chartCard}><Text style={styles.cardLabel}>TỔNG RÁC THẢI GHI NHẬN</Text><Text style={styles.chartValue}>{(total || 2846).toLocaleString('vi-VN')} kg</Text><Text style={styles.positive}>↑ 18.4% so với tháng trước</Text><View style={styles.bars}>{(chartMetrics.length ? chartMetrics.map((metric) => Number(metric.total_kg)) : [32, 54, 46, 70, 58, 84, 74]).map((value, index, values) => <View key={index} style={styles.barGroup}><View style={[styles.bar, { height: Math.max(20, (value / Math.max(...values)) * 84) }]} /><Text style={styles.barLabel}>{chartMetrics.length ? new Date(chartMetrics[index].metric_date).toLocaleDateString('vi-VN', { weekday: 'short' }) : ['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN'][index]}</Text></View>)}</View></Card><Text style={styles.sectionTitle}>Thành phần rác thải</Text>{stats.map((stat) => <View key={stat.label} style={styles.metric}><View style={[styles.metricDot, { backgroundColor: stat.color }]} /><Text style={styles.flex}>{stat.label}</Text><Text style={styles.metricValue}>{stat.value}</Text></View>)}<Pressable style={styles.outlineButton}><Text style={styles.outlineButtonText}>Xem phân tích chi tiết</Text></Pressable></ScrollView>;
 }
 
-function ProfileScreen({ onOpenCatalog, onOpenAuth }: { onOpenCatalog: () => void; onOpenAuth: () => void }) {
-  return <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}><Header title="Hồ sơ của bạn" subtitle="Mỗi hành động nhỏ đều được ghi nhận." /><Card style={styles.profileCard}><View style={styles.profileAvatar}><Text style={styles.profileAvatarText}>OH</Text></View><Text style={styles.profileName}>Hoàng Nguyễn</Text><Text style={styles.rowMeta}>Thành viên từ tháng 03.2025</Text><View style={styles.levelRow}><Pill text="Cấp 4 • Ocean Guardian" active /><Text style={styles.points}>1,280 điểm</Text></View></Card><Pressable style={styles.authButton} onPress={onOpenAuth}><Text style={styles.authButtonTitle}>Đăng nhập để đồng bộ dữ liệu</Text><Text style={styles.authButtonText}>Lưu báo cáo, điểm và lịch sử hoạt động</Text><Text style={styles.chevron}>›</Text></Pressable><Pressable style={styles.flowButton} onPress={onOpenCatalog}><Text style={styles.flowButtonTitle}>Khám phá 116 màn hình</Text><Text style={styles.flowButtonText}>Mở toàn bộ High-Fidelity flows</Text><Text style={styles.chevron}>›</Text></Pressable><View style={styles.sectionHeader}><Text style={styles.sectionTitle}>Huy hiệu của bạn</Text><Text style={styles.link}>Xem tất cả</Text></View><View style={styles.badges}>{['🌊', '♻️', '🐢', '🤝'].map((badge) => <View key={badge} style={styles.badge}><Text style={styles.badgeIcon}>{badge}</Text></View>)}</View>{['Lịch sử hoạt động', 'Chứng nhận đóng góp', 'Cài đặt tài khoản'].map((item) => <Pressable key={item} style={styles.menuRow}><Text style={styles.rowTitle}>{item}</Text><Text style={styles.chevron}>›</Text></Pressable>)}</ScrollView>;
+function ProfileScreen({ onOpenCatalog, onOpenAuth, sessionEmail, onSignOut }: { onOpenCatalog: () => void; onOpenAuth: () => void; sessionEmail: string | null; onSignOut: () => void }) {
+  return <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}><Header title="Hồ sơ của bạn" subtitle="Mỗi hành động nhỏ đều được ghi nhận." /><Card style={styles.profileCard}><View style={styles.profileAvatar}><Text style={styles.profileAvatarText}>OH</Text></View><Text style={styles.profileName}>{sessionEmail ?? 'Hoàng Nguyễn'}</Text><Text style={styles.rowMeta}>{sessionEmail ? 'Đã kết nối với Supabase' : 'Đăng nhập để đồng bộ dữ liệu'}</Text><View style={styles.levelRow}><Pill text="Cấp 4 • Ocean Guardian" active /><Text style={styles.points}>1,280 điểm</Text></View></Card>{sessionEmail ? <Pressable style={styles.authButton} onPress={onSignOut}><Text style={styles.authButtonTitle}>Đăng xuất</Text><Text style={styles.authButtonText}>Phiên đăng nhập được lưu an toàn trên thiết bị</Text><Text style={styles.chevron}>›</Text></Pressable> : <Pressable style={styles.authButton} onPress={onOpenAuth}><Text style={styles.authButtonTitle}>Đăng nhập để đồng bộ dữ liệu</Text><Text style={styles.authButtonText}>Lưu báo cáo, điểm và lịch sử hoạt động</Text><Text style={styles.chevron}>›</Text></Pressable>}<Pressable style={styles.flowButton} onPress={onOpenCatalog}><Text style={styles.flowButtonTitle}>Khám phá 116 màn hình</Text><Text style={styles.flowButtonText}>Mở toàn bộ High-Fidelity flows</Text><Text style={styles.chevron}>›</Text></Pressable><View style={styles.sectionHeader}><Text style={styles.sectionTitle}>Huy hiệu của bạn</Text><Text style={styles.link}>Xem tất cả</Text></View><View style={styles.badges}>{['🌊', '♻️', '🐢', '🤝'].map((badge) => <View key={badge} style={styles.badge}><Text style={styles.badgeIcon}>{badge}</Text></View>)}</View>{['Lịch sử hoạt động', 'Chứng nhận đóng góp', 'Cài đặt tài khoản'].map((item) => <Pressable key={item} style={styles.menuRow}><Text style={styles.rowTitle}>{item}</Text><Text style={styles.chevron}>›</Text></Pressable>)}</ScrollView>;
 }
 
 export default function App() {
@@ -158,7 +158,25 @@ export default function App() {
   const [selectedFlow, setSelectedFlow] = useState<ScreenDefinition | null>(null);
   const [authOpen, setAuthOpen] = useState(false);
   const [overlay, setOverlay] = useState<Overlay>(null);
-  const screen = authOpen ? <AuthScreen onBack={() => setAuthOpen(false)} /> : overlay === 'history' ? <ReportHistoryScreen onBack={() => setOverlay(null)} /> : overlay === 'notifications' ? <NotificationInboxScreen onBack={() => setOverlay(null)} /> : selectedFlow ? <FlowDetailScreen screen={selectedFlow} onBack={() => setSelectedFlow(null)} /> : flowCatalogOpen ? <ScreenCatalogScreen onOpen={setSelectedFlow} /> : tab === 'home' ? <HomeScreen goTo={setTab} openOverlay={(next) => setOverlay(next)} /> : tab === 'report' ? <ReportEntryFlow /> : tab === 'events' ? <EventsHomeScreen onOpenDetail={() => setSelectedFlow({ id: 'event-flow-event-detail', group: 'Event Flow', title: 'Event Detail', description: 'Detailed event information and registration.' })} /> : tab === 'data' ? <DataScreen /> : <ProfileScreen onOpenCatalog={() => setFlowCatalogOpen(true)} onOpenAuth={() => setAuthOpen(true)} />;
+  const [sessionEmail, setSessionEmail] = useState<string | null>(null);
+  useEffect(() => {
+    let active = true;
+    supabase.auth.getSession().then(({ data }) => {
+      if (active) setSessionEmail(data.session?.user.email ?? null);
+    });
+    const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSessionEmail(session?.user.email ?? null);
+    });
+    return () => {
+      active = false;
+      listener.subscription.unsubscribe();
+    };
+  }, []);
+  const handleSignOut = async () => {
+    const { error } = await supabase.auth.signOut();
+    if (error) Alert.alert('Không thể đăng xuất', error.message);
+  };
+  const screen = authOpen ? <AuthScreen onBack={() => setAuthOpen(false)} /> : overlay === 'history' ? <ReportHistoryScreen onBack={() => setOverlay(null)} /> : overlay === 'notifications' ? <NotificationInboxScreen onBack={() => setOverlay(null)} /> : selectedFlow ? <FlowDetailScreen screen={selectedFlow} onBack={() => setSelectedFlow(null)} /> : flowCatalogOpen ? <ScreenCatalogScreen onOpen={setSelectedFlow} /> : tab === 'home' ? <HomeScreen goTo={setTab} openOverlay={(next) => setOverlay(next)} /> : tab === 'report' ? <ReportEntryFlow /> : tab === 'events' ? <EventsHomeScreen onOpenDetail={() => setSelectedFlow({ id: 'event-flow-event-detail', group: 'Event Flow', title: 'Event Detail', description: 'Detailed event information and registration.' })} /> : tab === 'data' ? <DataScreen /> : <ProfileScreen onOpenCatalog={() => setFlowCatalogOpen(true)} onOpenAuth={() => setAuthOpen(true)} sessionEmail={sessionEmail} onSignOut={handleSignOut} />;
   return <SafeAreaView style={styles.safe}><StatusBar style="dark" />{screen}<View style={styles.tabBar}>{([['home', '⌂', 'Trang chủ'], ['report', '＋', 'Báo cáo'], ['events', '◉', 'Sự kiện'], ['data', '▥', 'Dữ liệu'], ['profile', '○', 'Hồ sơ']] as const).map(([key, icon, label]) => <Pressable key={key} style={styles.tab} onPress={() => setTab(key)}><Text style={[styles.tabIcon, tab === key && styles.tabActive]}>{icon}</Text><Text style={[styles.tabLabel, tab === key && styles.tabActive]}>{label}</Text></Pressable>)}</View></SafeAreaView>;
 }
 
