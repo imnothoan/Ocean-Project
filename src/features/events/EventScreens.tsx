@@ -321,6 +321,7 @@ function EventRegistrationScreen({ eventId, onBack, onRegistered }: { eventId: s
       Alert.alert('Missing information', 'Please complete your name, email, and phone number.');
       return;
     }
+
     const result = await registerForEvent(eventId, name.trim(), email.trim());
     if (result.error) {
       Alert.alert('Registration unavailable', result.error.message);
@@ -339,6 +340,14 @@ function EventRegistrationScreen({ eventId, onBack, onRegistered }: { eventId: s
     <View style={styles.helpRow}>{['Collect waste', 'Sort recyclables', 'Take photos'].map((option) => <Pressable key={option} onPress={() => setHelp(option)} style={[styles.helpOption, help === option && styles.helpOptionActive]}><Text style={[styles.helpText, help === option && styles.helpTextActive]}>{option}</Text></Pressable>)}</View>
     <Pressable onPress={confirm} style={styles.register}><Text style={styles.registerText}>Confirm registration</Text></Pressable>
   </ScrollView>;
+}
+
+export function EventRegistrationCatalogScreen({ onBack }: { onBack: () => void }) {
+  const [eventId, setEventId] = useState<string | null>(null);
+  useEffect(() => {
+    loadEvents().then(({ data }) => setEventId(data?.[0]?.id ?? null));
+  }, []);
+  return <EventRegistrationScreen eventId={eventId} onBack={onBack} onRegistered={() => Alert.alert('Registration complete', 'Your participation has been saved.')} />;
 }
 
 const styles = StyleSheet.create({
