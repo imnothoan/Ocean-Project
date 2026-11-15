@@ -12,6 +12,7 @@ The migration adds owner-scoped report/evidence/history/notification access, a p
 - Expo receives only the public Supabase URL and publishable/anon key through environment variables.
 - Service-role keys, secret keys, and database passwords must remain server-side or in the Supabase dashboard.
 - Report, event registration, and donation operations require an authenticated Supabase session.
+- Donation notes are persisted with a 500-character database constraint and are written only during final confirmation.
 
 ## Verification status
 

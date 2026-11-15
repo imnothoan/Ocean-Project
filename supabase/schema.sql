@@ -74,6 +74,7 @@ create table if not exists public.donations (
   donor_name text not null,
   amount numeric(12, 2) not null check (amount > 0),
   campaign text not null,
+  note text not null default '' check (char_length(note) <= 500),
   status text not null default 'confirmed' check (status in ('pending', 'confirmed', 'failed')),
   created_at timestamptz not null default now()
 );
@@ -128,6 +129,7 @@ alter table public.reports add column if not exists owner_id uuid references aut
 alter table public.events add column if not exists owner_id uuid references auth.users(id) on delete set null;
 alter table public.event_registrations add column if not exists owner_id uuid references auth.users(id) on delete cascade;
 alter table public.donations add column if not exists donor_id uuid references auth.users(id) on delete cascade;
+alter table public.donations add column if not exists note text not null default '' check (char_length(note) <= 500);
 alter table public.report_status_history add column if not exists actor_id uuid references auth.users(id) on delete set null;
 alter table public.notifications add column if not exists user_id uuid references auth.users(id) on delete cascade;
 

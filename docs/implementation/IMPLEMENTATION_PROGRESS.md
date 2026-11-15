@@ -85,6 +85,7 @@ Implement a real testable report backend slice before expanding more screens: au
 - Report batch 13: rare species type/photo/location/review and report history/edit/follow-up/resolved now have dedicated stateful UI flows with validation, review summaries and explicit action feedback.
 - Map/Admin batch 14: all remaining Q-screen catalog entries now have distinct operational configurations for map layers, locations, moderation, assignments, habitats, alerts, partners and audit states rather than sharing one fallback message.
 - Community/Gamification batch 15: Leaderboard now follows the Figma metadata structure with period tabs and a top-contributors podium; Challenge Detail, Badge Detail, Comments and Likes have dedicated reachable screens.
+- Donation backend batch 16: donation notes now persist through final confirmation, payment review displays the selected amount, certificate navigation is wired, and the `donations.note` column plus constraint are applied remotely.
 
 ## Current verification
 

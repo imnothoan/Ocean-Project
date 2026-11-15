@@ -287,7 +287,7 @@ export async function loadEventRecaps(eventId: string) {
   return supabase.from('event_recaps').select('id, event_id, author_id, body, created_at').eq('event_id', eventId).order('created_at', { ascending: false });
 }
 
-export async function createDonation(donorName: string, amount: number, campaign: string) {
+export async function createDonation(donorName: string, amount: number, campaign: string, note = '') {
   if (!isSupabaseConfigured) {
     return { data: null, error: new Error('Supabase is not configured.') };
   }
@@ -299,7 +299,7 @@ export async function createDonation(donorName: string, amount: number, campaign
 
   return supabase
     .from('donations')
-    .insert({ donor_name: donorName, amount, campaign, status: 'pending', donor_id: userData.user.id })
+    .insert({ donor_name: donorName, amount, campaign, note, status: 'pending', donor_id: userData.user.id })
     .select()
     .single();
 }
