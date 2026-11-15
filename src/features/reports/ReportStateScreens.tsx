@@ -1,11 +1,11 @@
 import { Alert, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 import { useEffect, useState } from 'react';
 import { colors, spacing } from '../../theme/tokens';
-import { loadReports, updateOwnReport } from '../../lib/supabase';
+import { loadNotifications, loadReports, markNotificationRead, type OceanNotification, updateOwnReport } from '../../lib/supabase';
 
 export function NotificationFlowRoot({ onBack }: { onBack: () => void }) {
-  const [detail, setDetail] = useState(false);
-  return detail ? <NotificationDetailScreen onBack={() => setDetail(false)} /> : <NotificationInboxScreen onBack={onBack} onOpenDetail={() => setDetail(true)} />;
+  const [selected, setSelected] = useState<OceanNotification | null>(null);
+  return selected ? <NotificationDetailScreen notification={selected} onBack={() => setSelected(null)} /> : <NotificationInboxScreen onBack={onBack} onOpenDetail={setSelected} />;
 }
 
 function TopBar({ title, onBack }: { title: string; onBack: () => void }) {
@@ -21,13 +21,26 @@ export function ReportStatusTrackerScreen({ onBack }: { onBack: () => void }) {
   return <ScrollView contentContainerStyle={styles.screen}><TopBar title="Report status" onBack={onBack} /><View style={styles.card}><Text style={styles.value}>Pollution report · OC-2026-0618</Text><Text style={styles.body}>My Khe Beach, Da Nang</Text>{steps.map(([name, date, done], index) => <View key={name} style={styles.timeline}><View style={[styles.timelineDot, done && styles.timelineDone]}><Text style={styles.dotText}>{done ? '✓' : index + 1}</Text></View><View style={styles.timelineCopy}><Text style={[styles.value, !done && styles.mutedValue]}>{name}</Text><Text style={styles.body}>{date}</Text></View></View>)}</View><View style={styles.note}><Text style={styles.body}>You can add follow-up evidence while the report is under review.</Text></View><Pressable onPress={() => Alert.alert('Follow-up evidence', 'Choose a photo or note to attach.')} style={styles.primary}><Text style={styles.primaryText}>Add follow-up evidence</Text></Pressable></ScrollView>;
 }
 
-export function NotificationInboxScreen({ onBack, onOpenDetail }: { onBack: () => void; onOpenDetail: () => void }) {
-  const notifications = [['Report update', 'Your pollution report is now under review.', '2 min ago'], ['Community action', 'A cleanup event was created near My Khe Beach.', 'Yesterday'], ['Weekly impact', 'You helped remove 12 bags of waste this month.', '3 days ago']];
-  return <ScrollView contentContainerStyle={styles.screen}><TopBar title="Notifications" onBack={onBack} />{notifications.map(([title, body, time], index) => <Pressable key={title} onPress={onOpenDetail} style={[styles.notification, index === 0 && styles.unread]}><View style={styles.notificationIcon}>◉</View><View style={styles.notificationCopy}><Text style={styles.value}>{title}</Text><Text style={styles.body}>{body}</Text><Text style={styles.meta}>{time}</Text></View><Text style={styles.chevron}>›</Text></Pressable>)}</ScrollView>;
+export function NotificationInboxScreen({ onBack, onOpenDetail }: { onBack: () => void; onOpenDetail: (notification: OceanNotification) => void }) {
+  const [notifications, setNotifications] = useState<OceanNotification[]>([]);
+  const [error, setError] = useState<string | null>(null);
+  useEffect(() => {
+    loadNotifications().then((result) => {
+      if (result.error) {
+        setError(result.error.message);
+        return;
+      }
+      setNotifications(result.data ?? []);
+    });
+  }, []);
+  const fallback: OceanNotification[] = [{ id: 'demo-report-update', title: 'Report update', body: 'Your pollution report is now under review.', report_id: null, read_at: null, created_at: new Date().toISOString(), user_id: 'demo' }, { id: 'demo-community-action', title: 'Community action', body: 'A cleanup event was created near My Khe Beach.', report_id: null, read_at: new Date(Date.now() - 86400000).toISOString(), created_at: new Date(Date.now() - 86400000).toISOString(), user_id: 'demo' }, { id: 'demo-weekly-impact', title: 'Weekly impact', body: 'You helped remove 12 bags of waste this month.', report_id: null, read_at: new Date(Date.now() - 259200000).toISOString(), created_at: new Date(Date.now() - 259200000).toISOString(), user_id: 'demo' }];
+  const items = notifications.length ? notifications : fallback;
+  return <ScrollView contentContainerStyle={styles.screen}><TopBar title="Notifications" onBack={onBack} />{error ? <View style={styles.note}><Text style={styles.body}>Notifications are temporarily unavailable: {error}</Text></View> : null}{items.map((notification) => <Pressable key={notification.id} onPress={async () => { if (!notification.read_at && !notification.id.startsWith('demo-')) { const result = await markNotificationRead(notification.id); if (result.error) return Alert.alert('Unable to update notification', result.error.message); } onOpenDetail({ ...notification, read_at: notification.read_at ?? new Date().toISOString() }); }} style={[styles.notification, !notification.read_at && styles.unread]}><View style={styles.notificationIcon}>◉</View><View style={styles.notificationCopy}><Text style={styles.value}>{notification.title}</Text><Text style={styles.body}>{notification.body}</Text><Text style={styles.meta}>{new Date(notification.created_at).toLocaleString('en', { dateStyle: 'medium' })}</Text></View><Text style={styles.chevron}>›</Text></Pressable>)}</ScrollView>;
 }
 
-export function NotificationDetailScreen({ onBack }: { onBack: () => void }) {
-  return <ScrollView contentContainerStyle={styles.screen}><TopBar title="Notification detail" onBack={onBack} /><View style={styles.card}><Text style={styles.label}>REPORT UPDATE</Text><Text style={styles.detailTitle}>Your pollution report is now under review.</Text><Text style={styles.body}>Our moderation team has received your images and location. We will notify you when the verification step is complete.</Text><View style={styles.divider} /><Text style={styles.meta}>Received 18 Jun 2026 · 09:44</Text></View><Pressable onPress={() => Alert.alert('Report status', 'Opening OC-2026-0618.')} style={styles.primary}><Text style={styles.primaryText}>Open report status</Text></Pressable></ScrollView>;
+export function NotificationDetailScreen({ notification, onBack }: { notification?: OceanNotification; onBack: () => void }) {
+  const item = notification ?? { title: 'Report update', body: 'Your pollution report is now under review.', created_at: new Date().toISOString(), report_id: null };
+  return <ScrollView contentContainerStyle={styles.screen}><TopBar title="Notification detail" onBack={onBack} /><View style={styles.card}><Text style={styles.label}>UPDATE</Text><Text style={styles.detailTitle}>{item.title}</Text><Text style={styles.body}>{item.body}</Text><View style={styles.divider} /><Text style={styles.meta}>Received {new Date(item.created_at).toLocaleString('en', { dateStyle: 'medium', timeStyle: 'short' })}</Text></View><Pressable onPress={() => item.report_id ? Alert.alert('Report status', `Opening report ${item.report_id}.`) : Alert.alert('No linked action', 'This notification does not link to a report.')} style={styles.primary}><Text style={styles.primaryText}>Open linked update</Text></Pressable></ScrollView>;
 }
 
 export function PollutionWizardScreen({ title, onBack }: { title: string; onBack: () => void }) {
