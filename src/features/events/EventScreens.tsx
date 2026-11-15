@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Alert, Image, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Alert, Image, Pressable, ScrollView, Share, StyleSheet, Text, TextInput, View } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createEvent, createEventRecap, loadEventMessages, loadEventParticipants, loadEventRecaps, loadEvents, moderateEventParticipant, recordEventCheckIn, registerForEvent, sendEventMessage, submitEventFeedback, updateEvent } from '../../lib/supabase';
 import { colors, radii, spacing } from '../../theme/tokens';
@@ -116,7 +116,7 @@ export function EventCertificateScreen({ onBack }: { onBack: () => void }) {
     <View style={styles.top}><Pressable onPress={onBack} style={styles.back}><Text style={styles.backText}>‹</Text></Pressable><Text style={certificateStyles.titleBar}>Contribution Certificate</Text></View>
     <View style={certificateStyles.certificate}><Text style={certificateStyles.ocean}>OCEAN CARE</Text><View style={certificateStyles.rule} /><Text style={certificateStyles.label}>CERTIFICATE</Text><Text style={certificateStyles.contribution}>OF COMMUNITY CONTRIBUTION</Text><Text style={certificateStyles.badge}>♙</Text><Text style={certificateStyles.presented}>Presented to</Text><Text style={certificateStyles.name}>Trinh Xuan Hoa</Text><Text style={certificateStyles.presented}>For valuable contribution to</Text><Text style={certificateStyles.event}>My Khe Beach Cleanup</Text><Text style={certificateStyles.date}>October 20, 2026</Text><View style={certificateStyles.signatures}><Text style={certificateStyles.signature}>Organizer</Text><Text style={certificateStyles.signature}>Ocean Care</Text></View></View>
     <Text style={certificateStyles.id}>Certificate ID: OC-2026-2048</Text>
-    <Pressable onPress={() => Alert.alert('Certificate', 'Certificate download is ready to connect to document storage.')} style={styles.register}><Text style={styles.registerText}>Download certificate</Text></Pressable>
+    <Pressable onPress={() => Share.share({ title: 'Ocean Project event certificate', message: 'I completed an Ocean Project community event and earned a contribution certificate.' })} style={styles.register}><Text style={styles.registerText}>Share certificate</Text></Pressable>
     <Pressable onPress={() => Alert.alert('Share certificate', 'Sharing will be available when the certificate file is generated.')} style={certificateStyles.share}><Text style={certificateStyles.shareText}>Share certificate</Text></Pressable>
   </ScrollView>;
 }

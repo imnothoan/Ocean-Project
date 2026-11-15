@@ -18,6 +18,7 @@ Updated: 2026-11-15
 - Leaderboard `238:299`: refined period tabs, podium, current-rank card, Near me control, and Community rankings; the running Expo web screen was inspected against the Figma screenshot.
 - Notifications: inbox now loads authenticated rows from Supabase, marks persisted notifications read, and retains an explicit demo fallback for empty/unconfigured states.
 - Settings: Notification Settings and Account Settings now have dedicated responsive controls with AsyncStorage persistence rather than generic alert-only actions.
+- Certificates: donation and event certificate screens now use the native Share API; download actions explicitly disclose the remaining document-storage dependency.
 
 ## Independent QA and code audit
 

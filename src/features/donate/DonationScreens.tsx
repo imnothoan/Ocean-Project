@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Alert, Image, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Alert, Image, Pressable, ScrollView, Share, StyleSheet, Text, TextInput, View } from 'react-native';
 import { createDonation } from '../../lib/supabase';
 import { colors, radii, spacing } from '../../theme/tokens';
 
@@ -144,7 +144,7 @@ function DonationHistoryScreen({ onBack }: Props) {
 }
 
 function DonationCertificateScreen({ onBack }: Props) {
-  return <ScrollView contentContainerStyle={styles.screen}><TopBar title="Donation Certificate" onBack={onBack} /><View style={styles.certificate}><Text style={styles.certificateMark}>OCEAN</Text><Text style={styles.successTitle}>Certificate of Impact</Text><Text style={styles.owner}>Presented to Ocean Guardian</Text><View style={styles.certificateLine} /><Text style={styles.confirmValue}>For helping protect Phu Quoc Coral Reef</Text><Text style={styles.impactTitle}>5kg of waste removed</Text><Text style={styles.meta}>Donation date · 20 June 2026</Text></View><Pressable onPress={() => Alert.alert('Download', 'Certificate download prepared.')} style={styles.primaryButton}><Text style={styles.primaryText}>Download certificate</Text></Pressable><Pressable onPress={() => Alert.alert('Share', 'Certificate link copied.')} style={styles.secondaryButton}><Text style={styles.secondaryButtonText}>Share certificate</Text></Pressable></ScrollView>;
+  return <ScrollView contentContainerStyle={styles.screen}><TopBar title="Donation Certificate" onBack={onBack} /><View style={styles.certificate}><Text style={styles.certificateMark}>OCEAN</Text><Text style={styles.successTitle}>Certificate of Impact</Text><Text style={styles.owner}>Presented to Ocean Guardian</Text><View style={styles.certificateLine} /><Text style={styles.confirmValue}>For helping protect Phu Quoc Coral Reef</Text><Text style={styles.impactTitle}>5kg of waste removed</Text><Text style={styles.meta}>Donation date · 20 June 2026</Text></View><Pressable onPress={() => Alert.alert('Download unavailable', 'A downloadable certificate file will be available after document storage is connected.')} style={styles.primaryButton}><Text style={styles.primaryText}>Download certificate</Text></Pressable><Pressable onPress={() => Share.share({ title: 'Ocean Project certificate', message: 'I helped protect Phu Quoc Coral Reef through Ocean Project.' })} style={styles.secondaryButton}><Text style={styles.secondaryButtonText}>Share certificate</Text></Pressable></ScrollView>;
 }
 
 const styles = StyleSheet.create({
