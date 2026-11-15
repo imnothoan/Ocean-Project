@@ -27,6 +27,7 @@ create table if not exists public.event_registrations (
   owner_id uuid references auth.users(id) on delete cascade,
   participant_name text not null,
   participant_email text not null,
+  status text not null default 'pending' check (status in ('pending', 'approved', 'rejected')),
   created_at timestamptz not null default now(),
   unique (event_id, participant_email)
 );
@@ -166,6 +167,8 @@ drop policy if exists "public can register events" on public.event_registrations
 create policy "authenticated can register own events" on public.event_registrations for insert to authenticated with check (owner_id = auth.uid());
 drop policy if exists "authenticated can read own event registrations" on public.event_registrations;
 create policy "authenticated can read own event registrations" on public.event_registrations for select to authenticated using (owner_id = auth.uid());
+create policy "event owners can read registrations" on public.event_registrations for select to authenticated
+using (exists (select 1 from public.events where events.id = event_registrations.event_id and events.owner_id = auth.uid()));
 create policy "authenticated can create own checkins" on public.event_checkins for insert to authenticated with check (user_id = auth.uid());
 create policy "authenticated can read own checkins" on public.event_checkins for select to authenticated using (user_id = auth.uid());
 create policy "authenticated can create own feedback" on public.event_feedback for insert to authenticated with check (user_id = auth.uid());
@@ -175,6 +178,9 @@ create policy "authenticated can create event messages" on public.event_messages
 create policy "authenticated can read event messages" on public.event_messages for select to authenticated using (true);
 create policy "authenticated can create own event recaps" on public.event_recaps for insert to authenticated with check (author_id = auth.uid());
 create policy "authenticated can read event recaps" on public.event_recaps for select to authenticated using (true);
+create policy "event owners can moderate registrations" on public.event_registrations for update to authenticated
+using (exists (select 1 from public.events where events.id = event_registrations.event_id and events.owner_id = auth.uid()))
+with check (exists (select 1 from public.events where events.id = event_registrations.event_id and events.owner_id = auth.uid()));
 
 drop policy if exists "public can read donations" on public.donations;
 drop policy if exists "public can create donations" on public.donations;

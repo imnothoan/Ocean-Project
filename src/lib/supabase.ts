@@ -264,8 +264,20 @@ export async function loadEventMessages(eventId: string) {
 }
 
 export async function loadEventParticipants(eventId: string) {
-  if (!isSupabaseConfigured) return { data: [] as Array<{ participant_name: string; participant_email: string }>, error: null };
-  return supabase.from('event_registrations').select('participant_name, participant_email').eq('event_id', eventId).order('created_at', { ascending: true });
+  if (!isSupabaseConfigured) return { data: [] as Array<{ id: string; participant_name: string; participant_email: string; status: string }>, error: null };
+  return supabase.from('event_registrations').select('id, participant_name, participant_email, status').eq('event_id', eventId).order('created_at', { ascending: true });
+}
+
+export async function moderateEventParticipant(registrationId: string, status: 'approved' | 'rejected') {
+  if (!isSupabaseConfigured) return { data: null, error: new Error('Supabase is not configured.') };
+  const { data: userData, error: userError } = await supabase.auth.getUser();
+  if (userError || !userData.user) return { data: null, error: userError ?? new Error('You must be signed in to moderate participants.') };
+  return supabase
+    .from('event_registrations')
+    .update({ status })
+    .eq('id', registrationId)
+    .select()
+    .single();
 }
 
 export async function sendEventMessage(eventId: string, body: string) {

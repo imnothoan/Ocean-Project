@@ -86,6 +86,7 @@ Implement a real testable report backend slice before expanding more screens: au
 - Map/Admin batch 14: all remaining Q-screen catalog entries now have distinct operational configurations for map layers, locations, moderation, assignments, habitats, alerts, partners and audit states rather than sharing one fallback message.
 - Community/Gamification batch 15: Leaderboard now follows the Figma metadata structure with period tabs and a top-contributors podium; Challenge Detail, Badge Detail, Comments and Likes have dedicated reachable screens.
 - Donation backend batch 16: donation notes now persist through final confirmation, payment review displays the selected amount, certificate navigation is wired, and the `donations.note` column plus constraint are applied remotely.
+- Event backend batch 17: participant approval/rejection now persists in `event_registrations.status`, organizer-only RLS policies are applied remotely, and the Event Admin screen loads and updates real registration rows.
 
 ## Current verification
 
