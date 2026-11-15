@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Alert, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { screenCatalog, type ScreenDefinition } from '../navigation/screenCatalog';
 import { createDonation, loadEvents, registerForEvent, type OceanEvent } from '../lib/supabase';
 import { colors, radii, spacing, typography } from '../theme/tokens';
@@ -46,6 +47,9 @@ export function FlowDetailScreen({ screen, onBack }: { screen: ScreenDefinition;
   if (screen.title === 'Challenges' || screen.title === 'Challenge Detail') return <ChallengesScreen onBack={onBack} detail={screen.title === 'Challenge Detail'} />;
   if (screen.title === 'Badge Collection' || screen.title === 'Badge Detail') return <BadgeCollectionScreen onBack={onBack} detail={screen.title === 'Badge Detail'} />;
   if (screen.title === 'Learning Quiz') return <LearningQuizScreen onBack={onBack} />;
+  if (screen.title === 'Notification Settings' || screen.title === 'Account Settings') {
+    return <SettingsFlow title={screen.title} onBack={onBack} />;
+  }
   if (['Frame 1 - Fundraising Campaigns', 'Frame 2 - Campaign Detail', 'D1 - Donate', 'D2 - Payment Method', 'D3 - Donation Confirmation', 'D4 - Donation Success', 'D5 - Campaign Updates', 'D6 - Impact Report', 'D7 - Donation History', 'D8 - Donation Certificate'].includes(screen.title)) {
     const initial = screen.title === 'Frame 2 - Campaign Detail' ? 'detail' : screen.title === 'D1 - Donate' ? 'donate' : screen.title === 'D2 - Payment Method' ? 'payment' : screen.title === 'D3 - Donation Confirmation' ? 'confirm' : screen.title === 'D4 - Donation Success' ? 'success' : screen.title === 'D5 - Campaign Updates' ? 'updates' : screen.title === 'D6 - Impact Report' ? 'impact' : screen.title === 'D7 - Donation History' ? 'history' : screen.title === 'D8 - Donation Certificate' ? 'certificate' : 'campaigns';
     return <DonationFlowRoot onBack={onBack} initial={initial} />;
@@ -118,6 +122,40 @@ export function FlowDetailScreen({ screen, onBack }: { screen: ScreenDefinition;
 
 function FlowFrame({ screen, onBack, children }: { screen: ScreenDefinition; onBack: () => void; children: React.ReactNode }) {
   return <ScrollView contentContainerStyle={styles.content}><Pressable onPress={onBack}><Text style={styles.back}>‹ Quay lại danh sách</Text></Pressable><Text style={styles.eyebrow}>{screen.group.toUpperCase()}</Text><Text style={styles.heading}>{screen.title}</Text><Text style={styles.subtitle}>{screen.description}</Text>{children}</ScrollView>;
+}
+
+function SettingsFlow({ title, onBack }: { title: string; onBack: () => void }) {
+  const isNotifications = title === 'Notification Settings';
+  const [profileName, setProfileName] = useState('Hoàng Nguyễn');
+  const [saved, setSaved] = useState(false);
+  const [preferences, setPreferences] = useState({ reportUpdates: true, eventReminders: true, communityActivity: true });
+  useEffect(() => {
+    AsyncStorage.multiGet(['ocean.profileName', 'ocean.notificationPreferences']).then((entries) => {
+      const name = entries.find(([key]) => key === 'ocean.profileName')?.[1];
+      const rawPreferences = entries.find(([key]) => key === 'ocean.notificationPreferences')?.[1];
+      if (name) setProfileName(name);
+      if (rawPreferences) {
+        try {
+          setPreferences(JSON.parse(rawPreferences));
+        } catch {
+          setSaved(false);
+        }
+      }
+    });
+  }, []);
+  const save = async () => {
+    if (!profileName.trim()) {
+      Alert.alert('Missing name', 'Enter a display name before saving.');
+      return;
+    }
+    if (isNotifications) await AsyncStorage.setItem('ocean.notificationPreferences', JSON.stringify(preferences));
+    else await AsyncStorage.setItem('ocean.profileName', profileName.trim());
+    setSaved(true);
+  };
+  const rows = isNotifications
+    ? [['Report status updates', preferences.reportUpdates, 'reportUpdates'], ['Nearby event reminders', preferences.eventReminders, 'eventReminders'], ['Community activity', preferences.communityActivity, 'communityActivity']] as const
+    : [];
+  return <ScrollView contentContainerStyle={styles.content}><Pressable onPress={onBack}><Text style={styles.back}>‹ Quay lại danh sách</Text></Pressable><Text style={styles.eyebrow}>COMMUNITY & GAMIFICATION</Text><Text style={styles.heading}>{isNotifications ? 'Notification settings' : 'Account settings'}</Text><Text style={styles.subtitle}>{isNotifications ? 'Choose which updates should stay close to you.' : 'Keep your profile details and preferences up to date.'}</Text>{isNotifications ? <View style={styles.card}>{rows.map(([label, enabled, key]) => <Pressable key={label} onPress={() => setPreferences((current) => ({ ...current, [key]: !enabled }))} style={styles.settingRow}><View style={styles.settingCopy}><Text style={styles.cardTitle}>{label}</Text><Text style={styles.cardText}>{enabled ? 'Enabled' : 'Disabled'}</Text></View><View style={[styles.switch, enabled && styles.switchOn]}><View style={[styles.switchKnob, enabled && styles.switchKnobOn]} /></View></Pressable>)}</View> : <View style={styles.card}><Field label="Display name" value={profileName} onChangeText={(value) => { setProfileName(value); setSaved(false); }} placeholder="Your name" /><Text style={styles.cardText}>Privacy and data controls remain protected by your Supabase account policies.</Text></View>}<Pressable style={styles.button} onPress={save}><Text style={styles.buttonText}>{saved ? 'Saved' : isNotifications ? 'Save preferences' : 'Update settings'}</Text></Pressable></ScrollView>;
 }
 
 function Field({ label, value, onChangeText, placeholder, multiline = false }: { label: string; value: string; onChangeText: (value: string) => void; placeholder: string; multiline?: boolean }) {
@@ -349,5 +387,11 @@ const styles = StyleSheet.create({
   mapPin: { alignItems: 'center', backgroundColor: colors.coral, borderColor: colors.white, borderRadius: 20, borderWidth: 3, height: 38, justifyContent: 'center', left: 92, position: 'absolute', top: 100, width: 38 },
   mapPinTwo: { backgroundColor: colors.aqua, left: 224, top: 160 },
   mapPinText: { color: colors.white, fontSize: 14 },
-  mapLabel: { bottom: 18, color: colors.navy, fontSize: 14, fontWeight: '800', left: 18, position: 'absolute' }
+  mapLabel: { bottom: 18, color: colors.navy, fontSize: 14, fontWeight: '800', left: 18, position: 'absolute' },
+  settingRow: { alignItems: 'center', borderBottomColor: colors.line, borderBottomWidth: 1, flexDirection: 'row', paddingVertical: spacing.md },
+  settingCopy: { flex: 1 },
+  switch: { backgroundColor: colors.line, borderRadius: 18, height: 30, justifyContent: 'center', padding: 3, width: 52 },
+  switchOn: { backgroundColor: colors.aqua },
+  switchKnob: { backgroundColor: colors.white, borderRadius: 12, height: 24, width: 24 },
+  switchKnobOn: { alignSelf: 'flex-end' }
 });
