@@ -20,7 +20,7 @@ export function ScreenCatalogScreen({ onOpen }: { onOpen: (screen: ScreenDefinit
   return <ScrollView contentContainerStyle={styles.content}><Text style={styles.eyebrow}>HIGH-FIDELITY FLOWS</Text><Text style={styles.heading}>Khám phá màn hình</Text><Text style={styles.subtitle}>Tất cả flow được gom theo nhóm để kiểm thử từng hành trình.</Text><TextInput value={query} onChangeText={setQuery} placeholder="Tìm màn hình..." placeholderTextColor={colors.muted} style={styles.search} />{groups.map((group) => <View key={group} style={styles.group}><Text style={styles.groupTitle}>{group}</Text>{filtered.filter((screen) => screen.group === group).map((screen) => <Pressable key={screen.id} style={styles.screenRow} onPress={() => onOpen(screen)}><View style={styles.screenNumber}><Text style={styles.number}>{screenCatalog.indexOf(screen) + 1}</Text></View><Text style={styles.screenTitle}>{screen.title}</Text><Text style={styles.chevron}>›</Text></Pressable>)}</View>)}</ScrollView>;
 }
 
-export function FlowDetailScreen({ screen, onBack }: { screen: ScreenDefinition; onBack: () => void }) {
+export function FlowDetailScreen({ screen, onBack, onOpenScreen }: { screen: ScreenDefinition; onBack: () => void; onOpenScreen?: (screen: ScreenDefinition) => void }) {
   if (screen.title === 'Community Feed') {
     return <CommunityFlowRoot onBack={onBack} />;
   }
@@ -72,7 +72,7 @@ export function FlowDetailScreen({ screen, onBack }: { screen: ScreenDefinition;
     return <EventDetailScreen onBack={onBack} />;
   }
   if (screen.title === 'Events Home') {
-    return <EventsHomeScreen onOpenDetail={() => Alert.alert('Event selected', 'Open Event Detail from the catalog to continue.')} />;
+    return <EventsHomeScreen onOpenDetail={() => onOpenScreen?.({ id: 'event-flow-event-detail', group: 'Event Flow', title: 'Event Detail', description: 'Detailed event information and registration.' })} />;
   }
   if (screen.title === 'Event Registration') {
     return <EventRegistrationCatalogScreen onBack={onBack} />;
