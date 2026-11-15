@@ -87,6 +87,7 @@ Implement a real testable report backend slice before expanding more screens: au
 - Community/Gamification batch 15: Leaderboard now follows the Figma metadata structure with period tabs and a top-contributors podium; Challenge Detail, Badge Detail, Comments and Likes have dedicated reachable screens.
 - Donation backend batch 16: donation notes now persist through final confirmation, payment review displays the selected amount, certificate navigation is wired, and the `donations.note` column plus constraint are applied remotely.
 - Event backend batch 17: participant approval/rejection now persists in `event_registrations.status`, organizer-only RLS policies are applied remotely, and the Event Admin screen loads and updates real registration rows.
+- Community backend batch 18: Community Feed now loads the latest public posts from Supabase with a safe empty-state fallback while preserving the dedicated Figma-aligned feed layout.
 
 ## Current verification
 

@@ -104,6 +104,15 @@ export async function createCommunityPost(body: string, topic: string) {
   return supabase.from('community_posts').insert({ author_id: userData.user.id, body, topic }).select().single();
 }
 
+export async function loadCommunityPosts() {
+  if (!isSupabaseConfigured) return { data: [] as CommunityPost[], error: null };
+  return supabase
+    .from('community_posts')
+    .select('id, author_id, body, topic, created_at')
+    .order('created_at', { ascending: false })
+    .limit(20);
+}
+
 export async function createReport(
   report: Pick<OceanReport, 'category' | 'title' | 'location'>
 ) {

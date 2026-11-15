@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Alert, Image, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
-import { createCommunityPost } from '../../lib/supabase';
+import { createCommunityPost, loadCommunityPosts, type CommunityPost } from '../../lib/supabase';
 import { colors, radii, spacing } from '../../theme/tokens';
 
 const cleanupImage = require('../../../assets/community/cleanup-beach.png');
@@ -30,6 +30,9 @@ function Avatar({ initials }: { initials: string }) {
 }
 
 export function CommunityFeedScreen({ onBack, onOpenPost, onCreatePost }: Props & { onOpenPost: () => void; onCreatePost: () => void }) {
+  const [posts, setPosts] = useState<CommunityPost[]>([]);
+  useEffect(() => { loadCommunityPosts().then(({ data }) => { if (data) setPosts(data); }); }, []);
+  const latest = posts[0];
   return (
     <ScrollView contentContainerStyle={styles.screen}>
       <View style={styles.search}><Text style={styles.searchIcon}>⌕</Text><Text style={styles.searchText}>Search posts, groups or people</Text><Text style={styles.filter}>☷</Text></View>
@@ -38,8 +41,8 @@ export function CommunityFeedScreen({ onBack, onOpenPost, onCreatePost }: Props 
       <Pressable onPress={onCreatePost} style={styles.shareComposer}><Avatar initials="HN" /><Text style={styles.shareText}>Share a small action...</Text><Text style={styles.shareIcon}>▧  ◉</Text></Pressable>
       <Pressable onPress={onOpenPost} style={styles.post}>
         <View style={styles.postHeader}><Avatar initials="LN" /><View style={styles.flex}><Text style={styles.name}>Linh Nguyen</Text><Text style={styles.meta}>Da Nang · 18 min ago</Text></View><Text style={styles.more}>•••</Text></View>
-        <Text style={styles.postTitle}>Sunday cleanup with our neighborhood team!</Text>
-        <Text style={styles.postBody}>12 bags collected along My Khe Beach.</Text>
+        <Text style={styles.postTitle}>{latest?.topic ?? 'Sunday cleanup with our neighborhood team!'}</Text>
+        <Text style={styles.postBody}>{latest?.body ?? '12 bags collected along My Khe Beach.'}</Text>
         <Image source={cleanupImage} style={styles.postImage} />
         <View style={styles.postStats}><Text style={styles.stat}>♡ 24</Text><Text style={styles.stat}>◯ 8 comments</Text><Text style={styles.stat}>♧</Text></View>
         <View style={styles.spotlight}><Text style={styles.spotlightLabel}>COMMUNITY SPOTLIGHT</Text><Text style={styles.spotlightTitle}>Every bag keeps wildlife safer.</Text><Text style={styles.meta}>Join this weekend's cleanup near you.</Text><Text style={styles.actionPill}>▣  See local actions</Text></View>
