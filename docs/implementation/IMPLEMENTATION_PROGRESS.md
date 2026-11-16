@@ -33,6 +33,7 @@ Updated: 2026-11-15
 - Knowledge topic cards now open an in-app guide detail state with save feedback instead of alert-only placeholders; Share Activity now uses the native share sheet.
 - Data frames `Frame 11 - Eco History Log` and `Frame 12 - Export & Share` now have dedicated timeline/report-preview screens with filter controls, metric selection and native sharing.
 - `Frame 10 - Eco-Impact Metrics` now has a dedicated rating, region/time filters and impact-breakdown screen with the Figma values `Level A`, `92/100`, `154 kg CO2`, and `12,500 L`.
+- `Frame 3 - Top Donors` now has a dedicated community-impact hero and ranked donor list with contribution amounts and protector badges.
 - Leaderboard `238:299`: refined period tabs, podium, current-rank card, Near me control, and Community rankings; the running Expo web screen was inspected against the Figma screenshot.
 - Notifications: inbox now loads authenticated rows from Supabase, marks persisted notifications read, and retains an explicit demo fallback for empty/unconfigured states.
 - Settings: Notification Settings and Account Settings now have dedicated responsive controls with AsyncStorage persistence rather than generic alert-only actions.
