@@ -12,6 +12,7 @@ import { TrainingScreen } from '../features/admin/TrainingScreens';
 import { NotificationFlowRoot, NotificationDetailScreen, PollutionSubmittedScreen, PollutionWizardScreen, RareSpeciesFlow, ReportManagementScreen, ReportStatusTrackerScreen } from '../features/reports/ReportStateScreens';
 import { AchievementsBadgesScreen, BadgeCollectionScreen, ChallengesScreen, DailyMissionScreen, KnowledgeHubScreen, LeaderboardScreen, LearningQuizScreen, LevelsRewardsScreen, LevelUpScreen, MyProfileEcoImpactScreen, ShareActivityScreen } from '../features/gamification/GamificationScreens';
 import { AboutOceanProjectScreen, HelpCenterScreen, NotificationsScreen, PointsHistoryScreen, RewardsScreen } from '../features/gamification/CommunityUtilityScreens';
+import { EcoHistoryLogScreen, ExportShareScreen } from '../features/data/DataUtilityScreens';
 
 export function ScreenCatalogScreen({ onOpen }: { onOpen: (screen: ScreenDefinition) => void }) {
   const [query, setQuery] = useState('');
@@ -61,6 +62,8 @@ export function FlowDetailScreen({ screen, onBack, onOpenScreen }: { screen: Scr
   if (screen.title === 'Notifications') return <NotificationsScreen onBack={onBack} />;
   if (screen.title === 'Help Center') return <HelpCenterScreen onBack={onBack} />;
   if (screen.title === 'About Ocean Project') return <AboutOceanProjectScreen onBack={onBack} />;
+  if (screen.title === 'Frame 11 - Eco History Log') return <EcoHistoryLogScreen onBack={onBack} />;
+  if (screen.title === 'Frame 12 - Export & Share') return <ExportShareScreen onBack={onBack} />;
   if (screen.title === 'Notification Settings' || screen.title === 'Account Settings') {
     return <SettingsFlow title={screen.title} onBack={onBack} />;
   }
