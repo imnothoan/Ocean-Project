@@ -37,6 +37,7 @@ Updated: 2026-11-15
 - `Frame 2 - Community Dashboard` now has a dedicated Supabase-oriented metrics dashboard with active guardians, monthly actions, trend, area and report tiles.
 - `Frame 9 - Campaign Impact Stats` now has a dedicated campaign progress and delivered-impact dashboard.
 - `Frame 8 - Heatmap Data Overview` and `Frame 4 - Time Trends Analytics` now have dedicated map and trend visualizations.
+- `Frame 5 - Waste Composition`, `Frame 6 - Area Comparison` and `Frame 3 - Area Rankings` now have dedicated analytics layouts.
 - Leaderboard `238:299`: refined period tabs, podium, current-rank card, Near me control, and Community rankings; the running Expo web screen was inspected against the Figma screenshot.
 - Notifications: inbox now loads authenticated rows from Supabase, marks persisted notifications read, and retains an explicit demo fallback for empty/unconfigured states.
 - Settings: Notification Settings and Account Settings now have dedicated responsive controls with AsyncStorage persistence rather than generic alert-only actions.

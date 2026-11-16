@@ -12,7 +12,7 @@ import { TrainingScreen } from '../features/admin/TrainingScreens';
 import { NotificationFlowRoot, NotificationDetailScreen, PollutionSubmittedScreen, PollutionWizardScreen, RareSpeciesFlow, ReportManagementScreen, ReportStatusTrackerScreen } from '../features/reports/ReportStateScreens';
 import { AchievementsBadgesScreen, BadgeCollectionScreen, ChallengesScreen, DailyMissionScreen, KnowledgeHubScreen, LeaderboardScreen, LearningQuizScreen, LevelsRewardsScreen, LevelUpScreen, MyProfileEcoImpactScreen, ShareActivityScreen } from '../features/gamification/GamificationScreens';
 import { AboutOceanProjectScreen, HelpCenterScreen, NotificationsScreen, PointsHistoryScreen, RewardsScreen } from '../features/gamification/CommunityUtilityScreens';
-import { CampaignImpactStatsScreen, CommunityDashboardScreen, EcoHistoryLogScreen, EcoImpactMetricsScreen, ExportShareScreen, HeatmapDataOverviewScreen, TimeTrendsAnalyticsScreen, TopDonorsScreen } from '../features/data/DataUtilityScreens';
+import { AreaComparisonScreen, AreaRankingsScreen, CampaignImpactStatsScreen, CommunityDashboardScreen, EcoHistoryLogScreen, EcoImpactMetricsScreen, ExportShareScreen, HeatmapDataOverviewScreen, TimeTrendsAnalyticsScreen, TopDonorsScreen, WasteCompositionScreen } from '../features/data/DataUtilityScreens';
 
 export function ScreenCatalogScreen({ onOpen }: { onOpen: (screen: ScreenDefinition) => void }) {
   const [query, setQuery] = useState('');
@@ -70,6 +70,9 @@ export function FlowDetailScreen({ screen, onBack, onOpenScreen }: { screen: Scr
   if (screen.title === 'Frame 9 - Campaign Impact Stats') return <CampaignImpactStatsScreen onBack={onBack} />;
   if (screen.title === 'Frame 8 - Heatmap Data Overview') return <HeatmapDataOverviewScreen onBack={onBack} />;
   if (screen.title === 'Frame 4 - Time Trends Analytics') return <TimeTrendsAnalyticsScreen onBack={onBack} />;
+  if (screen.title === 'Frame 5 - Waste Composition') return <WasteCompositionScreen onBack={onBack} />;
+  if (screen.title === 'Frame 6 - Area Comparison') return <AreaComparisonScreen onBack={onBack} />;
+  if (screen.title === 'Frame 3 - Area Rankings') return <AreaRankingsScreen onBack={onBack} />;
   if (screen.title === 'Notification Settings' || screen.title === 'Account Settings') {
     return <SettingsFlow title={screen.title} onBack={onBack} />;
   }
