@@ -19,7 +19,7 @@ npm install
 npm start
 ```
 
-Quét QR hiển thị trong terminal bằng Expo Go. Tính năng camera cần cấp quyền khi được hỏi.
+`npm start` đã được cấu hình chạy LAN để không cần Expo tunnel. Quét QR hiển thị trong terminal bằng Expo Go khi điện thoại và máy tính cùng mạng Wi-Fi. Tính năng camera cần cấp quyền khi được hỏi.
 
 ## Supabase
 
@@ -32,15 +32,15 @@ EXPO_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
 
 ### Expo Go on iOS/Android
 
-Use the LAN scripts when Expo Go reports that you must sign in:
+The default scripts use LAN mode when Expo Go reports that you must sign in:
 
 ```bash
-npm run start:lan
+npm start
 # or
 npm run ios:lan
 ```
 
-The `--tunnel` mode requires an authenticated Expo CLI and Expo Go account. LAN mode does not require Expo account sign-in, but the phone and development machine must be on the same network.
+The `--tunnel` mode requires an authenticated Expo CLI and Expo Go account. LAN mode avoids the tunnel, but the phone and development machine must be on the same network. If the Expo Go app itself displays a sign-in screen, sign in once in Expo Go; that is an app-level requirement and cannot be bypassed by Metro.
 
 Mở Supabase Dashboard → SQL Editor, dán và chạy toàn bộ file [`supabase/schema.sql`](./supabase/schema.sql). File này tạo các bảng báo cáo, sự kiện, đăng ký sự kiện, quyên góp và chỉ số tác động, kèm RLS policies và dữ liệu mẫu.
 
