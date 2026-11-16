@@ -39,6 +39,8 @@ Updated: 2026-11-15
 - `Frame 8 - Heatmap Data Overview` and `Frame 4 - Time Trends Analytics` now have dedicated map and trend visualizations.
 - `Frame 5 - Waste Composition`, `Frame 6 - Area Comparison` and `Frame 3 - Area Rankings` now have dedicated analytics layouts.
 - `Frame 7 - Area Details Metrics` now has a dedicated area performance, progress and attention-state dashboard.
+- Calibration batch restarted from Figma source: `101:2769` Community Feed and `101:2857` BottomAppBar were extracted with design context, screenshots, metadata and local assets. The native implementation now uses the Figma hero/post assets, Afacad Flux font package and the exported custom bottom bar geometry.
+- Calibration visual status: `NOT VISUALLY VERIFIED` on a real Expo Go iPhone screenshot. The current batch is intentionally limited to one representative Community Feed screen plus the custom Tab bar before expanding to the remaining frames.
 - Leaderboard `238:299`: refined period tabs, podium, current-rank card, Near me control, and Community rankings; the running Expo web screen was inspected against the Figma screenshot.
 - Notifications: inbox now loads authenticated rows from Supabase, marks persisted notifications read, and retains an explicit demo fallback for empty/unconfigured states.
 - Settings: Notification Settings and Account Settings now have dedicated responsive controls with AsyncStorage persistence rather than generic alert-only actions.

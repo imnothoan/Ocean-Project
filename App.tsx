@@ -10,6 +10,7 @@ import {
   View
 } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
+import { useFonts, AfacadFlux_400Regular, AfacadFlux_600SemiBold, AfacadFlux_700Bold } from '@expo-google-fonts/afacad-flux';
 import { createReport, loadEvents, loadImpactMetrics, loadReports, supabase, type ImpactMetric, type OceanEvent, type OceanReport, type ReportCategory } from './src/lib/supabase';
 import { FlowDetailScreen, ScreenCatalogScreen } from './src/screens/FlowScreens';
 import type { ScreenDefinition } from './src/navigation/screenCatalog';
@@ -17,6 +18,7 @@ import { AuthScreen } from './src/features/auth/AuthScreen';
 import { ReportEntryFlow } from './src/features/reports/ReportEntryFlow';
 import { NotificationInboxScreen, ReportHistoryScreen } from './src/features/reports/ReportHistoryScreens';
 import { EventsHomeScreen } from './src/features/events/EventScreens';
+import { FigmaBottomAppBar, FigmaCommunityFeedScreen } from './src/features/community/FigmaCommunityFeedScreen';
 
 type Tab = 'home' | 'report' | 'events' | 'data' | 'profile';
 type Overlay = 'history' | 'notifications' | null;
@@ -154,6 +156,11 @@ function ProfileScreen({ onOpenCatalog, onOpenAuth, onSignOut, onOpenScreen, ses
 }
 
 export default function App() {
+  const [fontsLoaded] = useFonts({
+    AfacadFlux_400Regular,
+    AfacadFlux_600SemiBold,
+    AfacadFlux_700Bold
+  });
   const [tab, setTab] = useState<Tab>('home');
   const [flowCatalogOpen, setFlowCatalogOpen] = useState(false);
   const [selectedFlow, setSelectedFlow] = useState<ScreenDefinition | null>(null);
@@ -177,8 +184,10 @@ export default function App() {
     const { error } = await supabase.auth.signOut();
     if (error) Alert.alert('Không thể đăng xuất', error.message);
   };
-  const screen = authOpen ? <AuthScreen onBack={() => setAuthOpen(false)} /> : overlay === 'history' ? <ReportHistoryScreen onBack={() => setOverlay(null)} /> : overlay === 'notifications' ? <NotificationInboxScreen onBack={() => setOverlay(null)} /> : selectedFlow ? <FlowDetailScreen screen={selectedFlow} onBack={() => setSelectedFlow(null)} onOpenScreen={setSelectedFlow} /> : flowCatalogOpen ? <ScreenCatalogScreen onOpen={setSelectedFlow} /> : tab === 'home' ? <HomeScreen goTo={setTab} openOverlay={(next) => setOverlay(next)} /> : tab === 'report' ? <ReportEntryFlow /> : tab === 'events' ? <EventsHomeScreen onOpenDetail={() => setSelectedFlow({ id: 'event-flow-event-detail', group: 'Event Flow', title: 'Event Detail', description: 'Detailed event information and registration.' })} /> : tab === 'data' ? <DataScreen onOpenDetails={() => setSelectedFlow({ id: 'data-waste-composition', group: 'Data & Donate', title: 'Frame 5 - Waste Composition', description: 'Waste composition analytics.' })} /> : <ProfileScreen onOpenCatalog={() => setFlowCatalogOpen(true)} onOpenAuth={() => setAuthOpen(true)} onOpenScreen={setSelectedFlow} sessionEmail={sessionEmail} onSignOut={handleSignOut} />;
-  return <SafeAreaView style={styles.safe}><StatusBar style="dark" />{screen}<View style={styles.tabBar}>{([['home', '⌂', 'Trang chủ'], ['report', '＋', 'Báo cáo'], ['events', '◉', 'Sự kiện'], ['data', '▥', 'Dữ liệu'], ['profile', '○', 'Hồ sơ']] as const).map(([key, icon, label]) => <Pressable key={key} style={styles.tab} onPress={() => setTab(key)}><Text style={[styles.tabIcon, tab === key && styles.tabActive]}>{icon}</Text><Text style={[styles.tabLabel, tab === key && styles.tabActive]}>{label}</Text></Pressable>)}</View></SafeAreaView>;
+  if (!fontsLoaded) return null;
+  const screen = authOpen ? <AuthScreen onBack={() => setAuthOpen(false)} /> : overlay === 'history' ? <ReportHistoryScreen onBack={() => setOverlay(null)} /> : overlay === 'notifications' ? <NotificationInboxScreen onBack={() => setOverlay(null)} /> : selectedFlow ? <FlowDetailScreen screen={selectedFlow} onBack={() => setSelectedFlow(null)} onOpenScreen={setSelectedFlow} /> : flowCatalogOpen ? <ScreenCatalogScreen onOpen={setSelectedFlow} /> : tab === 'home' ? <FigmaCommunityFeedScreen onCreatePost={() => setSelectedFlow({ id: 'community-create-post', group: 'Community & Gamification', title: 'Create Post', description: 'Create a community post.' })} onTab={(next) => { if (next === 'map') setTab('data'); else if (next === 'events') setTab('events'); else if (next === 'create') setTab('report'); else if (next === 'profile') setTab('profile'); else setTab('home'); }} /> : tab === 'report' ? <ReportEntryFlow /> : tab === 'events' ? <EventsHomeScreen onOpenDetail={() => setSelectedFlow({ id: 'event-flow-event-detail', group: 'Event Flow', title: 'Event Detail', description: 'Detailed event information and registration.' })} /> : tab === 'data' ? <DataScreen onOpenDetails={() => setSelectedFlow({ id: 'data-waste-composition', group: 'Data & Donate', title: 'Frame 5 - Waste Composition', description: 'Waste composition analytics.' })} /> : <ProfileScreen onOpenCatalog={() => setFlowCatalogOpen(true)} onOpenAuth={() => setAuthOpen(true)} onOpenScreen={setSelectedFlow} sessionEmail={sessionEmail} onSignOut={handleSignOut} />;
+  const activeDesignTab = tab === 'home' ? 'community' : tab === 'data' ? 'map' : tab === 'report' ? 'create' : tab;
+  return <SafeAreaView style={styles.safe}><StatusBar style="dark" />{screen}<FigmaBottomAppBar activeTab={activeDesignTab} onTab={(next) => { if (next === 'map') setTab('data'); else if (next === 'events') setTab('events'); else if (next === 'create') setTab('report'); else if (next === 'profile') setTab('profile'); else setTab('home'); }} /></SafeAreaView>;
 }
 
 const styles = StyleSheet.create({
