@@ -8,3 +8,4 @@
 6. There is no real-device Expo Go test evidence yet.
 7. The provided publishable key is not a valid REST credential for this project; the compatible anon JWT is configured only in ignored `.env.local`. No secret/service-role key is used by the app.
 8. The project now targets Expo SDK 58 to match the installed Expo Go client; native-device startup still needs verification.
+9. Expo tunnel mode requires an authenticated Expo CLI/Expo Go account. Use `npm run start:lan` or `npm run ios:lan` on the same local network to avoid the sign-in requirement.

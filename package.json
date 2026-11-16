@@ -5,8 +5,11 @@
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
     "start": "expo start",
+    "start:lan": "expo start --lan",
     "android": "expo start --android",
+    "android:lan": "expo start --lan --android",
     "ios": "expo start --ios",
+    "ios:lan": "expo start --lan --ios",
     "web": "expo start --web",
     "typecheck": "tsc --noEmit",
     "test": "vitest run"

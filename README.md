@@ -30,6 +30,18 @@ EXPO_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
 EXPO_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
 ```
 
+### Expo Go on iOS/Android
+
+Use the LAN scripts when Expo Go reports that you must sign in:
+
+```bash
+npm run start:lan
+# or
+npm run ios:lan
+```
+
+The `--tunnel` mode requires an authenticated Expo CLI and Expo Go account. LAN mode does not require Expo account sign-in, but the phone and development machine must be on the same network.
+
 Mở Supabase Dashboard → SQL Editor, dán và chạy toàn bộ file [`supabase/schema.sql`](./supabase/schema.sql). File này tạo các bảng báo cáo, sự kiện, đăng ký sự kiện, quyên góp và chỉ số tác động, kèm RLS policies và dữ liệu mẫu.
 
 Không đặt `sb_secret_*` hoặc database password vào `.env` của Expo. Secret/database credentials chỉ được dùng ở server-side hoặc Supabase Dashboard. Khi chưa cấu hình Supabase, ứng dụng vẫn chạy với dữ liệu demo và báo lỗi rõ ràng khi gửi dữ liệu.
