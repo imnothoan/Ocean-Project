@@ -30,6 +30,7 @@ Updated: 2026-11-15
 - Achievements frame `218:2549` was re-inspected and saved as `visual-evidence/figma-achievements-218-2549.png`; the screen now includes the designed badge progress copy and category filters.
 - Daily Mission frame `670:5000` and Level Up frame `670:5193` were re-inspected and saved as visual evidence; streak tracking, weekday progress, Level 5 copy, Planet Protector title, and unlocked rewards are now reflected in the dedicated screens.
 - Knowledge Hub frame `244:550` was re-inspected and saved as `visual-evidence/figma-knowledge-hub-244-550.png`; search, topic cards, hero copy, and recommended guides now follow the designed content hierarchy.
+- Knowledge topic cards now open an in-app guide detail state with save feedback instead of alert-only placeholders; Share Activity now uses the native share sheet.
 - Leaderboard `238:299`: refined period tabs, podium, current-rank card, Near me control, and Community rankings; the running Expo web screen was inspected against the Figma screenshot.
 - Notifications: inbox now loads authenticated rows from Supabase, marks persisted notifications read, and retains an explicit demo fallback for empty/unconfigured states.
 - Settings: Notification Settings and Account Settings now have dedicated responsive controls with AsyncStorage persistence rather than generic alert-only actions.
