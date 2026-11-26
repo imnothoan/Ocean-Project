@@ -1,48 +1,48 @@
 # Ocean Project
 
-Ứng dụng React Native Expo cho Ocean Project, triển khai các luồng cốt lõi theo High-Fidelity trong Figma:
+Ứng dụng React Native cho bài tập UX/UI, chuyển từ thiết kế BlueCitizen của tác giả trong Figma. Nhánh hiện tại dùng Expo SDK 58 và có 116 bố cục màn hình riêng cùng 5 trạng thái logo.
 
-- Trang chủ và chỉ số tác động
-- Báo cáo ô nhiễm/động vật/tái chế, gồm quét QR vị trí
-- Sự kiện cộng đồng
-- Dữ liệu và phân tích tác động
-- Hồ sơ, điểm và huy hiệu
-- Danh mục route đủ 116 màn hình High-Fidelity, có tìm kiếm và mở từng flow để kiểm thử
-- Renderer chuyên biệt cho Report, Event, Donate, Data, Admin, Community và Gamification
+Ứng dụng đang được hoàn thiện. Việc nghiệm thu giao diện từng màn và kiểm thử Expo Go trên thiết bị thật còn đang chờ. Các bước tiếp theo và giới hạn hiện tại được ghi trong [bản bàn giao Codex](docs/implementation/CODEX_HANDOFF.md).
 
-> Danh mục route đã đủ 116 màn hình và các luồng cốt lõi chạy end-to-end. Các nhóm flow hiện đã có renderer, form và trạng thái riêng; một số frame phụ vẫn dùng biến thể theo ngữ cảnh thay vì component pixel-perfect độc lập cho từng frame.
-
-## Chạy bằng Expo Go
+## Chạy bằng Expo Go SDK 58
 
 ```bash
 npm ci
 npx expo start --go --lan --clear
 ```
 
-`npm start` đã được cấu hình chạy LAN để không cần Expo tunnel. Quét QR hiển thị trong terminal bằng Expo Go khi điện thoại và máy tính cùng mạng Wi-Fi. Tính năng camera cần cấp quyền khi được hỏi.
+Điện thoại và máy tính cần cùng mạng Wi-Fi. Quét QR mới từ terminal. Nếu Expo Go còn báo SDK 54, dừng Metro cũ và kiểm tra đang mở đúng thư mục đã cập nhật từ `main`.
+
+```bash
+npx expo config --type public
+```
+
+Giá trị `sdkVersion` của bản này là `58.0.0`. Sau khi thay đổi dependencies, chạy lại `npm ci`.
+
+## Mã nguồn hiện tại
+
+- `App.tsx` mở `src/features/design/DesignApp.tsx`.
+- `src/features/design/screens` chứa bố cục native theo từng Figma node.
+- `src/features/design/components.tsx` cung cấp các thành phần chữ, hình, trường nhập liệu, liên kết và vùng cuộn.
+- Các module `community`, `reports`, `events`, `donations` và `interactions` nối giao diện với hành động và dữ liệu.
+- [Danh mục Figma](docs/implementation/FIGMA_SCREEN_INVENTORY.md) liên kết từng màn với component tương ứng và ghi trạng thái nghiệm thu.
 
 ## Supabase
 
-Bản dành cho lớp học đã cấu hình URL và publishable key của Ocean Project. Có thể chạy ngay sau `npm ci`. Để dùng project riêng, đặt cả `EXPO_PUBLIC_SUPABASE_URL` và `EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY` trong `.env.local`.
+Bản dành cho lớp học đã cấu hình URL và publishable key của project. Để dùng project riêng, cung cấp cả `EXPO_PUBLIC_SUPABASE_URL` và `EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY` trong `.env.local`.
 
-Nếu điện thoại báo SDK 54, kiểm tra đang chạy đúng bản `main` trong thư mục này bằng `npx expo config --type public` (sdkVersion phải là 58.0.0). Dừng Metro cũ, chạy lệnh bên trên rồi quét mã QR mới.
+Các migration bổ sung đã được áp dụng lên project `eennwumflulpfhcfzupe`. Kiểm tra lịch sử migration từ xa trước lần triển khai tiếp theo. Các file migration cũ và `supabase/schema.sql` cần đối chiếu với database hiện có trước khi chạy lại.
 
-### Expo Go on iOS/Android
+Service-role key và mật khẩu database thuộc cấu hình phía server. Các biến `EXPO_PUBLIC_*` được đóng gói vào ứng dụng và chỉ dùng cho thông tin được phép công khai.
 
-The default scripts use LAN mode when Expo Go reports that you must sign in:
+## Kiểm tra
 
 ```bash
-npm start
-# or
-npm run ios:lan
+npm run typecheck
+npm test
+npx expo-doctor
+npx expo export --platform ios --output-dir /tmp/ocean-ios-check
+npx expo export --platform android --output-dir /tmp/ocean-android-check
 ```
 
-The `--tunnel` mode requires an authenticated Expo CLI and Expo Go account. LAN mode avoids the tunnel, but the phone and development machine must be on the same network. If the Expo Go app itself displays a sign-in screen, sign in once in Expo Go; that is an app-level requirement and cannot be bypassed by Metro.
-
-Mở Supabase Dashboard → SQL Editor, dán và chạy toàn bộ file [`supabase/schema.sql`](./supabase/schema.sql). File này tạo các bảng báo cáo, sự kiện, đăng ký sự kiện, quyên góp và chỉ số tác động, kèm RLS policies và dữ liệu mẫu.
-
-Không đặt `sb_secret_*` hoặc database password vào `.env` của Expo. Secret/database credentials chỉ được dùng ở server-side hoặc Supabase Dashboard. Khi chưa cấu hình Supabase, ứng dụng vẫn chạy với dữ liệu demo và báo lỗi rõ ràng khi gửi dữ liệu.
-
-## Trạng thái xác minh
-
-Trạng thái remote Supabase phải được xác minh lại bằng project credentials hợp lệ trước khi áp dụng migration. Không ghi service-role key hoặc database password vào `.env` của Expo. Local typecheck và test chỉ được coi là hợp lệ sau khi dependency lockfile được cài đặt thành công.
+Một số giá trị cá nhân từ Figma đã được thay bằng nhãn hoặc dữ liệu tài khoản khi chạy. Một số ảnh thiết kế đang để trống do bước xét duyệt công khai. Danh sách giới hạn và phần việc còn lại nằm trong bản bàn giao.

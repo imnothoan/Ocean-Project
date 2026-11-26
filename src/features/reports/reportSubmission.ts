@@ -3,11 +3,12 @@ import { buildEvidencePath, type ReportDraft, validateReportDraft } from './repo
 type User = { id: string };
 type ReportRecord = { id: string; owner_id: string; category: ReportDraft['category']; title: string; location: string; status: string; created_at: string };
 
+export type EvidencePayload = { type: string; size: number; payload?: ArrayBuffer };
 export type ReportSubmissionDeps = {
   getUser: () => Promise<{ user: User | null; error: Error | null }>;
   createReport: (report: ReportRecord) => Promise<{ data: ReportRecord | null; error: Error | null }>;
-  readEvidence: (uri: string) => Promise<{ blob: Blob; error: Error | null }>;
-  uploadEvidence: (path: string, blob: Blob) => Promise<Error | null>;
+  readEvidence: (uri: string) => Promise<{ blob: EvidencePayload; error: Error | null }>;
+  uploadEvidence: (path: string, blob: EvidencePayload) => Promise<Error | null>;
   saveEvidence: (record: { report_id: string; owner_id: string; storage_path: string; content_type: string; byte_size: number }) => Promise<Error | null>;
   removeEvidence: (path: string) => Promise<void>;
   deleteReport: (id: string, ownerId: string) => Promise<void>;
@@ -22,7 +23,7 @@ export async function submitReport(draft: ReportDraft, deps: ReportSubmissionDep
   if (userError || !user) return { data: null, error: userError ?? new Error('You must be signed in to submit a report.') };
 
   const reportId = deps.createId();
-  const record = { id: reportId, owner_id: user.id, category: draft.category, title: draft.title.trim(), location: draft.location.trim(), status: 'submitted', created_at: new Date().toISOString() };
+  const record = { id: reportId, owner_id: user.id, category: draft.category, title: draft.title.trim(), location: draft.location.trim(), status: 'submitted', ...(draft.details ? { details:draft.details } : {}), created_at: new Date().toISOString() };
   const { data: report, error: reportError } = await deps.createReport(record);
   if (reportError || !report) return { data: null, error: reportError ?? new Error('Report could not be created.') };
 
@@ -31,7 +32,7 @@ export async function submitReport(draft: ReportDraft, deps: ReportSubmissionDep
     if (draft.photoUri) {
       const { blob, error: readError } = await deps.readEvidence(draft.photoUri);
       if (readError) throw readError;
-      if (!['image/jpeg', 'image/png', 'image/webp'].includes(blob.type) || blob.size > 10 * 1024 * 1024) {
+      if (!['image/jpeg', 'image/png', 'image/webp'].includes(blob.type) || blob.size === 0 || blob.size > 10 * 1024 * 1024) {
         throw new Error('Evidence must be JPG, PNG or WebP and smaller than 10 MB.');
       }
       uploadedPath = buildEvidencePath(user.id, reportId, `capture.${blob.type.split('/')[1]}`);

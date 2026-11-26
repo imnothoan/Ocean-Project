@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ActivityIndicator, Alert, Pressable, SafeAreaView, StyleSheet, Text, TextInput, View } from 'react-native';
+import { ActivityIndicator, KeyboardAvoidingView, Platform, Pressable, ScrollView, SafeAreaView, StyleSheet, Text, TextInput, View } from 'react-native';
 import { signIn, signUp } from './authService';
 import { colors, radii, spacing, typography } from '../../theme/tokens';
 
@@ -9,31 +9,40 @@ export function AuthScreen({ onBack }: { onBack: () => void }) {
   const [password, setPassword] = useState('');
   const [busy, setBusy] = useState(false);
 
+  const [notice, setNotice] = useState('');
+
   async function submit() {
+    if (busy) return;
+    setNotice('');
     if (!email.trim() || !email.includes('@') || password.length < 6) {
-      Alert.alert('Thông tin chưa hợp lệ', 'Email hợp lệ và mật khẩu tối thiểu 6 ký tự là bắt buộc.');
+      setNotice('Em hãy nhập email hợp lệ và mật khẩu tối thiểu 6 ký tự.');
       return;
     }
 
     setBusy(true);
-    const result = mode === 'signIn'
-      ? await signIn(email.trim(), password)
-      : await signUp(email.trim(), password);
-    setBusy(false);
-
-    if (result.error) {
-      Alert.alert('Không thể xác thực', result.error.message);
-      return;
+    try {
+      const { data, error } = mode === 'signIn'
+        ? await signIn(email.trim(), password)
+        : await signUp(email.trim(), password);
+      if (error) {
+        const message = error.code === 'invalid_credentials' ? 'Email hoặc mật khẩu chưa đúng.'
+          : error.code === 'email_not_confirmed' ? 'Hãy xác nhận email rồi đăng nhập lại.' : error.message;
+        setNotice(message);
+      } else if (data.session) {
+        onBack();
+      } else {
+        setNotice('Kiểm tra hộp thư để xác nhận tài khoản, sau đó đăng nhập.');
+        setMode('signIn');
+        setPassword('');
+      }
+    } catch {
+      setNotice('Không kết nối được. Kiểm tra mạng rồi thử lại.');
+    } finally {
+      setBusy(false);
     }
-
-    Alert.alert(
-      mode === 'signIn' ? 'Đăng nhập thành công' : 'Đã tạo tài khoản',
-      mode === 'signIn' ? 'Dữ liệu của bạn đã được đồng bộ.' : 'Kiểm tra email nếu Supabase yêu cầu xác nhận.',
-      [{ text: 'Đóng', onPress: onBack }]
-    );
   }
 
-  return <SafeAreaView style={styles.safe}><View style={styles.content}><Pressable onPress={onBack}><Text style={styles.back}>‹ Quay lại</Text></Pressable><Text style={styles.eyebrow}>OCEAN PROJECT</Text><Text style={styles.heading}>{mode === 'signIn' ? 'Chào mừng trở lại' : 'Tạo tài khoản'}</Text><Text style={styles.subtitle}>Đồng bộ báo cáo, sự kiện và tác động của bạn trên mọi thiết bị.</Text><View style={styles.card}><Text style={styles.label}>EMAIL</Text><TextInput autoCapitalize="none" autoComplete="email" keyboardType="email-address" value={email} onChangeText={setEmail} placeholder="you@example.com" placeholderTextColor={colors.muted} style={styles.input} /><Text style={styles.label}>MẬT KHẨU</Text><TextInput secureTextEntry value={password} onChangeText={setPassword} placeholder="Tối thiểu 6 ký tự" placeholderTextColor={colors.muted} style={styles.input} /><Pressable disabled={busy} style={styles.button} onPress={submit}>{busy ? <ActivityIndicator color={colors.white} /> : <Text style={styles.buttonText}>{mode === 'signIn' ? 'Đăng nhập' : 'Đăng ký'}</Text>}</Pressable></View><Pressable onPress={() => setMode(mode === 'signIn' ? 'signUp' : 'signIn')}><Text style={styles.switch}>{mode === 'signIn' ? 'Chưa có tài khoản? Đăng ký' : 'Đã có tài khoản? Đăng nhập'}</Text></Pressable></View></SafeAreaView>;
+  return <SafeAreaView style={styles.safe}><KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}><ScrollView keyboardShouldPersistTaps="handled" contentContainerStyle={styles.content}><Pressable onPress={onBack}><Text style={styles.back}>‹ Quay lại</Text></Pressable><Text style={styles.eyebrow}>OCEAN PROJECT</Text><Text style={styles.heading}>{mode === 'signIn' ? 'Chào mừng trở lại' : 'Tạo tài khoản'}</Text><Text style={styles.subtitle}>Đồng bộ báo cáo, sự kiện và tác động của bạn trên mọi thiết bị.</Text><View style={styles.card}><Text style={styles.label}>EMAIL</Text><TextInput autoCapitalize="none" autoComplete="email" keyboardType="email-address" value={email} onChangeText={setEmail} placeholder="you@example.com" placeholderTextColor={colors.muted} style={styles.input} /><Text style={styles.label}>MẬT KHẨU</Text><TextInput secureTextEntry value={password} onChangeText={setPassword} placeholder="Tối thiểu 6 ký tự" placeholderTextColor={colors.muted} style={styles.input} />{notice ? <Text accessibilityLiveRegion="polite" style={styles.subtitle}>{notice}</Text> : null}<Pressable accessibilityRole="button" disabled={busy} style={styles.button} onPress={submit}>{busy ? <ActivityIndicator color={colors.white} /> : <Text style={styles.buttonText}>{mode === 'signIn' ? 'Đăng nhập' : 'Đăng ký'}</Text>}</Pressable></View><Pressable disabled={busy} onPress={() => { setNotice(''); setMode(mode === 'signIn' ? 'signUp' : 'signIn'); }}><Text style={styles.switch}>{mode === 'signIn' ? 'Chưa có tài khoản? Đăng ký' : 'Đã có tài khoản? Đăng nhập'}</Text></Pressable></ScrollView></KeyboardAvoidingView></SafeAreaView>;
 }
 
 const styles = StyleSheet.create({

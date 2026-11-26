@@ -1,0 +1,9 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="353" height="76" viewBox="0 0 353 76" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Vector">
+<path d="M339 0H14C6.26801 0 0 6.26801 0 14V62C0 69.732 6.26801 76 14 76H339C346.732 76 353 69.732 353 62V14C353 6.26801 346.732 0 339 0Z" fill="#EDFBFF"/>
+<mask id="stroke0_0_26" fill="white">
+<path d="M339 0H14C6.26801 0 0 6.26801 0 14V62C0 69.732 6.26801 76 14 76H339C346.732 76 353 69.732 353 62V14C353 6.26801 346.732 0 339 0Z"/>
+</mask>
+<path d="M14 0H339C346.732 0 353 6.26801 353 14V62C353 69.732 346.732 76 339 76H14C6.26801 76 0 69.732 0 62V14C0 6.26801 6.26801 0 14 0Z" stroke-width="2" stroke="#C9D5DE" mask="url(#stroke0_0_26)"/>
+</g>
+</svg>

@@ -1,0 +1,12 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="340" height="74" viewBox="0 0 340 74" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="Vector">
+<use xlink:href="#stroke0_0_38" fill="#FEC968" fill-opacity="0.37"/>
+<mask id="stroke1_0_38" fill="white">
+<use xlink:href="#stroke0_0_38"/>
+</mask>
+<path d="M11.5581 0H328.442C334.825 0 340 6.41244 340 14.3226V59.6774C340 67.5876 334.825 74 328.442 74H11.5581C5.17473 74 0 67.5876 0 59.6774V14.3226C0 6.41244 5.17473 0 11.5581 0Z" stroke-width="2" stroke="#EFC984" mask="url(#stroke1_0_38)"/>
+</g>
+<defs>
+<path id="stroke0_0_38" d="M328.442 0H11.5581C5.17473 0 0 6.41244 0 14.3226V59.6774C0 67.5876 5.17473 74 11.5581 74H328.442C334.825 74 340 67.5876 340 59.6774V14.3226C340 6.41244 334.825 0 328.442 0Z"/>
+</defs>
+</svg>

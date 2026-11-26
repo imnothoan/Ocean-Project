@@ -1,3 +1,6 @@
+import { Platform } from 'react-native';
+import { File } from 'expo-file-system';
+import { randomUUID } from 'expo-crypto';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createClient } from '@supabase/supabase-js';
 import { type ReportDraft } from '../features/reports/reportValidation';
@@ -207,12 +210,26 @@ export async function submitReportWithEvidence(draft: ReportDraft) {
   const deps: ReportSubmissionDeps = {
     getUser: async () => ({ user: userData.user ? { id: userData.user.id } : null, error: userError }),
     createReport: async (record) => supabase.from('reports').insert(record).select('id, owner_id, category, title, location, status, created_at').single(),
-    readEvidence: async (uri) => { try { const response = await fetch(uri); if (!response.ok) return { blob: new Blob(), error: new Error('Evidence image could not be read.') }; return { blob: await response.blob(), error: null }; } catch (error) { return { blob: new Blob(), error: error instanceof Error ? error : new Error('Evidence image could not be read.') }; } },
-    uploadEvidence: async (path, blob) => (await supabase.storage.from('report-evidence').upload(path, blob, { contentType: blob.type, upsert: false })).error,
+    readEvidence: async (uri) => {
+      try {
+        const file = Platform.OS === 'web' ? null : new File(uri);
+        const response = file ? null : await fetch(uri);
+        if (response && !response.ok) throw new Error('Không đọc được ảnh.');
+        const bytes = file ? await file.arrayBuffer() : await response!.arrayBuffer();
+        const type = draft.photoMime || file?.type || response?.headers.get('content-type') || 'image/jpeg';
+        return { blob: { payload: bytes, type, size: bytes.byteLength }, error: null };
+      } catch (error) {
+        return { blob: { type: '', size: 0 }, error: error instanceof Error ? error : new Error('Không đọc được ảnh.') };
+      }
+    },
+    uploadEvidence: async (path, image) => {
+      if (!image.payload) return new Error('Thiếu dữ liệu ảnh.');
+      return (await supabase.storage.from('report-evidence').upload(path, image.payload, { contentType: image.type, upsert: false })).error;
+    },
     saveEvidence: async (record) => (await supabase.from('report_evidence').insert(record)).error,
     removeEvidence: async (path) => { await supabase.storage.from('report-evidence').remove([path]); },
     deleteReport: async (id, ownerId) => { await supabase.from('reports').delete().eq('id', id).eq('owner_id', ownerId); },
-    createId: () => globalThis.crypto?.randomUUID?.() ?? `${Date.now()}-${Math.random().toString(36).slice(2)}`
+    createId: randomUUID
   };
   return submitReport(draft, deps);
 }
@@ -270,7 +287,7 @@ export async function recordEventCheckIn(eventId: string, code: string) {
   if (!isSupabaseConfigured) return { data: null, error: new Error('Supabase is not configured.') };
   const { data: userData, error: userError } = await supabase.auth.getUser();
   if (userError || !userData.user) return { data: null, error: userError ?? new Error('You must be signed in to check in.') };
-  return supabase.from('event_checkins').insert({ event_id: eventId, user_id: userData.user.id, code }).select().single();
+  return supabase.rpc('check_in_to_event', { target: eventId, supplied_code: code.trim() });
 }
 
 export async function submitEventFeedback(eventId: string, rating: number, thoughts: string, enjoyed: string, joinAgain: string) {

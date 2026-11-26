@@ -3,6 +3,8 @@ export type ReportDraft = {
   title: string;
   location: string;
   photoUri?: string;
+  photoMime?: string;
+  details?: Record<string, string>;
 };
 
 export function validateReportDraft(draft: ReportDraft) {

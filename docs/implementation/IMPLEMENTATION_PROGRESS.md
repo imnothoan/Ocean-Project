@@ -1,3 +1,5 @@
+> Historical record. The current handoff and verified limitations are in [CODEX_HANDOFF.md](./CODEX_HANDOFF.md). The current per-frame inventory is [FIGMA_SCREEN_INVENTORY.md](./FIGMA_SCREEN_INVENTORY.md).
+
 # Implementation progress
 
 Updated: 2026-11-15
