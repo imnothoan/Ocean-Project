@@ -15,20 +15,17 @@
 ## Chạy bằng Expo Go
 
 ```bash
-npm install
-npm start
+npm ci
+npx expo start --go --lan --clear
 ```
 
 `npm start` đã được cấu hình chạy LAN để không cần Expo tunnel. Quét QR hiển thị trong terminal bằng Expo Go khi điện thoại và máy tính cùng mạng Wi-Fi. Tính năng camera cần cấp quyền khi được hỏi.
 
 ## Supabase
 
-Sao chép `.env.example` thành `.env` và điền:
+Bản dành cho lớp học đã cấu hình URL và publishable key của Ocean Project. Có thể chạy ngay sau `npm ci`. Để dùng project riêng, đặt cả `EXPO_PUBLIC_SUPABASE_URL` và `EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY` trong `.env.local`.
 
-```env
-EXPO_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
-EXPO_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
-```
+Nếu điện thoại báo SDK 54, kiểm tra đang chạy đúng bản `main` trong thư mục này bằng `npx expo config --type public` (sdkVersion phải là 58.0.0). Dừng Metro cũ, chạy lệnh bên trên rồi quét mã QR mới.
 
 ### Expo Go on iOS/Android
 

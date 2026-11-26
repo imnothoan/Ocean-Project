@@ -3,8 +3,14 @@ import { createClient } from '@supabase/supabase-js';
 import { type ReportDraft } from '../features/reports/reportValidation';
 import { submitReport, type ReportSubmissionDeps } from '../features/reports/reportSubmission';
 
-const supabaseUrl = process.env.EXPO_PUBLIC_SUPABASE_URL;
-const supabaseAnonKey = process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY;
+// Public Expo client configuration. A different project must supply its own key.
+const projectUrl = 'https://eennwumflulpfhcfzupe.supabase.co';
+const projectKey = 'sb_publishable_9FXGr60lua0RY2HtfJ5aEg_NoQwiMy7';
+const supabaseUrl = process.env.EXPO_PUBLIC_SUPABASE_URL || projectUrl;
+const configuredKey = process.env.EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY || process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY;
+const supabaseAnonKey = configuredKey && configuredKey !== 'your-anon-key'
+  ? configuredKey
+  : supabaseUrl === projectUrl ? projectKey : undefined;
 
 export const isSupabaseConfigured = Boolean(supabaseUrl && supabaseAnonKey);
 
