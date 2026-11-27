@@ -1,3 +1,4 @@
+import { GuideSource } from '../GuideCatalog';
 import { Artwork, Copy, Frame, Link, Surface } from '../components';
 
 // Figma 274:297 · 24_UI_Species_Detail
@@ -10,7 +11,7 @@ export function Frame24UiSpeciesDetailScreen() {
       <Artwork node="274:310" box={[-1, 131, 393, 238]} source={require('../../../../assets/figma/mobile/88448.jpg')} />
       <Artwork node="274:311" box={[0, 131, 392, 238]} source={require('../../../../assets/figma/mobile/409e4.svg')} />
       <Artwork node="274:312" box={[19, 151, 101, 22]} source={require('../../../../assets/figma/mobile/e19fa.svg')} />
-      <Copy node="274:313" box={[36, 154, 68, 16]} text={"ENDANGERED"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":12,"lineHeight":14.4,"color":"#ffffff","textAlign":"center"}} />
+      <Copy node="274:313" box={[36, 154, 68, 16]} text={"PROTECTED"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":12,"lineHeight":14.4,"color":"#ffffff","textAlign":"center"}} />
       <Copy node="274:314" box={[19, 286, 145, 31]} text={"Green sea turtle"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":23,"lineHeight":27.6,"color":"#ffffff","textAlign":"left"}} />
       <Copy node="274:315" box={[19, 320, 77, 16]} text={"Chelonia mydas"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":14.4,"color":"#ffffff","textAlign":"left"}} />
       <Copy node="274:316" box={[19, 343.3, 70, 16]} text={"Marine species"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":12,"lineHeight":14.4,"color":"#ffffff","textAlign":"left"}} />
@@ -50,6 +51,7 @@ export function Frame24UiSpeciesDetailScreen() {
       <Link node="274:300" box={[23, 69, 43, 43]} to="272:204" label={"23_UI_Species_Library"} />
       <Link node="274:353" box={[146, 782, 99, 16]} to="272:204" label={"23_UI_Species_Library"} />
       <Copy node="guideSave" box={[292,77,80,28]} text={"Save guide"} typeStyle={{fontFamily:"AfacadFlux_700Bold",fontSize:15,color:"#0186a8",textAlign:"center",backgroundColor:"#edfbff"}}/>
+      <GuideSource kind="species" frame="274:297" top={805} />
     </Frame>
   );
 }

@@ -1,112 +1,82 @@
-import { useState } from 'react';
-import { Text } from 'react-native';
+import { useEffect, useState } from 'react';
+import { Linking, Text } from 'react-native';
+import { supabase } from '../../lib/supabase';
 import { FlowSection, ListRow, SmallButton, styles, useLiveData } from './live';
 import { matchesQuery } from './communityView';
 import { action, choices, field, type Controller } from './workflow';
 
-type Entry = { title: string; category: string; summary: string; detail: string; route?: string };
-const waste: Entry[] = [
-  {
-    title: 'Paper & cardboard',
-    category: 'Paper',
-    summary: 'Clean and dry',
-    detail: 'Keep paper dry, flatten boxes and follow the local collection rules.',
-  },
-  {
-    title: 'Plastic bottle',
-    category: 'Plastic',
-    summary: 'Bottles & packaging',
-    detail: 'Check the resin mark and local recycling guidance.',
-    route: '269:124',
-  },
-  {
-    title: 'Glass',
-    category: 'Glass',
-    summary: 'Jars & bottles',
-    detail: 'Empty containers. Check separately for broken glass, mirrors and cookware.',
-  },
-  {
-    title: 'Metal',
-    category: 'Metal',
-    summary: 'Cans & foil',
-    detail: 'Empty and rinse containers before sorting them under local rules.',
-  },
-  {
-    title: 'Organic waste',
-    category: 'Organic',
-    summary: 'Food & garden',
-    detail: 'Use the accepted food scraps or garden waste collection in your area.',
-  },
-  {
-    title: 'Special waste',
-    category: 'Special',
-    summary: 'Batteries & bulbs',
-    detail: 'Use a designated collection point. Keep batteries and bulbs out of ordinary recycling.',
-  },
-];
-const species: Entry[] = [
-  {
-    title: 'Green sea turtle',
-    category: 'Marine',
-    summary: 'Protect nesting beaches',
-    detail: 'Tropical and subtropical oceans',
-    route: '274:297',
-  },
-  {
-    title: 'Jellyfish',
-    category: 'Marine',
-    summary: 'Marine wildlife',
-    detail: 'Observe from a safe distance. Avoid touching jellyfish, including those on the beach.',
-  },
-  {
-    title: 'Blue whale',
-    category: 'Mammals',
-    summary: 'Ocean habitat',
-    detail: 'Give whales space and follow guidance from local marine conservation teams.',
-  },
-];
-const tips: Entry[] = [
-  {
-    title: 'Carry a reusable bottle',
-    category: 'Food',
-    summary: 'Skip single-use plastic every day.',
-    detail: 'Carry a bottle and refill it on the go.',
-    route: '682:5569',
-  },
-  {
-    title: 'Start a mini compost bin',
-    category: 'Home',
-    summary: 'Turn kitchen scraps into soil.',
-    detail: 'Choose a suitable container and follow your local composting guidance.',
-  },
-  {
-    title: 'Unplug what you don’t use',
-    category: 'Home',
-    summary: 'Reduce standby power.',
-    detail: 'Switch off idle electronics when they can safely be disconnected.',
-  },
-  {
-    title: 'Carry a reusable bag',
-    category: 'Shopping',
-    summary: 'Prepare for your next shopping trip.',
-    detail: 'Keep a sturdy bag near the door or in your backpack.',
-  },
-  {
-    title: 'Refill on the road',
-    category: 'Travel',
-    summary: 'Pack a bottle for your trip.',
-    detail: 'Look for drinking-water refill stations when planning your route.',
-  },
-];
+type Entry = {
+  slug: string;
+  title: string;
+  categories: string[];
+  summary: string;
+  detail: string;
+  frame_id: string | null;
+  source_name: string;
+  source_url: string;
+};
+type Kind = 'waste' | 'species' | 'tips';
+function useGuides(kind: Kind) {
+  const [rows, setRows] = useState<Entry[]>([]);
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [attempt, setAttempt] = useState(0);
+  useEffect(() => {
+    let active = true;
+    setLoading(true);
+    setError('');
+    setRows([]);
+    supabase
+      .from('field_guides')
+      .select('slug,title,categories,summary,detail,frame_id,source_name,source_url')
+      .eq('kind', kind)
+      .order('sort_order')
+      .then((response) => {
+        if (active) {
+          setRows(response.data ?? []);
+          setError(response.error?.message ?? '');
+          setLoading(false);
+        }
+      });
+    return () => {
+      active = false;
+    };
+  }, [kind, attempt]);
+  return { rows, error, loading, retry: () => setAttempt((n) => n + 1) };
+}
+export function GuideSource({ kind, frame, top }: { kind: Kind; frame: string; top: number }) {
+  const { c } = useLiveData();
+  const { rows, error, retry } = useGuides(kind);
+  const item = rows.find((row) => row.frame_id === frame);
+  if (!item && !error) return null;
+  return (
+    <FlowSection top={top}>
+      {item ? (
+        <SmallButton
+          label={'Source · ' + item.source_name}
+          onPress={() => c.run(() => Linking.openURL(item.source_url))}
+        />
+      ) : (
+        <SmallButton label="Retry source" onPress={retry} />
+      )}
+    </FlowSection>
+  );
+}
 export function GuideCatalog({ kind }: { kind: 'waste' | 'species' | 'tips' }) {
   const { c } = useLiveData();
   const [expanded, setExpanded] = useState('');
-  const catalog = kind === 'waste' ? waste : kind === 'species' ? species : tips;
+  const { rows: catalog, error, loading, retry } = useGuides(kind);
   const category = c.values[kind + ':category'] || 'All';
   const entries = catalog.filter(
     (e) =>
-      (category === 'All' || e.category === category || (kind === 'species' && category === 'Marine')) &&
-      matchesQuery(c.values[kind + ':search'] || '', e.title, e.category, e.summary, e.detail),
+      (category === 'All' || e.categories.includes(category)) &&
+      matchesQuery(
+        c.values[kind + ':search'] || '',
+        e.title,
+        e.categories.join(' '),
+        e.summary,
+        e.detail,
+      ),
   );
   return (
     <FlowSection top={kind === 'waste' ? 230 : kind === 'species' ? 397 : 355}>
@@ -115,15 +85,33 @@ export function GuideCatalog({ kind }: { kind: 'waste' | 'species' | 'tips' }) {
       )}
       {entries.map((e) => (
         <ListRow
-          key={e.title}
+          key={e.slug}
           title={e.title}
           description={e.summary}
-          onPress={() => (e.route ? c.go(e.route) : setExpanded(e.title === expanded ? '' : e.title))}
+          onPress={() =>
+            e.frame_id ? c.go(e.frame_id) : setExpanded(e.title === expanded ? '' : e.title)
+          }
         >
-          {expanded === e.title && <Text style={styles.body}>{e.detail}</Text>}
+          {expanded === e.title && (
+            <>
+              <Text style={styles.body}>{e.detail}</Text>
+              <SmallButton
+                label={'Source · ' + e.source_name}
+                onPress={() => c.run(() => Linking.openURL(e.source_url))}
+              />
+            </>
+          )}
         </ListRow>
       ))}
-      {!entries.length && <Text style={styles.body}>No matching entries in this collection.</Text>}
+      {error ? (
+        <SmallButton label="Retry guides" onPress={retry} />
+      ) : (
+        !entries.length && (
+          <Text style={styles.body}>
+            {loading ? 'Loading guides…' : 'No matching entries in this collection.'}
+          </Text>
+        )
+      )}
       {kind === 'waste' && <SmallButton label="Sorting quiz" onPress={() => c.go('682:5716')} />}
       {kind === 'tips' && <SmallButton label="Daily missions" onPress={() => c.go('670:5000')} />}
     </FlowSection>

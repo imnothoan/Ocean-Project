@@ -1,3 +1,4 @@
+import { GuideSource } from '../GuideCatalog';
 import { Artwork, Copy, Frame, Link, Surface } from '../components';
 
 // Figma 682:5569 · 26_UI_Guide_Detail
@@ -51,6 +52,7 @@ export function Frame26UiGuideDetailScreen() {
       <Link node="682:5622" box={[131, 736, 241, 52]} to="682:5379" label={"25_UI_Green_Living_Tips"} />
       <Link node="759:595" box={[20, 70, 43, 43]} to="682:5379" label={"25_UI_Green_Living_Tips"} />
       <Copy node="guideSave" box={[292,77,80,28]} text={"Save guide"} typeStyle={{fontFamily:"AfacadFlux_700Bold",fontSize:15,color:"#0186a8",textAlign:"center",backgroundColor:"#edfbff"}}/>
+      <GuideSource kind="tips" frame="682:5569" top={805} />
     </Frame>
   );
 }

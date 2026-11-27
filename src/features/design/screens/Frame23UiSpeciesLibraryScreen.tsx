@@ -26,7 +26,7 @@ export function Frame23UiSpeciesLibraryScreen() {
       <Copy node="272:235" box={[35, 310, 145, 31]} text={"Green sea turtle"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":23,"lineHeight":27.6,"color":"#ffffff","textAlign":"left"}} />
       <Copy node="272:236" box={[35, 341, 148, 16]} text={"A gentle guardian of the ocean"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":14.4,"color":"#ffffff","textAlign":"left"}} />
       <Artwork node="272:237" box={[258, 338, 99, 24]} source={require('../../../../assets/figma/mobile/fb7aa.svg')} />
-      <Copy node="272:238" box={[274, 342, 68, 16]} text={"ENDANGERED"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":12,"lineHeight":14.4,"color":"#ffffff","textAlign":"center"}} />
+      <Copy node="272:238" box={[274, 342, 68, 16]} text={"PROTECTED"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":12,"lineHeight":14.4,"color":"#ffffff","textAlign":"center"}} />
       <Link node="272:207" box={[23, 69, 43, 43]} to="244:550" label={"20_UI_Knowledge_Hub"} />
       <Link node="272:232" box={[20, 224, 353, 157]} to="274:297" label={"24_UI_Species_Detail"} />
       <GuideCatalog kind="species"/>

@@ -1,3 +1,4 @@
+import { GuideSource } from '../GuideCatalog';
 import { Artwork, Copy, Frame, Link, Surface } from '../components';
 
 // Figma 269:124 · 22_UI_Waste_Item_Detail
@@ -46,6 +47,7 @@ export function Frame22UiWasteItemDetailScreen() {
       <Artwork node="269:201" box={[148, 180, 103, 107]} source={require('../../../../assets/figma/mobile/558ab.svg')} />
       <Link node="269:127" box={[23, 69, 43, 43]} to="263:2582" label={"21_UI_Waste_Sorting_Guide"} />
       <Copy node="guideSave" box={[292,77,80,28]} text={"Save guide"} typeStyle={{fontFamily:"AfacadFlux_700Bold",fontSize:15,color:"#0186a8",textAlign:"center",backgroundColor:"#edfbff"}}/>
+      <GuideSource kind="waste" frame="269:124" top={805} />
     </Frame>
   );
 }
