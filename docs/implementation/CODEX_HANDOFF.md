@@ -1,6 +1,14 @@
 # Bàn giao tiếp tục Ocean Project
 
-Cập nhật ngày 26 tháng 11 năm 2026. Đây là bản làm việc đang hoàn thiện. Người dùng yêu cầu tiếp tục trong Codex và cho phép commit, push trực tiếp lên `main` theo từng công đoạn.
+## Trạng thái ngày 27 tháng 11 năm 2026
+
+Nhánh `main` dùng Expo SDK 58, đã xuất iOS, Android và web. Đã nối tài khoản, cộng đồng, báo cáo, sự kiện, tập huấn, phân tích và hồ sơ với Supabase, và đối chiếu 21 migration với project của lớp. Luồng ghi cam kết quyên góp vẫn chờ nhà cung cấp thanh toán. Có bằng chứng giao diện web cho 116 màn hình và 5 trạng thái logo. Kiểm thử nghiệm thu Expo Go trên thiết bị thật đang chờ.
+
+[Kết quả và cách thử](VERIFICATION.md) · [Ảnh chụp ứng dụng](VISUAL_REVIEW.pdf) · [Tìm bằng node ID](SCREEN_CHECKS.csv)
+
+## Bản bàn giao ngày 26 tháng 11 năm 2026
+
+Ghi nhận tại thời điểm bàn giao ban đầu. Đây là bản làm việc đang hoàn thiện. Người dùng yêu cầu tiếp tục trong Codex và cho phép commit, push trực tiếp lên `main` theo từng công đoạn.
 
 ## Mục tiêu của tác giả
 

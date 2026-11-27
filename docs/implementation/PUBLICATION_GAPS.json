@@ -843,5 +843,12 @@
       "Q27Screen.tsx",
       "689:390"
     ]
-  ]
+  ],
+  "runtime_handling": {
+    "as_of": "2026-11-27",
+    "value_nodes": "Các màn tài khoản, bài viết, hồ sơ sự kiện, đơn tình nguyện và chứng nhận đọc bản ghi được phép. Màn chưa có bản ghi hoặc chưa có trường tương ứng dùng nội dung trung tính.",
+    "withheld_assets": "29 ảnh gốc tiếp tục nằm ngoài mã phân phối. 43 node ảnh giữ dấu vết nguồn. Profile dùng ảnh riêng hoặc chữ cái, bằng chứng và tổng kết dùng ảnh do người dùng tải lên khi có.",
+    "sensitive_evidence_nodes": "Các màn quản trị đọc vị trí, thời gian và bằng chứng được lưu trong báo cáo qua chính sách truy cập. Trường chưa có dữ liệu thu thập, kể cả thông số thiết bị, để trống.",
+    "verification": "VERIFICATION.md"
+  }
 }

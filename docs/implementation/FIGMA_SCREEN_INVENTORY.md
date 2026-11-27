@@ -2,6 +2,8 @@
 
 The page contains 116 visible product screens, five logo states and one hidden personal dashboard. The frame embedded inside the map is a child layer. The earlier catalog included standalone share and rectangle assets, and omitted actual community screens.
 
+The Expo Web comparison and a scenario for each of the 121 frames are in [SCREEN_CHECKS.csv](SCREEN_CHECKS.csv) and [the screenshot album](VISUAL_REVIEW.pdf). The device column below tracks physical Expo Go acceptance.
+
 The node link opens the source frame. The component link opens its native composition. Layer counts cover rendered text, imagery and surfaces. Navigation counts cover the authored tap targets captured in the implementation. Business data and system chrome can change the rendered state.
 
 | Group | Frame and Figma reference | Native route and component | Layers | Tap targets | Device acceptance |
