@@ -28,7 +28,7 @@ export function CreateEventStep1Screen() {
       <Copy node="258:1252" box={[146, 77, 101, 27]} text={"Create Event"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":20,"lineHeight":24.0,"color":"#3f596b","textAlign":"left"}} />
       <Surface node="258:1253" box={[20, 631, 353, 118]} fill={"#edfbff"} radius={10} stroke={[1,"#d7dadd"]} />
       <Copy node="258:1254" box={[34, 643, 148, 19]} text={"Goals and activity details..."} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":14,"lineHeight":16.8,"color":"#73787d","textAlign":"left"}} />
-      <Artwork node="258:1256" box={[20, 431, 353, 151]} source={require('../../../../assets/figma/mobile/5016a.png')} radius={10} />
+      <Artwork node="258:1256" box={[20, 431, 353, 151]} radius={10} fit="cover" source={require('../../../../assets/figma/mobile/5016a.png')} />
       <Link node="258:1245" box={[20, 768, 353, 50]} to="258:1279" label={"Create Event - Step 2"} />
       <Link node="258:1249" box={[23, 69, 43, 43]} to="back" label={"Back"} />
     </Frame>

@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { eventStart, calendarMonth } from '../src/features/design/eventDates';
+import { badges, badgeProgress } from '../src/features/design/badges';
 import { dayStreak, levelFor } from '../src/features/design/activity';
 import { mapItems } from '../src/features/design/mapResults';
 import { reportCsv, reportHtml } from '../src/features/design/reportFileContent';
@@ -73,6 +74,17 @@ describe('screen data', () => {
     ).toBe(2);
     expect(levelFor(3000).name).toBe('Planet Protector');
     expect(levelFor(2999).remaining).toBe(1);
+  });
+  it('starts each XP interval at zero and bases badges on recorded activity', () => {
+    expect(levelFor(0).fraction).toBe(0);
+    expect(levelFor(50).fraction).toBe(0.5);
+    expect(levelFor(100).fraction).toBe(0);
+    expect(levelFor(7000).fraction).toBe(1);
+    expect(new Set(badges.map(b => b.title)).size).toBe(24);
+    expect(badges.every(b => badgeProgress(b, {}) === 0)).toBe(true);
+    const team = badges.find(b => b.title === 'Team Player')!;
+    expect(badgeProgress(team, { events: 2 })).toBe(2);
+    expect(badgeProgress(team, { events: 9 })).toBe(team.target);
   });
   it('accepts recovery codes and the exact project recovery link', () => {
     const host = 'https://ocean.example';

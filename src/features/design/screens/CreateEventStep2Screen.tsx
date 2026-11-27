@@ -29,7 +29,7 @@ export function CreateEventStep2Screen() {
       <Artwork node="258:1306" box={[342, 539, 15, 15]} source={require('../../../../assets/figma/mobile/2090f.svg')} />
       <Artwork node="258:1307" box={[342, 622, 15, 15]} source={require('../../../../assets/figma/mobile/2090f.svg')} />
       <Artwork node="258:1308" box={[342, 705, 15, 15]} source={require('../../../../assets/figma/mobile/2090f.svg')} />
-      <Artwork node="258:1310" box={[20, 320, 353, 151]} source={require('../../../../assets/figma/mobile/f9a20.png')} />
+      <Artwork node="258:1310" box={[20, 320, 353, 151]} radius={10} imageBox={[-57.40002, -36.11646, 484.78335, 225.10668]} source={require('../../../../assets/figma/mobile/f9a20.png')} />
       <Link node="258:1298" box={[20, 768, 353, 50]} to="708:684" label={"Create Event - Step 3"} />
       <Link node="258:1302" box={[23, 69, 43, 43]} to="back" label={"Back"} />
     </Frame>

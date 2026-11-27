@@ -11,7 +11,7 @@ export function Frame20UiKnowledgeHubScreen() {
       <Artwork node="244:560" box={[20, 130, 353, 43]} source={require('../../../../assets/figma/mobile/478a0.svg')} />
       <Artwork node="244:561" box={[34.58, 143.58, 15.67, 15.67]} source={require('../../../../assets/figma/mobile/7e0fa.svg')} />
       <Copy node="244:564" box={[61, 143, 120, 16]} text={"Guides, species, eco tips..."} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":14.4,"color":"#7b92a1","textAlign":"left"}} />
-      <Artwork node="244:568" box={[20, 187, 353, 166]} source={require('../../../../assets/figma/mobile/978c5.jpg')} />
+      <Artwork node="244:568" box={[20, 187, 353, 166]} radius={18} source={require('../../../../assets/figma/mobile/978c5.jpg')} />
       <Artwork node="244:569" box={[20, 187, 353, 166]} source={require('../../../../assets/figma/mobile/1769f.svg')} />
       <Copy node="244:572" box={[35, 230, 159, 28]} text={"A healthier ocean"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":23,"lineHeight":28,"color":"#ffffff","textAlign":"left"}} />
       <Copy node="244:573" box={[35, 258, 124, 28]} text={"starts with us."} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":23,"lineHeight":28,"color":"#ffffff","textAlign":"left"}} />
@@ -20,7 +20,7 @@ export function Frame20UiKnowledgeHubScreen() {
       <Copy node="244:578" box={[342, 370.5, 31, 16]} text={"See all"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":12,"lineHeight":14.4,"color":"#0186a8","textAlign":"right"}} />
       <Copy node="244:593" box={[20, 500, 151, 23]} text={"Recommended for you"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":17,"lineHeight":20.4,"color":"#091727","textAlign":"left"}} />
       <Artwork node="244:594" box={[19.6, 526.6, 353.8, 112.8]} source={require('../../../../assets/figma/mobile/9005e.svg')} />
-      <Artwork node="244:598" box={[29, 536, 109, 94]} source={require('../../../../assets/figma/mobile/88448.jpg')} />
+      <Artwork node="244:598" box={[29, 536, 109, 94]} radius={11} source={require('../../../../assets/figma/mobile/88448.jpg')} />
       <Artwork node="244:599" box={[150, 537, 97, 18]} source={require('../../../../assets/figma/mobile/dfba4.svg')} />
       <Copy node="244:600" box={[158, 539, 81, 16]} text={"WILDLIFE · 5 MIN"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":12,"lineHeight":14.4,"color":"#178b72","textAlign":"center"}} />
       <Copy node="244:601" box={[150, 562, 116, 19]} text={"Protecting sea turtles"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":14,"lineHeight":16.8,"color":"#091727","textAlign":"left"}} />
@@ -28,7 +28,7 @@ export function Frame20UiKnowledgeHubScreen() {
       <Copy node="244:603" box={[150, 598, 88, 16]} text={"keep oceans safer."} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":14.4,"color":"#3f596b","textAlign":"left"}} />
       <Copy node="244:604" box={[150, 616, 52, 16]} text={"Read more"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":12,"lineHeight":14.4,"color":"#0186a8","textAlign":"left"}} />
       <Artwork node="244:605" box={[19.6, 649.6, 353.8, 112.8]} source={require('../../../../assets/figma/mobile/ed26b.svg')} />
-      <Artwork node="244:609" box={[29, 659, 109, 94]} source={require('../../../../assets/figma/mobile/4f4d2.jpg')} />
+      <Artwork node="244:609" box={[29, 659, 109, 94]} radius={11} source={require('../../../../assets/figma/mobile/4f4d2.jpg')} />
       <Artwork node="244:610" box={[150, 660, 89, 18]} source={require('../../../../assets/figma/mobile/178b1.svg')} />
       <Copy node="244:611" box={[154, 662, 81, 16]} text={"ECO TIPS · 3 MIN"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":12,"lineHeight":14.4,"color":"#3f596b","textAlign":"center"}} />
       <Copy node="244:612" box={[150, 685, 108, 19]} text={"A low-waste routine"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":14,"lineHeight":16.8,"color":"#091727","textAlign":"left"}} />

@@ -18,7 +18,7 @@ export function Frame25UiGreenLivingTipsScreen() {
       <Copy node="682:5396" box={[185, 137, 29, 16]} text={"Travel"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":12,"lineHeight":14.4,"color":"#0186a8","textAlign":"center"}} />
       <Artwork node="682:5397" box={[232.16, 132, 61.03, 26]} source={require('../../../../assets/figma/mobile/60acb.svg')} />
       <Copy node="682:5398" box={[240, 137, 45, 16]} text={"Shopping"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":12,"lineHeight":14.4,"color":"#0186a8","textAlign":"center"}} />
-      <Artwork node="682:5402" box={[23, 174, 353, 168]} source={require('../../../../assets/figma/mobile/b459d.jpg')} />
+      <Artwork node="682:5402" box={[23, 174, 353, 168]} radius={22} source={require('../../../../assets/figma/mobile/b459d.jpg')} />
       <Artwork node="682:5403" box={[23, 174, 353, 168]} source={require('../../../../assets/figma/mobile/354ed.svg')} />
       <Copy node="682:5406" box={[37, 257, 151, 28]} text={"Swap one bottle,"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":23,"lineHeight":28,"color":"#ffffff","textAlign":"left"}} />
       <Copy node="682:5407" box={[37, 285, 143, 28]} text={"save a hundred."} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":23,"lineHeight":28,"color":"#ffffff","textAlign":"left"}} />

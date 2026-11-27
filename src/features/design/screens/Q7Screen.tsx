@@ -5,7 +5,7 @@ export function Q7Screen() {
   return (
     <Frame id="292:3829" width={393.0} height={1179} background={"rgba(255,255,255,0.6)"}>
       <Surface node="383:3631" box={[22, 519, 350, 83]} fill={"#ffffff"} radius={16} stroke={[0.5,"rgba(0,0,0,0.4)"]} />
-      <Artwork node="383:3633" box={[34, 530, 58, 60]} source={require('../../../../assets/figma/mobile/e4d1c.jpg')} radius={5} />
+      <Artwork node="383:3633" box={[34, 530, 58, 60]} radius={5} fit="cover" source={require('../../../../assets/figma/mobile/e4d1c.jpg')} />
       <Copy node="383:3636" box={[114, 552, 258, 16]} text={"Type: Waste Pollution"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":13,"lineHeight":15.6,"color":"#2b2b2b","textAlign":"left"}} />
       <Copy node="383:3637" box={[115, 572, 99.15, 16]} text={"Updated: 10 mins ago"} typeStyle={{"fontFamily":"PatrickHand_400Regular","fontSize":13,"lineHeight":15.6,"color":"#2b2b2b","textAlign":"left"}} />
       <Copy node="383:3639" box={[285, 572, 78, 16]} text={"View Details >"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":13,"lineHeight":15.6,"color":"#2b2b2b","textAlign":"left"}} />

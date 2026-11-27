@@ -31,7 +31,7 @@ export function Frame15NotificationDetailScreen() {
       <Copy node="264:1166" box={[88, 663, 263, 11]} text={"Avoid danger. Follow verified updates."} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":15,"color":"#3f596b","textAlign":"left"}} />
       <Surface node="264:1167" box={[23, 721, 345, 46]} fill={"#43c4d6"} radius={23} />
       <Copy node="264:1168" box={[28, 732, 335, 27]} text={"View report on map"} typeStyle={{"fontFamily":"AfacadFlux_600SemiBold","fontSize":16,"lineHeight":20,"color":"#ffffff","textAlign":"center"}} />
-      <Artwork node="264:1170" box={[24, 318, 345, 164]} source={require('../../../../assets/figma/mobile/572e4.png')} />
+      <Artwork node="264:1170" box={[24, 318, 345, 164]} radius={12} imageBox={[0.36372, -79.17526, 345, 259.56112]} source={require('../../../../assets/figma/mobile/572e4.png')} />
       <Surface node="892:2782" box={[112.71, 67, 165.3, 43]} fill={"#a5e0f2"} radius={20} />
       <Artwork node="892:2783" box={[21, 66, 43.3, 43.3]} source={require('../../../../assets/figma/mobile/7330f.svg')} />
       <Artwork node="892:2786" box={[330, 66, 43.3, 43.3]} source={require('../../../../assets/figma/mobile/9fd81.svg')} />

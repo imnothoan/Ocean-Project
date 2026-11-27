@@ -15,7 +15,7 @@ export function Frame16ReportStatusTrackerScreen() {
       <Copy node="1249:232" box={[182, 217, 91, 22]} text={"Report ID"} typeStyle={{"fontFamily":"Inter_400Regular","fontSize":12.331579208374023,"lineHeight":14.8,"color":"#637b89","textAlign":"left"}} />
       <Copy node="1249:233" box={[182, 238, 147, 23]} text={"POL-2026-0487"} typeStyle={{"fontFamily":"Inter_700Bold","fontSize":16.8157901763916,"lineHeight":20.18,"color":"#183044","textAlign":"left"}} />
       <Copy node="1249:234" box={[182, 266, 180, 22]} text={"Submitted 13 Oct 2026 • 09:45"} typeStyle={{"fontFamily":"Inter_400Regular","fontSize":11.210526466369629,"lineHeight":13.45,"color":"#637b89","textAlign":"left"}} />
-      <Artwork node="1249:335" box={[36, 213, 130, 82]} source={require('../../../../assets/figma/mobile/13615.png')} radius={12} />
+      <Artwork node="1249:335" box={[36, 213, 130, 82]} radius={12} fit="cover" source={require('../../../../assets/figma/mobile/13615.png')} />
       <Link node="1249:290" box={[23, 66, 43, 43]} to="back" label={"Back"} />
       <ReportTimeline/>
     </Frame>

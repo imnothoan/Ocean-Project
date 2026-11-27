@@ -5,7 +5,7 @@ export function Q2Screen() {
   return (
     <Frame id="292:3312" width={393.0} height={852} background={"#ffffff"}>
       <Surface node="381:1049" box={[22, 519, 350, 83]} fill={"#ffffff"} radius={16} stroke={[0.5,"rgba(0,0,0,0.4)"]} />
-      <Artwork node="381:1051" box={[34, 530, 58, 60]} source={require('../../../../assets/figma/mobile/e4d1c.jpg')} radius={5} />
+      <Artwork node="381:1051" box={[34, 530, 58, 60]} radius={5} fit="cover" source={require('../../../../assets/figma/mobile/e4d1c.jpg')} />
       <Copy node="381:1053" box={[114, 526, 258, 23]} text={"Thu Bon River"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":19,"lineHeight":22.8,"color":"#2b2b2b","textAlign":"left"}} />
       <Copy node="381:1054" box={[114, 552, 258, 16]} text={"Type: Waste Pollution"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":13,"lineHeight":15.6,"color":"#2b2b2b","textAlign":"left"}} />
       <Copy node="381:1055" box={[115, 572, 99.15, 16]} text={"Updated: 10 mins ago"} typeStyle={{"fontFamily":"PatrickHand_400Regular","fontSize":13,"lineHeight":15.6,"color":"#2b2b2b","textAlign":"left"}} />

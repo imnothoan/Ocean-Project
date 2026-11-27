@@ -1,6 +1,8 @@
 import React, { createContext, isValidElement, useContext } from 'react';
+import { OceanTabBar } from './OceanTabBar';
 import { Image } from 'expo-image';
 import {
+  Keyboard,
   KeyboardAvoidingView,
   Platform,
   Pressable,
@@ -56,7 +58,15 @@ export function Artwork({
   source,
   radius = 0,
   content: custom,
-}: Layer & { content?: React.ReactNode; source?: number; radius?: number }) {
+  fit = 'fill',
+  imageBox,
+}: Layer & {
+  content?: React.ReactNode;
+  source?: number;
+  radius?: number;
+  fit?: 'cover' | 'fill';
+  imageBox?: Box;
+}) {
   const style = usePlacement(box);
   const binding = useContext(Interaction);
   const { scale } = useContext(Geometry);
@@ -70,9 +80,19 @@ export function Artwork({
       <Image
         source={uri ? { uri } : source}
         accessible={false}
-        contentFit={uri ? 'cover' : 'fill'}
+        contentFit={uri ? 'cover' : fit}
         cachePolicy="memory-disk"
-        style={[StyleSheet.absoluteFill, { borderRadius: radius * scale }]}
+        style={
+          imageBox && !uri
+            ? {
+                position: 'absolute',
+                left: imageBox[0] * scale,
+                top: imageBox[1] * scale,
+                width: imageBox[2] * scale,
+                height: imageBox[3] * scale,
+              }
+            : StyleSheet.absoluteFill
+        }
       />
     ) : null);
   const action = binding.actions?.[node];
@@ -82,7 +102,7 @@ export function Artwork({
       accessibilityRole="button"
       accessibilityLabel={binding.labels?.[node] || 'Open'}
       onPress={action}
-      style={style}
+      style={[style, { borderRadius: radius * scale, overflow: 'hidden' }]}
     >
       {content}
     </Pressable>
@@ -152,7 +172,12 @@ export function Copy({
   typeStyle,
   runs,
   lines,
-}: Layer & { text: string; typeStyle: TextStyle; runs?: [number, number, string | null][]; lines?: number }) {
+}: Layer & {
+  text: string;
+  typeStyle: TextStyle;
+  runs?: [number, number, string | null][];
+  lines?: number;
+}) {
   const binding = useContext(Interaction);
   const { scale } = useContext(Geometry);
   const position = usePlacement(box);
@@ -188,8 +213,18 @@ export function Copy({
         ]}
       />
     );
+  const lineCount =
+    lines ??
+    Math.max(1, Math.round(box[3] / (typeStyle.lineHeight || (typeStyle.fontSize || 14) * 1.2)));
   const content = (
-    <Text allowFontScaling={false} numberOfLines={lines} style={style}>
+    <Text
+      allowFontScaling={false}
+      numberOfLines={lineCount}
+      adjustsFontSizeToFit={lineCount === 1}
+      minimumFontScale={0.85}
+      ellipsizeMode="tail"
+      style={style}
+    >
       {runs && label === text && !binding.tint?.[node]
         ? runs.map(([start, end, color]) => (
             <Text key={start} style={{ color: color ?? style.color }}>
@@ -207,12 +242,12 @@ export function Copy({
       accessibilityLabel={label}
       onPress={action}
       hitSlop={5}
-      style={position}
+      style={[position, { overflow: 'hidden' }]}
     >
       {content}
     </Pressable>
   ) : (
-    <View pointerEvents="none" style={position}>
+    <View pointerEvents="none" style={[position, { overflow: 'hidden' }]}>
       {content}
     </View>
   );
@@ -237,8 +272,8 @@ export function Link({ node, box, to, label }: Layer & { to: string; label: stri
     />
   );
 }
-export function Footer({ children }: { top: number; children: React.ReactNode }) {
-  return <>{children}</>;
+export function Footer(_props: { top: number }) {
+  return null;
 }
 export function Frame({
   id,
@@ -253,6 +288,16 @@ export function Frame({
   background: string;
   children: React.ReactNode;
 }) {
+  const { navigate } = useContext(Interaction);
+  const [keyboardOpen, setKeyboardOpen] = React.useState(Keyboard.isVisible());
+  React.useEffect(() => {
+    const show = Keyboard.addListener('keyboardDidShow', () => setKeyboardOpen(true));
+    const hide = Keyboard.addListener('keyboardDidHide', () => setKeyboardOpen(false));
+    return () => {
+      show.remove();
+      hide.remove();
+    };
+  }, []);
   const window = useWindowDimensions();
   const insets = useSafeAreaInsets();
   const scale = Math.min(window.width, 600) / width;
@@ -272,7 +317,7 @@ export function Frame({
         flex: 1,
         backgroundColor: background,
         paddingTop: logo ? 0 : insets.top,
-        paddingBottom: logo ? 0 : insets.bottom,
+        paddingBottom: logo || keyboardOpen ? 0 : insets.bottom + (footer ? 23 * scale : 0),
         alignItems: 'center',
       }}
     >
@@ -285,11 +330,7 @@ export function Frame({
       >
         <Geometry.Provider value={{ scale, offset }}>{content}</Geometry.Provider>
       </ScrollView>
-      {footer && (
-        <View style={{ width: width * scale, height: Math.max(0, (831 - bottom) * scale) }}>
-          <Geometry.Provider value={{ scale, offset: bottom }}>{footer}</Geometry.Provider>
-        </View>
-      )}
+      {footer && !keyboardOpen && <OceanTabBar screen={id} scale={scale} navigate={navigate} />}
     </KeyboardAvoidingView>
   );
 }

@@ -20,12 +20,12 @@ export function Q28Screen() {
       <Copy node="689:450" box={[44, 553, 136, 14]} text={"Submission Time Offset"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":13,"lineHeight":14,"color":"#0f172a","textAlign":"left"}} />
       <Artwork node="689:451" box={[44, 490.3, 304, 0.7]} source={require('../../../../assets/figma/mobile/d4ee6.svg')} />
       <Artwork node="689:452" box={[44, 546.3, 304, 0.7]} source={require('../../../../assets/figma/mobile/d4ee6.svg')} />
-      <Artwork node="689:455" box={[21, 196, 350, 200]} source={require('../../../../assets/figma/mobile/7120a.jpg')} />
+      <Artwork node="689:455" box={[21, 196, 350, 200]} fit="cover" source={require('../../../../assets/figma/mobile/7120a.jpg')} />
       <Surface node="689:457" box={[32, 207, 59, 26]} fill={"#e3f3f7"} radius={12} />
       <Copy node="689:458" box={[41, 213, 42, 14]} text={""} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":10,"lineHeight":22.8,"color":"#2b2b2b","textAlign":"left"}} />
-      <Artwork node="689:459" box={[252, 408, 96, 44]} source={require('../../../../assets/figma/mobile/d0fe7.jpg')} radius={5} />
-      <Artwork node="689:460" box={[149, 408, 96, 44]} source={require('../../../../assets/figma/mobile/6e400.jpg')} radius={5} />
-      <Artwork node="689:461" box={[44, 408, 96, 44]} source={require('../../../../assets/figma/mobile/7120a.jpg')} radius={5} />
+      <Artwork node="689:459" box={[252, 408, 96, 44]} radius={5} fit="cover" source={require('../../../../assets/figma/mobile/d0fe7.jpg')} />
+      <Artwork node="689:460" box={[149, 408, 96, 44]} radius={5} fit="cover" source={require('../../../../assets/figma/mobile/6e400.jpg')} />
+      <Artwork node="689:461" box={[44, 408, 96, 44]} radius={5} fit="cover" source={require('../../../../assets/figma/mobile/7120a.jpg')} />
       <Surface node="689:463" box={[23, 599, 350, 219]} fill={"#ffffff"} radius={16} stroke={[0.5,"rgba(0,0,0,0.4)"]} />
       <Copy node="689:465" box={[47, 617, 190, 23]} text={""} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":19,"lineHeight":22.8,"color":"#2b2b2b","textAlign":"left"}} />
       <Copy node="689:466" box={[47, 639, 164, 23]} text={""} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":22.8,"color":"#2b2b2b","textAlign":"left"}} />

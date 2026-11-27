@@ -5,7 +5,7 @@ export function Frame5PollutionWasteTypeScreen() {
   return (
     <Frame id="230:1285" width={393.0} height={852} background={"#ffffff"}>
       <Surface node="242:4909" box={[24, 340, 345, 124]} fill={"#ffffff"} radius={14} stroke={[1,"#d8e5ec"]} shadow={[0,3,9,0,"rgba(34,87,112,0.09)"]} />
-      <Artwork node="242:4930" box={[37, 353, 119, 98]} source={require('../../../../assets/figma/mobile/52b82.png')} radius={11} />
+      <Artwork node="242:4930" box={[37, 353, 119, 98]} radius={11} fit="cover" source={require('../../../../assets/figma/mobile/52b82.png')} />
       <Copy node="242:4925" box={[169, 358, 179, 29]} text={"Plastic pollution"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":17,"lineHeight":21,"color":"#091727","textAlign":"left"}} />
       <Copy node="242:4926" box={[169, 387, 173, 52]} text={"Bottles, bags, packaging\nand containers."} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":13,"lineHeight":16,"color":"#3f596b","textAlign":"left"}} />
       <Artwork node="242:4927" box={[332, 394, 24, 21]} source={require('../../../../assets/figma/mobile/487a2.svg')} />

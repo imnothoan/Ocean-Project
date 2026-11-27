@@ -20,11 +20,11 @@ export function Q31Screen() {
       <Copy node="562:849" box={[244, 553, 111, 17]} text={"Updated: 10 mins ago"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12.5,"lineHeight":15.0,"color":"#2b2b2b","textAlign":"center"}} />
       <Artwork node="562:852" box={[22, 357, 30, 30]} source={require('../../../../assets/figma/mobile/5c687.svg')} />
       <Artwork node="562:855" box={[340, 358, 30, 30]} source={require('../../../../assets/figma/mobile/1536c.svg')} />
-      <Artwork node="562:859" box={[68, 345, 54, 56]} source={require('../../../../assets/figma/mobile/4db2c.jpg')} radius={16} />
-      <Artwork node="562:860" box={[136, 345, 54, 56]} source={require('../../../../assets/figma/mobile/d0fe7.jpg')} radius={16} />
-      <Artwork node="562:861" box={[204, 345, 54, 56]} source={require('../../../../assets/figma/mobile/6e400.jpg')} radius={16} />
-      <Artwork node="562:862" box={[272, 345, 54, 56]} source={require('../../../../assets/figma/mobile/7120a.jpg')} radius={16} />
-      <Artwork node="562:863" box={[22, 134, 347.71, 196.43]} source={require('../../../../assets/figma/mobile/4db2c.jpg')} radius={16} />
+      <Artwork node="562:859" box={[68, 345, 54, 56]} radius={16} fit="cover" source={require('../../../../assets/figma/mobile/4db2c.jpg')} />
+      <Artwork node="562:860" box={[136, 345, 54, 56]} radius={16} fit="cover" source={require('../../../../assets/figma/mobile/d0fe7.jpg')} />
+      <Artwork node="562:861" box={[204, 345, 54, 56]} radius={16} fit="cover" source={require('../../../../assets/figma/mobile/6e400.jpg')} />
+      <Artwork node="562:862" box={[272, 345, 54, 56]} radius={16} fit="cover" source={require('../../../../assets/figma/mobile/7120a.jpg')} />
+      <Artwork node="562:863" box={[22, 134, 347.71, 196.43]} radius={16} fit="cover" source={require('../../../../assets/figma/mobile/4db2c.jpg')} />
       <Surface node="562:865" box={[120, 69, 153.31, 43]} fill={"#a5e0f2"} radius={20} />
       <Artwork node="562:866" box={[23, 69, 43, 43]} source={require('../../../../assets/figma/mobile/9e88c.svg')} />
       <Copy node="562:869" box={[144, 76, 106.61, 27]} text={"Report Detail"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":20,"lineHeight":24.0,"color":"#3f596b","textAlign":"left"}} />

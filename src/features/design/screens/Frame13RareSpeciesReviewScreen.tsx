@@ -14,7 +14,7 @@ export function Frame13RareSpeciesReviewScreen() {
       <Copy node="255:921" box={[151, 256, 124, 30]} text={"Species evidence"} typeStyle={{"fontFamily":"AfacadFlux_600SemiBold","fontSize":16,"lineHeight":20,"color":"#091727","textAlign":"left"}} />
       <Copy node="255:922" box={[151, 285, 152, 17]} text={"Two photos attached"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":13,"lineHeight":16.25,"color":"#3f596b","textAlign":"left"}} />
       <Artwork node="255:923" box={[339, 275, 17, 17]} source={require('../../../../assets/figma/mobile/0c3ac.svg')} />
-      <Artwork node="255:949" box={[37, 244, 105, 90]} source={require('../../../../assets/figma/mobile/6090e.png')} />
+      <Artwork node="255:949" box={[37, 244, 105, 90]} radius={12} imageBox={[-0.46317, 0.09836, 124.48369, 90]} source={require('../../../../assets/figma/mobile/6090e.png')} />
       <Surface node="255:925" box={[24, 356, 345, 220]} fill={"#ffffff"} radius={13} stroke={[1,"#d8e5ec"]} />
       <Copy node="255:926" box={[37, 368, 140, 26]} text={"Species"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":13,"lineHeight":16.25,"color":"#3f596b","textAlign":"left"}} />
       <Copy node="255:927" box={[170, 367, 182, 27]} text={"Green sea turtle"} typeStyle={{"fontFamily":"AfacadFlux_600SemiBold","fontSize":14,"lineHeight":17.5,"color":"#091727","textAlign":"right"}} />

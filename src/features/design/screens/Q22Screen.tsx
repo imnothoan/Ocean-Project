@@ -4,7 +4,7 @@ import { Artwork, Copy, Frame, Link, Surface } from '../components';
 export function Q22Screen() {
   return (
     <Frame id="403:3026" width={393.0} height={852} background={"#ffffff"}>
-      <Artwork node="403:3027" box={[0, 218, 393, 313]} source={require('../../../../assets/figma/mobile/9187a.png')} />
+      <Artwork node="403:3027" box={[0, 218, 393, 313]} fit="cover" source={require('../../../../assets/figma/mobile/9187a.png')} />
       <Surface node="403:3029" box={[0, 463, 393, 389]} fill={"#ffffff"} radius={24} />
       <Surface node="403:3030" box={[172, 476, 56, 10]} fill={"#0186a8"} radius={10} />
       <Copy node="403:3031" box={[130, 798, 133, 17]} text={"Open External Map App"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":13,"lineHeight":15.6,"color":"#000000b2","textAlign":"left"}} />

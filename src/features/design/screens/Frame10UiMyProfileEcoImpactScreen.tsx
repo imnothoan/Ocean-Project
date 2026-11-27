@@ -102,12 +102,12 @@ export function Frame10UiMyProfileEcoImpactScreen() {
       <Artwork node="721:367" box={[19, 382, 353, 115]} source={require('../../../../assets/figma/mobile/1f702.svg')} />
       <Artwork node="721:368" box={[45, 411, 54, 54]} source={require('../../../../assets/figma/mobile/a2500.svg')} />
       <Artwork node="721:369" box={[60.87, 426.2, 22.88, 24.18]} source={require('../../../../assets/figma/mobile/09008.svg')} />
-      <Copy node="721:371" box={[120, 400, 36, 16]} text={"LEVEL 4"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":12,"lineHeight":14.4,"color":"#ffffff","textAlign":"left"}} />
-      <Copy node="721:372" box={[120, 416, 105, 27]} text={"Eco Guardian"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":20,"lineHeight":24.0,"color":"#ffffff","textAlign":"left"}} />
-      <Copy node="721:373" box={[120, 443, 80, 16]} text={"2,460 / 3,000 XP"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":14.4,"color":"#ffffff","textAlign":"left"}} />
+      <Copy node="721:371" box={[120, 400, 228, 16]} text={"LEVEL 4"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":12,"lineHeight":14.4,"color":"#ffffff","textAlign":"left"}} />
+      <Copy node="721:372" box={[120, 416, 228, 27]} text={"Eco Guardian"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":20,"lineHeight":24.0,"color":"#ffffff","textAlign":"left"}} />
+      <Copy node="721:373" box={[120, 443, 228, 16]} text={"2,460 / 3,000 XP"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":14.4,"color":"#ffffff","textAlign":"left"}} />
       <Artwork node="721:374" box={[120, 464, 228, 6]} source={require('../../../../assets/figma/mobile/46419.svg')} />
       <Artwork node="721:375" box={[120, 464, 187, 6]} source={require('../../../../assets/figma/mobile/16d7e.svg')} />
-      <Copy node="721:376" box={[120, 477, 82, 16]} text={"540 XP to Level 5"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":14.4,"color":"#ffffff","textAlign":"left"}} />
+      <Copy node="721:376" box={[120, 477, 228, 16]} text={"540 XP to Level 5"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":14.4,"color":"#ffffff","textAlign":"left"}} />
       <Copy node="721:240" box={[193, 354, 179, 23]} text={"View Network Impact"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":17,"lineHeight":20.4,"color":"#3f596b","textAlign":"right","fontStyle":"italic"}} />
       <Artwork node="721:900" box={[339, 110, 23, 25]} source={require('../../../../assets/figma/mobile/91f35.svg')} />
       <Copy node="737:908" box={[19, 228, 144, 20]} text={"Go to Admin Dashboard"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":15,"lineHeight":18.0,"color":"#091727","textAlign":"left"}} />
@@ -127,25 +127,7 @@ export function Frame10UiMyProfileEcoImpactScreen() {
       <Link node="721:240" box={[193, 354, 179, 23]} to="311:488" label={"Frame 2 - Community Dashboard"} />
       <Link node="721:900" box={[339, 110, 23, 25]} to="311:1506" label={"Frame 12 - Export & Share"} />
       <Link node="737:908" box={[19, 228, 144, 20]} to="722:6967" label={"Q - 37"} />
-      <Footer top={751}>
-        <Surface node="949:561" box={[0, 751, 393, 101]} fill={"#ffffff"} />
-        <Surface node="666:3743" box={[22, 776, 350, 49]} fill={"#a5e0f2"} radius={18} />
-        <Surface node="666:3744" box={[94, 776, 65, 49]} fill={"#a5e0f2"} radius={18} />
-        <Surface node="918:536" box={[21, 776, 74, 49]} fill={"#a5e0f2"} radius={18} />
-        <Surface node="666:3745" box={[231, 776, 79, 49]} fill={"#a5e0f2"} radius={18} />
-        <Surface node="666:3746" box={[291, 776, 81, 49]} fill={"#0186a8"} radius={18} />
-        <Artwork node="666:3747" box={[159, 751, 75, 75]} source={require('../../../../assets/figma/mobile/db901.svg')} />
-        <Artwork node="666:3748" box={[164, 757, 65, 65]} source={require('../../../../assets/figma/mobile/19ec0.svg')} />
-        <Artwork node="666:3749" box={[116, 789, 24, 24]} source={require('../../../../assets/figma/mobile/8b932.svg')} />
-        <Artwork node="666:3750" box={[50, 789, 24, 24]} source={require('../../../../assets/figma/mobile/9998f.svg')} />
-        <Artwork node="666:3751" box={[249, 789, 24, 24]} source={require('../../../../assets/figma/mobile/f6425.svg')} />
-        <Artwork node="666:3752" box={[320, 789, 24, 24]} source={require('../../../../assets/figma/mobile/b1d8e.svg')} />
-        <Artwork node="666:3753" box={[185, 778, 24, 24]} source={require('../../../../assets/figma/mobile/5900e.svg')} />
-        <Link node="666:3744" box={[94, 776, 65, 49]} to="258:426" label={"Events Home"} />
-        <Link node="918:536" box={[21, 776, 74, 49]} to="403:2759" label={"Q - 20"} />
-        <Link node="666:3745" box={[231, 776, 79, 49]} to="101:2769" label={"01_UI_Community_Feed"} />
-        <Link node="666:3748" box={[164, 757, 65, 65]} to="230:1093" label={"1. Report type"} />
-      </Footer>
+      <Footer top={751} />
     </Frame>
   );
 }

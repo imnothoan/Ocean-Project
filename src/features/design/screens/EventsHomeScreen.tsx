@@ -44,9 +44,9 @@ export function EventsHomeScreen() {
       <Copy node="258:465" box={[94, 728, 130, 17]} text={"$4,500 of $10,000 (45%)"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":13,"lineHeight":15.6,"color":"#3f596b","textAlign":"left"}} />
       <Surface node="258:466" box={[292, 164, 64, 16]} fill={"#76d0c1"} radius={7} />
       <Copy node="258:467" box={[297, 164, 54, 15]} text={"12 spots left"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":11,"lineHeight":13.2,"color":"#3f596b","textAlign":"center"}} />
-      <Artwork node="258:469" box={[35, 187, 321, 97]} source={require('../../../../assets/figma/mobile/7e54a.jpg')} />
-      <Artwork node="258:473" box={[30, 446, 149, 59]} source={require('../../../../assets/figma/mobile/fe3b6.jpg')} />
-      <Artwork node="258:477" box={[214, 446, 149, 59]} source={require('../../../../assets/figma/mobile/5047d.jpg')} radius={10} />
+      <Artwork node="258:469" box={[35, 187, 321, 97]} radius={10} imageBox={[0.03079, -81.66999, 321, 200.55398]} source={require('../../../../assets/figma/mobile/7e54a.jpg')} />
+      <Artwork node="258:473" box={[30, 446, 149, 59]} radius={10} imageBox={[-0.40915, -40.12142, 149, 99.42413]} source={require('../../../../assets/figma/mobile/fe3b6.jpg')} />
+      <Artwork node="258:477" box={[214, 446, 149, 59]} radius={10} fit="cover" source={require('../../../../assets/figma/mobile/5047d.jpg')} />
       <Surface node="258:480" box={[20, 85, 294, 40]} fill={"#ffffff"} radius={20} stroke={[1,"#c9d5de"]} />
       <Copy node="258:481" box={[36, 96, 136, 19]} text={"Event name or location..."} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":14,"lineHeight":16.8,"color":"#3f596b","textAlign":"left"}} />
       <Artwork node="258:482" box={[283, 95, 19.88, 19.95]} source={require('../../../../assets/figma/mobile/ffcea.svg')} />
@@ -61,21 +61,7 @@ export function EventsHomeScreen() {
       <Copy node="eventsCalendar" box={[20,122,100,24]} text={"Calendar"} typeStyle={{fontFamily:"AfacadFlux_600SemiBold",fontSize:15,color:"#0186a8"}}/>
       <Copy node="eventsOrganizer" box={[170,122,98,24]} text={"Organizer"} typeStyle={{fontFamily:"AfacadFlux_600SemiBold",fontSize:15,color:"#0186a8",textAlign:"center"}}/>
       <Copy node="eventsMine" box={[270,122,100,24]} text={"My events"} typeStyle={{fontFamily:"AfacadFlux_600SemiBold",fontSize:15,color:"#0186a8",textAlign:"right"}}/>
-      <Footer top={754}>
-        <Surface node="258:506" box={[22, 779, 350, 49]} fill={"#a5e0f2"} radius={18} />
-        <Surface node="258:507" box={[94, 779, 113, 49]} fill={"#a5e0f2"} radius={18} />
-        <Surface node="258:508" box={[94, 779, 123, 49]} fill={"#0186a8"} radius={18} />
-        <Artwork node="258:509" box={[159, 754, 75, 75]} source={require('../../../../assets/figma/mobile/db901.svg')} />
-        <Artwork node="258:510" box={[164, 760, 65, 65]} source={require('../../../../assets/figma/mobile/19ec0.svg')} />
-        <Artwork node="258:511" box={[121, 792, 24, 24]} source={require('../../../../assets/figma/mobile/97536.svg')} />
-        <Artwork node="258:512" box={[50, 792, 24, 24]} source={require('../../../../assets/figma/mobile/0b6f6.svg')} />
-        <Artwork node="258:513" box={[249, 792, 24, 24]} source={require('../../../../assets/figma/mobile/79424.svg')} />
-        <Artwork node="258:514" box={[320, 792, 24, 24]} source={require('../../../../assets/figma/mobile/8137a.svg')} />
-        <Artwork node="258:515" box={[185, 781, 24, 24]} source={require('../../../../assets/figma/mobile/5900e.svg')} />
-        <Link node="258:512" box={[50, 792, 24, 24]} to="403:2759" label={"Q - 20"} />
-        <Link node="258:513" box={[249, 792, 24, 24]} to="101:2769" label={"01_UI_Community_Feed"} />
-        <Link node="258:514" box={[320, 792, 24, 24]} to="666:3592" label={"10_UI_My_Profile_Eco_Impact"} />
-      </Footer>
+      <Footer top={754} />
     </Frame>
   );
 }

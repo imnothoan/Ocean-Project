@@ -10,7 +10,7 @@ export function Q37Screen() {
       <Copy node="722:7085" box={[118, 116, 179, 21]} text={""} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":16,"lineHeight":19.2,"color":"#ffffff","textAlign":"left"}} />
       <Artwork node="722:7091" box={[13, 69, 83.89, 83.89]} source={require('../../../../assets/figma/mobile/30f85.svg')} />
       <Artwork node="722:7093" box={[21.55, 77.55, 66.02, 66.02]} source={require('../../../../assets/figma/mobile/52ea5.svg')} />
-      <Artwork node="722:7094" box={[23.83, 79.83, 61.47, 61.47]} source={require('../../../../assets/figma/mobile/fa1d5.png')} />
+      <Artwork node="722:7094" box={[23.83, 79.83, 61.47, 61.47]} fit="cover" source={require('../../../../assets/figma/mobile/fa1d5.png')} />
       <Copy node="727:412" box={[21, 173, 190, 23]} text={"Overview"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":19,"lineHeight":22.8,"color":"#ffffff","textAlign":"left"}} />
       <Surface node="727:414" box={[22, 206, 351, 218]} fill={"#ffffff"} radius={16} />
       <Copy node="727:417" box={[105, 234, 65, 23]} text={"Overview"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":17,"lineHeight":22.8,"color":"#000000","textAlign":"left"}} />

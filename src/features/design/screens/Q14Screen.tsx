@@ -9,7 +9,7 @@ export function Q14Screen() {
       <Copy node="292:4244" box={[282, 710.65, 71, 22.75]} text={"High Density"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":10,"lineHeight":22.8,"color":"#2b2b2b","textAlign":"right"}} />
       <Surface node="292:4248" box={[104, 717.76, 190, 8.53]} fill={"rgba(118,208,193,0.7)"} radius={10} />
       <Surface node="292:4249" box={[104, 717.76, 159.21, 8.53]} fill={"#178b72"} radius={10} />
-      <Artwork node="292:4234" box={[41, 349.42, 308, 347.01]} source={require('../../../../assets/figma/mobile/506e3.jpg')} radius={8} />
+      <Artwork node="292:4234" box={[41, 349.42, 308, 347.01]} radius={8} fit="cover" source={require('../../../../assets/figma/mobile/506e3.jpg')} />
       <Copy node="292:4232" box={[41, 298.22, 229, 36.98]} text={"Pollution Heatmap Layer"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":17,"lineHeight":22.8,"color":"#000000","textAlign":"left"}} />
       <Surface node="292:4220" box={[257, 179, 111, 86]} fill={"#ffffff"} radius={8} stroke={[0.4000000059604645,"rgba(0,0,0,0.2)"]} />
       <Copy node="292:4222" box={[274, 186, 79, 14]} text={"Active Hotspots"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":13,"lineHeight":14,"color":"#0f172a99","textAlign":"left"}} />

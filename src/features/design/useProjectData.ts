@@ -16,11 +16,13 @@ import {
 import { fetchFeed, fetchProfile, emptyProfile, type CommunityItem, type Profile } from './data';
 import type { VolunteerApplication } from './volunteer';
 import type { Registration } from './events';
+import type { BadgeMetrics } from './badges';
 import type { Pledge } from './donations';
 import { result } from './workflow';
 
 export type Attendance = { id: string; event_id: string; created_at: string };
 export type ProjectData = {
+  badgeMetrics: BadgeMetrics | null;
   avatarUrl: string;
   postCount: number;
   supportedToday: number;
@@ -42,6 +44,7 @@ export type ProjectData = {
   claims: { id: string; cost: number; claimed_at: string }[];
 };
 const empty: ProjectData = {
+  badgeMetrics: null,
   avatarUrl: '',
   postCount: 0,
   supportedToday: 0,
@@ -77,6 +80,13 @@ async function readProject(session: Session | null, eventId: string, chat: boole
   const today = new Date();
   today.setHours(0, 0, 0, 0);
   const queries = {
+    badgeMetrics: uid
+      ? supabase
+          .rpc('ocean_badge_metrics', {
+            zone_name: Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC',
+          })
+          .then(result)
+      : null,
     postCount: uid
       ? supabase
           .from('community_posts')
@@ -152,7 +162,11 @@ async function readProject(session: Session | null, eventId: string, chat: boole
       .limit(100)
       .then(result),
     learning: uid
-      ? supabase.from('learning_progress').select('activity,completed_at').eq('user_id', uid).then(result)
+      ? supabase
+          .from('learning_progress')
+          .select('activity,completed_at')
+          .eq('user_id', uid)
+          .then(result)
       : [],
     claims: uid
       ? supabase.from('reward_claims').select('id,cost,claimed_at').eq('user_id', uid).then(result)
@@ -218,6 +232,10 @@ export function useProjectData(session: Session | null, eventId: string, chat: b
     };
   }, [uid, reload, chatId]);
   const own = snapshot.uid === uid;
-  const data = !own ? empty : snapshot.chatId === chatId ? snapshot.data : { ...snapshot.data, messages: [] };
+  const data = !own
+    ? empty
+    : snapshot.chatId === chatId
+      ? snapshot.data
+      : { ...snapshot.data, messages: [] };
   return { data, error: own ? snapshot.error : '', refresh, loading };
 }

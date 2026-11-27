@@ -21,7 +21,7 @@ export function Frame23UiSpeciesLibraryScreen() {
       <Copy node="272:225" box={[243, 189, 46, 16]} text={"Mammals"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":12,"lineHeight":14.4,"color":"#3f596b","textAlign":"center"}} />
       <Artwork node="272:226" box={[314, 184, 59, 27]} source={require('../../../../assets/figma/mobile/54a87.svg')} />
       <Copy node="272:227" box={[329, 189, 29, 16]} text={"Forest"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":12,"lineHeight":14.4,"color":"#3f596b","textAlign":"center"}} />
-      <Artwork node="272:231" box={[20, 224, 353, 157]} source={require('../../../../assets/figma/mobile/88448.jpg')} />
+      <Artwork node="272:231" box={[20, 224, 353, 157]} radius={17} source={require('../../../../assets/figma/mobile/88448.jpg')} />
       <Artwork node="272:232" box={[20, 224, 353, 157]} source={require('../../../../assets/figma/mobile/32490.svg')} />
       <Copy node="272:235" box={[35, 310, 145, 31]} text={"Green sea turtle"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":23,"lineHeight":27.6,"color":"#ffffff","textAlign":"left"}} />
       <Copy node="272:236" box={[35, 341, 148, 16]} text={"A gentle guardian of the ocean"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":14.4,"color":"#ffffff","textAlign":"left"}} />

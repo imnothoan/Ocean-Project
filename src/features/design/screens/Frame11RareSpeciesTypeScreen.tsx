@@ -19,17 +19,17 @@ export function Frame11RareSpeciesTypeScreen() {
       <Copy node="255:743" box={[107, 323, 220, 30]} text={"Chelonia mydas"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":15,"color":"#3f596b","textAlign":"left"}} />
       <Surface node="255:744" box={[333, 313, 19, 19]} fill={"#0186a8"} radius={10} />
       <Surface node="255:745" box={[339, 319, 7, 7]} fill={"#ffffff"} radius={4} />
-      <Artwork node="255:805" box={[35, 295, 63, 55]} source={require('../../../../assets/figma/mobile/ebf16.png')} radius={12} />
+      <Artwork node="255:805" box={[35, 295, 63, 55]} radius={12} fit="cover" source={require('../../../../assets/figma/mobile/ebf16.png')} />
       <Surface node="255:746" box={[24, 366, 345, 69]} fill={"#ffffff"} radius={12} stroke={[1,"#d8e5ec"]} />
       <Copy node="255:768" box={[107, 381, 211, 30]} text={"Hawksbill sea turtle"} typeStyle={{"fontFamily":"AfacadFlux_600SemiBold","fontSize":15,"lineHeight":18.75,"color":"#091727","textAlign":"left"}} />
       <Copy node="255:769" box={[107, 401, 220, 15]} text={"Eretmochelys imbricata"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":15,"color":"#3f596b","textAlign":"left"}} />
       <Surface node="255:770" box={[333, 391, 19, 19]} fill={"#ffffff"} radius={10} stroke={[1,"#d8e5ec"]} />
-      <Artwork node="255:806" box={[35, 373, 63, 55]} source={require('../../../../assets/figma/mobile/ad719.png')} radius={12} />
+      <Artwork node="255:806" box={[35, 373, 63, 55]} radius={12} fit="cover" source={require('../../../../assets/figma/mobile/ad719.png')} />
       <Surface node="255:771" box={[24, 444, 345, 69]} fill={"#ffffff"} radius={12} stroke={[1,"#d8e5ec"]} />
       <Copy node="255:772" box={[107, 458, 211, 30]} text={"Dugong"} typeStyle={{"fontFamily":"AfacadFlux_600SemiBold","fontSize":15,"lineHeight":18.75,"color":"#091727","textAlign":"left"}} />
       <Copy node="255:773" box={[107, 479, 220, 30]} text={"Dugong dugon"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":15,"color":"#3f596b","textAlign":"left"}} />
       <Surface node="255:774" box={[333, 469, 19, 19]} fill={"#ffffff"} radius={10} stroke={[1,"#d8e5ec"]} />
-      <Artwork node="255:808" box={[35, 451, 63, 55]} source={require('../../../../assets/figma/mobile/aec38.png')} radius={12} />
+      <Artwork node="255:808" box={[35, 451, 63, 55]} radius={12} fit="cover" source={require('../../../../assets/figma/mobile/aec38.png')} />
       <Surface node="255:785" box={[24, 522, 345, 69]} fill={"#ffffff"} radius={12} stroke={[1,"#d8e5ec"]} />
       <Surface node="255:786" box={[32, 529, 63, 55]} fill={"#eaf8fb"} radius={10} />
       <Artwork node="255:787" box={[51, 543, 22, 22]} source={require('../../../../assets/figma/mobile/4c6dd.svg')} />

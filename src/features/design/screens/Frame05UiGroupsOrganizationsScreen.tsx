@@ -20,7 +20,7 @@ export function Frame05UiGroupsOrganizationsScreen() {
       <Copy node="115:2710" box={[169, 182, 82, 16]} text={"Wildlife"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":12,"lineHeight":16,"color":"#3f596b","textAlign":"center"}} />
       <Artwork node="115:2711" box={[258, 176, 94, 28]} source={require('../../../../assets/figma/mobile/29477.svg')} />
       <Copy node="115:2712" box={[258, 182, 94, 16]} text={"Education"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":12,"lineHeight":16,"color":"#3f596b","textAlign":"center"}} />
-      <Artwork node="115:2716" box={[20, 218, 353, 111]} source={require('../../../../assets/figma/mobile/978c5.jpg')} />
+      <Artwork node="115:2716" box={[20, 218, 353, 111]} radius={16} source={require('../../../../assets/figma/mobile/978c5.jpg')} />
       <Artwork node="115:2717" box={[20, 218, 353, 111]} source={require('../../../../assets/figma/mobile/26c24.svg')} />
       <Copy node="115:2718" box={[36, 226, 320, 16]} text={"BETTER TOGETHER"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":12,"lineHeight":16,"color":"#ffffff","textAlign":"left"}} />
       <Copy node="115:2719" box={[36, 246, 320, 25]} text={"Find your people."} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":20,"lineHeight":25,"color":"#ffffff","textAlign":"left"}} />

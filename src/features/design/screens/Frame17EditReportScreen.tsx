@@ -36,9 +36,9 @@ export function Frame17EditReportScreen() {
       <Artwork node="1253:394" box={[340.31, 75, 26.27, 24]} source={require('../../../../assets/figma/mobile/c9b94.svg')} />
       <Copy node="1253:395" box={[129.31, 75, 139, 27]} text={"Edit Report"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":20,"lineHeight":24.0,"color":"#3f596b","textAlign":"center"}} />
       <Artwork node="1253:419" box={[339, 428, 18, 18]} source={require('../../../../assets/figma/mobile/23a5d.svg')} />
-      <Artwork node="1253:422" box={[21, 670, 82, 80]} source={require('../../../../assets/figma/mobile/22050.png')} radius={10} />
-      <Artwork node="1253:423" box={[111, 670, 82, 80]} source={require('../../../../assets/figma/mobile/2f6f8.png')} radius={10} />
-      <Artwork node="1253:425" box={[201, 670, 82, 80]} source={require('../../../../assets/figma/mobile/96f80.png')} radius={10} />
+      <Artwork node="1253:422" box={[21, 670, 82, 80]} radius={10} fit="cover" source={require('../../../../assets/figma/mobile/22050.png')} />
+      <Artwork node="1253:423" box={[111, 670, 82, 80]} radius={10} fit="cover" source={require('../../../../assets/figma/mobile/2f6f8.png')} />
+      <Artwork node="1253:425" box={[201, 670, 82, 80]} radius={10} fit="cover" source={require('../../../../assets/figma/mobile/96f80.png')} />
       <Link node="1253:384" box={[20, 771, 354, 47]} to="230:1402" label={"8. Pollution Submitted"} />
       <Link node="1253:389" box={[23, 66, 43, 43]} to="back" label={"Back"} />
     </Frame>

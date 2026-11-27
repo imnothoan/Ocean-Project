@@ -33,8 +33,8 @@ export function Frame20ReportResolvedImpactScreen() {
       <Artwork node="1253:564" box={[332.31, 66, 43.3, 43.3]} source={require('../../../../assets/figma/mobile/9fd81.svg')} />
       <Artwork node="1253:566" box={[340.31, 75, 26.27, 24]} source={require('../../../../assets/figma/mobile/c9b94.svg')} />
       <Copy node="1253:567" box={[129.31, 75, 139, 27]} text={"Report Impact"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":20,"lineHeight":24.0,"color":"#3f596b","textAlign":"center"}} />
-      <Artwork node="1253:591" box={[206.94, 217, 165, 165]} source={require('../../../../assets/figma/mobile/7f758.png')} />
-      <Artwork node="1253:593" box={[27.94, 218, 165, 165]} source={require('../../../../assets/figma/mobile/13615.png')} radius={10} />
+      <Artwork node="1253:591" box={[206.94, 217, 165, 165]} radius={10} imageBox={[-32.90084, -31.45193, 209.7664, 203.52336]} source={require('../../../../assets/figma/mobile/7f758.png')} />
+      <Artwork node="1253:593" box={[27.94, 218, 165, 165]} radius={10} fit="cover" source={require('../../../../assets/figma/mobile/13615.png')} />
       <Artwork node="1253:3013" box={[388.5, 109.5, 6.11, 20]} source={require('../../../../assets/figma/mobile/ce4e6.svg')} />
       <Artwork node="1253:3014" box={[339.94, 221, 28, 28]} source={require('../../../../assets/figma/mobile/e08a5.svg')} />
       <Artwork node="1253:3015" box={[343.94, 225, 20, 20]} source={require('../../../../assets/figma/mobile/e1bf1.svg')} />

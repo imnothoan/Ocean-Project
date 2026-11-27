@@ -18,7 +18,7 @@ export function Frame03UiCreatePostScreen() {
       <Artwork node="115:453" box={[18.6, 239.6, 353.8, 0.8]} source={require('../../../../assets/figma/mobile/d1710.svg')} />
       <Copy node="115:454" box={[19, 250, 240, 22]} text={"Add photos"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":17,"lineHeight":22,"color":"#091727","textAlign":"left"}} />
       <Copy node="115:455" box={[280, 255, 92, 16]} text={"Up to 4 photos"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":16,"color":"#7b92a1","textAlign":"right"}} />
-      <Artwork node="115:459" box={[19, 279, 104, 103]} source={require('../../../../assets/figma/mobile/efaeb.jpg')} />
+      <Artwork node="115:459" box={[19, 279, 104, 103]} radius={12} source={require('../../../../assets/figma/mobile/efaeb.jpg')} />
       <Artwork node="115:460" box={[130.5, 278.5, 105, 104]} source={require('../../../../assets/figma/mobile/dfc25.svg')} />
       <Artwork node="115:461" box={[173.1, 310.1, 19.8, 17.8]} source={require('../../../../assets/figma/mobile/60cd9.svg')} />
       <Copy node="115:465" box={[158.5, 341, 49, 16]} text={"Add photo"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":12,"lineHeight":16,"color":"#0186a8","textAlign":"center"}} />

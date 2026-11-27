@@ -14,8 +14,8 @@ export function Frame7PollutionReviewScreen() {
       <Surface node="242:5207" box={[309, 242, 50, 67]} fill={"#ffffff"} radius={10} stroke={[1,"#d8e5ec"]} />
       <Artwork node="242:5208" box={[325, 265, 20, 20]} source={require('../../../../assets/figma/mobile/0171b.svg')} />
       <Copy node="242:5210" box={[38, 318, 317, 24]} text={"2 attached photos"} typeStyle={{"fontFamily":"AfacadFlux_600SemiBold","fontSize":15,"lineHeight":18.75,"color":"#091727","textAlign":"center"}} />
-      <Artwork node="242:5212" box={[35, 243, 136, 71]} source={require('../../../../assets/figma/mobile/52b82.png')} radius={11} />
-      <Artwork node="242:5214" box={[185, 243, 109, 71]} source={require('../../../../assets/figma/mobile/e92c2.png')} radius={11} />
+      <Artwork node="242:5212" box={[35, 243, 136, 71]} radius={11} fit="cover" source={require('../../../../assets/figma/mobile/52b82.png')} />
+      <Artwork node="242:5214" box={[185, 243, 109, 71]} radius={11} fit="cover" source={require('../../../../assets/figma/mobile/e92c2.png')} />
       <Surface node="242:5215" box={[24, 367, 345, 200]} fill={"#ffffff"} radius={13} stroke={[1,"#d8e5ec"]} />
       <Copy node="242:5216" box={[37, 379, 140, 26]} text={"Report type"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":13,"lineHeight":16.25,"color":"#3f596b","textAlign":"left"}} />
       <Copy node="242:5217" box={[170, 378, 182, 27]} text={"Pollution"} typeStyle={{"fontFamily":"AfacadFlux_600SemiBold","fontSize":14,"lineHeight":17.5,"color":"#091727","textAlign":"right"}} />

@@ -15,7 +15,7 @@ export function Frame3PollutionSelectLocationScreen() {
       <Surface node="242:4710" box={[23, 225, 345, 43]} fill={"#ffffff"} radius={11} stroke={[1,"#d8e5ec"]} />
       <Artwork node="242:4711" box={[35, 235, 21, 21]} source={require('../../../../assets/figma/mobile/b04f0.svg')} />
       <Copy node="242:4714" box={[67, 237, 287, 29]} text={"Search address or place"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":14,"lineHeight":18,"color":"#3f596b","textAlign":"left"}} />
-      <Artwork node="242:4741" box={[24, 287, 353, 214]} source={require('../../../../assets/figma/mobile/96a08.png')} />
+      <Artwork node="242:4741" box={[24, 287, 353, 214]} radius={9} imageBox={[-178.52362, -50.70307, 597.03938, 381.11013]} source={require('../../../../assets/figma/mobile/96a08.png')} />
       <Surface node="242:4752" box={[22, 539, 345, 43]} fill={"#ffffff"} radius={11} stroke={[1,"#d8e5ec"]} />
       <Copy node="242:4753" box={[35, 552, 202, 17]} text={"My Khe Beach, Son Tra, Da Nang"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":14,"lineHeight":18,"color":"#3f596b","textAlign":"left"}} />
       <Surface node="242:4758" box={[24, 596, 345, 67]} fill={"#eaf8fb"} radius={14} />

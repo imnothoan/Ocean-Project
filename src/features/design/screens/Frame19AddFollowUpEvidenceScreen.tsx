@@ -25,11 +25,11 @@ export function Frame19AddFollowUpEvidenceScreen() {
       <Artwork node="1253:468" box={[332.31, 66, 43.3, 43.3]} source={require('../../../../assets/figma/mobile/9fd81.svg')} />
       <Artwork node="1253:470" box={[340.31, 75, 26.27, 24]} source={require('../../../../assets/figma/mobile/c9b94.svg')} />
       <Copy node="1253:471" box={[129.31, 75, 139, 27]} text={"Follow-up"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":20,"lineHeight":24.0,"color":"#3f596b","textAlign":"center"}} />
-      <Artwork node="1253:498" box={[19, 344, 163, 136]} source={require('../../../../assets/figma/mobile/edd1a.png')} radius={10} />
-      <Artwork node="1253:499" box={[214, 343, 163, 136]} source={require('../../../../assets/figma/mobile/7f758.png')} />
+      <Artwork node="1253:498" box={[19, 344, 163, 136]} radius={10} fit="cover" source={require('../../../../assets/figma/mobile/edd1a.png')} />
+      <Artwork node="1253:499" box={[214, 343, 163, 136]} radius={10} imageBox={[-32.50205, -25.92402, 207.22378, 167.75258]} source={require('../../../../assets/figma/mobile/7f758.png')} />
       <Artwork node="1253:2765" box={[346, 451, 24, 24]} source={require('../../../../assets/figma/mobile/e24fd.svg')} />
       <Artwork node="1253:2991" box={[350, 455, 16, 16]} source={require('../../../../assets/figma/mobile/360c0.svg')} />
-      <Artwork node="1253:511" box={[19, 498, 104, 81]} source={require('../../../../assets/figma/mobile/edd1a.png')} radius={10} />
+      <Artwork node="1253:511" box={[19, 498, 104, 81]} radius={10} fit="cover" source={require('../../../../assets/figma/mobile/edd1a.png')} />
       <Artwork node="1253:512" box={[147, 498, 104, 81]} radius={10} />
       <Artwork node="1253:2995" box={[231, 502, 16, 16]} source={require('../../../../assets/figma/mobile/7d301.svg')} />
       <Artwork node="1253:3000" box={[234, 505, 11, 11]} source={require('../../../../assets/figma/mobile/f55f3.svg')} />

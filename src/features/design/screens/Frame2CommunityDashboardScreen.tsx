@@ -10,16 +10,16 @@ export function Frame2CommunityDashboardScreen() {
       <Copy node="311:4460" box={[305, 802.19, 56, 20]} text={"5 hrs ago"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":15,"lineHeight":18.0,"color":"#3f596b","textAlign":"right"}} />
       <Copy node="311:4461" box={[96, 826.19, 112, 16]} text={"Can Gio Beach cleanup"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":14.4,"color":"#3f596b","textAlign":"left"}} />
       <Copy node="311:4462" box={[96, 840.19, 121, 16]} text={"Collected 150kg of waste"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":14.4,"color":"#3f596b","textAlign":"left"}} />
-      <Artwork node="311:4463" box={[45, 813.19, 32, 32]} source={require('../../../../assets/figma/mobile/5fd0e.png')} />
+      <Artwork node="311:4463" box={[45, 813.19, 32, 32]} fit="cover" source={require('../../../../assets/figma/mobile/5fd0e.png')} />
       <Surface node="311:4424" box={[22, 712, 349, 71.62]} fill={"#edfbff"} radius={10} stroke={[1,"#c9d5de"]} />
       <Surface node="311:4425" box={[32, 720.19, 56, 56]} fill={"#a5e0f2"} radius={10} stroke={[1,"#c9d5de"]} />
       <Copy node="311:4427" box={[95, 720.19, 81, 20]} text={"Xanh Sai Gon"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":15,"lineHeight":18.0,"color":"#3f596b","textAlign":"left"}} />
       <Copy node="311:4428" box={[304, 720.19, 56, 20]} text={"2 hrs ago"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":15,"lineHeight":18.0,"color":"#3f596b","textAlign":"right"}} />
       <Copy node="311:4429" box={[95, 744.19, 112, 16]} text={"Can Gio Beach cleanup"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":14.4,"color":"#3f596b","textAlign":"left"}} />
       <Copy node="311:4445" box={[95, 758.19, 121, 16]} text={"Collected 150kg of waste"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":14.4,"color":"#3f596b","textAlign":"left"}} />
-      <Artwork node="311:4439" box={[44, 731.19, 32, 32]} source={require('../../../../assets/figma/mobile/5fd0e.png')} />
+      <Artwork node="311:4439" box={[44, 731.19, 32, 32]} fit="cover" source={require('../../../../assets/figma/mobile/5fd0e.png')} />
       <Copy node="311:501" box={[22, 675, 127, 27]} text={"Lasted Activities"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":20,"lineHeight":24.0,"color":"#091727","textAlign":"left"}} />
-      <Artwork node="311:4374" box={[23, 310, 350, 345]} source={require('../../../../assets/figma/mobile/ed729.png')} />
+      <Artwork node="311:4374" box={[23, 310, 350, 345]} radius={10} imageBox={[-0.03915, 0.03578, 350.32261, 345]} source={require('../../../../assets/figma/mobile/ed729.png')} />
       <Artwork node="311:4394" box={[130, 340, 49, 49]} source={require('../../../../assets/figma/mobile/8eca4.svg')} />
       <Artwork node="311:4395" box={[129, 417, 25, 25]} source={require('../../../../assets/figma/mobile/416b1.svg')} />
       <Artwork node="311:4419" box={[87, 352, 25, 25]} source={require('../../../../assets/figma/mobile/416b1.svg')} />

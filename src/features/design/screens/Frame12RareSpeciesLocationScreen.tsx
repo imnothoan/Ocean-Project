@@ -27,7 +27,7 @@ export function Frame12RareSpeciesLocationScreen() {
       <Surface node="255:871" box={[24, 729, 345, 46]} fill={"#43c4d6"} radius={23} />
       <Copy node="255:872" box={[29, 740, 335, 27]} text={"Review sighting"} typeStyle={{"fontFamily":"AfacadFlux_600SemiBold","fontSize":16,"lineHeight":20,"color":"#ffffff","textAlign":"center"}} />
       <Surface node="255:874" box={[24, 143, 258.75, 5]} fill={"#43c4d6"} radius={3} />
-      <Artwork node="255:880" box={[24, 269, 345, 184]} source={require('../../../../assets/figma/mobile/96a08.png')} />
+      <Artwork node="255:880" box={[24, 269, 345, 184]} radius={12} imageBox={[-174.47776, -43.59516, 583.50875, 327.68348]} source={require('../../../../assets/figma/mobile/96a08.png')} />
       <Surface node="892:2928" box={[101, 67, 187, 43]} fill={"#a5e0f2"} radius={20} />
       <Artwork node="892:2929" box={[23, 66, 43.3, 43.3]} source={require('../../../../assets/figma/mobile/7330f.svg')} />
       <Artwork node="892:2932" box={[331, 66, 43.3, 43.3]} source={require('../../../../assets/figma/mobile/9fd81.svg')} />

@@ -5,13 +5,13 @@ export function Q20Screen() {
   return (
     <Frame id="403:2759" width={393.0} height={852} background={"#ffffff"}>
       <Surface node="403:2761" box={[22, 625, 350, 86]} fill={"#ffffff"} radius={16} stroke={[0.5,"rgba(0,0,0,0.2)"]} />
-      <Artwork node="403:2763" box={[34, 637, 58, 60]} source={require('../../../../assets/figma/mobile/e4d1c.jpg')} radius={5} />
+      <Artwork node="403:2763" box={[34, 637, 58, 60]} radius={5} fit="cover" source={require('../../../../assets/figma/mobile/e4d1c.jpg')} />
       <Copy node="403:2765" box={[114, 634, 258, 23]} text={"Thu Bon River"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":19,"lineHeight":22.8,"color":"#2b2b2b","textAlign":"left"}} />
       <Copy node="403:2766" box={[114, 662, 258, 16]} text={"Type: Waste Pollution"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":13,"lineHeight":15.6,"color":"#2b2b2b","textAlign":"left"}} />
       <Copy node="403:2767" box={[115, 683, 99.15, 16]} text={"Updated: 10 mins ago"} typeStyle={{"fontFamily":"PatrickHand_400Regular","fontSize":13,"lineHeight":15.6,"color":"#2b2b2b","textAlign":"left"}} />
       <Copy node="403:2769" box={[285.15, 683, 78, 16]} text={"View Details >"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":13,"lineHeight":15.6,"color":"#2b2b2b","textAlign":"left"}} />
       <Copy node="403:2770" box={[98, 718, 197, 17]} text={"Data updated: 10:45 AM, Oct 13, 2026"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12.5,"lineHeight":15.0,"color":"#2b2b2b","textAlign":"center"}} />
-      <Artwork node="403:2773" box={[22, 164, 350, 440]} source={require('../../../../assets/figma/mobile/61020.png')} radius={16} />
+      <Artwork node="403:2773" box={[22, 164, 350, 440]} radius={16} fit="cover" source={require('../../../../assets/figma/mobile/61020.png')} />
       <Artwork node="403:2775" box={[125, 330, 20, 28]} source={require('../../../../assets/figma/mobile/03afd.svg')} />
       <Artwork node="403:2776" box={[129, 333, 12, 14]} source={require('../../../../assets/figma/mobile/2a782.svg')} />
       <Copy node="403:2777" box={[118, 359, 39, 13]} text={"Moderate"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":10,"lineHeight":12.0,"color":"#2b2b2b","textAlign":"left"}} />
@@ -53,21 +53,7 @@ export function Q20Screen() {
       <Link node="403:2823" box={[22, 112, 266, 36]} to="292:3681" label={"Q - 3"} />
       <Link node="1378:689" box={[340, 65, 32, 32]} to="1358:343" label={"Q - 45"} />
       <Link node="403:2840" box={[164, 760, 65, 65]} to="230:1093" label={"1. Report type"} />
-      <Footer top={754}>
-        <Surface node="403:2836" box={[22, 779, 350, 49]} fill={"#a5e0f2"} radius={18} />
-        <Surface node="403:2837" box={[94, 779, 113, 49]} fill={"#a5e0f2"} radius={18} />
-        <Surface node="403:2838" box={[20, 779, 84, 49]} fill={"#0186a8"} radius={18} />
-        <Artwork node="403:2839" box={[159, 754, 75, 75]} source={require('../../../../assets/figma/mobile/db901.svg')} />
-        <Artwork node="403:2840" box={[164, 760, 65, 65]} source={require('../../../../assets/figma/mobile/19ec0.svg')} />
-        <Artwork node="403:2841" box={[121, 792, 24, 24]} source={require('../../../../assets/figma/mobile/2eca0.svg')} />
-        <Artwork node="403:2842" box={[50, 792, 24, 24]} source={require('../../../../assets/figma/mobile/c97f1.svg')} />
-        <Artwork node="403:2843" box={[249, 792, 24, 24]} source={require('../../../../assets/figma/mobile/79424.svg')} />
-        <Artwork node="403:2844" box={[320, 792, 24, 24]} source={require('../../../../assets/figma/mobile/8137a.svg')} />
-        <Artwork node="403:2845" box={[185, 781, 24, 24]} source={require('../../../../assets/figma/mobile/5900e.svg')} />
-        <Link node="403:2841" box={[121, 792, 24, 24]} to="258:426" label={"Events Home"} />
-        <Link node="403:2843" box={[249, 792, 24, 24]} to="101:2769" label={"01_UI_Community_Feed"} />
-        <Link node="403:2844" box={[320, 792, 24, 24]} to="666:3592" label={"10_UI_My_Profile_Eco_Impact"} />
-      </Footer>
+      <Footer top={754} />
     </Frame>
   );
 }

@@ -5,7 +5,7 @@ import { Artwork, Copy, Frame, Link, Surface } from '../components';
 export function ApproveParticipantsScreen() {
   return (
     <Frame id="1356:347" width={393.0} height={1099} background={"#ffffff"}>
-      <Artwork node="1356:396" box={[20, 128, 353, 186]} source={require('../../../../assets/figma/mobile/7e54a.jpg')} radius={10} />
+      <Artwork node="1356:396" box={[20, 128, 353, 186]} radius={10} fit="cover" source={require('../../../../assets/figma/mobile/7e54a.jpg')} />
       <Surface node="1356:380" box={[99, 69, 196, 43]} fill={"#a5e0f2"} radius={20} />
       <Artwork node="1356:381" box={[23, 69, 43, 43]} source={require('../../../../assets/figma/mobile/ecd92.svg')} />
       <Artwork node="1356:384" box={[324, 69, 43, 43]} source={require('../../../../assets/figma/mobile/acbd8.svg')} />

@@ -7,7 +7,7 @@ export function Frame17UiRedeemRewardScreen() {
       <Surface node="670:4694" box={[121, 69, 151, 43]} fill={"#a5e0f2"} radius={20} />
       <Copy node="670:4701" box={[134, 77, 125, 27]} text={"Reedem reward"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":20,"lineHeight":24.0,"color":"#3f596b","textAlign":"center"}} />
       <Artwork node="670:4695" box={[23, 69, 43, 43]} source={require('../../../../assets/figma/mobile/b0dc5.svg')} />
-      <Artwork node="670:4705" box={[20, 130, 353, 172]} source={require('../../../../assets/figma/mobile/a12d9.jpg')} />
+      <Artwork node="670:4705" box={[20, 130, 353, 172]} radius={22} source={require('../../../../assets/figma/mobile/a12d9.jpg')} />
       <Artwork node="670:4706" box={[34, 144, 108, 22]} source={require('../../../../assets/figma/mobile/ce4ea.svg')} />
       <Copy node="670:4707" box={[40.5, 150.01, 94, 16]} text={"PARTNER VOUCHER"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":12,"lineHeight":14.4,"color":"#0186a8","textAlign":"center"}} />
       <Copy node="670:4708" box={[22, 317, 126, 27]} text={"Partner voucher"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":20,"lineHeight":24.0,"color":"#091727","textAlign":"left"}} />

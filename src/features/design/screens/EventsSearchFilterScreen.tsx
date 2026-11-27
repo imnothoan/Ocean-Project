@@ -45,14 +45,14 @@ export function EventsSearchFilterScreen() {
       <Surface node="258:556" box={[292, 164, 64, 16]} fill={"#0186a8"} radius={7} />
       <Copy node="258:557" box={[297, 164, 54, 15]} text={"12 spots left"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":11,"lineHeight":13.2,"color":"#ffffff","textAlign":"center"}} />
       <Surface node="258:559" box={[35, 187, 321, 97]} fill={"#0186a8"} radius={10} />
-      <Artwork node="258:560" box={[39, 191, 314, 90]} source={require('../../../../assets/figma/mobile/5d768.png')} />
-      <Artwork node="258:561" box={[39, 190, 314, 90]} source={require('../../../../assets/figma/mobile/f8e2c.png')} />
+      <Artwork node="258:560" box={[39, 191, 314, 90]} fit="cover" source={require('../../../../assets/figma/mobile/5d768.png')} />
+      <Artwork node="258:561" box={[39, 190, 314, 90]} fit="cover" source={require('../../../../assets/figma/mobile/f8e2c.png')} />
       <Surface node="258:563" box={[30, 446, 149, 59]} fill={"#0186a8"} radius={10} />
-      <Artwork node="258:564" box={[32, 450, 143, 53]} source={require('../../../../assets/figma/mobile/08faf.png')} />
-      <Artwork node="258:565" box={[32, 450, 145, 51]} source={require('../../../../assets/figma/mobile/ba075.png')} />
+      <Artwork node="258:564" box={[32, 450, 143, 53]} fit="cover" source={require('../../../../assets/figma/mobile/08faf.png')} />
+      <Artwork node="258:565" box={[32, 450, 145, 51]} fit="cover" source={require('../../../../assets/figma/mobile/ba075.png')} />
       <Surface node="258:567" box={[214, 446, 149, 59]} fill={"#0186a8"} radius={10} />
-      <Artwork node="258:568" box={[216, 450, 143, 53]} source={require('../../../../assets/figma/mobile/08faf.png')} />
-      <Artwork node="258:569" box={[216, 450, 145, 51]} source={require('../../../../assets/figma/mobile/ba075.png')} />
+      <Artwork node="258:568" box={[216, 450, 143, 53]} fit="cover" source={require('../../../../assets/figma/mobile/08faf.png')} />
+      <Artwork node="258:569" box={[216, 450, 145, 51]} fit="cover" source={require('../../../../assets/figma/mobile/ba075.png')} />
       <Surface node="258:570" box={[20, 85, 294, 40]} fill={"#ffffff"} radius={20} stroke={[1,"#0186a8"]} />
       <Copy node="258:571" box={[36, 96, 136, 19]} text={"Event name or location..."} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":14,"lineHeight":16.8,"color":"#3f596b","textAlign":"left"}} />
       <Artwork node="258:572" box={[283, 95, 19.88, 19.95]} source={require('../../../../assets/figma/mobile/49c96.svg')} />
@@ -96,9 +96,7 @@ export function EventsSearchFilterScreen() {
       <Copy node="258:1584" box={[35, 412, 74, 17]} text={"Nearest to me"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":13,"lineHeight":15.6,"color":"#091727","textAlign":"left"}} />
       <Link node="258:592" box={[208, 521, 45, 21]} to="258:426" label={"Events Home"} />
       <Link node="258:594" box={[309, 520, 37, 21]} to="258:426" label={"Events Home"} />
-      <Footer top={754}>
-        <Artwork node="258:577" box={[22, 754, 350, 75]} source={require('../../../../assets/figma/mobile/c3347.svg')} />
-      </Footer>
+      <Footer top={754} />
     </Frame>
   );
 }

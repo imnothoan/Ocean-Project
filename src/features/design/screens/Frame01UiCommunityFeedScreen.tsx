@@ -5,7 +5,7 @@ import { Artwork, Copy, Footer, Frame, Link, Surface } from '../components';
 export function Frame01UiCommunityFeedScreen() {
   return (
     <Frame id="101:2769" width={393.0} height={852} background={"#ffffff"}>
-      <Artwork node="101:2774" box={[12, 118, 370, 143.6]} source={require('../../../../assets/figma/mobile/efaeb.jpg')} />
+      <Artwork node="101:2774" box={[12, 118, 370, 143.59773]} radius={18.86686} source={require('../../../../assets/figma/mobile/efaeb.jpg')} />
       <Artwork node="101:2775" box={[12, 118, 370, 144]} source={require('../../../../assets/figma/mobile/dcf63.svg')} />
       <Artwork node="101:2776" box={[12, 118, 370, 144]} source={require('../../../../assets/figma/mobile/dcf63.svg')} />
       <Artwork node="101:2777" box={[27, 132, 110, 23]} source={require('../../../../assets/figma/mobile/7df8c.svg')} />
@@ -35,26 +35,7 @@ export function Frame01UiCommunityFeedScreen() {
       <Link node="101:2793" box={[62, 326, 250, 19]} to="115:422" label={"03_UI_Create_Post"} />
       <Link node="701:495" box={[12, 67, 370, 42]} to="666:2965" label={"04_UI_Search_Results"} />
       <CommunitySection top={373} padding={12}><CommunityFeed /></CommunitySection>
-      <Footer top={751}>
-        <Surface node="949:590" box={[0, 751, 393, 101]} fill={"#ffffff"} />
-        <Surface node="101:2858" box={[22, 776, 350, 49]} fill={"#a5e0f2"} radius={18} />
-        <Surface node="101:2859" box={[94, 776, 66, 49]} fill={"#a5e0f2"} radius={18} />
-        <Surface node="918:530" box={[22, 776, 72, 49]} fill={"#a5e0f2"} radius={18} />
-        <Surface node="101:2860" box={[291, 776, 81, 49]} fill={"#a5e0f2"} radius={18} />
-        <Surface node="101:2861" box={[197, 776, 113, 49]} fill={"#0186a8"} radius={18} />
-        <Artwork node="101:2863" box={[159, 751, 75, 75]} source={require('../../../../assets/figma/mobile/db901.svg')} />
-        <Artwork node="101:2865" box={[121, 789, 24, 24]} source={require('../../../../assets/figma/mobile/8b932.svg')} />
-        <Artwork node="101:2866" box={[50, 789, 24, 24]} source={require('../../../../assets/figma/mobile/9998f.svg')} />
-        <Artwork node="101:2867" box={[249, 789, 24, 24]} source={require('../../../../assets/figma/mobile/0ef57.svg')} />
-        <Artwork node="101:2868" box={[320, 789, 24, 24]} source={require('../../../../assets/figma/mobile/56c11.svg')} />
-        <Artwork node="101:2864" box={[164, 757, 65, 65]} source={require('../../../../assets/figma/mobile/19ec0.svg')} />
-        <Artwork node="101:2869" box={[185, 778, 24, 24]} source={require('../../../../assets/figma/mobile/5900e.svg')} />
-        <Link node="101:2859" box={[94, 776, 66, 49]} to="258:426" label={"Events Home"} />
-        <Link node="918:530" box={[22, 776, 72, 49]} to="403:2759" label={"Q - 20"} />
-        <Link node="101:2860" box={[291, 776, 81, 49]} to="666:3592" label={"10_UI_My_Profile_Eco_Impact"} />
-        <Link node="1425:257" box={[164, 757, 65, 65]} to="230:1093" label={"1. Report type"} />
-        <Link node="101:2864" box={[164, 757, 65, 65]} to="230:1093" label={"1. Report type"} />
-      </Footer>
+      <Footer top={751} />
     </Frame>
   );
 }

@@ -29,7 +29,7 @@ export function CreateEventStep3Screen() {
       <Artwork node="708:715" box={[20, 147, 353, 4]} source={require('../../../../assets/figma/mobile/a6a33.svg')} />
       <Artwork node="708:716" box={[20, 147, 235.33, 4]} source={require('../../../../assets/figma/mobile/c31e0.svg')} />
       <Copy node="708:718" box={[183, 784, 30, 24]} text={"Skip"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":18,"lineHeight":21.6,"color":"#43c4d6","textAlign":"center"}} />
-      <Artwork node="712:744" box={[37, 485, 320, 150]} source={require('../../../../assets/figma/mobile/19457.png')} />
+      <Artwork node="712:744" box={[37, 485, 320, 150]} radius={25} imageBox={[-23.38028, -75.60976, 366.76055, 793.9025]} source={require('../../../../assets/figma/mobile/19457.png')} />
       <Artwork node="708:703" box={[17, 717, 359, 48]} source={require('../../../../assets/figma/mobile/1b1a8.svg')} />
       <Copy node="708:717" box={[165, 729, 65, 24]} text={"Continue"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":18,"lineHeight":21.6,"color":"#ffffff","textAlign":"center"}} />
       <Link node="708:705" box={[17, 772, 359, 48]} to="700:264" label={"Create Event - Step 4"} />

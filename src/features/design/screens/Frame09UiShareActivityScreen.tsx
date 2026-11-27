@@ -7,7 +7,7 @@ export function Frame09UiShareActivityScreen() {
       <Surface node="666:3175" box={[121, 69, 151, 43]} fill={"#a5e0f2"} radius={20} />
       <Copy node="666:3182" box={[171, 77, 51, 27]} text={"Profile"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":20,"lineHeight":24.0,"color":"#3f596b","textAlign":"center"}} />
       <Artwork node="666:3176" box={[23, 69, 43, 43]} source={require('../../../../assets/figma/mobile/a84e1.svg')} />
-      <Artwork node="666:3186" box={[20, 130, 353, 236]} source={require('../../../../assets/figma/mobile/beb0e.jpg')} />
+      <Artwork node="666:3186" box={[20, 130, 353, 236]} radius={24} source={require('../../../../assets/figma/mobile/beb0e.jpg')} />
       <Artwork node="666:3187" box={[20, 130, 353, 236]} source={require('../../../../assets/figma/mobile/8dd12.svg')} />
       <Artwork node="666:3188" box={[34, 144, 82, 22]} source={require('../../../../assets/figma/mobile/44445.svg')} />
       <Copy node="666:3189" box={[34, 147, 82, 16]} text={"MY IMPACT"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":12,"lineHeight":16,"color":"#0186a8","textAlign":"center"}} />

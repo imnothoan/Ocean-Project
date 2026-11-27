@@ -19,7 +19,7 @@ export function Q34Screen() {
       <Surface node="606:657" box={[237, 189, 133, 32]} fill={"rgba(255,255,255,0.8)"} radius={8} stroke={[0.5,"rgba(0,0,0,0.3)"]} />
       <Copy node="606:661" box={[247, 195, 80, 19]} text={"Ngu Hanh Son"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":14,"lineHeight":16.8,"color":"#666666","textAlign":"left"}} />
       <Artwork node="606:663" box={[347, 202, 10.54, 6.25]} source={require('../../../../assets/figma/mobile/243a4.svg')} />
-      <Artwork node="1309:2845" box={[404, 30, 171, 118]} source={require('../../../../assets/figma/mobile/abf1d.png')} />
+      <Artwork node="1309:2845" box={[404, 30, 171, 118]} fit="cover" source={require('../../../../assets/figma/mobile/abf1d.png')} />
       <Link node="605:599" box={[23, 69, 43, 43]} to="722:6967" label={"Q - 37"} />
       <ApplicationQueue/>
     </Frame>

@@ -14,7 +14,7 @@ export function Q26Screen() {
       <Surface node="692:828" box={[43, 1408, 304, 89]} fill={"#fafafa"} radius={8} stroke={[0.5,"#d9d9d9"]} />
       <Copy node="692:829" box={[53, 1416, 229, 16]} text={"Enter message for management for field team ..."} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":14.4,"color":"#222222b2","textAlign":"left"}} />
       <Surface node="692:831" box={[20, 989, 347, 304]} fill={"#ffffff"} radius={12} stroke={[0.5,"rgba(0,0,0,0.4)"]} />
-      <Artwork node="692:833" box={[20, 1052, 350, 215]} source={require('../../../../assets/figma/mobile/a16d6.png')} />
+      <Artwork node="692:833" box={[20, 1052, 350, 215]} fit="cover" source={require('../../../../assets/figma/mobile/a16d6.png')} />
       <Artwork node="692:835" box={[123, 1218, 20, 28]} source={require('../../../../assets/figma/mobile/03afd.svg')} />
       <Artwork node="692:836" box={[127, 1221, 12, 14]} source={require('../../../../assets/figma/mobile/2a782.svg')} />
       <Copy node="692:837" box={[118, 1246, 29, 13]} text={"Market"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":10,"lineHeight":12.0,"color":"#2b2b2b","textAlign":"left"}} />
@@ -54,12 +54,12 @@ export function Q26Screen() {
       <Copy node="692:890" box={[43, 553, 136, 14]} text={"Submission Time Offset"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":13,"lineHeight":14,"color":"#0f172a","textAlign":"left"}} />
       <Artwork node="692:891" box={[43, 490.3, 304, 0.7]} source={require('../../../../assets/figma/mobile/d4ee6.svg')} />
       <Artwork node="692:892" box={[43, 546.3, 304, 0.7]} source={require('../../../../assets/figma/mobile/d4ee6.svg')} />
-      <Artwork node="692:895" box={[20, 196, 350, 200]} source={require('../../../../assets/figma/mobile/7120a.jpg')} />
+      <Artwork node="692:895" box={[20, 196, 350, 200]} fit="cover" source={require('../../../../assets/figma/mobile/7120a.jpg')} />
       <Surface node="692:897" box={[31, 207, 59, 26]} fill={"#e3f3f7"} radius={12} />
       <Copy node="692:898" box={[40, 213, 42, 14]} text={""} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":10,"lineHeight":22.8,"color":"#2b2b2b","textAlign":"left"}} />
-      <Artwork node="692:899" box={[251, 408, 96, 44]} source={require('../../../../assets/figma/mobile/d0fe7.jpg')} radius={5} />
-      <Artwork node="692:900" box={[148, 408, 96, 44]} source={require('../../../../assets/figma/mobile/6e400.jpg')} radius={5} />
-      <Artwork node="692:901" box={[43, 408, 96, 44]} source={require('../../../../assets/figma/mobile/7120a.jpg')} radius={5} />
+      <Artwork node="692:899" box={[251, 408, 96, 44]} radius={5} fit="cover" source={require('../../../../assets/figma/mobile/d0fe7.jpg')} />
+      <Artwork node="692:900" box={[148, 408, 96, 44]} radius={5} fit="cover" source={require('../../../../assets/figma/mobile/6e400.jpg')} />
+      <Artwork node="692:901" box={[43, 408, 96, 44]} radius={5} fit="cover" source={require('../../../../assets/figma/mobile/7120a.jpg')} />
       <Artwork node="692:903" box={[21, 67, 43, 43]} source={require('../../../../assets/figma/mobile/ac3a3.svg')} />
       <Surface node="692:907" box={[95, 66, 200, 43]} fill={"#a5e0f2"} radius={20} />
       <Copy node="692:908" box={[125, 73, 152, 27]} text={"\rReport Details\r"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":20,"lineHeight":24.0,"color":"#3f596b","textAlign":"left"}} />

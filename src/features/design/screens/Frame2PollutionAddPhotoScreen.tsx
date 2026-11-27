@@ -11,7 +11,7 @@ export function Frame2PollutionAddPhotoScreen() {
       <Surface node="230:4612" box={[26, 150, 57.5, 5]} fill={"#43c4d6"} radius={3} />
       <Copy node="230:4614" box={[23, 165, 345, 35]} text={"Add photo evidence"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":23,"lineHeight":29,"color":"#091727","textAlign":"left"}} />
       <Copy node="230:4616" box={[22, 196, 264, 24]} text={"Clear photos help reviewers assess the issue."} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":14,"lineHeight":18,"color":"#3f596b","textAlign":"left"}} />
-      <Artwork node="230:4618" box={[27, 225, 345, 201]} source={require('../../../../assets/figma/mobile/9d210.png')} radius={12} />
+      <Artwork node="230:4618" box={[27, 225, 345, 201]} radius={12} fit="cover" source={require('../../../../assets/figma/mobile/9d210.png')} />
       <Surface node="242:4619" box={[24, 443, 165, 42]} fill={"#eaf8fb"} radius={23} stroke={[1,"#d8e5ec"]} />
       <Artwork node="242:4620" box={[58, 453, 22, 22]} source={require('../../../../assets/figma/mobile/507ae.svg')} />
       <Copy node="242:4623" box={[93, 454, 79, 20]} text={"Camera"} typeStyle={{"fontFamily":"AfacadFlux_600SemiBold","fontSize":15,"lineHeight":19,"color":"#0186a8","textAlign":"left"}} />
@@ -21,9 +21,9 @@ export function Frame2PollutionAddPhotoScreen() {
       <Copy node="242:4633" box={[24, 499, 121, 16]} text={"PHOTOS ATTACHED (3)"} typeStyle={{"fontFamily":"AfacadFlux_600SemiBold","fontSize":12,"lineHeight":15,"color":"#3f596b","textAlign":"left"}} />
       <Surface node="242:4635" box={[292, 523, 81, 72]} fill={"#ffffff"} radius={10} stroke={[1,"#d8e5ec"]} />
       <Artwork node="242:4636" box={[321, 547, 25, 25]} source={require('../../../../assets/figma/mobile/1412c.svg')} />
-      <Artwork node="242:4655" box={[22, 523, 78, 72]} source={require('../../../../assets/figma/mobile/d45a0.png')} radius={9} />
-      <Artwork node="242:4656" box={[205, 523, 78, 72]} source={require('../../../../assets/figma/mobile/3651f.png')} radius={9} />
-      <Artwork node="242:4658" box={[115, 523, 78, 72]} source={require('../../../../assets/figma/mobile/e95d4.png')} radius={9} />
+      <Artwork node="242:4655" box={[22, 523, 78, 72]} radius={9} fit="cover" source={require('../../../../assets/figma/mobile/d45a0.png')} />
+      <Artwork node="242:4656" box={[205, 523, 78, 72]} radius={9} fit="cover" source={require('../../../../assets/figma/mobile/3651f.png')} />
+      <Artwork node="242:4658" box={[115, 523, 78, 72]} radius={9} fit="cover" source={require('../../../../assets/figma/mobile/e95d4.png')} />
       <Surface node="242:4660" box={[24, 613, 345, 68]} fill={"#fff2ec"} radius={14} />
       <Surface node="242:4661" box={[36, 624, 42, 42]} fill={"#ffe3d6"} radius={21} />
       <Artwork node="242:4662" box={[47, 634, 20, 20]} source={require('../../../../assets/figma/mobile/8d3ba.svg')} />

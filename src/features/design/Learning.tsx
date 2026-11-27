@@ -5,6 +5,8 @@ import { supabase } from '../../lib/supabase';
 import { action, choices, field, result, type Controller } from './workflow';
 import { FlowSection, ListRow, SmallButton, styles, useLiveData } from './live';
 import { dayStreak, levelFor, memberActivity } from './activity';
+import { badges, badgeProgress } from './badges';
+import { BadgeMedal, ProgressTrack } from './BadgeCollection';
 import { guideNames } from './account';
 import { matchesQuery } from './communityView';
 import type { ProjectData } from './useProjectData';
@@ -73,7 +75,11 @@ export function ActivityHistory({ top = 315 }: { top?: number }) {
           key={r.date + i}
           title={r.title}
           description={
-            new Date(r.date).toLocaleDateString() + ' · ' + (r.points > 0 ? '+' : '') + r.points + ' points'
+            new Date(r.date).toLocaleDateString() +
+            ' · ' +
+            (r.points > 0 ? '+' : '') +
+            r.points +
+            ' points'
           }
         />
       ))}
@@ -165,7 +171,10 @@ export function MonthlyChart() {
       style={{ flex: 1, flexDirection: 'row', alignItems: 'flex-end', padding: 3, gap: 3 }}
     >
       {amounts.map((kg, i) => (
-        <View key={i} style={{ flex: 1, height: '100%', justifyContent: 'flex-end', alignItems: 'center' }}>
+        <View
+          key={i}
+          style={{ flex: 1, height: '100%', justifyContent: 'flex-end', alignItems: 'center' }}
+        >
           <Text style={{ fontSize: 8, color: '#37586b' }}>{kg || ''}</Text>
           <View
             style={{
@@ -180,19 +189,6 @@ export function MonthlyChart() {
     </View>
   );
 }
-function ProgressBar({ fraction }: { fraction: number }) {
-  return (
-    <View style={{ flex: 1, borderRadius: 7, backgroundColor: '#d7ecee', overflow: 'hidden' }}>
-      <View
-        style={{
-          height: '100%',
-          backgroundColor: '#35b7ce',
-          width: `${Math.max(0, Math.min(1, fraction)) * 100}%`,
-        }}
-      />
-    </View>
-  );
-}
 export function learning(c: Controller, data: ProjectData) {
   const { id, binding: b, user, values: v } = c;
   if (id in guideNames) {
@@ -201,7 +197,9 @@ export function learning(c: Controller, data: ProjectData) {
     action(c, ['guideSave', '682:5575', '682:5577'], () =>
       c.run(async () => {
         if (saved)
-          result(await supabase.from('saved_guides').delete().eq('user_id', user!.id).eq('frame_id', id));
+          result(
+            await supabase.from('saved_guides').delete().eq('user_id', user!.id).eq('frame_id', id),
+          );
         else {
           const response = await supabase.from('saved_guides').insert({ frame_id: id });
           if (response.error?.code !== '23505') result(response);
@@ -238,19 +236,16 @@ export function learning(c: Controller, data: ProjectData) {
   const xp = data.points + data.claims.reduce((s, x) => s + x.cost, 0),
     level = levelFor(xp);
   const verified = data.reports.filter((r) => r.owner_id === user?.id && r.status === 'resolved');
-  const completed = data.checkins.length,
-    read = data.learning.length,
-    posts = data.postCount;
+  const completed = data.checkins.length;
   const streak = dayStreak(activity);
-  const badges = [
-    activity.length > 0,
-    verified.length >= 3,
-    completed >= 3,
-    read >= 2,
-    streak >= 7,
-    posts >= 3,
-  ];
+  const metrics = data.badgeMetrics ?? {};
+  const known = !user || data.badgeMetrics !== null;
+  const earned = badges.filter((badge) => badgeProgress(badge, metrics) === badge.target).length;
   if (id === '666:3592') {
+    b.replacements['721:374'] = (
+      <ProgressTrack fraction={level.fraction} track="rgba(255,255,255,0.23)" fill="#fec968" />
+    );
+    b.hidden.add('721:375');
     for (const n of ['666:3907', '666:3969']) b.labels[n] = streak + ' days';
     for (const n of ['666:3909', '666:3971', '666:3930', '666:3992']) b.labels[n] = String(completed);
     for (const n of ['666:3918', '666:3980']) b.labels[n] = '—';
@@ -258,7 +253,7 @@ export function learning(c: Controller, data: ProjectData) {
       b.labels[n] = String(verified.filter((r) => r.category === 'animal').length);
     for (const n of ['666:3925', '666:3987']) b.labels[n] = 'Wildlife reports';
     Object.assign(b.labels, {
-      '721:345': badges.filter(Boolean).length + ' earned',
+      '721:345': known ? earned + ' earned' : '…',
       '721:357': data.points >= 300 ? '1 available' : '0 available',
       '721:371': 'LEVEL ' + level.number,
       '721:372': level.name,
@@ -283,7 +278,9 @@ export function learning(c: Controller, data: ProjectData) {
       ' pts';
   }
   if (id === '240:442') {
-    b.replacements['240:460'] = <ProgressBar fraction={level.target ? xp / level.target : 1} />;
+    b.replacements['240:460'] = (
+      <ProgressTrack fraction={level.fraction} track="rgba(255,255,255,0.25)" fill="#fec968" />
+    );
     b.hidden.add('240:461');
     Object.assign(b.labels, {
       '240:457': 'Level ' + level.number,
@@ -297,23 +294,11 @@ export function learning(c: Controller, data: ProjectData) {
       '240:511': '',
       '240:513': '',
     });
-    ['240:471', '240:477', '240:484', '240:491', '240:498'].forEach(
-      (n, i) => (b.labels[n] = level.number === i + 1 ? 'Now' : level.number > i + 1 ? 'Done' : 'Next'),
-    );
     action(c, ['240:457', '240:458', '240:459', '240:462', 'levelProgressLink'], () => c.go('670:5193'));
-    action(c, ['240:507', '759:542'], () => c.go('670:4692'));
+    action(c, ['240:501', '240:502', '240:506', '240:507', '759:542'], () => c.go('670:4692'));
   }
   if (id === '218:2549') {
     const filter = v.badgeCategory || 'All';
-    const categories = ['Community', 'Cleanup', 'Cleanup', 'Knowledge', 'Community', 'Community'];
-    const tiles = [
-      [2577, 2581, 2623],
-      [2582, 2586, 2635],
-      [2587, 2591, 2626],
-      [2592, 2596, 2629],
-      [2597, 2601, 2632],
-      [2602, 2608, 2611],
-    ];
     const chips = ['All', 'Community', 'Cleanup', 'Knowledge'];
     chips.forEach((category, i) => {
       const background = '218:' + (2567 + 2 * i),
@@ -326,64 +311,34 @@ export function learning(c: Controller, data: ProjectData) {
       b.labels[background] = category;
       action(c, [background, text], () => c.setValue('badgeCategory', category));
     });
-    const visible = categories.map((cat, i) => filter === 'All' || cat === filter);
-    const destinations = ['263:2756', '230:1379', '670:4529', '244:550', '670:5000', '101:2769'];
-    tiles.forEach(([first, last, icon], i) => {
-      const nodes = Array.from({ length: last - first + 1 }, (_, index) => '218:' + (first + index)).concat(
-        '218:' + icon,
-      );
-      if (!visible[i]) {
-        for (const n of nodes) b.hidden.add(n);
-        return;
-      }
-      action(c, nodes, () => c.go(destinations[i]));
-    });
-    if (!visible[2]) b.hidden.add('759:535');
-    if (filter !== 'All') b.labels['218:2575'] = filter;
-    b.replacements['218:2565'] = <ProgressBar fraction={badges.filter(Boolean).length / 6} />;
-    b.hidden.add('218:2566');
-    b.replacements['218:2617'] = <ProgressBar fraction={Math.min(3, posts) / 3} />;
-    b.hidden.add('218:2618');
-    Object.assign(b.labels, {
-      '218:2563': badges.filter(Boolean).length + ' of 6 badges',
-      '218:2576': badges.filter((earned, i) => earned && visible[i]).length + ' earned',
-      '218:2583': 'Report Guardian',
-      '218:2584': 'Verify 3 reports',
-      '218:2594': 'Finish 2 guides',
-      '218:2604': 'Community Builder',
-      '218:2605': 'Share 3 posts',
-      '218:2620': Math.min(3, posts) + ' / 3 posts',
-      '218:2564': 'Learn, report and attend events to earn badges.',
-    });
-    ['218:2581', '218:2586', '218:2591', '218:2596', '218:2601', '218:2607'].forEach(
-      (n, i) => (b.labels[n] = badges[i] ? 'EARNED' : 'LOCKED'),
+    const visible = badges.filter((badge) => filter === 'All' || badge.category === filter);
+    b.replacements['218:2565'] = (
+      <ProgressTrack fraction={earned / badges.length} track="rgba(255,255,255,0.25)" fill="#fec968" />
     );
+    b.hidden.add('218:2566');
+    b.labels['218:2563'] = known ? earned + ' of ' + badges.length + ' badges' : 'Your badges';
+    b.labels['218:2564'] = 'Learn, report and attend events to earn badges.';
+    b.labels['218:2576'] = known
+      ? visible.filter((badge) => badgeProgress(badge, metrics) === badge.target).length + ' earned'
+      : '…';
   }
   if (id === '670:4529') {
-    action(c, ['670:4576'], () => c.go('218:2549'));
-    for (const [n, at] of [
-      ['670:4553', 1],
-      ['670:4559', 2],
-      ['670:4565', 3],
-    ] as const)
-      if (completed < at) b.hidden.add(n);
-    Object.assign(b.labels, {
-      '670:4571': String(completed),
-      '670:4572': 'events attended',
-      '670:4547': completed >= 3 ? 'EARNED' : 'IN PROGRESS',
-      '670:4548': 'Attend three community events to earn Team Player.',
-      '670:4549': '',
-      '670:4556': Math.min(1, completed) + ' / 1',
-      '670:4561': 'Attend a second event',
-      '670:4562': Math.min(2, completed) + ' / 2',
-      '670:4568': Math.min(3, completed) + ' / 3',
-      '670:4573': '50 pts',
-      '670:4574': 'per check-in',
-    });
+    const selected = badges.find((badge) => badge.title === v.badgeTitle) ?? badges[2];
+    b.labels['670:4545'] = selected.title;
+    b.labels['670:4547'] = known
+      ? badgeProgress(selected, metrics) === selected.target
+        ? 'EARNED'
+        : 'IN PROGRESS'
+      : '…';
+    b.replacements['670:4544'] = <BadgeMedal badge={selected} />;
   }
   if (id === '670:5193') {
-    b.replacements['670:5219'] = <ProgressBar fraction={level.target ? xp / level.target : 1} />;
-    b.replacements['670:5245'] = <ProgressBar fraction={level.target ? xp / level.target : 1} />;
+    b.replacements['670:5219'] = (
+      <ProgressTrack fraction={level.fraction} track="rgba(255,255,255,0.25)" fill="#fec968" />
+    );
+    b.replacements['670:5245'] = (
+      <ProgressTrack fraction={level.fraction} track="rgba(255,255,255,0.25)" fill="#fec968" />
+    );
     b.hidden.add('670:5220');
     b.hidden.add('670:5246');
     action(c, ['670:5228', '670:5229'], () => c.go('670:4692'));
@@ -397,7 +352,7 @@ export function learning(c: Controller, data: ProjectData) {
       '670:5228': 'Rewards',
       '670:5229': data.claims.length + ' claimed',
       '670:5234': 'Badges',
-      '670:5235': badges.filter(Boolean).length + ' earned',
+      '670:5235': known ? earned + ' earned' : '…',
       '670:5240': 'Guides',
       '670:5241': data.saved.length + ' saved',
       '670:5221': xp + ' XP',

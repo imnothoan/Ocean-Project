@@ -24,7 +24,7 @@ export function memberActivity(data: ProjectData, userId?: string): Activity[] {
     ...data.claims.map((r) => ({ title: 'Class reward', date: r.claimed_at, points: -r.cost })),
   ].sort((a, b) => b.date.localeCompare(a.date));
 }
-const levels = [
+export const levels = [
   ['Seedling', 0],
   ['Sprout', 100],
   ['Green Friend', 500],
@@ -37,6 +37,9 @@ export function levelFor(xp: number) {
   const next = levels[index + 1];
   return {
     number: index + 1,
+    fraction: next
+      ? Math.max(0, Math.min(1, (xp - levels[index][1]) / (next[1] - levels[index][1])))
+      : 1,
     name: levels[index][0],
     next: next?.[0],
     target: next?.[1],

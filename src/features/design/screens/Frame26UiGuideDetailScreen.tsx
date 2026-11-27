@@ -10,7 +10,7 @@ export function Frame26UiGuideDetailScreen() {
       <Artwork node="682:5577" box={[334, 79, 24, 24]} source={require('../../../../assets/figma/mobile/57e4f.svg')} />
       <Copy node="682:5578" box={[145, 79, 102, 25]} text={"Badge details"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":19,"lineHeight":22.8,"color":"#091727","textAlign":"center"}} />
       <Artwork node="682:5579" box={[0, 0, 392, 852]} source={require('../../../../assets/figma/mobile/e305a.svg')} />
-      <Artwork node="682:5583" box={[-1, 0, 393, 300]} source={require('../../../../assets/figma/mobile/8dd33.jpg')} />
+      <Artwork node="682:5583" box={[-1, 0, 393, 300]} radius={24} source={require('../../../../assets/figma/mobile/8dd33.jpg')} />
       <Artwork node="682:5584" box={[0, 250, 392, 602]} source={require('../../../../assets/figma/mobile/11f69.svg')} />
       <Artwork node="682:5585" box={[19, 274, 110, 22]} source={require('../../../../assets/figma/mobile/15b5c.svg')} />
       <Copy node="682:5586" box={[26, 277, 96, 16]} text={"FOOD · 3 MIN READ"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":12,"lineHeight":14.4,"color":"#ffffff","textAlign":"center"}} />

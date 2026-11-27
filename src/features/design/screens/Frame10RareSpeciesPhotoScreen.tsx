@@ -11,7 +11,7 @@ export function Frame10RareSpeciesPhotoScreen() {
       <Surface node="255:580" box={[24, 143, 86.25, 5]} fill={"#43c4d6"} radius={3} />
       <Copy node="255:582" box={[24, 163, 205, 36]} text={"Capture the sighting"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":23,"lineHeight":28.75,"color":"#091727","textAlign":"left"}} />
       <Copy node="255:584" box={[24, 199, 345, 35]} text={"Record wildlife without disturbing it."} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":14,"lineHeight":17.5,"color":"#3f596b","textAlign":"left"}} />
-      <Artwork node="255:586" box={[25, 221, 345, 205]} source={require('../../../../assets/figma/mobile/55e40.png')} radius={9} />
+      <Artwork node="255:586" box={[25, 221, 345, 205]} radius={9} fit="cover" source={require('../../../../assets/figma/mobile/55e40.png')} />
       <Surface node="255:593" box={[24, 442, 165, 41]} fill={"#eaf8fb"} radius={22} stroke={[1,"#d8e5ec"]} />
       <Artwork node="255:594" box={[58, 453, 20, 20]} source={require('../../../../assets/figma/mobile/73d3b.svg')} />
       <Copy node="255:597" box={[93, 452, 85, 30]} text={"Camera"} typeStyle={{"fontFamily":"AfacadFlux_600SemiBold","fontSize":15,"lineHeight":18.75,"color":"#0186a8","textAlign":"left"}} />
@@ -21,9 +21,9 @@ export function Frame10RareSpeciesPhotoScreen() {
       <Copy node="255:607" box={[24, 494, 198, 30]} text={"PHOTOS ATTACHED (3)"} typeStyle={{"fontFamily":"AfacadFlux_600SemiBold","fontSize":12,"lineHeight":15,"color":"#3f596b","textAlign":"left"}} />
       <Surface node="255:669" box={[293, 519, 81, 71]} fill={"#ffffff"} radius={10} stroke={[1,"#d8e5ec"]} />
       <Artwork node="255:670" box={[323, 543, 22, 22]} source={require('../../../../assets/figma/mobile/aaa10.svg')} />
-      <Artwork node="255:673" box={[113, 518, 78, 71]} source={require('../../../../assets/figma/mobile/6090e.png')} radius={11} />
-      <Artwork node="255:676" box={[23, 519, 78, 71]} source={require('../../../../assets/figma/mobile/55e40.png')} radius={11} />
-      <Artwork node="255:674" box={[203, 518, 78, 71]} source={require('../../../../assets/figma/mobile/e0e78.png')} radius={11} />
+      <Artwork node="255:673" box={[113, 518, 78, 71]} radius={11} fit="cover" source={require('../../../../assets/figma/mobile/6090e.png')} />
+      <Artwork node="255:676" box={[23, 519, 78, 71]} radius={11} fit="cover" source={require('../../../../assets/figma/mobile/55e40.png')} />
+      <Artwork node="255:674" box={[203, 518, 78, 71]} radius={11} fit="cover" source={require('../../../../assets/figma/mobile/e0e78.png')} />
       <Surface node="255:678" box={[24, 610, 345, 72]} fill={"#e8f8f3"} radius={13} />
       <Surface node="255:679" box={[36, 622, 43, 43]} fill={"#d2f4e7"} radius={22} />
       <Artwork node="255:680" box={[47, 633, 21, 21]} source={require('../../../../assets/figma/mobile/c4ee8.svg')} />
