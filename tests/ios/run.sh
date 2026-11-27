@@ -10,12 +10,22 @@ device=''
 metro=''
 cleanup() {
   status=$?
+  if [[ $status -ne 0 && -f "$artifacts/metro.log" ]]; then tail -35 "$artifacts/metro.log"; fi
   if [[ $status -ne 0 && -n "$device" ]]; then xcrun simctl io "$device" screenshot "$artifacts/failure.png" >/dev/null 2>&1 || true; fi
   if [[ -n "$metro" ]]; then kill "$metro" 2>/dev/null || true; fi
   if [[ -n "$device" ]]; then xcrun simctl delete "$device" || true; fi
   rm -rf "$scratch"
 }
 trap cleanup EXIT
+CI=1 RAYON_NUM_THREADS=1 EXPO_OFFLINE=1 EXPO_NO_TELEMETRY=1 npx --no-install expo start --go --localhost --port 8081 --no-dev --max-workers 2 > "$artifacts/metro.log" 2>&1 &
+metro=$!
+for ((i=0;i<90;i++)); do
+  if curl -fsS http://127.0.0.1:8081/status 2>/dev/null | grep -q 'packager-status:running'; then break; fi
+  sleep 1
+done
+curl -fsS -H 'accept: application/expo+json' -H 'Expo-Platform: ios' http://127.0.0.1:8081/ > "$scratch/manifest.json"
+bundle=$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["launchAsset"]["url"])' "$scratch/manifest.json")
+curl --max-time 600 -fsS "$bundle" -o /dev/null
 runtimes=$(xcrun simctl list runtimes -j | python3 -c 'import json, sys
 rs=[r for r in json.load(sys.stdin)["runtimes"] if r["isAvailable"] and ".iOS-" in r["identifier"]]
 for r in sorted(rs,key=lambda r:tuple(map(int,r["version"].split("."))), reverse=True): print(r["identifier"])')
@@ -32,15 +42,6 @@ mkdir -p "$app"
 tar xzf "$scratch/expo.tgz" -C "$app"
 test -f "$app/Info.plist"
 xcrun simctl install "$device" "$app"
-CI=1 EXPO_OFFLINE=1 EXPO_NO_TELEMETRY=1 npx --no-install expo start --go --localhost --port 8081 --no-dev --minify > "$artifacts/metro.log" 2>&1 &
-metro=$!
-for ((i=0;i<90;i++)); do
-  if curl -fsS http://127.0.0.1:8081/status 2>/dev/null | grep -q 'packager-status:running'; then break; fi
-  sleep 1
-done
-curl -fsS -H 'accept: application/expo+json' -H 'Expo-Platform: ios' http://127.0.0.1:8081/ > "$scratch/manifest.json"
-bundle=$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["launchAsset"]["url"])' "$scratch/manifest.json")
-curl --max-time 300 -fsS "$bundle" -o /dev/null
 xcrun simctl openurl "$device" exp://127.0.0.1:8081
 cd "$artifacts"
 maestro --device "$device" test --test-output-dir "$artifacts" "$repo/tests/ios/guest.yaml"

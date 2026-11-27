@@ -19,5 +19,5 @@ curl --retry 3 -fsSL https://codeload.github.com/supabase/storage/tar.gz/ba916ff
 tar xzf source.tar.gz --strip-components=1 -C storage
 rm source.tar.gz
 cd storage
-npm ci --ignore-scripts --no-audit --no-fund
+npx --yes --package=npm@12.2.1 npm ci --ignore-scripts --no-audit --no-fund
 node build.js
