@@ -5,17 +5,26 @@ import { buildEvidencePath, validateReportDraft } from '../src/features/reports/
 const draft = { category: 'pollution' as const, title: 'Rác nhựa', location: 'Cầu cảng' };
 
 function dependencies(overrides: Partial<Parameters<typeof submitReport>[1]> = {}) {
-  const report = { id: 'report-1', owner_id: 'user-1', ...draft, status: 'submitted', created_at: new Date().toISOString() };
+  const report = {
+    id: 'report-1',
+    owner_id: 'user-1',
+    ...draft,
+    status: 'submitted',
+    created_at: new Date().toISOString(),
+  };
   return {
     getUser: vi.fn(async () => ({ user: { id: 'user-1' }, error: null })),
     createReport: vi.fn(async () => ({ data: report, error: null })),
-    readEvidence: vi.fn(async () => ({ blob: new Blob(['image'], { type: 'image/jpeg' }), error: null })),
+    readEvidence: vi.fn(async () => ({
+      blob: new Blob(['image'], { type: 'image/jpeg' }),
+      error: null,
+    })),
     uploadEvidence: vi.fn(async () => null),
     saveEvidence: vi.fn(async () => null),
     removeEvidence: vi.fn(async () => undefined),
     deleteReport: vi.fn(async () => undefined),
     createId: vi.fn(() => 'report-1'),
-    ...overrides
+    ...overrides,
   };
 }
 
@@ -43,7 +52,9 @@ describe('report submission', () => {
     const result = await submitReport({ ...draft, photoUri: 'file:///photo.jpg' }, deps);
     expect(result.error).toBeNull();
     expect(deps.uploadEvidence).toHaveBeenCalledWith('user-1/report-1/evidence.jpeg', expect.any(Blob));
-    expect(deps.saveEvidence).toHaveBeenCalledWith(expect.objectContaining({ report_id: 'report-1', owner_id: 'user-1' }));
+    expect(deps.saveEvidence).toHaveBeenCalledWith(
+      expect.objectContaining({ report_id: 'report-1', owner_id: 'user-1' }),
+    );
   });
 
   it('rolls back the report and uploaded evidence after persistence failure', async () => {
@@ -54,17 +65,28 @@ describe('report submission', () => {
     expect(deps.deleteReport).toHaveBeenCalledWith('report-1', 'user-1');
   });
   it('removes both stored photos when metadata for the second photo fails', async () => {
-    const deps = dependencies({saveEvidence:vi.fn().mockResolvedValueOnce(null).mockResolvedValueOnce(new Error('second photo unavailable'))});
-    const result=await submitReport({...draft,photos:[{uri:'file:///first.jpg'},{uri:'file:///second.jpg'}]},deps);
+    const deps = dependencies({
+      saveEvidence: vi
+        .fn()
+        .mockResolvedValueOnce(null)
+        .mockResolvedValueOnce(new Error('second photo unavailable')),
+    });
+    const result = await submitReport(
+      { ...draft, photos: [{ uri: 'file:///first.jpg' }, { uri: 'file:///second.jpg' }] },
+      deps,
+    );
     expect(result.error?.message).toBe('second photo unavailable');
-    expect(deps.removeEvidence).toHaveBeenNthCalledWith(1,'user-1/report-1/evidence.jpeg');
-    expect(deps.removeEvidence).toHaveBeenNthCalledWith(2,'user-1/report-1/evidence-2.jpeg');
+    expect(deps.removeEvidence).toHaveBeenNthCalledWith(1, 'user-1/report-1/evidence.jpeg');
+    expect(deps.removeEvidence).toHaveBeenNthCalledWith(2, 'user-1/report-1/evidence-2.jpeg');
     expect(deps.deleteReport).toHaveBeenCalledOnce();
   });
   it('rejects excess photos before writing a report', async () => {
-    const deps=dependencies();
-    const result=await submitReport({...draft,photos:Array.from({length:4},()=>({uri:'photo'}))},deps);
-    expect(result.error).toBeTruthy();expect(deps.createReport).not.toHaveBeenCalled();
+    const deps = dependencies();
+    const result = await submitReport(
+      { ...draft, photos: Array.from({ length: 4 }, () => ({ uri: 'photo' })) },
+      deps,
+    );
+    expect(result.error).toBeTruthy();
+    expect(deps.createReport).not.toHaveBeenCalled();
   });
-
 });

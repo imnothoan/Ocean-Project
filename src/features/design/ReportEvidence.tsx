@@ -9,13 +9,34 @@ export function ReportEvidence({ path }: { path: string }) {
   useEffect(() => {
     let active = true;
     setImage({ path });
-    supabase.storage.from('report-evidence').createSignedUrl(path, 600)
+    supabase.storage
+      .from('report-evidence')
+      .createSignedUrl(path, 600)
       .then(({ data, error }) => {
         if (active) setImage({ path, url: data?.signedUrl, failed: Boolean(error) });
-      }).catch(() => { if (active) setImage({ path, failed: true }); });
-    return () => { active = false; };
+      })
+      .catch(() => {
+        if (active) setImage({ path, failed: true });
+      });
+    return () => {
+      active = false;
+    };
   }, [path, attempt]);
   if (image?.path !== path || (!image.url && !image.failed)) return <ActivityIndicator />;
-  if (image.failed) return <Pressable accessibilityRole="button" onPress={() => setAttempt(v => v + 1)}><Text>Retry photo</Text></Pressable>;
-  return <Image accessibilityLabel="Report evidence" source={{ uri: image.url }} contentFit="cover" cachePolicy="memory" style={StyleSheet.absoluteFill} onError={() => setImage({ path, failed: true })} />;
+  if (image.failed)
+    return (
+      <Pressable accessibilityRole="button" onPress={() => setAttempt((v) => v + 1)}>
+        <Text>Retry photo</Text>
+      </Pressable>
+    );
+  return (
+    <Image
+      accessibilityLabel="Report evidence"
+      source={{ uri: image.url }}
+      contentFit="cover"
+      cachePolicy="memory"
+      style={StyleSheet.absoluteFill}
+      onError={() => setImage({ path, failed: true })}
+    />
+  );
 }

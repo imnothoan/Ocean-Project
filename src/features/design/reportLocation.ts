@@ -1,5 +1,9 @@
 export type Coordinates = { latitude: number; longitude: number };
-export type ReportLocationProps = { location: string; onPick?: (point: Coordinates) => void; onLocate?: () => void };
+export type ReportLocationProps = {
+  location: string;
+  onPick?: (point: Coordinates) => void;
+  onLocate?: () => void;
+};
 
 export function parseReportCoordinates(location: string): Coordinates | undefined {
   const parts = location.trim().match(/^(-?\d+(?:\.\d+)?)\s*,\s*(-?\d+(?:\.\d+)?)$/);

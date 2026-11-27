@@ -1,7 +1,11 @@
 import type { OceanEvent } from '../../lib/supabase';
 
 export function localDateKey(date: Date) {
-  return [String(date.getFullYear()).padStart(4, '0'), String(date.getMonth() + 1).padStart(2, '0'), String(date.getDate()).padStart(2, '0')].join('-');
+  return [
+    String(date.getFullYear()).padStart(4, '0'),
+    String(date.getMonth() + 1).padStart(2, '0'),
+    String(date.getDate()).padStart(2, '0'),
+  ].join('-');
 }
 
 export function eventStart(date: string, time: string) {
@@ -25,11 +29,23 @@ export function calendarMonth(selected: Date, events: OceanEvent[]) {
   const first = new Date(year, month, 1);
   const leading = (first.getDay() + 6) % 7;
   const days = new Date(year, month + 1, 0).getDate();
-  const monthEvents = events.filter(event => {
-    const date = new Date(event.event_date);
-    return date.getMonth() === month && date.getFullYear() === year;
-  }).sort((a,b) => Date.parse(a.event_date) - Date.parse(b.event_date));
-  const selectedEvents = monthEvents.filter(event => new Date(event.event_date).getDate() === selected.getDate());
-  const otherEvents = monthEvents.filter(event => new Date(event.event_date).getDate() !== selected.getDate());
-  return {leading, days, selectedEvents, otherEvents, markedDays: new Set(monthEvents.map(event => new Date(event.event_date).getDate()))};
+  const monthEvents = events
+    .filter((event) => {
+      const date = new Date(event.event_date);
+      return date.getMonth() === month && date.getFullYear() === year;
+    })
+    .sort((a, b) => Date.parse(a.event_date) - Date.parse(b.event_date));
+  const selectedEvents = monthEvents.filter(
+    (event) => new Date(event.event_date).getDate() === selected.getDate(),
+  );
+  const otherEvents = monthEvents.filter(
+    (event) => new Date(event.event_date).getDate() !== selected.getDate(),
+  );
+  return {
+    leading,
+    days,
+    selectedEvents,
+    otherEvents,
+    markedDays: new Set(monthEvents.map((event) => new Date(event.event_date).getDate())),
+  };
 }
