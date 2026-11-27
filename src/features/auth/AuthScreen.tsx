@@ -11,9 +11,9 @@ import {
   View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { createRecoveryAuth, supabaseUrl } from '../../lib/supabase';
+import { createRecoveryAuth, supabase, supabaseUrl } from '../../lib/supabase';
 import { requestPasswordReset, resendConfirmation, signIn, signUp } from './authService';
-import { recoveryProof } from './recovery';
+import { emailProof, normalizeEmail, recoveryProof } from './recovery';
 import { colors, radii, spacing, typography } from '../../theme/tokens';
 
 type Mode = 'signIn' | 'signUp' | 'confirmation' | 'reset' | 'verify' | 'password';
@@ -28,7 +28,7 @@ const headings: Record<Mode, string> = {
 const submitLabels: Record<Mode, string> = {
   signIn: 'Đăng nhập',
   signUp: 'Đăng ký',
-  confirmation: 'Gửi lại email xác nhận',
+  confirmation: 'Xác nhận và đăng nhập',
   reset: 'Gửi email khôi phục',
   verify: 'Xác minh',
   password: 'Lưu mật khẩu mới',
@@ -37,6 +37,14 @@ const submitLabels: Record<Mode, string> = {
 function errorMessage(error: unknown) {
   const code = error && typeof error === 'object' && 'code' in error ? error.code : '';
   switch (code) {
+    case 'email_address_invalid':
+      return 'Supabase không chấp nhận địa chỉ này. Kiểm tra chính tả và dùng hộp thư có thể nhận email.';
+    case 'email_address_not_authorized':
+      return 'Dịch vụ email của dự án chưa cho phép gửi tới địa chỉ này. Quản trị viên cần cấu hình email gửi đi.';
+    case 'signup_disabled':
+      return 'Dự án đang tắt đăng ký tài khoản mới.';
+    case 'weak_password':
+      return 'Mật khẩu chưa đủ mạnh. Hãy dùng mật khẩu dài hơn với chữ hoa, chữ thường và số.';
     case 'invalid_credentials':
       return 'Email hoặc mật khẩu chưa đúng.';
     case 'otp_expired':
@@ -44,6 +52,7 @@ function errorMessage(error: unknown) {
     case 'same_password':
       return 'Hãy chọn mật khẩu khác mật khẩu cũ.';
     case 'over_email_send_rate_limit':
+      return 'Supabase đã giới hạn gửi email. Hãy kiểm tra hộp thư và thư rác. Nếu chưa nhận được thư, vui lòng thử lại sau.';
     case 'over_request_rate_limit':
       return 'Bạn đã gửi yêu cầu gần đây. Vui lòng chờ rồi thử lại.';
     default:
@@ -64,7 +73,16 @@ export function AuthScreen({
   const [proof, setProof] = useState('');
   const [busy, setBusy] = useState(false);
   const [notice, setNotice] = useState('');
+  const [resendAt, setResendAt] = useState(0);
+  const [seconds, setSeconds] = useState(0);
   const lock = useRef(false);
+  useEffect(() => {
+    if (!resendAt) return;
+    const tick = () => setSeconds(Math.max(0, Math.ceil((resendAt - Date.now()) / 1000)));
+    tick();
+    const timer = setInterval(tick, 1000);
+    return () => clearInterval(timer);
+  }, [resendAt]);
   const mounted = useRef(true);
   const recovery = useRef<ReturnType<typeof createRecoveryAuth> | null>(null);
   function releaseRecovery() {
@@ -90,9 +108,10 @@ export function AuthScreen({
 
   const showEmail = ['signIn', 'signUp', 'reset'].includes(mode);
   const showPassword = ['signIn', 'signUp', 'password'].includes(mode);
-  async function submit() {
+  async function submit(resend = false) {
     if (lock.current) return;
-    const address = email.trim();
+    const address = normalizeEmail(email);
+    if (resend && Date.now() < resendAt) return;
     if (showEmail && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(address)) {
       setNotice('Hãy nhập địa chỉ email hợp lệ.');
       return;
@@ -105,13 +124,19 @@ export function AuthScreen({
     setBusy(true);
     setNotice('');
     try {
-      if (mode === 'reset' || mode === 'confirmation') {
+      if (mode === 'reset' || resend) {
         const { error } =
           mode === 'reset' ? await requestPasswordReset(address) : await resendConfirmation(address);
         if (error) throw error;
         if (!mounted.current) return;
+        setResendAt(Date.now() + 60_000);
         if (mode === 'reset') changeMode('verify');
         else setNotice('Kiểm tra hộp thư và thư rác để tìm email xác nhận.');
+      } else if (mode === 'confirmation') {
+        const input = emailProof('signup', proof, address, supabaseUrl);
+        const { data, error } = await supabase.auth.verifyOtp(input);
+        if (error || !data.session) throw error || new Error('Chưa thể xác nhận tài khoản.');
+        if (mounted.current) onAuthenticated();
       } else if (mode === 'verify') {
         const input = recoveryProof(proof, address, supabaseUrl);
         const client = createRecoveryAuth();
@@ -142,10 +167,24 @@ export function AuthScreen({
         }
         if (error) throw error;
         if (data.session) onAuthenticated();
-        else changeMode('confirmation');
+        else {
+          setEmail(address);
+          setResendAt(Date.now() + 60_000);
+          changeMode('confirmation');
+        }
       }
     } catch (error) {
       if (mode === 'verify') releaseRecovery();
+      if (
+        mounted.current &&
+        error &&
+        typeof error === 'object' &&
+        'code' in error &&
+        error.code === 'over_email_send_rate_limit'
+      ) {
+        setResendAt(Date.now() + 60_000);
+        if (mode === 'signUp') changeMode('confirmation');
+      }
       if (mounted.current) setNotice(errorMessage(error));
     } finally {
       lock.current = false;
@@ -157,7 +196,9 @@ export function AuthScreen({
     mode === 'verify'
       ? 'Trong email khôi phục, nhấn giữ nút đặt lại mật khẩu để sao chép liên kết trước khi mở. Dán liên kết vào ô bên dưới hoặc nhập mã nếu email có mã.'
       : mode === 'confirmation'
-        ? 'Mở liên kết xác nhận trong email rồi quay lại đăng nhập.'
+        ? 'Kiểm tra thư gửi tới ' +
+          email +
+          '. Nhấn giữ nút xác nhận trong thư để sao chép liên kết rồi dán vào đây, hoặc nhập mã nếu thư có mã. Nếu đã mở liên kết, hãy quay lại đăng nhập.'
         : mode === 'reset'
           ? 'Nhập email của tài khoản để nhận liên kết đổi mật khẩu.'
           : mode === 'password'
@@ -214,24 +255,30 @@ export function AuthScreen({
                   autoComplete={mode === 'signIn' ? 'current-password' : 'new-password'}
                   value={password}
                   onChangeText={setPassword}
-                  onSubmitEditing={submit}
+                  onSubmitEditing={() => void submit()}
                   returnKeyType="go"
                   style={styles.input}
                 />
               </>
             )}
-            {mode === 'verify' && (
+            {(mode === 'verify' || mode === 'confirmation') && (
               <>
-                <Text style={styles.label}>LIÊN KẾT HOẶC MÃ KHÔI PHỤC</Text>
+                <Text style={styles.label}>
+                  {mode === 'confirmation' ? 'LIÊN KẾT HOẶC MÃ XÁC NHẬN' : 'LIÊN KẾT HOẶC MÃ KHÔI PHỤC'}
+                </Text>
                 <TextInput
-                  accessibilityLabel="Liên kết hoặc mã khôi phục"
-                  secureTextEntry
+                  accessibilityLabel={
+                    mode === 'confirmation' ? 'Liên kết hoặc mã xác nhận' : 'Liên kết hoặc mã khôi phục'
+                  }
+                  autoComplete="one-time-code"
+                  textContentType="oneTimeCode"
+                  returnKeyType="go"
                   autoCapitalize="none"
                   autoCorrect={false}
                   editable={!busy}
                   value={proof}
                   onChangeText={setProof}
-                  onSubmitEditing={submit}
+                  onSubmitEditing={() => void submit()}
                   style={styles.input}
                 />
               </>
@@ -241,7 +288,12 @@ export function AuthScreen({
                 {notice}
               </Text>
             ) : null}
-            <Pressable accessibilityRole="button" disabled={busy} style={styles.button} onPress={submit}>
+            <Pressable
+              accessibilityRole="button"
+              disabled={busy}
+              style={styles.button}
+              onPress={() => void submit()}
+            >
               {busy ? (
                 <ActivityIndicator color={colors.white} />
               ) : (
@@ -249,6 +301,17 @@ export function AuthScreen({
               )}
             </Pressable>
           </View>
+          {mode === 'confirmation' && (
+            <Pressable
+              accessibilityRole="button"
+              disabled={busy || seconds > 0}
+              onPress={() => void submit(true)}
+            >
+              <Text style={styles.switch}>
+                {seconds > 0 ? 'Có thể gửi lại sau ' + seconds + ' giây' : 'Gửi lại email xác nhận'}
+              </Text>
+            </Pressable>
+          )}
           {mode === 'signIn' && link('Quên mật khẩu?', () => changeMode('reset'))}
           {mode === 'verify' && link('Yêu cầu email mới', () => changeMode('reset'))}
           {link(mode === 'signIn' ? 'Chưa có tài khoản? Đăng ký' : 'Đã có tài khoản? Đăng nhập', () =>
@@ -263,8 +326,17 @@ export function AuthScreen({
 const styles = StyleSheet.create({
   safe: { backgroundColor: '#F7FBFC', flex: 1 },
   content: { padding: spacing.xl },
-  back: { color: colors.blue, fontSize: 14, fontWeight: '700', marginBottom: spacing.xxxl },
-  eyebrow: { color: colors.blue, ...typography.eyebrow, marginBottom: spacing.sm },
+  back: {
+    color: colors.blue,
+    fontSize: 14,
+    fontWeight: '700',
+    marginBottom: spacing.xxxl,
+  },
+  eyebrow: {
+    color: colors.blue,
+    ...typography.eyebrow,
+    marginBottom: spacing.sm,
+  },
   heading: { color: colors.navy, ...typography.title },
   subtitle: {
     color: colors.muted,

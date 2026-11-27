@@ -3,7 +3,7 @@ import { eventStart, calendarMonth } from '../src/features/design/eventDates';
 import { dayStreak, levelFor } from '../src/features/design/activity';
 import { mapItems } from '../src/features/design/mapResults';
 import { reportCsv, reportHtml } from '../src/features/design/reportFileContent';
-import { recoveryProof } from '../src/features/auth/recovery';
+import { emailProof, recoveryProof } from '../src/features/auth/recovery';
 import type { OceanReport, OceanEvent } from '../src/lib/supabase';
 
 describe('screen data', () => {
@@ -49,13 +49,22 @@ describe('screen data', () => {
         { ...report, id: 'place', location: 'Harbor' },
       ],
       [],
-      { mapOrigin: report.location, mapSearch: 'plastic', mapRadius: '1', mapSeverity: 'Urgent' },
+      {
+        mapOrigin: report.location,
+        mapSearch: 'plastic',
+        mapRadius: '1',
+        mapSeverity: 'Urgent',
+      },
     );
     expect(results.map((r) => r.id)).toEqual(['near']);
     expect(results[0].distance).toBe(0);
   });
   it('counts consecutive active days across months and ignores reward redemption', () => {
-    const act = (date: string, points: number) => ({ title: 'Activity', date, points });
+    const act = (date: string, points: number) => ({
+      title: 'Activity',
+      date,
+      points,
+    });
     expect(
       dayStreak(
         [act('2026-10-31T12:00', 10), act('2026-11-01T15:00', 10), act('2026-11-02T08:00', -300)],
@@ -74,6 +83,23 @@ describe('screen data', () => {
     });
     expect(() =>
       recoveryProof('https://other.example/auth/v1/verify?type=recovery&token=fixture_7', '', host),
+    ).toThrow();
+  });
+  it('confirms a signed-up account in the app using its own email link or code', () => {
+    const host = 'https://ocean.example';
+    const original = host + '/auth/v1/verify?token=abc_123&type=signup';
+    expect(emailProof('signup', original, '', host)).toEqual({
+      type: 'signup',
+      token_hash: 'abc_123',
+    });
+    expect(emailProof('signup', '12345678', ' Ocean@Example.Org ', host)).toEqual({
+      type: 'signup',
+      email: 'ocean@example.org',
+      token: '12345678',
+    });
+    expect(() => emailProof('recovery', original, '', host)).toThrow();
+    expect(() =>
+      emailProof('signup', original.replace('ocean.example', 'other.example'), '', host),
     ).toThrow();
   });
   it('escapes markup, spreadsheet formulas and CSV quotes in exported report text', () => {
