@@ -20,9 +20,19 @@ import type { BadgeMetrics } from './badges';
 import type { Pledge } from './donations';
 import { result } from './workflow';
 
+export type Campaign = {
+  id: string;
+  name: string;
+  category: string;
+  goal_usd: number;
+  description: string;
+  organizer: string;
+  cover_url: string | null;
+};
 export type Attendance = { id: string; event_id: string; created_at: string };
 export type ProjectData = {
   badgeMetrics: BadgeMetrics | null;
+  campaigns: Campaign[];
   avatarUrl: string;
   postCount: number;
   supportedToday: number;
@@ -45,6 +55,7 @@ export type ProjectData = {
 };
 const empty: ProjectData = {
   badgeMetrics: null,
+  campaigns: [],
   avatarUrl: '',
   postCount: 0,
   supportedToday: 0,
@@ -80,6 +91,11 @@ async function readProject(session: Session | null, eventId: string, chat: boole
   const today = new Date();
   today.setHours(0, 0, 0, 0);
   const queries = {
+    campaigns: supabase
+      .from('fundraising_campaigns')
+      .select('id,name,category,goal_usd,description,organizer,cover_url')
+      .order('published_at', { ascending: false })
+      .then(result),
     badgeMetrics: uid
       ? supabase
           .rpc('ocean_badge_metrics', {

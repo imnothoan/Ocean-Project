@@ -53,8 +53,14 @@ export function donations(c: Controller, pledges: Pledge[]) {
     action(c, ['1581:1733', '1581:1734'], () =>
       c.run(async () => {
         if (!Number.isFinite(amount) || amount <= 0) throw new Error('Nhập số tiền hợp lệ.');
-        const campaign = v.campaign || 'Protect Phu Quoc Coral Reef';
-        const fingerprint = JSON.stringify([campaign, amount, v.donationNote || '', v.anonymous || '']);
+        const campaign = required(v.campaign, 'Hãy chọn chiến dịch đã công bố.');
+        const campaignId = required(v.campaignId, 'Hãy chọn chiến dịch đã công bố.');
+        const fingerprint = JSON.stringify([
+          campaignId,
+          amount,
+          v.donationNote || '',
+          v.anonymous || '',
+        ]);
         if (v.pledgeId && v.lastPledge === fingerprint) {
           c.go('1581:1764');
           return;
@@ -70,6 +76,7 @@ export function donations(c: Controller, pledges: Pledge[]) {
             campaign,
             v.donationNote || '',
             requestId,
+            campaignId,
           ),
         );
         if (!pledge) throw new Error('Chưa lưu được cam kết.');

@@ -36,12 +36,12 @@ describe('Native form actions',()=>{
   await expect(click('1581:1626')).rejects.toThrow();expect(c.go).not.toHaveBeenCalled();
  });
  it('shows a pending pledge after the database confirms it',async()=>{
-  services.createDonation.mockResolvedValue({data:{id:'pledge-1'},error:null});const {c,click}=harness('1581:1711',{amount:'5',payment:'MoMo'});
+  services.createDonation.mockResolvedValue({data:{id:'pledge-1'},error:null});const {c,click}=harness('1581:1711',{campaignId:'task-campaign',campaign:'Class fundraiser',amount:'5',payment:'MoMo'});
   donations(c,[]);await click('1581:1733');expect(c.values.pledgeId).toBe('pledge-1');expect(c.go).toHaveBeenCalledWith('1581:1764');
   const receipt=harness('1581:1764');donations(receipt.c,[]);expect(receipt.c.binding.labels['1581:1779']).toContain('No payment');
  });
  it('does not confirm a pledge when the network request fails',async()=>{
-  services.createDonation.mockResolvedValue({data:null,error:new Error('Unavailable')});const {c,click}=harness('1581:1711',{amount:'5'});
+  services.createDonation.mockResolvedValue({data:null,error:new Error('Unavailable')});const {c,click}=harness('1581:1711',{campaignId:'task-campaign',campaign:'Class fundraiser',amount:'5'});
   donations(c,[]);await expect(click('1581:1733')).rejects.toThrow('Unavailable');expect(c.go).not.toHaveBeenCalled();
  });
  it('does not open a check-in certificate after a rejected code',async()=>{

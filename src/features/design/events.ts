@@ -91,14 +91,14 @@ export function events(
       for (const [i, title, sub, image] of [
         [0, '258:430', '258:431', '258:469'],
         [1, '258:444', '258:445', '258:473'],
-        [2, '258:449', '258:450', '258:470'],
+        [2, '258:449', '258:450', '258:477'],
       ] as const) {
         const e = list[i];
         b.labels[title] = e?.title || (!i ? 'No upcoming events' : '');
         b.labels[sub] = e ? [eventDate(e), e.location].join(' · ') : '';
         const url = eventPhotoUrl(e?.cover_path);
         if (url) b.images[image] = url;
-        if (!e) b.hidden.add(image);
+        if (!url) b.hidden.add(image);
         action(c, [title, sub, image, ...(i === 0 ? ['258:428'] : [])], () => open(e, '258:735'));
       }
       Object.assign(b.labels, {

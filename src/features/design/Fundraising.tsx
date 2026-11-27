@@ -1,7 +1,8 @@
 import { recordReference } from './share';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Pressable, Text, TextInput, View } from 'react-native';
 import { Image } from 'expo-image';
+import { supabase } from '../../lib/supabase';
 import { FlowSection, ListRow, SmallButton, styles, useLiveData } from './live';
 import { action, choices, field, type Controller } from './workflow';
 import { matchesQuery } from './communityView';
@@ -9,36 +10,10 @@ import { exportReport } from './reportFiles';
 import { shareText } from './share';
 import type { ProjectData } from './useProjectData';
 
-const campaigns = [
-  {
-    name: 'Protect Phu Quoc Coral Reef',
-    category: 'Reefs',
-    goal: 20000,
-    description: 'Support reef stewardship and the removal of discarded nets.',
-    image: require('../../../assets/figma/mobile/8dd33.jpg'),
-  },
-  {
-    name: 'Nha Trang Coastline Cleanup',
-    category: 'Cleanups',
-    goal: 10000,
-    description: 'Support local coastline cleanups and waste sorting.',
-    image: require('../../../assets/figma/mobile/c3431.jpg'),
-  },
-  {
-    name: 'Save Coastal Sea Turtle',
-    category: 'Wildlife',
-    goal: 15000,
-    description: 'Support protection of sea turtles and their coastal habitat.',
-    image: require('../../../assets/figma/mobile/eaded.jpg'),
-  },
-];
-function selected(name?: string) {
-  return campaigns.find((c) => c.name === name) || campaigns[0];
-}
 export function CampaignList() {
-  const { c } = useLiveData();
+  const { c, data, loading } = useLiveData();
   const v = c.values;
-  const rows = campaigns.filter(
+  const rows = data.campaigns.filter(
     (a) =>
       (!v.fundCategory || v.fundCategory === 'All' || a.category === v.fundCategory) &&
       matchesQuery(v.fundQuery || '', a.name, a.category),
@@ -50,6 +25,7 @@ export function CampaignList() {
           key={a.name}
           accessibilityRole="button"
           onPress={() => {
+            c.setValue('campaignId', a.id);
             c.setValue('campaign', a.name);
             c.go('1581:1458');
           }}
@@ -65,34 +41,86 @@ export function CampaignList() {
             backgroundColor: '#edfbff',
           }}
         >
-          <Image
-            source={a.image}
-            contentFit="cover"
-            style={{ width: '34%', height: 151, borderRadius: 5 }}
-          />
+          {a.cover_url && (
+            <Image
+              source={{ uri: a.cover_url }}
+              contentFit="cover"
+              style={{ width: '34%', height: 151, borderRadius: 5 }}
+            />
+          )}
           <View style={{ flex: 1, gap: 10 }}>
             <Text style={styles.body}>{a.category}</Text>
             <Text style={styles.title}>{a.name}</Text>
             <Text style={styles.body}>Campaign goal</Text>
-            <Text style={styles.title}>{'$' + a.goal.toLocaleString()}</Text>
+            <Text style={styles.title}>{'$' + Number(a.goal_usd).toLocaleString()}</Text>
           </View>
         </Pressable>
       ))}
-      {!rows.length && <Text style={styles.body}>No matching campaigns.</Text>}
+      {!rows.length && (
+        <Text style={styles.body}>
+          {loading
+            ? 'Loading campaigns…'
+            : data.campaigns.length
+              ? 'No matching campaigns.'
+              : 'No campaigns have been published yet.'}
+        </Text>
+      )}
     </FlowSection>
   );
 }
 export function CampaignRecords({ view }: { view: 'supporters' | 'updates' | 'impact' }) {
-  const { c } = useLiveData();
-  const campaign = selected(c.values.campaign);
-  const note = {
-    supporters: 'The organizer has not published a supporter list.',
-    updates: 'No organizer updates have been published for this campaign.',
-    impact: 'The organizer has not published verified measurements for this campaign.',
-  }[view];
+  const { c, data } = useLiveData();
+  const campaign = data.campaigns.find((row) => row.id === c.values.campaignId);
+  const [records, setRecords] = useState<{ id: string; title: string; body: string }[]>([]);
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [retry, setRetry] = useState(0);
+  useEffect(() => {
+    let active = true;
+    setRecords([]);
+    setError('');
+    if (!campaign || view === 'supporters') {
+      setLoading(false);
+      return;
+    }
+    setLoading(true);
+    supabase
+      .from('campaign_updates')
+      .select('id,title,body')
+      .eq('campaign_id', campaign.id)
+      .eq('kind', view === 'impact' ? 'impact' : 'update')
+      .order('published_at', { ascending: false })
+      .then((response) => {
+        if (active) {
+          setRecords(response.data ?? []);
+          setError(response.error?.message ?? '');
+          setLoading(false);
+        }
+      });
+    return () => {
+      active = false;
+    };
+  }, [campaign?.id, view, retry]);
   return (
     <FlowSection top={147}>
-      <ListRow title={campaign.name} description={note} />
+      {campaign && <Text style={styles.heading}>{campaign.name}</Text>}
+      {records.map((record) => (
+        <ListRow key={record.id} title={record.title} description={record.body} />
+      ))}
+      {!!error && (
+        <SmallButton label="Retry loading updates" onPress={() => setRetry((value) => value + 1)} />
+      )}
+      {!records.length && !error && (
+        <Text style={styles.body}>
+          {loading
+            ? 'Loading…'
+            : view === 'supporters'
+              ? 'Contributions are private. You can see your own history.'
+              : view === 'impact'
+                ? 'No impact measurements published yet.'
+                : 'No campaign updates published yet.'}
+        </Text>
+      )}
       <SmallButton label="My contribution history" onPress={() => c.go('1581:1920')} />
       {view === 'impact' && <SmallButton label="Export my activity" onPress={() => c.go('311:1506')} />}
     </FlowSection>
@@ -151,7 +179,27 @@ export function ContributionList() {
 }
 export function fundraising(c: Controller, data: ProjectData) {
   const { id, values: v, binding: b } = c;
-  const campaign = selected(v.campaign);
+  const campaign = data.campaigns.find((row) => row.id === v.campaignId);
+  if (id === '258:426') {
+    for (const [index, nodes] of [
+      ['258:454', '258:455', '258:458', '258:459'],
+      ['258:460', '258:461', '258:464', '258:465'],
+    ].entries()) {
+      const row = data.campaigns[index];
+      const [tile, icon, title, sub] = nodes;
+      b.labels[title] = row?.name || (!index ? 'No campaigns published' : '');
+      b.labels[sub] = row ? row.organizer : '';
+      b.hidden.add(icon);
+      if (!row && index) b.hidden.add(tile);
+      action(c, [tile, title, sub], () => {
+        if (row) {
+          c.setValue('campaignId', row.id);
+          c.setValue('campaign', row.name);
+          c.go('1581:1458');
+        } else c.go('1581:1359');
+      });
+    }
+  }
   if (id === '1581:1359') {
     choices(c, 'fundCategory', {
       '1581:1404': 'All',
@@ -162,7 +210,7 @@ export function fundraising(c: Controller, data: ProjectData) {
     field(c, '1581:1424', 'fundQuery', 'Search campaigns');
     for (const n of ['1581:1415', '1581:1416', '1581:1417', '1581:1420']) b.hidden.add(n);
   }
-  if (id === '1581:1458') {
+  if (id === '1581:1458' && campaign) {
     action(c, ['1581:1459', '1581:1461'], () => {
       for (const k of [
         'amount',
@@ -180,27 +228,28 @@ export function fundraising(c: Controller, data: ProjectData) {
     Object.assign(b.labels, {
       '1581:1464': campaign.description,
       '1581:1470': 'Campaign goal',
-      '1581:1471': '$' + campaign.goal.toLocaleString(),
+      '1581:1471': '$' + Number(campaign.goal_usd).toLocaleString(),
       '1581:1479': '',
       '1581:1480': 'Public fundraising totals unavailable',
       '1581:1481': '',
       '1581:1482': '',
       '1581:1487': campaign.category,
-      '1581:1488': 'Ocean Project',
+      '1581:1488': campaign.organizer,
       '1581:1489': campaign.name,
     });
+    if (campaign.cover_url) b.images['1581:1486'] = campaign.cover_url;
     for (const n of ['1581:1477', '1581:1478']) b.hidden.add(n);
   }
-  if (id === '1581:1601') {
+  if (id === '1581:1601' && campaign) {
     Object.assign(b.labels, {
       '1581:1602': campaign.name,
-      '1581:1603': 'Campaign goal $' + campaign.goal.toLocaleString(),
+      '1581:1603': 'Campaign goal $' + Number(campaign.goal_usd).toLocaleString(),
       '1581:1606': '',
       '1581:1619': 'Record a pledge for this campaign.',
     });
     b.hidden.add('1581:1605');
   }
-  if (id === '1581:1655')
+  if (id === '1581:1655' && campaign)
     Object.assign(b.labels, {
       '1581:1659': campaign.name,
       '1581:1660': 'Preferred payment method',
@@ -210,10 +259,10 @@ export function fundraising(c: Controller, data: ProjectData) {
       '1581:1677': 'Payment integration pending',
       '1581:1681': 'Payment integration pending',
     });
-  if (id === '1581:1711')
+  if (id === '1581:1711' && campaign)
     Object.assign(b.labels, {
       '1581:1715': campaign.name,
-      '1581:1718': 'Ocean Project',
+      '1581:1718': campaign.organizer,
       '1581:1728': 'Payment status',
       '1581:1729': 'Pending integration',
       '1581:1737': 'Pledge',

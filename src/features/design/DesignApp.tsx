@@ -27,7 +27,7 @@ import type { Session } from '@supabase/supabase-js';
 import { supabase } from '../../lib/supabase';
 import { AuthScreen } from '../auth/AuthScreen';
 import { frames } from './frames';
-import { Interaction } from './components';
+import { Frame, Interaction } from './components';
 import { community } from './community';
 import { CommunityProvider } from './CommunityContext';
 import { review } from './review';
@@ -42,7 +42,7 @@ import { fundraising } from './Fundraising';
 import { learning } from './Learning';
 import { volunteer, lessons } from './volunteer';
 import { additionalBindings } from './interactions';
-import { LiveData } from './live';
+import { FlowSection, SmallButton, LiveData } from './live';
 import { account, guideNames } from './account';
 import { EventCalendarScreen } from './screens/EventCalendarScreen';
 
@@ -405,13 +405,26 @@ function Navigation() {
       </View>
     );
   const Screen = frames[id];
+  const campaignMissing =
+    ['1581:1458', '1581:1601', '1581:1655', '1581:1711'].includes(id) &&
+    !data.campaigns.some((row) => row.id === values.campaignId);
   return (
     <View style={styles.app}>
       <StatusBar style="dark" />
       <Interaction.Provider value={c.binding}>
         <LiveData.Provider value={{ c, data, loading }}>
           <CommunityProvider controller={c} items={data.items} profile={data.profile}>
-            {id === '258:614' ? (
+            {campaignMissing ? (
+              <Frame id={id} width={393} height={852} background="#fff">
+                <FlowSection top={80}>
+                  <Text style={styles.title}>
+                    {loading ? 'Loading campaign…' : 'Choose a published campaign'}
+                  </Text>
+                  <SmallButton label="Browse campaigns" onPress={() => go('1581:1359')} />
+                  <SmallButton label="Back" onPress={back} />
+                </FlowSection>
+              </Frame>
+            ) : id === '258:614' ? (
               <EventCalendarScreen
                 events={data.events}
                 onSelectEvent={(eventId) => {

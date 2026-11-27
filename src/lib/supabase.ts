@@ -497,6 +497,7 @@ export async function createDonation(
   campaign: string,
   note = '',
   requestId?: string,
+  campaignId?: string,
 ) {
   if (!isSupabaseConfigured) {
     return { data: null, error: new Error('Supabase is not configured.') };
@@ -511,6 +512,7 @@ export async function createDonation(
     .from('donations')
     .insert({
       ...(requestId ? { id: requestId } : {}),
+      ...(campaignId ? { campaign_id: campaignId } : {}),
       donor_name: donorName,
       amount,
       campaign,
