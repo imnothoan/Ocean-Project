@@ -3,3 +3,4 @@ node_modules
 .env.local
 .expo
 supabase/.temp/
+assets/figma/native-cache/

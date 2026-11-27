@@ -14,15 +14,14 @@ import {
 import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import { useFonts } from 'expo-font';
-import {
-  AfacadFlux_400Regular,
-  AfacadFlux_500Medium,
-  AfacadFlux_600SemiBold,
-  AfacadFlux_700Bold,
-} from '@expo-google-fonts/afacad-flux';
-import { Inter_400Regular, Inter_700Bold } from '@expo-google-fonts/inter';
-import { Jomhuria_400Regular } from '@expo-google-fonts/jomhuria';
-import { PatrickHand_400Regular } from '@expo-google-fonts/patrick-hand';
+import { AfacadFlux_400Regular } from '@expo-google-fonts/afacad-flux/400Regular';
+import { AfacadFlux_500Medium } from '@expo-google-fonts/afacad-flux/500Medium';
+import { AfacadFlux_600SemiBold } from '@expo-google-fonts/afacad-flux/600SemiBold';
+import { AfacadFlux_700Bold } from '@expo-google-fonts/afacad-flux/700Bold';
+import { Inter_400Regular } from '@expo-google-fonts/inter/400Regular';
+import { Inter_700Bold } from '@expo-google-fonts/inter/700Bold';
+import { Jomhuria_400Regular } from '@expo-google-fonts/jomhuria/400Regular';
+import { PatrickHand_400Regular } from '@expo-google-fonts/patrick-hand/400Regular';
 import type { Session } from '@supabase/supabase-js';
 import { supabase } from '../../lib/supabase';
 import { AuthScreen } from '../auth/AuthScreen';

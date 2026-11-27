@@ -21,7 +21,7 @@ Trong thư mục dự án, chạy
 
 ```bash
 npm ci
-npx expo start --go --lan --clear
+npx expo start --go --lan
 ```
 
 Cài Expo Go tương thích SDK 58 trên điện thoại. Điện thoại và máy tính cần cùng mạng Wi-Fi. Quét QR mới từ terminal. Nếu Expo Go còn báo SDK 54, dừng Metro cũ và kiểm tra đang mở đúng thư mục đã cập nhật từ `main`.
@@ -30,7 +30,9 @@ Cài Expo Go tương thích SDK 58 trên điện thoại. Điện thoại và m�
 npx expo config --type public
 ```
 
-Giá trị `sdkVersion` của bản này là `58.0.0`. Sau khi thay đổi dependencies, chạy lại `npm ci`.
+Giá trị `sdkVersion` của bản này là `58.0.0`. Chỉ cần chạy lại `npm ci` khi dependencies thay đổi. Những lần mở sau, chạy `npx expo start --go --lan` để dùng lại bộ nhớ đệm.
+
+Nếu quét QR rồi phải chờ lâu, xem terminal trên máy tính. Khi dòng `iOS Bundled` còn chạy, Metro đang chuẩn bị ứng dụng. Nếu quét xong mà terminal vẫn không hiện yêu cầu iOS, kiểm tra hai máy cùng Wi-Fi và bật quyền **Mạng cục bộ** cho Expo Go trong Cài đặt của iPhone.
 
 ## Mã nguồn hiện tại
 
