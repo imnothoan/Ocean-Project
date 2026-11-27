@@ -4,7 +4,7 @@ import { badges, badgeProgress } from '../src/features/design/badges';
 import { dayStreak, levelFor } from '../src/features/design/activity';
 import { mapItems } from '../src/features/design/mapResults';
 import { reportCsv, reportHtml } from '../src/features/design/reportFileContent';
-import { emailProof, recoveryProof } from '../src/features/auth/recovery';
+import { emailProof, passwordlessProof, recoveryProof } from '../src/features/auth/recovery';
 import type { OceanReport, OceanEvent } from '../src/lib/supabase';
 
 describe('screen data', () => {
@@ -113,6 +113,14 @@ describe('screen data', () => {
     expect(() =>
       emailProof('signup', original.replace('ocean.example', 'other.example'), '', host),
     ).toThrow();
+  });
+  it('accepts passwordless links for new and existing members and keeps recovery separate', () => {
+    const host = 'https://ocean.example';
+    for (const purpose of ['signup','magiclink']) {
+      expect(passwordlessProof(host + '/auth/v1/verify?type=' + purpose + '&token=abc', '', host)).toEqual({type:purpose,token_hash:'abc'});
+    }
+    expect(passwordlessProof('123456', 'A@B.C',host)).toEqual({type:'email', email:'a@b.c',token:'123456'});
+    expect(() => passwordlessProof(host + '/auth/v1/verify?type=recovery&token=abc', '', host)).toThrow();
   });
   it('escapes markup, spreadsheet formulas and CSV quotes in exported report text', () => {
     expect(reportHtml('Ocean <class>', [['', '<text>&', '']])).toContain('&lt;text&gt;&amp;');

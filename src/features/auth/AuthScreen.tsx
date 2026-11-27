@@ -12,12 +12,21 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { createRecoveryAuth, supabase, supabaseUrl } from '../../lib/supabase';
-import { requestPasswordReset, resendConfirmation, signIn, signUp } from './authService';
-import { emailProof, normalizeEmail, recoveryProof } from './recovery';
+import {
+  requestEmailLogin,
+  requestPasswordReset,
+  resendConfirmation,
+  signIn,
+  signUp,
+} from './authService';
+import { emailProof, normalizeEmail, passwordlessProof, recoveryProof } from './recovery';
 import { colors, radii, spacing, typography } from '../../theme/tokens';
 
-type Mode = 'signIn' | 'signUp' | 'confirmation' | 'reset' | 'verify' | 'password';
+type Mode =
+  'quick' | 'emailLogin' | 'signIn' | 'signUp' | 'confirmation' | 'reset' | 'verify' | 'password';
 const headings: Record<Mode, string> = {
+  quick: 'Tạo tài khoản',
+  emailLogin: 'Xác nhận email',
   signIn: 'Chào mừng trở lại',
   signUp: 'Tạo tài khoản',
   confirmation: 'Xác nhận tài khoản',
@@ -26,6 +35,8 @@ const headings: Record<Mode, string> = {
   password: 'Chọn mật khẩu mới',
 };
 const submitLabels: Record<Mode, string> = {
+  quick: 'Đăng ký',
+  emailLogin: 'Xác nhận và tiếp tục',
   signIn: 'Đăng nhập',
   signUp: 'Đăng ký',
   confirmation: 'Xác nhận và đăng nhập',
@@ -106,7 +117,8 @@ export function AuthScreen({
     if (next !== 'password') releaseRecovery();
   }
 
-  const showEmail = ['signIn', 'signUp', 'reset'].includes(mode);
+  const showEmail = ['signIn', 'signUp', 'reset', 'quick'].includes(mode);
+  const confirmEmail = mode === 'confirmation' || mode === 'emailLogin';
   const showPassword = ['signIn', 'signUp', 'password'].includes(mode);
   async function submit(resend = false) {
     if (lock.current) return;
@@ -124,7 +136,14 @@ export function AuthScreen({
     setBusy(true);
     setNotice('');
     try {
-      if (mode === 'reset' || resend) {
+      if (mode === 'quick' || (mode === 'emailLogin' && resend)) {
+        const { error } = await requestEmailLogin(address);
+        if (error) throw error;
+        if (!mounted.current) return;
+        setEmail(address);
+        setResendAt(Date.now() + 60_000);
+        changeMode('emailLogin', 'Kiểm tra hộp thư đến và thư rác.');
+      } else if (mode === 'reset' || resend) {
         const { error } =
           mode === 'reset' ? await requestPasswordReset(address) : await resendConfirmation(address);
         if (error) throw error;
@@ -132,8 +151,11 @@ export function AuthScreen({
         setResendAt(Date.now() + 60_000);
         if (mode === 'reset') changeMode('verify');
         else setNotice('Kiểm tra hộp thư và thư rác để tìm email xác nhận.');
-      } else if (mode === 'confirmation') {
-        const input = emailProof('signup', proof, address, supabaseUrl);
+      } else if (confirmEmail) {
+        const input =
+          mode === 'emailLogin'
+            ? passwordlessProof(proof, address, supabaseUrl)
+            : emailProof('signup', proof, address, supabaseUrl);
         const { data, error } = await supabase.auth.verifyOtp(input);
         if (error || !data.session) throw error || new Error('Chưa thể xác nhận tài khoản.');
         if (mounted.current) onAuthenticated();
@@ -184,6 +206,7 @@ export function AuthScreen({
       ) {
         setResendAt(Date.now() + 60_000);
         if (mode === 'signUp') changeMode('confirmation');
+        if (mode === 'quick') changeMode('emailLogin');
       }
       if (mounted.current) setNotice(errorMessage(error));
     } finally {
@@ -193,17 +216,19 @@ export function AuthScreen({
   }
 
   const subtitle =
-    mode === 'verify'
-      ? 'Trong email khôi phục, nhấn giữ nút đặt lại mật khẩu để sao chép liên kết trước khi mở. Dán liên kết vào ô bên dưới hoặc nhập mã nếu email có mã.'
-      : mode === 'confirmation'
-        ? 'Kiểm tra thư gửi tới ' +
-          email +
-          '. Nhấn giữ nút xác nhận trong thư để sao chép liên kết rồi dán vào đây, hoặc nhập mã nếu thư có mã. Nếu đã mở liên kết, hãy quay lại đăng nhập.'
-        : mode === 'reset'
-          ? 'Nhập email của tài khoản để nhận liên kết đổi mật khẩu.'
-          : mode === 'password'
-            ? 'Đặt mật khẩu mới cho ' + email
-            : 'Đồng bộ báo cáo, sự kiện và tác động của bạn trên mọi thiết bị.';
+    mode === 'quick'
+      ? 'Nhập email để tạo tài khoản hoặc đăng nhập. Ocean Project sẽ gửi một liên kết đến hộp thư của bạn.'
+      : mode === 'verify'
+        ? 'Trong email khôi phục, nhấn giữ nút đặt lại mật khẩu để sao chép liên kết trước khi mở. Dán liên kết vào ô bên dưới hoặc nhập mã nếu email có mã.'
+        : confirmEmail
+          ? 'Kiểm tra thư gửi tới ' +
+            email +
+            '. Nhấn giữ nút xác nhận trong thư để sao chép liên kết rồi dán vào đây, hoặc nhập mã nếu thư có mã. Nếu đã mở liên kết, hãy quay lại đăng nhập.'
+          : mode === 'reset'
+            ? 'Nhập email của tài khoản để nhận liên kết đổi mật khẩu.'
+            : mode === 'password'
+              ? 'Đặt mật khẩu mới cho ' + email
+              : 'Đồng bộ báo cáo, sự kiện và tác động của bạn trên mọi thiết bị.';
 
   function link(label: string, press: () => void) {
     return (
@@ -261,14 +286,14 @@ export function AuthScreen({
                 />
               </>
             )}
-            {(mode === 'verify' || mode === 'confirmation') && (
+            {(mode === 'verify' || confirmEmail) && (
               <>
                 <Text style={styles.label}>
-                  {mode === 'confirmation' ? 'LIÊN KẾT HOẶC MÃ XÁC NHẬN' : 'LIÊN KẾT HOẶC MÃ KHÔI PHỤC'}
+                  {confirmEmail ? 'LIÊN KẾT HOẶC MÃ XÁC NHẬN' : 'LIÊN KẾT HOẶC MÃ KHÔI PHỤC'}
                 </Text>
                 <TextInput
                   accessibilityLabel={
-                    mode === 'confirmation' ? 'Liên kết hoặc mã xác nhận' : 'Liên kết hoặc mã khôi phục'
+                    confirmEmail ? 'Liên kết hoặc mã xác nhận' : 'Liên kết hoặc mã khôi phục'
                   }
                   autoComplete="one-time-code"
                   textContentType="oneTimeCode"
@@ -301,7 +326,7 @@ export function AuthScreen({
               )}
             </Pressable>
           </View>
-          {mode === 'confirmation' && (
+          {confirmEmail && (
             <Pressable
               accessibilityRole="button"
               disabled={busy || seconds > 0}
@@ -312,10 +337,12 @@ export function AuthScreen({
               </Text>
             </Pressable>
           )}
+          {mode === 'quick' && link('Đăng ký bằng mật khẩu', () => changeMode('signUp'))}
+          {mode === 'signIn' && link('Tiếp tục chỉ với email', () => changeMode('quick'))}
           {mode === 'signIn' && link('Quên mật khẩu?', () => changeMode('reset'))}
           {mode === 'verify' && link('Yêu cầu email mới', () => changeMode('reset'))}
           {link(mode === 'signIn' ? 'Chưa có tài khoản? Đăng ký' : 'Đã có tài khoản? Đăng nhập', () =>
-            changeMode(mode === 'signIn' ? 'signUp' : 'signIn'),
+            changeMode(mode === 'signIn' ? 'quick' : 'signIn'),
           )}
         </ScrollView>
       </KeyboardAvoidingView>

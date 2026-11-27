@@ -1,4 +1,4 @@
-type MailAction = 'recovery' | 'signup';
+type MailAction = 'recovery' | 'signup' | 'email' | 'magiclink';
 type Proof<T extends MailAction> =
   { type: T; token_hash: string } | { type: T; email: string; token: string };
 
@@ -33,7 +33,7 @@ export function emailProof<T extends MailAction>(
   } catch {
     // A malformed or unrelated link has the same recovery instructions.
   }
-  const action = type === 'signup' ? 'xác nhận tài khoản' : 'đặt lại mật khẩu';
+  const action = type === 'recovery' ? 'đặt lại mật khẩu' : 'xác nhận tài khoản';
   throw new Error(
     'Hãy sao chép liên kết ' + action + ' từ email của Ocean Project hoặc nhập mã trong email.',
   );
@@ -41,3 +41,14 @@ export function emailProof<T extends MailAction>(
 
 export const recoveryProof = (input: string, email: string, projectUrl: string) =>
   emailProof('recovery', input, email, projectUrl);
+
+export function passwordlessProof(input: string, address: string, projectUrl: string) {
+  let purpose: 'signup' | 'email' | 'magiclink' = 'email';
+  try {
+    const type = new URL(input.trim()).searchParams.get('type');
+    if (type === 'signup' || type === 'magiclink') purpose = type;
+  } catch {
+    // Numeric email codes are verified with the email OTP type.
+  }
+  return emailProof(purpose, input, address, projectUrl);
+}

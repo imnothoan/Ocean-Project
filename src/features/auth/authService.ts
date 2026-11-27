@@ -19,3 +19,7 @@ export function resendConfirmation(email: string) {
 export function requestPasswordReset(email: string) {
   return supabase.auth.resetPasswordForEmail(email.trim());
 }
+
+export function requestEmailLogin(email: string) {
+  return supabase.auth.signInWithOtp({ email, options: { shouldCreateUser: true } });
+}
