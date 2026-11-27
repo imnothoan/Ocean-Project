@@ -434,7 +434,7 @@ export function impactBindings(c: Controller, data: ProjectData) {
       '292:4243': 'Visible reports with coordinates',
       '292:4244': '',
       '292:4218': total.total + ' kg',
-      '292:4219': 'Recorded metrics',
+      '292:4219': 'Recorded',
       '292:4223': String(pending),
       '292:4228': String(data.reports.filter((r) => r.status === 'resolved').length),
       '292:4229': data.reports.length + ' visible reports',

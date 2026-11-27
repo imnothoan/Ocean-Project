@@ -1,3 +1,4 @@
+import { eventPhotoUrl } from './eventPhotos';
 import { useEffect } from 'react';
 import { Image } from 'expo-image';
 import { Text, View, TextInput } from 'react-native';
@@ -210,6 +211,39 @@ export function EventConversation() {
         <Text style={styles.body}>
           The conversation is open to the organizer and approved participants.
         </Text>
+      )}
+    </FlowSection>
+  );
+}
+
+export function EventRecapMemories() {
+  const { c, data, loading } = useLiveData();
+  const eventId = c.values.eventId;
+  const checked = data.checkins.some((r) => r.event_id === eventId);
+  const recaps = data.recaps.filter((r) => r.event_id === eventId);
+  return (
+    <FlowSection top={603}>
+      <Text style={[styles.heading, { textAlign: 'center' }]}>Some memories…</Text>
+      {recaps.map((r) => (
+        <View key={r.id} style={{ gap: 10 }}>
+          <Text style={styles.body}>{r.body}</Text>
+          {r.photo_path && (
+            <Image
+              accessible
+              accessibilityLabel="Event recap photo"
+              source={{ uri: eventPhotoUrl(r.photo_path) }}
+              contentFit="cover"
+              style={{ aspectRatio: 285 / 165, width: '88%', borderRadius: 16 }}
+            />
+          )}
+        </View>
+      ))}
+      {!recaps.length && <Text style={styles.body}>{loading ? 'Loading recap…' : 'No recap published yet.'}</Text>}
+      {checked && (
+        <View style={styles.actions}>
+          <SmallButton label="View certificate" selected onPress={() => c.go('258:1450')} />
+          <SmallButton label="Add feedback" onPress={() => c.go('258:1500')} />
+        </View>
       )}
     </FlowSection>
   );

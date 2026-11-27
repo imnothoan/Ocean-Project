@@ -514,14 +514,10 @@ export function events(
     Object.assign(b.labels, {
       '1356:3059': selected?.title || 'Event recap',
       '1356:3060': eventDate(selected),
-      '1431:269': recap?.body || 'No recap published yet.',
       '1356:3077': owner ? String(attendees.filter((r) => r.status === 'approved').length) : '—',
       '1356:3078': selected?.duration_minutes ? String(selected.duration_minutes / 60) : '—',
       '1356:3121': recap?.total_kg == null ? '—' : recap.total_kg + ' kg',
       '1356:3122': recap?.recyclable_kg == null ? '—' : recap.recyclable_kg + ' kg',
     });
-    if (!checked) {
-      for (const n of ['1356:3057', '1356:3058', '1431:272', '1431:273']) b.hidden.add(n);
-    }
   }
 }

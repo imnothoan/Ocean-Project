@@ -151,7 +151,8 @@ export function Copy({
   text,
   typeStyle,
   runs,
-}: Layer & { text: string; typeStyle: TextStyle; runs?: [number, number, string | null][] }) {
+  lines,
+}: Layer & { text: string; typeStyle: TextStyle; runs?: [number, number, string | null][]; lines?: number }) {
   const binding = useContext(Interaction);
   const { scale } = useContext(Geometry);
   const position = usePlacement(box);
@@ -188,7 +189,7 @@ export function Copy({
       />
     );
   const content = (
-    <Text allowFontScaling={false} style={style}>
+    <Text allowFontScaling={false} numberOfLines={lines} style={style}>
       {runs && label === text && !binding.tint?.[node]
         ? runs.map(([start, end, color]) => (
             <Text key={start} style={{ color: color ?? style.color }}>

@@ -1,29 +1,16 @@
+import { EventRecapMemories } from '../EventLists';
 import { Artwork, Copy, Frame, Link, Surface } from '../components';
 
 // Figma 1356:3049 · Event Recap
 export function EventRecapScreen() {
   return (
-    <Frame id="1356:3049" width={393.0} height={1875} background={"#ffffff"}>
-      <Surface node="1356:3050" box={[0, 768, 393, 1107]} fill={"#ffffff"} />
-      <Surface node="1356:3057" box={[18, 1744, 353, 50]} fill={"#43c4d6"} radius={15} />
-      <Copy node="1356:3058" box={[138, 1758, 113, 24]} text={"View Certificate"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":18,"lineHeight":21.6,"color":"#ffffff","textAlign":"center"}} />
-      <Surface node="1431:272" box={[18, 1803, 353, 50]} fill={"#ffffff"} radius={15} stroke={[1,"#43c4d6"]} />
-      <Copy node="1431:273" box={[145, 1817, 99, 24]} text={"Add feedback"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":18,"lineHeight":21.6,"color":"#43c4d6","textAlign":"center"}} />
-      <Copy node="1356:3059" box={[70, 145, 254, 37]} text={"My Khe Beach Cleanup"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":28,"lineHeight":33.6,"color":"#202326","textAlign":"left"}} />
-      <Copy node="1356:3060" box={[110, 181, 174, 21]} text={"Oct 20 · 6:30 AM · Cleanup"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":16,"lineHeight":19.2,"color":"#73787d","textAlign":"left"}} />
+    <Frame id="1356:3049" width={393.0} height={852} background={"#ffffff"}>
+      <Copy node="1356:3059" lines={1} box={[21, 145, 351, 37]} text={"My Khe Beach Cleanup"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":28,"lineHeight":33.6,"color":"#202326","textAlign":"left"}} />
+      <Copy node="1356:3060" lines={1} box={[21, 181, 351, 21]} text={"Oct 20 · 6:30 AM · Cleanup"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":16,"lineHeight":19.2,"color":"#73787d","textAlign":"left"}} />
       <Artwork node="1431:261" box={[119.4, 610.4, 315.2, 358.2]} source={require('../../../../assets/figma/mobile/02c27.svg')} />
       <Artwork node="1431:263" box={[-39.6, 517.4, 271.2, 358.2]} source={require('../../../../assets/figma/mobile/1830a.svg')} />
-      <Artwork node="1431:260" box={[-46.6, 841.4, 444.2, 358.2]} source={require('../../../../assets/figma/mobile/00625.svg')} />
-      <Artwork node="1431:265" box={[-60.6, 1330.72, 392.5, 410.57]} source={require('../../../../assets/figma/mobile/088c3.svg')} />
-      <Artwork node="1431:267" box={[81.18, 1114, 363.03, 405.54]} source={require('../../../../assets/figma/mobile/0cb9f.svg')} />
-      <Artwork node="1356:3130" box={[57, 1312, 299, 173]} source={require('../../../../assets/figma/mobile/1a451.jpg')} radius={15} />
-      <Artwork node="1431:276" box={[26, 1535, 275, 159]} source={require('../../../../assets/figma/mobile/3f52f.jpg')} radius={15} />
-      <Artwork node="1356:3126" box={[20, 662, 285, 165]} source={require('../../../../assets/figma/mobile/ed622.png')} radius={15} />
-      <Artwork node="1356:3061" box={[86, 865, 287, 166]} source={require('../../../../assets/figma/mobile/688fb.jpg')} radius={15} />
-      <Artwork node="1356:3128" box={[39, 1085, 283, 164]} source={require('../../../../assets/figma/mobile/a992f.jpg')} radius={15} />
       <Surface node="1356:3125" box={[11, 215, 372, 344]} fill={"#edfbff"} radius={12} stroke={[1,"#cdcdcd"]} shadow={[0,4,4,0,"rgba(0,0,0,0.25)"]} />
       <Copy node="1356:3119" box={[151, 228, 92, 32]} text={"Overview"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":24,"lineHeight":28.8,"color":"#4b5669","textAlign":"left"}} />
-      <Copy node="1431:269" box={[114, 612, 166, 32]} text={"Some memories..."} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":24,"lineHeight":28.8,"color":"#4b5669","textAlign":"left"}} />
       <Surface node="1356:3063" box={[20, 271, 170, 130]} fill={"#ccf1e5"} radius={15} stroke={[1,"#43c4d6"]} />
       <Surface node="1356:3064" box={[201, 271, 170, 130]} fill={"#ccf1e5"} radius={15} stroke={[1,"#43c4d6"]} />
       <Surface node="1356:3065" box={[20, 418, 170, 130]} fill={"#ccf1e5"} radius={15} stroke={[1,"#43c4d6"]} />
@@ -43,9 +30,8 @@ export function EventRecapScreen() {
       <Surface node="1356:3052" box={[131, 69, 131, 43]} fill={"#a5e0f2"} radius={20} />
       <Artwork node="1356:3053" box={[25, 69, 43, 43]} source={require('../../../../assets/figma/mobile/5110e.svg')} />
       <Copy node="1356:3056" box={[149, 76, 96, 27]} text={"Event Recap"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":20,"lineHeight":24.0,"color":"#3f596b","textAlign":"left"}} />
-      <Link node="1356:3057" box={[18, 1744, 353, 50]} to="258:1450" label={"Event Certificate"} />
-      <Link node="1431:272" box={[18, 1803, 353, 50]} to="258:1500" label={"Event Feedback"} />
       <Link node="1356:3053" box={[25, 69, 43, 43]} to="back" label={"Back"} />
+      <EventRecapMemories />
     </Frame>
   );
 }
