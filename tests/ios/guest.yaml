@@ -1,0 +1,28 @@
+appId: host.exp.Exponent
+---
+- openLink: "exp://127.0.0.1:8081/--/frame/240-442"
+- tapOn:
+    text: "Open"
+    optional: true
+- tapOn:
+    text: "Continue"
+    optional: true
+- extendedWaitUntil:
+    visible: "Levels & rewards"
+    timeout: 120000
+- assertVisible: "100 XP to Sprout"
+- takeScreenshot: levels
+- openLink: "exp://127.0.0.1:8081/--/frame/218-2549"
+- assertVisible: "Achievements"
+- tapOn: "Cleanup"
+- takeScreenshot: badges-cleanup
+- openLink: "exp://127.0.0.1:8081/--/frame/666-4366"
+- assertVisible: "Chào mừng trở lại"
+- tapOn: "Chưa có tài khoản.*Đăng ký"
+- assertVisible: "Tạo tài khoản"
+- tapOn:
+    text: "Email"
+- inputText: "invalid"
+- tapOn:
+    text: "Đăng ký"
+- assertVisible: "Hãy nhập địa chỉ email hợp lệ."

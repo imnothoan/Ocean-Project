@@ -1,0 +1,37 @@
+name: iPhone 11 Expo Go
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/iphone.yml'
+      - 'tests/ios/**'
+permissions:
+  contents: read
+jobs:
+  expo-go:
+    runs-on: macos-15
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - name: Install Maestro
+        run: |
+          curl --retry 3 -fsSL https://github.com/mobile-dev-inc/Maestro/releases/download/cli-2.13.0/maestro.zip -o "$RUNNER_TEMP/maestro.zip"
+          cd "$RUNNER_TEMP"
+          echo 'ccc536679ed35e3a84b7e9e5c364f2371204c291fb331fec8c00e3e496dda5ff  maestro.zip' | shasum -a 256 -c -
+          unzip -q maestro.zip
+          chmod +x maestro/bin/maestro
+          echo "$RUNNER_TEMP/maestro/bin" >> "$GITHUB_PATH"
+      - run: tests/ios/run.sh
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: iphone-11-expo-go
+          include-hidden-files: true
+          path: |
+            .expo/iphone-11/*.png
+            .expo/iphone-11/metro.log
