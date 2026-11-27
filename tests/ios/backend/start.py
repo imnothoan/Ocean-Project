@@ -19,19 +19,24 @@ def token(role):
 anon,service = token('anon'),token('service_role')
 def run(command, settings, name, directory):
     with (work/(name+'.log')).open('wb') as log:
-        return sp.Popen(command,cwd=directory,env={**os.environ,**settings},stdout=log,stderr=log,start_new_session=True)
+        proc = sp.Popen(command,cwd=directory,env={**os.environ,**settings},stdout=log,stderr=log,start_new_session=True)
+        proc.log_path = work/(name+'.log')
+        return proc
 def check(url, process):
     for _ in range(120):
         try:
             with urlopen(url,timeout=1): return
         except OSError:
-            if process.poll() is not None: raise RuntimeError('Local service exited: '+url)
+            if process.poll() is not None:
+                diagnostic=process.log_path.read_text(errors='replace')[-2500:]
+                for secret in [key,password,service,anon]: diagnostic=diagnostic.replace(secret,'[redacted]')
+                raise RuntimeError('Local service exited: '+url+'\n'+diagnostic)
             time.sleep(.5)
     raise RuntimeError('Local service timed out: '+url)
 def sql(source):
     sp.run(['psql','-Xq','-v','ON_ERROR_STOP=1'],input=source.encode(),check=True)
 def uri(user):
-    return 'postgresql://'+user+':'+password+'@127.0.0.1:55322/postgres'
+    return 'postgresql://'+user+':'+password+'@127.0.0.1:55322/postgres?sslmode=disable'
 sp.run(['initdb','-D',work/'pg','-U','postgres','-A','trust','-E','UTF8','--no-locale'],stdout=sp.DEVNULL,check=True)
 sp.run(['pg_ctl','-D',work/'pg','-l',work/'postgres.log','-o',"-p 55322 -h 127.0.0.1",'start'],check=True)
 sql(f"""
@@ -50,7 +55,7 @@ create function auth.role() returns text language sql stable as $$select auth.jw
 """)
 mail=run([binaries/'mail/mailpit'],{'MP_UI_BIND_ADDR':'127.0.0.1:55325','MP_SMTP_BIND_ADDR':'127.0.0.1:55328'},'mail',work)
 check('http://127.0.0.1:55325/livez',mail)
-auth=run([binaries/'auth/auth'],{'GOTRUE_API_HOST':'127.0.0.1','GOTRUE_API_PORT':'55324','API_EXTERNAL_URL':'http://127.0.0.1:55321/auth/v1','GOTRUE_SITE_URL':'http://127.0.0.1:55321','GOTRUE_DB_DRIVER':'postgres','GOTRUE_DB_DATABASE_URL':uri('supabase_auth_admin'),'GOTRUE_JWT_SECRET':key,'GOTRUE_JWT_DEFAULT_GROUP_NAME':'authenticated','GOTRUE_JWT_ADMIN_ROLES':'service_role','GOTRUE_EXTERNAL_EMAIL_ENABLED':'true','GOTRUE_MAILER_AUTOCONFIRM':'false','GOTRUE_SMTP_HOST':'127.0.0.1','GOTRUE_SMTP_PORT':'55328','GOTRUE_SMTP_ADMIN_EMAIL':'ocean@example.invalid','GOTRUE_SMTP_MAX_FREQUENCY':'1s'},'auth',binaries/'auth')
+auth=run([binaries/'auth/auth'],{'GOTRUE_API_HOST':'127.0.0.1','GOTRUE_API_PORT':'55324','API_EXTERNAL_URL':'http://127.0.0.1:55321/auth/v1','GOTRUE_SITE_URL':'http://127.0.0.1:55321','GOTRUE_DB_DRIVER':'postgres','GOTRUE_DB_DATABASE_URL':uri('supabase_auth_admin'),'GOTRUE_JWT_SECRET':key,'GOTRUE_JWT_DEFAULT_GROUP_NAME':'authenticated','GOTRUE_JWT_ADMIN_ROLES':'service_role','GOTRUE_EXTERNAL_EMAIL_ENABLED':'true','GOTRUE_MAILER_AUTOCONFIRM':'false','GOTRUE_JWT_EXP':'3600','GOTRUE_MAILER_URLPATHS_CONFIRMATION':'/verify','GOTRUE_MAILER_URLPATHS_RECOVERY':'/verify','GOTRUE_SMTP_HOST':'127.0.0.1','GOTRUE_SMTP_PORT':'55328','GOTRUE_SMTP_ADMIN_EMAIL':'ocean@example.invalid','GOTRUE_SMTP_MAX_FREQUENCY':'1s'},'auth',binaries/'auth')
 check('http://127.0.0.1:55324/health',auth)
 rest=run([binaries/'rest/postgrest'],{'PGRST_SERVER_HOST':'127.0.0.1','PGRST_SERVER_PORT':'55326','PGRST_DB_URI':uri('authenticator'),'PGRST_DB_SCHEMAS':'public','PGRST_DB_ANON_ROLE':'anon','PGRST_JWT_SECRET':key},'rest',work)
 check('http://127.0.0.1:55326/',rest)
