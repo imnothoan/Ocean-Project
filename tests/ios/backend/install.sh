@@ -20,4 +20,5 @@ tar xzf source.tar.gz --strip-components=1 -C storage
 rm source.tar.gz
 cd storage
 npx --yes --package=npm@12.2.1 npm ci --ignore-scripts --no-audit --no-fund
+npx --yes --package=node-gyp@12.3.0 node-gyp rebuild --directory node_modules/fs-xattr
 node build.js
