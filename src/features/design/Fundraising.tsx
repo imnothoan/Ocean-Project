@@ -1,3 +1,4 @@
+import { recordReference } from './share';
 import { useState } from 'react';
 import { Pressable, Text, TextInput, View } from 'react-native';
 import { Image } from 'expo-image';
@@ -238,6 +239,7 @@ export function fundraising(c: Controller, data: ProjectData) {
       b.labels['1581:2003'] = 'Awaiting a confirmed contribution';
       return;
     }
+    recordReference(c, '1581:2002', pledge.id);
     const date = new Date(pledge.created_at).toLocaleDateString(),
       amount = '$' + Number(pledge.amount).toFixed(2);
     Object.assign(b.labels, {
@@ -245,7 +247,6 @@ export function fundraising(c: Controller, data: ProjectData) {
       '1581:1996': pledge.campaign,
       '1581:1998': amount,
       '1581:2000': date,
-      '1581:2002': pledge.id,
       '1581:2005': 'Download PDF',
     });
     action(c, ['1581:2004', '1581:2005'], () =>

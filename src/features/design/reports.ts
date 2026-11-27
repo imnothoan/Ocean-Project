@@ -5,6 +5,7 @@ import {
   type OceanReport,
   type OceanNotification,
 } from '../../lib/supabase';
+import { recordReference } from './share';
 import { reportDraft } from './reportDraft';
 import { action, choices, field, required, result, type Controller } from './workflow';
 import { randomUUID } from 'expo-crypto';
@@ -14,9 +15,9 @@ export function reports(c: Controller, rows: OceanReport[], notifications: Ocean
   const { id, values: v, binding: b } = c;
   const report = rows.find((r) => r.id === v.reportId);
   reportDraft(c);
-  if (id === '230:1402') b.labels['250:412'] = 'REPORT ID  ' + (v.reportId || '—');
+  if (id === '230:1402') recordReference(c, '250:412', v.reportId, 'REPORT ID  ');
   if (id === '1249:216') {
-    b.labels['1249:233'] = report?.id || v.reportId || '—';
+    recordReference(c, '1249:233', report?.id || v.reportId);
     b.labels['1249:234'] = report ? new Date(report.created_at).toLocaleString() : '';
     b.labels['1249:236'] = report?.status || 'Submitted';
     b.labels['1249:260'] = 'Updated when reviewed';

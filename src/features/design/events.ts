@@ -1,4 +1,4 @@
-import { shareText } from './share';
+import { recordReference, shareText } from './share';
 import {
   supabase,
   createEvent,
@@ -438,14 +438,14 @@ export function events(
     Object.assign(b.labels, {
       '258:1184': selected?.title || '',
       '258:1185': checked ? new Date(checked.created_at).toLocaleString() : 'Attendance recorded',
-      '258:1188': certificate,
       '258:1460': mine?.participant_name || 'Participant',
       '258:1462': selected?.title || '',
       '258:1463': eventDate(selected),
       '258:1467': 'Event organizer',
-      '258:1468': certificate,
       '258:1470': 'View my events',
     });
+    recordReference(c, '258:1188', certificate);
+    recordReference(c, '258:1468', certificate, 'Certificate ID: ');
     action(c, ['258:1470'], () => c.go('258:906'));
     action(c, ['258:1472'], () =>
       c.run(async () => {

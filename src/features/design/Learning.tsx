@@ -421,8 +421,7 @@ export function learning(c: Controller, data: ProjectData) {
     b.labels['670:5012'] = streak + ' days';
     b.labels['670:5013'] = done + ' of 4 activities complete';
     b.labels['670:5044'] = done + ' / 4 done';
-    b.labels['670:5068'] = 'Comment on 3 posts';
-    b.labels['670:5069'] = 'Commented today · ' + Math.min(3, supported) + ' / 3';
+    b.labels['670:5069'] = 'Like or comment · ' + Math.min(3, supported) + ' / 3';
     b.labels['670:5053'] = 'Report';
     action(c, ['670:5056', '670:5058', '670:5059'], () => c.go('263:2582'));
     action(c, ['670:5071', '670:5072'], () => c.go('101:2769'));

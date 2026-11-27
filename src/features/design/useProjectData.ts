@@ -88,12 +88,7 @@ async function readProject(session: Session | null, eventId: string, chat: boole
           })
       : 0,
     supportedToday: uid
-      ? supabase
-          .from('post_comments')
-          .select('post_id')
-          .eq('author_id', uid)
-          .gte('created_at', today.toISOString())
-          .then((response) => new Set(result(response)?.map((r) => r.post_id)).size)
+      ? supabase.rpc('supported_posts_since', { day_start: today.toISOString() }).then(result)
       : 0,
     avatarUrl: ownAvatar(),
     items: fetchFeed(session),
