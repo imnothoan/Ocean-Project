@@ -1,4 +1,5 @@
 import React, { createContext, isValidElement, useContext } from 'react';
+import { controlGeometry, type Box, type ControlLayer } from './controlGeometry';
 import { OceanTabBar } from './OceanTabBar';
 import { Image } from 'expo-image';
 import {
@@ -16,7 +17,6 @@ import {
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-type Box = [number, number, number, number];
 type Layer = { node: string; box: Box };
 export type Field = {
   onSubmit?: () => void;
@@ -41,7 +41,7 @@ export const Interaction = createContext<Binding>({
     throw new Error('Missing frame navigator');
   },
 });
-const Geometry = createContext({ scale: 1, offset: 0 });
+const Geometry = createContext({ scale: 1, offset: 0, inputs: {} as Record<string, Box> });
 function usePlacement([x, y, w, h]: Box) {
   const { scale, offset } = useContext(Geometry);
   return {
@@ -179,8 +179,10 @@ export function Copy({
   lines?: number;
 }) {
   const binding = useContext(Interaction);
-  const { scale } = useContext(Geometry);
+  const { scale, inputs } = useContext(Geometry);
   const position = usePlacement(box);
+  const plate = inputs[node];
+  const editPosition = usePlacement(plate || box);
   if (binding.hidden?.has(node)) return null;
   const label = binding.labels?.[node] ?? text;
   const style: TextStyle = {
@@ -207,9 +209,15 @@ export function Copy({
         multiline={field.multiline}
         allowFontScaling={false}
         style={[
-          position,
+          editPosition,
           style,
-          { padding: 0, minHeight: Math.max(position.height, 32 * scale), textAlignVertical: 'top' },
+          {
+            padding: 0,
+            paddingLeft: plate ? Math.max(0, box[0] - plate[0]) * scale : 0,
+            paddingRight: plate ? Math.min(14, Math.max(4, box[0] - plate[0])) * scale : 0,
+            paddingTop: plate && field.multiline ? Math.max(0, box[1] - plate[1]) * scale : 0,
+            textAlignVertical: field.multiline ? 'top' : 'center',
+          },
         ]}
       />
     );
@@ -288,7 +296,8 @@ export function Frame({
   background: string;
   children: React.ReactNode;
 }) {
-  const { navigate } = useContext(Interaction);
+  const binding = useContext(Interaction);
+  const { navigate } = binding;
   const [keyboardOpen, setKeyboardOpen] = React.useState(Keyboard.isVisible());
   React.useEffect(() => {
     const show = Keyboard.addListener('keyboardDidShow', () => setKeyboardOpen(true));
@@ -305,6 +314,32 @@ export function Frame({
   const footer = all.find((child) => isValidElement<{ top: number }>(child) && child.type === Footer) as
     React.ReactElement<{ top: number }> | undefined;
   const content = all.filter((child) => child !== footer);
+  const layers: ControlLayer[] = [];
+  for (const child of content) {
+    if (!isValidElement<Layer & { to?: string; label?: string; text?: string }>(child)) continue;
+    const { node, box, to, label, text } = child.props;
+    if (!box || binding.hidden?.has(node)) continue;
+    const role =
+      child.type === Link
+        ? 'link'
+        : child.type === Copy
+          ? 'copy'
+          : child.type === Surface || child.type === Artwork
+            ? 'shape'
+            : null;
+    if (role) layers.push({ node, box, role, target: to, text: label || text });
+  }
+  const geometry = controlGeometry(
+    layers,
+    binding.actions ?? {},
+    new Set(Object.keys(binding.fields ?? {})),
+  );
+  const actions = { ...binding.actions };
+  const labels = { ...binding.labels };
+  for (const { node, content: control } of geometry.backgrounds) {
+    actions[node] = actions[control.node] || (() => navigate(control.target!, control.node));
+    labels[node] = labels[control.node] || control.text || 'Open';
+  }
   const logo = id.startsWith('949:');
   const offset = logo ? 0 : 59;
   const bottom = footer?.props.top ?? 818;
@@ -328,7 +363,11 @@ export function Frame({
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ minHeight: Math.max(0, (bodyEnd - offset) * scale) }}
       >
-        <Geometry.Provider value={{ scale, offset }}>{content}</Geometry.Provider>
+        <Interaction.Provider value={{ ...binding, actions, labels }}>
+          <Geometry.Provider value={{ scale, offset, inputs: geometry.inputs }}>
+            {content}
+          </Geometry.Provider>
+        </Interaction.Provider>
       </ScrollView>
       {footer && !keyboardOpen && <OceanTabBar screen={id} scale={scale} navigate={navigate} />}
     </KeyboardAvoidingView>
