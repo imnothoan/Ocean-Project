@@ -5,7 +5,7 @@ export function Q37Screen() {
   return (
     <Frame id="722:6967" width={393.0} height={1014} background={"#ffffff"}>
       <Surface node="722:7102" box={[0, 194, 393, 820]} fill={"#f2f4f5"} radius={16} />
-      <Surface node="722:7079" box={[0, 59, 393, 175]} fill={"#40c1d4"} />
+      <Surface node="722:7079" box={[0, 59, 393, 175]} fill={"#40c1d4"} shadow={[0,4,4,0,"rgba(0,0,0,0.25)"]} />
       <Copy node="722:7083" box={[118, 82, 213, 32]} text={""} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":24,"lineHeight":28.8,"color":"#ffffff","textAlign":"left"}} />
       <Copy node="722:7085" box={[118, 116, 179, 21]} text={""} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":16,"lineHeight":19.2,"color":"#ffffff","textAlign":"left"}} />
       <Artwork node="722:7091" box={[13, 69, 83.89, 83.89]} source={require('../../../../assets/figma/mobile/30f85.svg')} />

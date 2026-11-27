@@ -26,8 +26,8 @@ export function EventDetailScreen() {
       <Copy node="258:752" box={[134, 839, 125, 24]} text={"Register for event"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":18,"lineHeight":21.6,"color":"#ffffff","textAlign":"center"}} />
       <Artwork node="258:763" box={[20, 130, 353, 186]} source={require('../../../../assets/figma/mobile/7e54a.jpg')} radius={10} />
       <Artwork node="258:767" box={[23, 685, 34, 34]} source={require('../../../../assets/figma/mobile/d9989.png')} />
-      <Artwork node="258:735" box={[0, 0, 393, 852]} source={require('../../../../assets/figma/mobile/dfcf6.svg')} />
-      <Artwork node="258:735" box={[0, 0, 393, 852]} source={require('../../../../assets/figma/mobile/3cc1d.svg')} />
+      <Artwork node="258:770" box={[46, 441, 18, 18]} source={require('../../../../assets/figma/mobile/dfcf6.svg')} />
+      <Artwork node="258:771" box={[46, 410, 18, 18]} source={require('../../../../assets/figma/mobile/3cc1d.svg')} />
       <Surface node="258:754" box={[121, 69, 151, 43]} fill={"#a5e0f2"} radius={20} />
       <Artwork node="258:755" box={[23, 69, 43, 43]} source={require('../../../../assets/figma/mobile/ca774.svg')} />
       <Artwork node="258:758" box={[324, 69, 43, 43]} source={require('../../../../assets/figma/mobile/59267.svg')} />

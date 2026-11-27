@@ -4,7 +4,6 @@ import { Artwork, Copy, Footer, Frame, Link, Surface } from '../components';
 export function EventsSearchFilterScreen() {
   return (
     <Frame id="258:516" width={393.0} height={852} background={"#ffffff"}>
-      <Artwork node="258:516" box={[0, 0, 393, 852]} source={require('../../../../assets/figma/mobile/58c51.svg')} />
       <Surface node="258:518" box={[20, 152, 352, 195]} fill={"#f2f4f5"} radius={10} />
       <Copy node="258:519" box={[36, 164, 68, 13]} text={"FEATURED EVENT"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":10,"lineHeight":12.0,"color":"#3f596b","textAlign":"left"}} />
       <Copy node="258:520" box={[40, 292, 163, 24]} text={"My Khe Beach Cleanup"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":18,"lineHeight":21.6,"color":"#091727","textAlign":"left"}} />
@@ -54,15 +53,15 @@ export function EventsSearchFilterScreen() {
       <Surface node="258:567" box={[214, 446, 149, 59]} fill={"#0186a8"} radius={10} />
       <Artwork node="258:568" box={[216, 450, 143, 53]} source={require('../../../../assets/figma/mobile/08faf.png')} />
       <Artwork node="258:569" box={[216, 450, 145, 51]} source={require('../../../../assets/figma/mobile/ba075.png')} />
-      <Surface node="258:570" box={[20, 85, 294, 40]} fill={"#ffffff"} radius={20} />
+      <Surface node="258:570" box={[20, 85, 294, 40]} fill={"#ffffff"} radius={20} stroke={[1,"#0186a8"]} />
       <Copy node="258:571" box={[36, 96, 136, 19]} text={"Event name or location..."} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":14,"lineHeight":16.8,"color":"#3f596b","textAlign":"left"}} />
       <Artwork node="258:572" box={[283, 95, 19.88, 19.95]} source={require('../../../../assets/figma/mobile/49c96.svg')} />
       <Artwork node="258:573" box={[333, 85, 40, 40]} source={require('../../../../assets/figma/mobile/3df14.svg')} />
       <Artwork node="258:574" box={[343, 97, 20, 20]} source={require('../../../../assets/figma/mobile/9a847.svg')} />
       <Surface node="258:588" box={[0, 59, 393, 770]} fill={"rgba(217,217,217,0.75)"} />
       <Surface node="258:589" box={[0, 36, 393, 538]} fill={"#ffffff"} radius={20} />
-      <Surface node="258:590" box={[20, 401, 353, 40]} fill={"#ffffff"} radius={10} />
-      <Surface node="258:591" box={[186, 515, 89, 33]} fill={"#ffffff"} radius={10} />
+      <Surface node="258:590" box={[20, 401, 353, 40]} fill={"#ffffff"} radius={10} stroke={[1,"#c9d5de"]} />
+      <Surface node="258:591" box={[186, 515, 89, 33]} fill={"#ffffff"} radius={10} stroke={[1,"#0186a8"]} />
       <Copy node="258:592" box={[208, 521, 45, 21]} text={"Cancel"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":16,"lineHeight":19.2,"color":"#0186a8","textAlign":"left"}} />
       <Surface node="258:593" box={[283, 515, 89, 33]} fill={"#43c4d6"} radius={10} />
       <Copy node="258:594" box={[309, 520, 37, 21]} text={"Apply"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":16,"lineHeight":19.2,"color":"#ffffff","textAlign":"left"}} />

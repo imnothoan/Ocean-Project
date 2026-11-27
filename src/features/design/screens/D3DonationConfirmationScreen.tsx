@@ -5,7 +5,7 @@ export function D3DonationConfirmationScreen() {
   return (
     <Frame id="1581:1711" width={393.0} height={852} background={"#ffffff"}>
       <Copy node="1581:1712" box={[24, 119, 345, 23]} text={"Review your donation details"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":15,"lineHeight":20,"color":"#3f596b","textAlign":"left"}} />
-      <Surface node="1581:1713" box={[24, 157, 345, 420]} fill={"#edfbff"} radius={12} />
+      <Surface node="1581:1713" box={[24, 157, 345, 420]} fill={"#edfbff"} radius={12} stroke={[1,"#c9d5de"]} />
       <Copy node="1581:1714" box={[40, 181, 140, 22]} text={"Campaign"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":14,"lineHeight":18,"color":"#3f596b","textAlign":"left"}} />
       <Copy node="1581:1715" box={[40, 203, 305, 24]} text={"Protect Phu Quoc Coral Reef"} typeStyle={{"fontFamily":"AfacadFlux_600SemiBold","fontSize":16,"lineHeight":21,"color":"#091727","textAlign":"left"}} />
       <Surface node="1581:1716" box={[40, 236, 313, 1]} fill={"#c9d5de"} />

@@ -4,7 +4,6 @@ import { Artwork, Copy, Frame, Link, Surface } from '../components';
 export function EventCertificateScreen() {
   return (
     <Frame id="258:1450" width={393.0} height={852} background={"#ffffff"}>
-      <Artwork node="258:1450" box={[0, 0, 393, 852]} source={require('../../../../assets/figma/mobile/58c51.svg')} />
       <Artwork node="258:1452" box={[19.25, 132.25, 354.5, 501.5]} source={require('../../../../assets/figma/mobile/93009.svg')} />
       <Artwork node="258:1453" box={[30.5, 143.5, 332, 479]} source={require('../../../../assets/figma/mobile/f1c9d.svg')} />
       <Copy node="258:1454" box={[147.5, 174, 97, 24]} text={"OCEAN CARE"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":18,"lineHeight":21.6,"color":"#73787d","textAlign":"center"}} />

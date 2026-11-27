@@ -4,21 +4,20 @@ import { Artwork, Copy, Frame, Link, Surface } from '../components';
 export function Frame12RareSpeciesLocationScreen() {
   return (
     <Frame id="230:2121" width={393.0} height={852} background={"#ffffff"}>
-      <Artwork node="230:2121" box={[0, 0, 393, 852]} source={require('../../../../assets/figma/mobile/58c51.svg')} />
       <Copy node="230:2123" box={[46.5, 400, 11, 15]} text={"All"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":11,"lineHeight":13.2,"color":"#ffffff","textAlign":"center"}} />
       <Copy node="255:824" box={[24, 117, 107, 20]} text={"STEP 3 / 4"} typeStyle={{"fontFamily":"AfacadFlux_600SemiBold","fontSize":12,"lineHeight":15,"color":"#3f596b","textAlign":"left"}} />
       <Copy node="255:825" box={[229, 117, 140, 20]} text={"RARE SPECIES"} typeStyle={{"fontFamily":"AfacadFlux_600SemiBold","fontSize":12,"lineHeight":15,"color":"#3f596b","textAlign":"right"}} />
       <Surface node="255:826" box={[24, 143, 345, 5]} fill={"#e6f3f8"} radius={3} />
       <Copy node="255:827" box={[24, 159, 345, 36]} text={"Where did you see it?"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":23,"lineHeight":28.75,"color":"#091727","textAlign":"left"}} />
       <Copy node="255:828" box={[24, 187, 345, 35]} text={"Exact wildlife locations are kept private."} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":14,"lineHeight":17.5,"color":"#3f596b","textAlign":"left"}} />
-      <Surface node="255:829" box={[24, 217, 345, 41]} fill={"#ffffff"} radius={10} />
+      <Surface node="255:829" box={[24, 217, 345, 41]} fill={"#ffffff"} radius={10} stroke={[1,"#d8e5ec"]} />
       <Artwork node="255:830" box={[35, 226, 21, 21]} source={require('../../../../assets/figma/mobile/b04f0.svg')} />
       <Copy node="255:833" box={[66, 227, 289, 30]} text={"Search address or place"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":13,"lineHeight":16.25,"color":"#3f596b","textAlign":"left"}} />
       <Copy node="255:858" box={[24, 462, 335, 20]} text={"SIGHTING DATE & TIME"} typeStyle={{"fontFamily":"AfacadFlux_600SemiBold","fontSize":12,"lineHeight":15,"color":"#3f596b","textAlign":"left"}} />
-      <Surface node="255:859" box={[24, 485, 345, 42]} fill={"#ffffff"} radius={11} />
+      <Surface node="255:859" box={[24, 485, 345, 42]} fill={"#ffffff"} radius={11} stroke={[1,"#d8e5ec"]} />
       <Copy node="255:860" box={[37, 496, 318, 28]} text={"13 Oct 2026 • 09:45"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":14,"lineHeight":17.5,"color":"#3f596b","textAlign":"left"}} />
       <Copy node="255:861" box={[24, 535, 331, 30]} text={"BEHAVIOR / NOTES"} typeStyle={{"fontFamily":"AfacadFlux_600SemiBold","fontSize":12,"lineHeight":15,"color":"#3f596b","textAlign":"left"}} />
-      <Surface node="255:862" box={[24, 556, 345, 67]} fill={"#ffffff"} radius={11} />
+      <Surface node="255:862" box={[24, 556, 345, 67]} fill={"#ffffff"} radius={11} stroke={[1,"#d8e5ec"]} />
       <Copy node="255:863" box={[36, 566, 321, 57]} text={"Swimming near the reef, appeared healthy.\nNo contact or disturbance."} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":13,"lineHeight":16.25,"color":"#3f596b","textAlign":"left"}} />
       <Surface node="255:864" box={[24, 629, 345, 57]} fill={"#eaf8fb"} radius={13} />
       <Surface node="255:865" box={[36, 636, 43, 43]} fill={"#cff4fa"} radius={22} />

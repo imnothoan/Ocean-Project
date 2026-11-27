@@ -4,7 +4,6 @@ import { Artwork, Copy, Frame, Link, Surface } from '../components';
 export function Frame7PollutionReviewScreen() {
   return (
     <Frame id="230:1425" width={393.0} height={852} background={"#ffffff"}>
-      <Artwork node="230:1425" box={[0, 0, 393, 852]} source={require('../../../../assets/figma/mobile/58c51.svg')} />
       <Copy node="230:1427" box={[46.5, 400, 11, 15]} text={"All"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":11,"lineHeight":13.2,"color":"#ffffff","textAlign":"center"}} />
       <Copy node="242:5163" box={[24, 117, 97, 20]} text={"STEP 6 / 6"} typeStyle={{"fontFamily":"AfacadFlux_600SemiBold","fontSize":12,"lineHeight":15,"color":"#3f596b","textAlign":"left"}} />
       <Copy node="242:5165" box={[262, 117, 107, 20]} text={"POLLUTION"} typeStyle={{"fontFamily":"AfacadFlux_600SemiBold","fontSize":12,"lineHeight":15,"color":"#3f596b","textAlign":"right"}} />
@@ -12,12 +11,12 @@ export function Frame7PollutionReviewScreen() {
       <Copy node="242:5169" box={[24, 163, 290, 36]} text={"Check before you submit"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":23,"lineHeight":28.75,"color":"#091727","textAlign":"left"}} />
       <Copy node="242:5171" box={[24, 199, 226, 35]} text={"Review all information for accuracy."} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":14,"lineHeight":17.5,"color":"#3f596b","textAlign":"left"}} />
       <Surface node="242:5173" box={[24, 233, 345, 116]} fill={"#eaf8fb"} radius={13} />
-      <Surface node="242:5207" box={[309, 242, 50, 67]} fill={"#ffffff"} radius={10} />
+      <Surface node="242:5207" box={[309, 242, 50, 67]} fill={"#ffffff"} radius={10} stroke={[1,"#d8e5ec"]} />
       <Artwork node="242:5208" box={[325, 265, 20, 20]} source={require('../../../../assets/figma/mobile/0171b.svg')} />
       <Copy node="242:5210" box={[38, 318, 317, 24]} text={"2 attached photos"} typeStyle={{"fontFamily":"AfacadFlux_600SemiBold","fontSize":15,"lineHeight":18.75,"color":"#091727","textAlign":"center"}} />
       <Artwork node="242:5212" box={[35, 243, 136, 71]} source={require('../../../../assets/figma/mobile/52b82.png')} radius={11} />
       <Artwork node="242:5214" box={[185, 243, 109, 71]} source={require('../../../../assets/figma/mobile/e92c2.png')} radius={11} />
-      <Surface node="242:5215" box={[24, 367, 345, 200]} fill={"#ffffff"} radius={13} />
+      <Surface node="242:5215" box={[24, 367, 345, 200]} fill={"#ffffff"} radius={13} stroke={[1,"#d8e5ec"]} />
       <Copy node="242:5216" box={[37, 379, 140, 26]} text={"Report type"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":13,"lineHeight":16.25,"color":"#3f596b","textAlign":"left"}} />
       <Copy node="242:5217" box={[170, 378, 182, 27]} text={"Pollution"} typeStyle={{"fontFamily":"AfacadFlux_600SemiBold","fontSize":14,"lineHeight":17.5,"color":"#091727","textAlign":"right"}} />
       <Surface node="242:5218" box={[38, 425, 316, 1]} fill={"#d8e5ec"} />
@@ -29,7 +28,7 @@ export function Frame7PollutionReviewScreen() {
       <Surface node="242:5224" box={[38, 519, 316, 1]} fill={"#d8e5ec"} />
       <Copy node="242:5225" box={[37, 520, 140, 26]} text={"Location"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":13,"lineHeight":16.25,"color":"#3f596b","textAlign":"left"}} />
       <Copy node="242:5226" box={[170, 519, 182, 27]} text={"My Khe Beach"} typeStyle={{"fontFamily":"AfacadFlux_600SemiBold","fontSize":14,"lineHeight":17.5,"color":"#091727","textAlign":"right"}} />
-      <Surface node="242:5228" box={[24, 367, 345, 200]} fill={"#ffffff"} radius={13} />
+      <Surface node="242:5228" box={[24, 367, 345, 200]} fill={"#ffffff"} radius={13} stroke={[1,"#d8e5ec"]} />
       <Copy node="242:5229" box={[37, 379, 140, 26]} text={"Report type"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":13,"lineHeight":16.25,"color":"#3f596b","textAlign":"left"}} />
       <Copy node="242:5230" box={[170, 378, 182, 27]} text={"Pollution"} typeStyle={{"fontFamily":"AfacadFlux_600SemiBold","fontSize":14,"lineHeight":17.5,"color":"#091727","textAlign":"right"}} />
       <Surface node="242:5231" box={[38, 425, 316, 1]} fill={"#d8e5ec"} />

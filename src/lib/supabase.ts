@@ -9,7 +9,7 @@ import { submitReport, type ReportSubmissionDeps } from '../features/reports/rep
 // Public Expo client configuration. A different project must supply its own key.
 const projectUrl = 'https://eennwumflulpfhcfzupe.supabase.co';
 const projectKey = 'sb_publishable_9FXGr60lua0RY2HtfJ5aEg_NoQwiMy7';
-const supabaseUrl = process.env.EXPO_PUBLIC_SUPABASE_URL || projectUrl;
+export const supabaseUrl = process.env.EXPO_PUBLIC_SUPABASE_URL || projectUrl;
 const configuredKey = process.env.EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY || process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY;
 const supabaseAnonKey = configuredKey && configuredKey !== 'your-anon-key'
   ? configuredKey
@@ -30,6 +30,18 @@ export const supabase = createClient(
   }
 );
 
+// A recovery challenge must never replace the active application session.
+export function createRecoveryAuth() {
+  return createClient(supabaseUrl, supabaseAnonKey ?? 'placeholder-anon-key', {
+    auth: {
+      storageKey: 'ocean-password-recovery',
+      persistSession: false,
+      autoRefreshToken: false,
+      detectSessionInUrl: false
+    }
+  }).auth;
+}
+
 export type ReportCategory = 'pollution' | 'animal' | 'recycle';
 
 export type OceanReport = {
@@ -38,11 +50,17 @@ export type OceanReport = {
   category: ReportCategory;
   title: string;
   location: string;
-  status: 'submitted' | 'reviewing' | 'resolved';
+  details?: Record<string, string>;
+  report_evidence?: { storage_path: string; created_at: string }[];
+  report_followups?: { note: string; evidence_path: string | null; created_at: string }[];
+  report_status_history?: Pick<ReportStatusHistory, 'status' | 'created_at' | 'note'>[];
+  status: 'submitted' | 'reviewing' | 'resolved' | 'rejected';
   created_at: string;
 };
 
 export type OceanEvent = {
+  owner_id?: string|null; category?: string; duration_minutes?: number|null;
+  preparation?: string[]; safety?: string; cover_path?: string|null; ended_at?: string|null;
   id: string;
   title: string;
   description: string;
@@ -95,6 +113,7 @@ export type EventMessage = {
 };
 
 export type EventRecap = {
+  total_kg?: number|null; recyclable_kg?: number|null; photo_path?: string|null;
   id: string;
   event_id: string;
   author_id: string;
@@ -137,11 +156,11 @@ export async function createReport(
   return supabase.from('reports').insert({ ...report, owner_id: userData.user.id }).select().single();
 }
 
-export async function updateOwnReport(reportId: string, input: Pick<OceanReport, 'title' | 'location'>) {
+export async function updateOwnReport(reportId: string, input: Pick<OceanReport, 'title' | 'location' | 'details'>) {
   if (!isSupabaseConfigured) return { data: null, error: new Error('Supabase is not configured.') };
   const { data: userData, error: userError } = await supabase.auth.getUser();
   if (userError || !userData.user) return { data: null, error: userError ?? new Error('You must be signed in to edit a report.') };
-  return supabase.from('reports').update(input).eq('id', reportId).eq('owner_id', userData.user.id).select().single();
+  return supabase.from('reports').update(input).eq('id', reportId).eq('owner_id', userData.user.id).eq('status', 'submitted').select().single();
 }
 
 export async function loadReports() {
@@ -151,8 +170,11 @@ export async function loadReports() {
 
   return supabase
     .from('reports')
-    .select('id, owner_id, category, title, location, status, created_at')
-    .order('created_at', { ascending: false });
+    .select('id, owner_id, category, title, location, status, details, created_at, report_evidence(storage_path, created_at), report_status_history(status, created_at, note), report_followups(note, evidence_path, created_at)')
+    .order('created_at', { ascending: false })
+    .order('created_at', { referencedTable: 'report_evidence', ascending: true })
+    .order('created_at', { referencedTable: 'report_followups', ascending: false })
+    .returns<OceanReport[]>();
 }
 
 export async function loadEvents() {
@@ -210,13 +232,13 @@ export async function submitReportWithEvidence(draft: ReportDraft) {
   const deps: ReportSubmissionDeps = {
     getUser: async () => ({ user: userData.user ? { id: userData.user.id } : null, error: userError }),
     createReport: async (record) => supabase.from('reports').insert(record).select('id, owner_id, category, title, location, status, created_at').single(),
-    readEvidence: async (uri) => {
+    readEvidence: async (uri, mime) => {
       try {
         const file = Platform.OS === 'web' ? null : new File(uri);
         const response = file ? null : await fetch(uri);
         if (response && !response.ok) throw new Error('Không đọc được ảnh.');
         const bytes = file ? await file.arrayBuffer() : await response!.arrayBuffer();
-        const type = draft.photoMime || file?.type || response?.headers.get('content-type') || 'image/jpeg';
+        const type = mime || file?.type || response?.headers.get('content-type') || 'image/jpeg';
         return { blob: { payload: bytes, type, size: bytes.byteLength }, error: null };
       } catch (error) {
         return { blob: { type: '', size: 0 }, error: error instanceof Error ? error : new Error('Không đọc được ảnh.') };
@@ -227,8 +249,14 @@ export async function submitReportWithEvidence(draft: ReportDraft) {
       return (await supabase.storage.from('report-evidence').upload(path, image.payload, { contentType: image.type, upsert: false })).error;
     },
     saveEvidence: async (record) => (await supabase.from('report_evidence').insert(record)).error,
-    removeEvidence: async (path) => { await supabase.storage.from('report-evidence').remove([path]); },
-    deleteReport: async (id, ownerId) => { await supabase.from('reports').delete().eq('id', id).eq('owner_id', ownerId); },
+    removeEvidence: async (path) => {
+      const { error } = await supabase.storage.from('report-evidence').remove([path]);
+      if (error) throw error;
+    },
+    deleteReport: async (id, ownerId) => {
+      const { error } = await supabase.from('reports').delete().eq('id', id).eq('owner_id', ownerId).select('id').single();
+      if (error) throw error;
+    },
     createId: randomUUID
   };
   return submitReport(draft, deps);
@@ -264,7 +292,7 @@ export async function registerForEvent(eventId: string, participantName: string,
     .single();
 }
 
-export async function createEvent(input: Pick<OceanEvent, 'title' | 'description' | 'event_date' | 'location' | 'capacity'>) {
+export async function createEvent(input: Omit<OceanEvent, 'id'|'owner_id'|'ended_at'>) {
   if (!isSupabaseConfigured) {
     return { data: null, error: new Error('Supabase is not configured.') };
   }
@@ -276,7 +304,7 @@ export async function createEvent(input: Pick<OceanEvent, 'title' | 'description
   return supabase.from('events').insert({ ...input, owner_id: userData.user.id }).select().single();
 }
 
-export async function updateEvent(eventId: string, input: Partial<Pick<OceanEvent, 'title' | 'description' | 'event_date' | 'location' | 'capacity'>>) {
+export async function updateEvent(eventId: string, input: Partial<Omit<OceanEvent,'id'|'owner_id'>>) {
   if (!isSupabaseConfigured) return { data: null, error: new Error('Supabase is not configured.') };
   const { data: userData, error: userError } = await supabase.auth.getUser();
   if (userError || !userData.user) return { data: null, error: userError ?? new Error('You must be signed in to edit an event.') };
@@ -326,11 +354,11 @@ export async function sendEventMessage(eventId: string, body: string) {
   return supabase.from('event_messages').insert({ event_id: eventId, user_id: userData.user.id, body }).select().single();
 }
 
-export async function createEventRecap(eventId: string, body: string) {
+export async function createEventRecap(eventId: string, body: string, extra: Pick<EventRecap, 'total_kg'|'recyclable_kg'|'photo_path'> = {}) {
   if (!isSupabaseConfigured) return { data: null, error: new Error('Supabase is not configured.') };
   const { data: userData, error: userError } = await supabase.auth.getUser();
   if (userError || !userData.user) return { data: null, error: userError ?? new Error('You must be signed in to publish a recap.') };
-  return supabase.from('event_recaps').insert({ event_id: eventId, author_id: userData.user.id, body }).select().single();
+  return supabase.from('event_recaps').insert({ event_id: eventId, author_id: userData.user.id, body, ...extra }).select().single();
 }
 
 export async function loadEventRecaps(eventId: string) {

@@ -4,17 +4,17 @@ import { Artwork, Copy, Frame, Link, Surface } from '../components';
 export function Frame4TimeTrendsAnalyticsScreen() {
   return (
     <Frame id="311:716" width={393.0} height={852} background={"#ffffff"}>
-      <Surface node="323:5068" box={[213, 567, 160, 120]} fill={"#edfbff"} radius={10} />
+      <Surface node="323:5068" box={[213, 567, 160, 120]} fill={"#edfbff"} radius={10} stroke={[1,"#c9d5de"]} />
       <Copy node="323:5095" box={[220.6, 648.57, 114.27, 23.44]} text={"Next Quarter"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":15,"lineHeight":18.0,"color":"#3f596b","textAlign":"left"}} />
       <Copy node="323:5096" box={[224, 575, 67, 27]} text={"Forecast"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":20,"lineHeight":24.0,"color":"#091727","textAlign":"left"}} />
       <Artwork node="323:5098" box={[318, 619, 15, 15]} source={require('../../../../assets/figma/mobile/1d38f.svg')} />
       <Copy node="323:5099" box={[242, 610, 38, 32]} text={"-8%"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":24,"lineHeight":28.8,"color":"#091727","textAlign":"left"}} />
-      <Surface node="323:5073" box={[23, 567, 160, 120]} fill={"#edfbff"} radius={10} />
+      <Surface node="323:5073" box={[23, 567, 160, 120]} fill={"#edfbff"} radius={10} stroke={[1,"#c9d5de"]} />
       <Copy node="323:5075" box={[30.6, 648.57, 114.27, 23.44]} text={"from last year"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":15,"lineHeight":18.0,"color":"#3f596b","textAlign":"center"}} />
       <Copy node="323:5076" box={[34, 575, 102, 27]} text={"Yearly trends"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":20,"lineHeight":24.0,"color":"#091727","textAlign":"center"}} />
       <Artwork node="323:5092" box={[128, 619, 15, 15]} source={require('../../../../assets/figma/mobile/1d38f.svg')} />
       <Copy node="323:5086" box={[52, 610, 68, 32]} text={"-14.2%"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":24,"lineHeight":28.8,"color":"#091727","textAlign":"center"}} />
-      <Surface node="323:4606" box={[23, 197, 348, 349]} fill={"#edfbff"} radius={10} />
+      <Surface node="323:4606" box={[23, 197, 348, 349]} fill={"#edfbff"} radius={10} stroke={[1,"#c9d5de"]} />
       <Copy node="323:4607" box={[295, 209, 67, 16]} text={"Unit: Pollution"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":14.4,"color":"#2b2b2b","textAlign":"right"}} />
       <Copy node="323:4608" box={[32, 207, 171, 20]} text={"Pollution Time Trends (2026)"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":15,"lineHeight":18.0,"color":"#2b2b2b","textAlign":"left"}} />
       <Copy node="323:4610" box={[104, 526, 17, 16]} text={"Jan"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":14.4,"color":"#2b2b2b","textAlign":"left"}} />

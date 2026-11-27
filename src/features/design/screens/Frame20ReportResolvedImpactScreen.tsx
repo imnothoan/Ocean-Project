@@ -11,13 +11,13 @@ export function Frame20ReportResolvedImpactScreen() {
       <Copy node="1253:532" box={[86, 168, 245, 23]} text={"This report has been cleaned up and closed."} typeStyle={{"fontFamily":"Inter_400Regular","fontSize":11.210526466369629,"lineHeight":13.45,"color":"#637b89","textAlign":"left"}} />
       <Copy node="1253:538" box={[277.96, 264.8, 43.72, 22.42]} text={"✓"} typeStyle={{"fontFamily":"Inter_700Bold","fontSize":33.6315803527832,"lineHeight":40.36,"color":"#ffffff","textAlign":"left"}} />
       <Copy node="1253:539" box={[19, 394, 174, 22]} text={"Impact summary"} typeStyle={{"fontFamily":"Inter_700Bold","fontSize":20.17894744873047,"lineHeight":24.21,"color":"#183044","textAlign":"left"}} />
-      <Surface node="1253:540" box={[19, 421, 356.49, 54.93]} fill={"#ffffff"} radius={14.574} />
+      <Surface node="1253:540" box={[19, 421, 356.49, 54.93]} fill={"#ffffff"} radius={14.574} stroke={[1.121052622795105,"#dcecf0"]} />
       <Copy node="1253:541" box={[34, 439, 102, 22]} text={"Waste cleared"} typeStyle={{"fontFamily":"Inter_400Regular","fontSize":13.452630996704102,"lineHeight":16.14,"color":"#637b89","textAlign":"left"}} />
       <Copy node="1253:542" box={[179, 439, 72, 22]} text={"≈ 120 kg"} typeStyle={{"fontFamily":"Inter_700Bold","fontSize":13.452630996704102,"lineHeight":16.14,"color":"#183044","textAlign":"left"}} />
-      <Surface node="1253:543" box={[19, 486.02, 356.49, 54.93]} fill={"#ffffff"} radius={14.574} />
+      <Surface node="1253:543" box={[19, 486.02, 356.49, 54.93]} fill={"#ffffff"} radius={14.574} stroke={[1.121052622795105,"#dcecf0"]} />
       <Copy node="1253:544" box={[34, 504, 102, 22]} text={"Action taken"} typeStyle={{"fontFamily":"Inter_400Regular","fontSize":13.452630996704102,"lineHeight":16.14,"color":"#637b89","textAlign":"left"}} />
       <Copy node="1253:545" box={[179, 504, 149, 22]} text={"Coastal cleanup team"} typeStyle={{"fontFamily":"Inter_700Bold","fontSize":13.452630996704102,"lineHeight":16.14,"color":"#183044","textAlign":"left"}} />
-      <Surface node="1253:546" box={[19, 551.04, 356.49, 54.93]} fill={"#ffffff"} radius={14.574} />
+      <Surface node="1253:546" box={[19, 551.04, 356.49, 54.93]} fill={"#ffffff"} radius={14.574} stroke={[1.121052622795105,"#dcecf0"]} />
       <Copy node="1253:547" box={[34, 569, 90, 22]} text={"Resolved on"} typeStyle={{"fontFamily":"Inter_400Regular","fontSize":13.452630996704102,"lineHeight":16.14,"color":"#637b89","textAlign":"left"}} />
       <Copy node="1253:548" box={[179, 569, 112, 22]} text={"16 Oct 2026"} typeStyle={{"fontFamily":"Inter_700Bold","fontSize":13.452630996704102,"lineHeight":16.14,"color":"#183044","textAlign":"left"}} />
       <Surface node="1253:549" box={[19, 632.88, 356.49, 69.51]} fill={"#e7f9f0"} radius={14.574} />

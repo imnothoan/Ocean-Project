@@ -9,12 +9,12 @@ export function PostingEventRecapScreen() {
       <Copy node="1356:345" box={[147, 944, 98, 24]} text={"Publish Recap"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":18,"lineHeight":21.6,"color":"#ffffff","textAlign":"center"}} />
       <Copy node="1356:2958" box={[70, 145, 254, 37]} text={"My Khe Beach Cleanup"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":28,"lineHeight":33.6,"color":"#202326","textAlign":"left"}} />
       <Copy node="1356:2959" box={[110, 181, 174, 21]} text={"Oct 20 · 6:30 AM · Cleanup"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":16,"lineHeight":19.2,"color":"#73787d","textAlign":"left"}} />
-      <Surface node="1356:2961" box={[25, 219, 343, 196]} fill={"#ffffff"} radius={15} />
-      <Surface node="1356:2962" box={[25, 432, 343, 113]} fill={"#edfbff"} radius={15} />
-      <Surface node="1356:2966" box={[21, 588, 170, 130]} fill={"#ccf1e5"} radius={15} />
-      <Surface node="1356:2968" box={[202, 588, 170, 130]} fill={"#ccf1e5"} radius={15} />
-      <Surface node="1356:2970" box={[21, 735, 170, 130]} fill={"#ccf1e5"} radius={15} />
-      <Surface node="1356:2971" box={[202, 735, 170, 130]} fill={"#ccf1e5"} radius={15} />
+      <Surface node="1356:2961" box={[25, 219, 343, 196]} fill={"#ffffff"} radius={15} stroke={[2,"#43c4d6"]} />
+      <Surface node="1356:2962" box={[25, 432, 343, 113]} fill={"#edfbff"} radius={15} stroke={[1,"#d5d5d5"]} />
+      <Surface node="1356:2966" box={[21, 588, 170, 130]} fill={"#ccf1e5"} radius={15} stroke={[1,"#43c4d6"]} />
+      <Surface node="1356:2968" box={[202, 588, 170, 130]} fill={"#ccf1e5"} radius={15} stroke={[1,"#43c4d6"]} />
+      <Surface node="1356:2970" box={[21, 735, 170, 130]} fill={"#ccf1e5"} radius={15} stroke={[1,"#43c4d6"]} />
+      <Surface node="1356:2971" box={[202, 735, 170, 130]} fill={"#ccf1e5"} radius={15} stroke={[1,"#43c4d6"]} />
       <Artwork node="1356:3009" box={[168, 270, 67, 59]} source={require('../../../../assets/figma/mobile/acc64.svg')} />
       <Copy node="1356:3010" box={[121, 333, 152, 24]} text={"Tap to upload images"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":18,"lineHeight":21.6,"color":"#43c4d6","textAlign":"left"}} />
       <Copy node="1356:3012" box={[137, 357, 120, 19]} text={"JPG, PNG up to 10MB"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":14,"lineHeight":16.8,"color":"#73787d","textAlign":"left"}} />

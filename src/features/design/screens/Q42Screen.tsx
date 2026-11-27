@@ -27,7 +27,7 @@ export function Q42Screen() {
       <Artwork node="1335:4470" box={[26, 290, 15, 14]} source={require('../../../../assets/figma/mobile/cc9ac.svg')} />
       <Surface node="1335:4471" box={[0, 716, 393, 758]} fill={"#ffffff"} />
       <Artwork node="1335:4472" box={[3.78, 367.27, 388.55, 1012.56]} source={require('../../../../assets/figma/mobile/a9d87.svg')} />
-      <Surface node="1335:4474" box={[21, 341, 351, 355]} fill={"#ffffff"} radius={24} />
+      <Surface node="1335:4474" box={[21, 341, 351, 355]} fill={"#ffffff"} radius={24} stroke={[0.4000000059604645,"rgba(0,0,0,0.2)"]} />
       <Surface node="1335:4476" box={[42, 362, 50, 50]} fill={"#e3f8f8"} radius={12} />
       <Artwork node="1335:4477" box={[57, 376, 22, 19.05]} source={require('../../../../assets/figma/mobile/05863.svg')} />
       <Copy node="1335:4478" box={[114, 374, 154, 23]} text={"Lesson 1: Image Check"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":17,"lineHeight":22.8,"color":"#000000bf","textAlign":"left"}} />
@@ -43,15 +43,15 @@ export function Q42Screen() {
       <Artwork node="1335:4495" box={[42, 625, 15, 14]} source={require('../../../../assets/figma/mobile/3183c.svg')} />
       <Copy node="1335:4497" box={[73, 653, 237, 23]} text={"Multiple reports use the exact same image."} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":14,"lineHeight":22.8,"color":"#718096","textAlign":"left"}} />
       <Artwork node="1335:4498" box={[42, 658, 15, 14]} source={require('../../../../assets/figma/mobile/3183c.svg')} />
-      <Surface node="1335:4499" box={[21, 962, 351, 407]} fill={"#ffffff"} radius={24} />
+      <Surface node="1335:4499" box={[21, 962, 351, 407]} fill={"#ffffff"} radius={24} stroke={[0.4000000059604645,"rgba(0,0,0,0.2)"]} shadow={[0,4,4,0,"rgba(0,0,0,0.1)"]} />
       <Copy node="1335:4502" box={[114, 995, 201, 23]} text={"Lesson 3: Severity Assessment"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":17,"lineHeight":22.8,"color":"#000000bf","textAlign":"left"}} />
       <Artwork node="1335:4503" box={[42, 983, 50, 50]} source={require('../../../../assets/figma/mobile/62d51.svg')} />
-      <Surface node="1335:4507" box={[42, 1052, 309, 87]} fill={"#f8fafc"} radius={12} />
+      <Surface node="1335:4507" box={[42, 1052, 309, 87]} fill={"#f8fafc"} radius={12} stroke={[0.4000000059604645,"rgba(1,134,168,0.25)"]} />
       <Copy node="1335:4508" box={[58, 1061, 73, 23]} text={"Small Group"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":15,"lineHeight":22.8,"color":"#555f71","textAlign":"left"}} />
       <Copy node="1335:4509" box={[58, 1089, 273, 36]} text={"Scattered domestic waste. Small affected area, no hazardous materials."} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":14,"lineHeight":18,"color":"#718096","textAlign":"left"}} />
       <Surface node="1335:4512" box={[271, 1064, 64, 21]} fill={"#ecfdf5"} radius={10} />
       <Copy node="1335:4513" box={[294, 1063, 18, 23]} text={"Low"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":11,"lineHeight":22.8,"color":"#178b72","textAlign":"left"}} />
-      <Surface node="1335:4515" box={[42, 1159, 309, 87]} fill={"#f8fafc"} radius={12} />
+      <Surface node="1335:4515" box={[42, 1159, 309, 87]} fill={"#f8fafc"} radius={12} stroke={[0.4000000059604645,"rgba(1,134,168,0.25)"]} />
       <Copy node="1335:4516" box={[58, 1168, 113, 23]} text={"Event Organization"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":15,"lineHeight":22.8,"color":"#555f71","textAlign":"left"}} />
       <Copy node="1335:4517" box={[58, 1196, 273, 36]} text={"Large volume of waste, wide area. Requires more manpower and specialized gear."} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":14,"lineHeight":18,"color":"#718096","textAlign":"left"}} />
       <Surface node="1335:4519" box={[271, 1171, 64, 21]} fill={"#fffff0"} radius={10} />
@@ -61,7 +61,7 @@ export function Q42Screen() {
       <Copy node="1335:4524" box={[58, 1277, 273, 54]} text={"Note: Evaluation must consider the affected area, waste types, and environmental context, not just overall weight."} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":14,"lineHeight":18,"color":"#2c5282","textAlign":"left"}} />
       <Surface node="1335:4527" box={[19, 1391, 351, 60]} fill={"#43c4d6"} radius={24} />
       <Copy node="1335:4528" box={[131, 1410, 128, 23]} text={"Continue Lesson"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":20,"lineHeight":22.8,"color":"#ffffff","textAlign":"left"}} />
-      <Surface node="1335:4531" box={[21, 716, 351, 226]} fill={"#ffffff"} radius={24} />
+      <Surface node="1335:4531" box={[21, 716, 351, 226]} fill={"#ffffff"} radius={24} stroke={[0.4000000059604645,"rgba(0,0,0,0.2)"]} />
       <Surface node="1335:4533" box={[42, 737, 50, 50]} fill={"rgba(209,250,229,0.6)"} radius={12} />
       <Copy node="1335:4534" box={[114, 749, 168, 23]} text={"Lesson 2: Location Check"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":17,"lineHeight":22.8,"color":"#000000bf","textAlign":"left"}} />
       <Artwork node="1335:4535" box={[59, 752, 16, 19]} source={require('../../../../assets/figma/mobile/e484b.svg')} />

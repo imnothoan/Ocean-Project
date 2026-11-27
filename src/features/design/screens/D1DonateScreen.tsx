@@ -10,15 +10,15 @@ export function D1DonateScreen() {
       <Surface node="1581:1605" box={[24, 180, 248, 12]} fill={"#43c4d6"} radius={6} />
       <Copy node="1581:1606" box={[320, 177, 40, 20]} text={"72%"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":12,"lineHeight":15,"color":"#3f596b","textAlign":"left"}} />
       <Copy node="1581:1607" box={[24, 218, 250, 23]} text={"Choose an amount"} typeStyle={{"fontFamily":"AfacadFlux_600SemiBold","fontSize":15,"lineHeight":20,"color":"#091727","textAlign":"left"}} />
-      <Surface node="1581:1608" box={[24, 250, 70, 40]} fill={"#ffffff"} radius={20} />
+      <Surface node="1581:1608" box={[24, 250, 70, 40]} fill={"#ffffff"} radius={20} stroke={[1,"#c9d5de"]} />
       <Copy node="1581:1609" box={[24, 259, 70, 23]} text={"$2"} typeStyle={{"fontFamily":"AfacadFlux_600SemiBold","fontSize":15,"lineHeight":20,"color":"#3f596b","textAlign":"center"}} />
-      <Surface node="1581:1610" box={[106, 250, 70, 40]} fill={"#ffffff"} radius={20} />
+      <Surface node="1581:1610" box={[106, 250, 70, 40]} fill={"#ffffff"} radius={20} stroke={[1,"#c9d5de"]} />
       <Copy node="1581:1611" box={[106, 259, 70, 23]} text={"$5"} typeStyle={{"fontFamily":"AfacadFlux_600SemiBold","fontSize":15,"lineHeight":20,"color":"#3f596b","textAlign":"center"}} />
-      <Surface node="1581:1612" box={[188, 250, 70, 40]} fill={"#ffffff"} radius={20} />
+      <Surface node="1581:1612" box={[188, 250, 70, 40]} fill={"#ffffff"} radius={20} stroke={[1,"#c9d5de"]} />
       <Copy node="1581:1613" box={[188, 259, 70, 23]} text={"$10"} typeStyle={{"fontFamily":"AfacadFlux_600SemiBold","fontSize":15,"lineHeight":20,"color":"#3f596b","textAlign":"center"}} />
-      <Surface node="1581:1614" box={[270, 250, 70, 40]} fill={"#ffffff"} radius={20} />
+      <Surface node="1581:1614" box={[270, 250, 70, 40]} fill={"#ffffff"} radius={20} stroke={[1,"#c9d5de"]} />
       <Copy node="1581:1615" box={[270, 259, 70, 23]} text={"$20"} typeStyle={{"fontFamily":"AfacadFlux_600SemiBold","fontSize":15,"lineHeight":20,"color":"#3f596b","textAlign":"center"}} />
-      <Surface node="1581:1616" box={[24, 304, 345, 48]} fill={"#ffffff"} radius={12} />
+      <Surface node="1581:1616" box={[24, 304, 345, 48]} fill={"#ffffff"} radius={12} stroke={[1,"#c9d5de"]} />
       <Copy node="1581:1617" box={[40, 317, 220, 23]} text={"Other amount"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":15,"lineHeight":20,"color":"#3f596b","textAlign":"left"}} />
       <Copy node="1581:1618" box={[335, 317, 18, 23]} text={"$"} typeStyle={{"fontFamily":"AfacadFlux_600SemiBold","fontSize":15,"lineHeight":20,"color":"#3f596b","textAlign":"left"}} />
       <Copy node="1581:1619" box={[24, 374, 345, 24]} text={"$2 = 5 kg of waste removed"} typeStyle={{"fontFamily":"AfacadFlux_600SemiBold","fontSize":16,"lineHeight":21,"color":"#3f596b","textAlign":"left"}} />
@@ -26,7 +26,7 @@ export function D1DonateScreen() {
       <Surface node="1581:1621" box={[319, 426, 50, 28]} fill={"#a5e0f2"} radius={14} />
       <Artwork node="1581:1622" box={[322, 429, 22, 22]} source={require('../../../../assets/figma/mobile/afbee.svg')} />
       <Copy node="1581:1623" box={[24, 484, 250, 24]} text={"Message (optional)"} typeStyle={{"fontFamily":"AfacadFlux_600SemiBold","fontSize":16,"lineHeight":21,"color":"#091727","textAlign":"left"}} />
-      <Surface node="1581:1624" box={[24, 514, 345, 92]} fill={"#ffffff"} radius={12} />
+      <Surface node="1581:1624" box={[24, 514, 345, 92]} fill={"#ffffff"} radius={12} stroke={[1,"#c9d5de"]} />
       <Copy node="1581:1625" box={[40, 531, 310, 22]} text={"Leave a note for the campaign organizer..."} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":14,"lineHeight":19,"color":"#3f596b","textAlign":"left"}} />
       <Surface node="1581:1626" box={[24, 650, 345, 48]} fill={"#43c4d6"} radius={28} />
       <Copy node="1581:1627" box={[24, 657, 345, 32]} text={"Continue"} typeStyle={{"fontFamily":"AfacadFlux_600SemiBold","fontSize":20,"lineHeight":32,"color":"#ffffff","textAlign":"center"}} />

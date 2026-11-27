@@ -1,36 +1,91 @@
-import { useCallback,useEffect,useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import type { Session } from '@supabase/supabase-js';
-import { supabase,loadReports,loadNotifications,loadEventMessages,loadImpactMetrics,type OceanReport,type OceanEvent,type OceanNotification,type EventMessage,type ImpactMetric } from '../../lib/supabase';
-import { fetchFeed,fetchProfile,emptyProfile,type CommunityItem,type Profile } from './data';
+import { supabase, loadReports, loadNotifications, loadEventMessages, loadImpactMetrics, type EventRecap, type OceanReport, type OceanEvent, type OceanNotification, type EventMessage, type ImpactMetric } from '../../lib/supabase';
+import { fetchFeed, fetchProfile, emptyProfile, type CommunityItem, type Profile } from './data';
 import type { Registration } from './events';
 import type { Pledge } from './donations';
 import { result } from './workflow';
 
-type ProjectData={points:number;saved:string[];items:CommunityItem[];profile:Profile;reports:OceanReport[];events:OceanEvent[];registrations:Registration[];notifications:OceanNotification[];messages:EventMessage[];pledges:Pledge[];metrics:ImpactMetric[]};
-const empty:ProjectData={points:0,saved:[],items:[],profile:emptyProfile,reports:[],events:[],registrations:[],notifications:[],messages:[],pledges:[],metrics:[]};
-export function useProjectData(session:Session|null,eventId:string,chat:boolean){
- const [data,setData]=useState<ProjectData>(empty);
- const [error,setError]=useState('');const [reload,setReload]=useState(0);
- const refresh=useCallback(()=>setReload(r=>r+1),[]);
- useEffect(()=>{setData(empty);},[session?.user.id]);
- useEffect(()=>{
-  let current=true;setError('');
-  async function load(){
-   const [items,profile,events,metrics,reports,notifications,registrations,pledges,messages,points,saved]=await Promise.all([
-    fetchFeed(session),fetchProfile(session),
-    supabase.from('events').select('id,title,description,event_date,location,capacity,owner_id').order('event_date').limit(100).then(result),
-    loadImpactMetrics().then(result),
-    session?loadReports().then(result):[],session?loadNotifications().then(result):[],
-    session?supabase.from('event_registrations').select('id,event_id,owner_id,status,participant_name,volunteer_role').limit(200).then(result):[],
-    session?supabase.from('donations').select('id,amount,campaign,status,created_at').eq('donor_id',session.user.id).order('created_at',{ascending:false}).then(result):[],
-    session&&chat&&eventId?loadEventMessages(eventId).then(result):[],
-    session?supabase.rpc('ocean_points').then(result):0,
-    session?supabase.from('saved_guides').select('frame_id').eq('user_id',session.user.id).then(result):[]
-   ]);
-   if(current)setData({points:Number(points)||0,saved:(saved??[]).map(g=>String(g.frame_id)),items,profile,events:events??[],metrics:metrics??[],reports:reports??[],notifications:notifications??[],registrations:registrations??[],pledges:pledges??[],messages:messages??[]});
+export type Attendance = { id: string; event_id: string; created_at: string };
+export type ProjectData = {
+  avatarUrl: string; points: number; saved: string[]; items: CommunityItem[]; profile: Profile;
+  reports: OceanReport[]; events: OceanEvent[]; registrations: Registration[];
+  checkins: Attendance[]; notifications: OceanNotification[]; messages: EventMessage[];
+  pledges: Pledge[]; metrics: ImpactMetric[];
+  recaps: EventRecap[];
+  learning: {activity: string; completed_at: string}[];
+  claims: {id: string; cost: number; claimed_at: string}[];
+};
+const empty: ProjectData = {
+  avatarUrl:'', points: 0, saved: [], items: [], profile: emptyProfile, reports: [], events: [],
+  registrations: [], notifications: [], messages: [], pledges: [], metrics: [], checkins: [], recaps: [], learning: [], claims: []
+};
+
+async function readProject(session: Session | null, eventId: string, chat: boolean) {
+  const uid = session?.user.id;
+  async function ownAvatar() {
+    if (!uid) return '';
+    const bucket=supabase.storage.from('profile-photos');
+    const files=result(await bucket.list(uid,{search:'avatar'}));
+    const file=files?.find(row=>row.name==='avatar');
+    if (!file) return '';
+    const signed=result(await bucket.createSignedUrl(uid+'/avatar',3600));
+    return signed!.signedUrl+'&v='+encodeURIComponent(file.updated_at || file.id || '');
   }
-  load().catch(e=>{if(current)setError(e.message || 'Không thể tải dữ liệu.');});
-  return ()=>{current=false;};
- },[session?.user.id,reload,eventId,chat]);
- return {data,error,refresh};
+  const queries = {
+    avatarUrl: ownAvatar(),
+    items: fetchFeed(session), profile: fetchProfile(session),
+    events: supabase.from('events').select('id,title,description,event_date,location,capacity,owner_id,category,duration_minutes,preparation,safety,cover_path,ended_at').order('event_date').limit(100).then(result),
+    metrics: loadImpactMetrics().then(result),
+    reports: uid ? loadReports().then(result) : [],
+    notifications: uid ? loadNotifications().then(result) : [],
+    registrations: uid ? supabase.from('event_registrations').select('id,event_id,owner_id,status,participant_name,volunteer_role').order('created_at', {ascending: false}).limit(200).then(result) : [],
+    checkins: uid ? supabase.from('event_checkins').select('id,event_id,created_at').eq('user_id', uid).then(result) : [],
+    pledges: uid ? supabase.from('donations').select('id,amount,campaign,status,created_at').eq('donor_id', uid).order('created_at', {ascending: false}).then(result) : [],
+    messages: uid && chat && eventId ? loadEventMessages(eventId).then(result) : [],
+    points: uid ? supabase.rpc('ocean_points').then(result).then(p => Number(p) || 0) : 0,
+    saved: uid ? supabase.from('saved_guides').select('frame_id').eq('user_id', uid).then(result).then(rows => (rows ?? []).map(g => String(g.frame_id))) : [],
+    recaps: supabase.from('event_recaps').select('id,event_id,author_id,body,created_at,total_kg,recyclable_kg,photo_path').order('created_at',{ascending:false}).limit(100).then(result),
+    learning: uid ? supabase.from('learning_progress').select('activity,completed_at').eq('user_id', uid).then(result) : [],
+    claims: uid ? supabase.from('reward_claims').select('id,cost,claimed_at').eq('user_id', uid).then(result) : []
+  };
+  const entries = Object.entries(queries);
+  const results = await Promise.allSettled(entries.map(([, query]) => query));
+  const values: Partial<ProjectData> = {};
+  const errors: string[] = [];
+  results.forEach((response, i) => {
+    const key = entries[i][0] as keyof ProjectData;
+    if (response.status === 'fulfilled') {
+      Object.assign(values, { [key]: response.value ?? empty[key] });
+    } else {
+      errors.push(response.reason?.message || 'Không thể tải dữ liệu.');
+    }
+  });
+  return { values, error: errors[0] || '' };
+}
+
+export function useProjectData(session: Session | null, eventId: string, chat: boolean) {
+  const uid = session?.user.id;
+  const chatId = chat ? eventId : '';
+  const [snapshot, setSnapshot] = useState<{uid?: string; chatId: string; data: ProjectData; error: string}>({chatId: '', data: empty, error: ''});
+  const [reload, setReload] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const refresh = useCallback(() => setReload(r => r + 1), []);
+  useEffect(() => {
+    let active = true;
+    setLoading(true);
+    readProject(session, chatId, !!chatId).then(({values, error}) => {
+      if (!active) return;
+      setSnapshot(old => {
+        const previous = old.uid === uid ? old.data : empty;
+        return {uid, chatId, data: {...previous, messages: old.chatId === chatId ? previous.messages : [], ...values}, error};
+      });
+    }).catch(e => {
+      if (active) setSnapshot(old => ({uid, chatId, data: old.uid === uid ? {...old.data, messages: []} : empty, error: e?.message || 'Không thể tải dữ liệu.'}));
+    }).finally(() => { if (active) setLoading(false); });
+    return () => { active = false; };
+  }, [uid, reload, chatId]);
+  const own = snapshot.uid === uid;
+  const data = !own ? empty : snapshot.chatId === chatId ? snapshot.data : {...snapshot.data, messages: []};
+  return {data, error: own ? snapshot.error : '', refresh, loading};
 }

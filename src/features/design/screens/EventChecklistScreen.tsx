@@ -4,7 +4,6 @@ import { Artwork, Copy, Frame, Link, Surface } from '../components';
 export function EventChecklistScreen() {
   return (
     <Frame id="258:842" width={393.0} height={852} background={"#ffffff"}>
-      <Artwork node="258:842" box={[0, 0, 393, 852]} source={require('../../../../assets/figma/mobile/58c51.svg')} />
       <Copy node="258:844" box={[28, 131, 286, 35]} text={"Ready for cleanup day?"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":26,"lineHeight":31.2,"color":"#202326","textAlign":"left"}} />
       <Copy node="258:845" box={[28, 167, 236, 21]} text={"Check off the items you've prepared."} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":16,"lineHeight":19.2,"color":"#73787d","textAlign":"left"}} />
       <Artwork node="258:846" box={[27.5, 205.5, 341, 68]} source={require('../../../../assets/figma/mobile/3417e.svg')} />

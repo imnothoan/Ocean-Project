@@ -1,68 +1,86 @@
-import { Share } from 'react-native';
-import { supabase } from '../../lib/supabase';
-import { action,choices,field,required,result,type Controller } from './workflow';
-import type { CommunityItem,Profile } from './data';
-import { pickPhoto,publishPost,type Photo } from './media';
+import { createElement } from 'react';
+import { PhotoSelection } from './CommunityContent';
+import { Share, View } from 'react-native';
+import { action, choices, field, required, type Controller } from './workflow';
+import type { CommunityItem, Profile } from './data';
+import { pickPhoto, publishPost, type Photo } from './media';
 
-export function community(c:Controller,items:CommunityItem[],profile:Profile){
- const {id,values:v,binding:b}=c;
- const item=items.find(i=>i.post.id===v.postId) ?? items[0];
- const author=item?.profile?.display_name || 'Ocean Project';
- const own=profile.display_name || c.user?.email?.split('@')[0] || '';
- const showPosts=(id:string)=>{if(item)c.setValue('postId',item.post.id);c.go(id);};
- const refresh=()=>c.refresh();
- const like=()=>c.run(async()=>{if(!item)throw new Error('Hãy chọn một bài viết.');result(item.liked?await supabase.from('post_likes').delete().eq('post_id',item.post.id).eq('user_id',c.user!.id):await supabase.from('post_likes').insert({post_id:item.post.id,user_id:c.user!.id}));refresh();},true);
- if(id==='101:2769'){
-  Object.assign(b.labels,{'101:2792':own.slice(0,2).toUpperCase() || '＋','101:2804':item?author.slice(0,2).toUpperCase():'','101:2805':item?author:'Community',
-   '101:2806':item?new Date(item.post.created_at).toLocaleDateString():'','101:2811':item?.post.topic || 'Chưa có bài viết','101:2812':item?.post.body || 'Chia sẻ hoạt động đầu tiên với cộng đồng.',
-   '101:2819':String(item?.likes||0),'101:2822':(item?.comments.length||0)+' comments','101:2781':'Together for cleaner shores'});
-  const image=item?.post.photo_paths?.[0];
-  if(image)b.images['101:2816']=supabase.storage.from('community-photos').getPublicUrl(image).data.publicUrl;
-  else b.hidden.add('101:2816');
-  action(c,['101:2813','101:2811','101:2822'],()=>item?showPosts('105:2895'):c.go('115:422'));
-  action(c,['101:2819'],like);action(c,['101:2836'],()=>c.go('258:426'));
-  action(c,['101:2785'],()=>c.go('115:2686'));action(c,['101:2783'],refresh);
- }
- if(id==='105:2895'){
-  const path=item?.post.photo_paths?.[0];
-  if(path)b.images['105:2918']=supabase.storage.from('community-photos').getPublicUrl(path).data.publicUrl;else b.hidden.add('105:2918');
-  Object.assign(b.labels,{'105:2906':author.slice(0,2),'105:2907':author,'105:2908':item?.post.location||'','105:2913':item?.post.topic||'','105:2914':item?.post.body||'',
-   '105:2921':(item?.likes||0)+' likes','105:2924':(item?.comments.length||0)+' comments','105:2932':String(item?.comments.length||0)});
-  [['105:2935','105:2936','105:2937','105:2938'],['105:2940','105:2941','105:2942','105:2943'],['105:2945','105:2946','105:2947','105:2948']].forEach(([initial,name,date,body],i)=>{
-   const comment=item?.comments[i];Object.assign(b.labels,{[initial]:comment?'•':'',[name]:comment?'Community member':'',[date]:comment?new Date(comment.created_at).toLocaleDateString():'',[body]:comment?.body??''});
-  });
-  field(c,'105:2952','comment','Write a comment…',{onSubmit:()=>c.run(async()=>{if(!item)throw new Error('Chọn một bài viết trước.');result(await supabase.from('post_comments').insert({post_id:item.post.id,body:required(v.comment,'Nhập bình luận.')}));c.setValue('comment','');refresh();},true)});
-  action(c,['105:2921'],like); action(c,['105:2924'],()=>c.setValue('comment',v.comment||''));
- }
- if(id==='115:422'){
-  const photos:Photo[]=JSON.parse(v.postPhotos||'[]');b.labels['115:447']=own||'Ocean Project';b.labels['115:446']=own.slice(0,1);b.labels['115:455']=photos.length+'/4 photos';
-  if(photos[0])b.images['115:459']=photos[0].uri;else b.hidden.add('115:459');
-  field(c,'115:451','postBody','What would you like to share?',{multiline:true});field(c,'115:486','postLocation','Add a location');field(c,'115:494','mention','Mention your cleanup team');
-  choices(c,'topic',{'115:474':'Beach cleanup','115:476':'Wildlife','115:478':'Zero waste','115:480':'Education'});
-  const photo=(camera:boolean)=>c.run(async()=>{if(photos.length>=4)throw new Error('Tối đa 4 ảnh.');const newPhoto=await pickPhoto(camera);if(newPhoto)c.setValue('postPhotos',JSON.stringify([...photos,newPhoto]));});
-  action(c,['115:465'],()=>photo(false));action(c,['115:471'],()=>photo(true));action(c,['115:502','115:505'],()=>c.run(async()=>{
-   await publishPost(c.user!.id,required(v.postBody,'Nhập nội dung bài viết.'),v.topic||'Beach cleanup',v.postLocation||'',v.mention||'',photos);
-   for(const k of ['postBody','postPhotos','postLocation','mention','postId'])c.setValue(k,'');
-   refresh();c.go('101:2769');
-  },true));
- }
- if(id==='666:4366'){
-  for(const [node,key,original] of [['666:4384','display_name',profile.display_name],['666:4387','handle',profile.handle||''],['666:4392','location',profile.location],['666:4395','bio',profile.bio]]){
-   field(c,node,key,original || key,{value:v[key] ?? original,multiline:key==='bio'});
+export function community(c: Controller, items: CommunityItem[], profile: Profile) {
+  const {id,values:v,binding:b} = c;
+  const own = profile.display_name || (c.user ? 'Community member' : 'Guest');
+  if (id === '101:2769') {
+    for (const [label,art,value] of [['101:2783','101:2782','all'],['101:2785','101:2784','following']]) {
+      action(c,[label,art],()=>c.setValue('feedFilter',value));
+      b.tint[label]=(v.feedFilter || 'all')===value ? '#ffffff' : '#3f596b';
+      b.replacements[art]=createElement(View,{style:{flex:1,borderRadius:18,backgroundColor:(v.feedFilter || 'all')===value?'#0186a8':'#f2f4f5'}});
+    }
+    b.labels['101:2792'] = own[0];
+    b.labels['101:2781'] = 'Together for cleaner shores';
+    action(c,['101:2790','101:2791','101:2793','101:2794','101:2798'],() => c.go('115:422'));
+    action(c,['101:2786'],() => c.go('666:2965'));
   }
-  b.labels['666:4397']=(v.bio??profile.bio).length+' / 150';
-  choices(c,'interests',{'666:4400':'Beach cleanup','666:4402':'Wildlife','666:4404':'Zero waste','666:4406':'Education','666:4408':'Recycling'},true);
-  action(c,['666:4411','666:4412'],()=>c.run(async()=>{const display=required(v.display_name??profile.display_name,'Nhập tên hiển thị.');
-   const handle=(v.handle??profile.handle??'').trim().toLowerCase()||null;
-   result(await supabase.from('ocean_profiles').upsert({id:c.user!.id,display_name:display,handle,location:v.location??profile.location,bio:v.bio??profile.bio,interests:v.interests===undefined?profile.interests:v.interests.split('|').filter(Boolean)}));
-   refresh();c.go('666:3592');
-  },true));
- }
- if(id==='666:3173')action(c,['666:3230'],()=>c.run(async()=>{await Share.share({message:item?.post.body || 'BlueCitizen • Ocean Project'});}));
- if(id==='666:2965'){
-  field(c,'666:2990','search','Search posts, groups or people');
-  const matches=items.filter(x=>[x.post.body,x.post.topic,x.profile?.display_name].some(s=>s?.toLowerCase().includes((v.search||'').toLowerCase())));
-  ['666:3007','666:3013','666:3019'].forEach((node,i)=>{const post=matches[i];b.labels[node]=post?.post.body ?? (i===0?'No matching posts':'');if(post)action(c,[node],()=>{c.setValue('postId',post.post.id);c.go('105:2895');});});
-  action(c,['666:3004'],()=>c.setValue('search',''));
- }
+  if (id === '115:422') {
+    const photos: Photo[] = JSON.parse(v.postPhotos || '[]');
+    b.labels['115:447'] = own;
+    b.labels['115:446'] = own[0];
+    b.labels['115:455'] = photos.length + '/4 photos';
+    if (photos.length) b.replacements['115:459'] = createElement(PhotoSelection); else b.hidden.add('115:459');
+    b.hidden.add('115:452');
+    field(c,'115:451','postBody','What would you like to share?',{multiline:true});
+    field(c,'115:486','postLocation','Add a location');
+    field(c,'115:494','mention','Mention your cleanup team');
+    const topics = [['115:473','115:474','Beach cleanup'],['115:475','115:476','Wildlife'],['115:477','115:478','Zero waste'],['115:479','115:480','Education']];
+    for (const [background,label,topic] of topics) {
+      action(c,[background,label],() => c.setValue('topic',topic));
+      b.tint[label] = (v.topic || 'Beach cleanup') === topic ? '#0186A8' : '#3F596B';
+    }
+    const photo = (camera: boolean) => c.run(async () => {
+      if (photos.length >= 4) throw new Error('Tối đa 4 ảnh.');
+      const picked = await pickPhoto(camera);
+      if (picked) c.setValue('postPhotos',JSON.stringify([...photos,picked]));
+    });
+    action(c,['115:460','115:461','115:465'],() => photo(false));
+    action(c,['115:466','115:467','115:471'],() => photo(true));
+    action(c,['115:502','115:505'],() => c.run(async () => {
+      await publishPost(c.user!.id,required(v.postBody,'Nhập nội dung bài viết.'),v.topic || 'Beach cleanup',v.postLocation || '',v.mention || '',photos);
+      for (const key of ['postBody','postPhotos','postLocation','mention','postId','topic']) c.setValue(key,'');
+      c.refresh();
+      c.go('101:2769');
+    },true));
+  }
+  if (id === '666:3173') {
+    const item = items.find(x => x.post.id === v.postId);
+    const body = item?.post.body || '';
+    const caption = v.shareCaption || '';
+    const location = item?.post.location || '';
+    Object.assign(b.labels,{'666:3182':'Share','666:3189':'COMMUNITY','666:3191':item?.post.topic || 'Ocean Project','666:3192':body.slice(0,45),'666:3193':String(item?.likes || 0),'666:3194':'Likes','666:3195':String(item?.comments.length || 0),'666:3196':'Comments','666:3197':String(item?.post.photo_paths?.length || 0),'666:3198':'Photos','666:3202':caption.length+' / 200','666:3221':'Include author','666:3222':'Credit the author in the shared text','666:3227':location || 'No location on this post','666:3233':'Share to Community'});
+    field(c,'666:3201','shareCaption','Add a caption');
+    b.fields['666:3201'].update = text => c.setValue('shareCaption',text.slice(0,200));
+    const showAuthor = v.shareAuthor !== 'off';
+    const showLocation = v.shareLocation === 'on';
+    const message = [caption,body,showAuthor && item ? item.profile?.display_name : '',showLocation ? location : ''].filter(Boolean).join('\n');
+    b.labels['666:3221'] = (showAuthor ? '✓ ' : '') + 'Include author';
+    b.labels['666:3226'] = (showLocation ? '✓ ' : '') + 'Include location';
+    action(c,['666:3221','666:3223','666:3224'],() => c.setValue('shareAuthor',showAuthor ? 'off':'on'));
+    action(c,['666:3226','666:3228','666:3229'],() => c.setValue('shareLocation',showLocation ? 'off':'on'));
+    const send = () => c.run(async () => { await Share.share({message:required(message,'Add a caption to share.')}); });
+    // There is no public post permalink; use the device share sheet for external destinations.
+    for (const node of ['666:3212','666:3213','666:3215']) b.hidden.add(node);
+    action(c,['666:3208','666:3209','666:3211','666:3216','666:3217','666:3219'],send);
+    action(c,['666:3204','666:3205','666:3207','666:3230','666:3233'],() => {
+      c.setValue('postBody',message); c.setValue('postPhotos','[]'); c.setValue('postLocation',showLocation ? location : '');
+      c.setValue('mention',''); c.setValue('topic',item?.post.topic || 'Beach cleanup'); c.go('115:422');
+    });
+    action(c,['666:3176'],c.back);
+  }
+  if (id === '666:2965') {
+    field(c,'666:2990','search','Search posts, groups or people');
+    action(c,['666:2968'],c.back);
+  }
+  if (id === '105:2895') action(c,['105:2898'],c.back);
+  if (id === '666:4125') action(c,['666:4128'],c.back);
+  if (id === '115:2686') choices(c,'groupCategory',{'115:2706':'All','115:2708':'Cleanup','115:2710':'Wildlife','115:2712':'Education'});
+  if (id === '666:3366') field(c,'666:3387','memberSearch','Search members');
+  if (id === '115:2686') field(c,'115:2700','groupSearch','Search groups or causes');
+  if (id === '119:3037' || id === '666:3366') action(c,[id === '119:3037' ? '119:3040':'666:3369'],c.back);
 }

@@ -4,15 +4,15 @@ import { Artwork, Copy, Frame, Link, Surface } from '../components';
 export function Frame2CommunityDashboardScreen() {
   return (
     <Frame id="311:488" width={393.0} height={865.62} background={"#ffffff"}>
-      <Surface node="311:4457" box={[23, 794, 349, 71.62]} fill={"#edfbff"} radius={10} />
-      <Surface node="311:4458" box={[33, 802.19, 56, 56]} fill={"#a5e0f2"} radius={10} />
+      <Surface node="311:4457" box={[23, 794, 349, 71.62]} fill={"#edfbff"} radius={10} stroke={[1,"#c9d5de"]} />
+      <Surface node="311:4458" box={[33, 802.19, 56, 56]} fill={"#a5e0f2"} radius={10} stroke={[1,"#c9d5de"]} />
       <Copy node="311:4459" box={[96, 802.19, 108, 20]} text={"Yeu Bien Da Nang"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":15,"lineHeight":18.0,"color":"#3f596b","textAlign":"left"}} />
       <Copy node="311:4460" box={[305, 802.19, 56, 20]} text={"5 hrs ago"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":15,"lineHeight":18.0,"color":"#3f596b","textAlign":"right"}} />
       <Copy node="311:4461" box={[96, 826.19, 112, 16]} text={"Can Gio Beach cleanup"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":14.4,"color":"#3f596b","textAlign":"left"}} />
       <Copy node="311:4462" box={[96, 840.19, 121, 16]} text={"Collected 150kg of waste"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":14.4,"color":"#3f596b","textAlign":"left"}} />
       <Artwork node="311:4463" box={[45, 813.19, 32, 32]} source={require('../../../../assets/figma/mobile/5fd0e.png')} />
-      <Surface node="311:4424" box={[22, 712, 349, 71.62]} fill={"#edfbff"} radius={10} />
-      <Surface node="311:4425" box={[32, 720.19, 56, 56]} fill={"#a5e0f2"} radius={10} />
+      <Surface node="311:4424" box={[22, 712, 349, 71.62]} fill={"#edfbff"} radius={10} stroke={[1,"#c9d5de"]} />
+      <Surface node="311:4425" box={[32, 720.19, 56, 56]} fill={"#a5e0f2"} radius={10} stroke={[1,"#c9d5de"]} />
       <Copy node="311:4427" box={[95, 720.19, 81, 20]} text={"Xanh Sai Gon"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":15,"lineHeight":18.0,"color":"#3f596b","textAlign":"left"}} />
       <Copy node="311:4428" box={[304, 720.19, 56, 20]} text={"2 hrs ago"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":15,"lineHeight":18.0,"color":"#3f596b","textAlign":"right"}} />
       <Copy node="311:4429" box={[95, 744.19, 112, 16]} text={"Can Gio Beach cleanup"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":14.4,"color":"#3f596b","textAlign":"left"}} />
@@ -30,15 +30,15 @@ export function Frame2CommunityDashboardScreen() {
       <Artwork node="311:4415" box={[117, 618, 28, 28]} source={require('../../../../assets/figma/mobile/c790f.svg')} />
       <Copy node="311:556" box={[292, 284, 81, 20]} text={"Top Coastline"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":15,"lineHeight":20,"color":"#3f596b","textAlign":"left"}} />
       <Surface node="1683:645" box={[37, 324, 127, 41]} fill={"rgba(255,245,245,0.7)"} radius={12} />
-      <Surface node="311:4345" box={[264, 168, 109, 101]} fill={"#edfbff"} radius={10} />
+      <Surface node="311:4345" box={[264, 168, 109, 101]} fill={"#edfbff"} radius={10} stroke={[1,"#c9d5de"]} />
       <Copy node="311:4347" box={[294, 238, 50, 16]} text={"Volunteers"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":14.4,"color":"#3f596b","textAlign":"center"}} />
       <Copy node="311:4348" box={[298, 213, 42, 20]} text={"12,500"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":15,"lineHeight":18.0,"color":"#091727","textAlign":"center"}} />
       <Artwork node="311:4369" box={[306, 184, 24, 24]} source={require('../../../../assets/figma/mobile/2149b.svg')} />
-      <Surface node="311:4350" box={[23, 168.42, 109.63, 100.58]} fill={"#edfbff"} radius={10} />
+      <Surface node="311:4350" box={[23, 168.42, 109.63, 100.58]} fill={"#edfbff"} radius={10} stroke={[1,"#c9d5de"]} />
       <Artwork node="311:4351" box={[61.22, 179.49, 32.18, 32.18]} source={require('../../../../assets/figma/mobile/ceb61.svg')} />
       <Copy node="311:4352" box={[52.17, 241.84, 55.32, 16.09]} text={"Total Waste"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":14.4,"color":"#3f596b","textAlign":"center"}} />
       <Copy node="311:4353" box={[47.14, 216.7, 64.37, 20.12]} text={"1,450 Tons"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":15,"lineHeight":18.0,"color":"#091727","textAlign":"center"}} />
-      <Surface node="311:4355" box={[143.67, 168, 109, 101]} fill={"#edfbff"} radius={10} />
+      <Surface node="311:4355" box={[143.67, 168, 109, 101]} fill={"#edfbff"} radius={10} stroke={[1,"#c9d5de"]} />
       <Artwork node="311:4363" box={[182.67, 180, 32, 32]} source={require('../../../../assets/figma/mobile/ed756.svg')} />
       <Copy node="311:4357" box={[183.67, 242, 30, 16]} text={"Events"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":14.4,"color":"#3f596b","textAlign":"center"}} />
       <Copy node="311:4358" box={[186.67, 217, 24, 20]} text={"320"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":15,"lineHeight":18.0,"color":"#091727","textAlign":"center"}} />

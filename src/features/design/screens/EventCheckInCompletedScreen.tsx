@@ -4,7 +4,6 @@ import { Artwork, Copy, Frame, Link, Surface } from '../components';
 export function EventCheckInCompletedScreen() {
   return (
     <Frame id="258:1177" width={393.0} height={852} background={"#ffffff"}>
-      <Artwork node="258:1177" box={[0, 0, 393, 852]} source={require('../../../../assets/figma/mobile/58c51.svg')} />
       <Copy node="258:1181" box={[96.5, 294, 198, 37]} text={"You're checked in!"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":28,"lineHeight":33.6,"color":"#202326","textAlign":"center"}} />
       <Copy node="258:1182" box={[87, 336, 219, 21]} text={"Have a meaningful day by the sea."} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":16,"lineHeight":19.2,"color":"#73787d","textAlign":"center"}} />
       <Artwork node="258:1183" box={[19.5, 402.5, 354, 116]} source={require('../../../../assets/figma/mobile/17966.svg')} />

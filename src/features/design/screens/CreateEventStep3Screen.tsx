@@ -4,7 +4,6 @@ import { Artwork, Copy, Frame, Link, Surface } from '../components';
 export function CreateEventStep3Screen() {
   return (
     <Frame id="708:684" width={393.0} height={852} background={"#ffffff"}>
-      <Artwork node="708:684" box={[0, 0, 393, 852]} source={require('../../../../assets/figma/mobile/58c51.svg')} />
       <Copy node="708:686" box={[22, 162, 302, 35]} text={"Create a Donation Campaign"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":26,"lineHeight":31.2,"color":"#25282b","textAlign":"left"}} />
       <Artwork node="708:688" box={[16.5, 200.5, 360, 503]} source={require('../../../../assets/figma/mobile/52a43.svg')} />
       <Copy node="708:689" box={[31, 215, 66, 21]} text={"Bank code"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":16,"lineHeight":19.2,"color":"#73787d","textAlign":"left"}} />

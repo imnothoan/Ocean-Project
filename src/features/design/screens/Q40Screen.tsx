@@ -39,7 +39,7 @@ export function Q40Screen() {
       <Artwork node="1335:4185" box={[42, 618, 30, 30]} source={require('../../../../assets/figma/mobile/7ff69.svg')} />
       <Surface node="1335:4189" box={[281, 618, 70, 21]} fill={"rgba(128,128,128,0.1)"} radius={10} />
       <Copy node="1335:4190" box={[299, 622, 33, 14]} text={"Pending"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":10,"lineHeight":22.8,"color":"#73787d","textAlign":"left"}} />
-      <Surface node="1335:4192" box={[21, 691, 351, 87]} fill={"#ffffff"} radius={24} />
+      <Surface node="1335:4192" box={[21, 691, 351, 87]} fill={"#ffffff"} radius={24} stroke={[0.4000000059604645,"rgba(0,0,0,0.2)"]} shadow={[0,4,4,0,"rgba(0,0,0,0.1)"]} />
       <Copy node="1335:4195" box={[96, 707, 70, 23]} text={"Need help?"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":16,"lineHeight":22.8,"color":"#000000bf","textAlign":"left"}} />
       <Copy node="1335:4196" box={[96, 737, 221, 18]} text={"Feel free to contact our support team if you have any questions."} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":13,"color":"#73787d","textAlign":"left"}} />
       <Artwork node="1335:4197" box={[42, 712, 30, 30]} source={require('../../../../assets/figma/mobile/17ec3.svg')} />

@@ -4,7 +4,6 @@ import { Artwork, Copy, Frame, Link, Surface } from '../components';
 export function Frame4PollutionSeverityScreen() {
   return (
     <Frame id="230:1261" width={393.0} height={852} background={"#ffffff"}>
-      <Artwork node="230:1261" box={[0, 0, 393, 852]} source={require('../../../../assets/figma/mobile/58c51.svg')} />
       <Surface node="242:4792" box={[24, 143, 345, 5]} fill={"#e6f3f8"} radius={3} />
       <Surface node="242:4794" box={[24, 143, 172.5, 5]} fill={"#43c4d6"} radius={3} />
       <Copy node="230:1263" box={[46.5, 400, 11, 15]} text={"All"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":11,"lineHeight":13.2,"color":"#ffffff","textAlign":"center"}} />
@@ -12,31 +11,31 @@ export function Frame4PollutionSeverityScreen() {
       <Copy node="242:4786" box={[301, 117, 68, 20]} text={"POLLUTION"} typeStyle={{"fontFamily":"AfacadFlux_600SemiBold","fontSize":12,"lineHeight":15,"color":"#3f596b","textAlign":"right"}} />
       <Copy node="242:4796" box={[24, 162, 161, 35]} text={"How serious is it?"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":23,"lineHeight":29,"color":"#091727","textAlign":"left"}} />
       <Copy node="242:4798" box={[24, 197, 249, 38]} text={"Choose the best match for your observation."} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":14,"lineHeight":18,"color":"#3f596b","textAlign":"left"}} />
-      <Surface node="242:4800" box={[24, 232, 345, 75]} fill={"#ffffff"} radius={13} />
+      <Surface node="242:4800" box={[24, 232, 345, 75]} fill={"#ffffff"} radius={13} stroke={[1,"#d8e5ec"]} />
       <Surface node="242:4801" box={[38, 247, 43, 43]} fill={"#e8f8f3"} radius={22} />
       <Artwork node="242:4802" box={[49, 258, 22, 22]} source={require('../../../../assets/figma/mobile/3bf11.svg')} />
       <Copy node="242:4805" box={[96, 245, 230, 29]} text={"Low"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":16,"lineHeight":20,"color":"#091727","textAlign":"left"}} />
       <Copy node="242:4806" box={[96, 270, 235, 29]} text={"Small amount, limited impact"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":13,"lineHeight":16,"color":"#3f596b","textAlign":"left"}} />
-      <Surface node="242:4807" box={[337, 260, 20, 20]} fill={"#ffffff"} radius={10} />
-      <Surface node="242:4818" box={[24, 317, 345, 75]} fill={"#ffffff"} radius={13} />
+      <Surface node="242:4807" box={[337, 260, 20, 20]} fill={"#ffffff"} radius={10} stroke={[1,"#d8e5ec"]} />
+      <Surface node="242:4818" box={[24, 317, 345, 75]} fill={"#ffffff"} radius={13} stroke={[1,"#d8e5ec"]} />
       <Surface node="242:4819" box={[38, 332, 43, 43]} fill={"#fff7e1"} radius={22} />
       <Artwork node="242:4820" box={[49, 343, 22, 22]} source={require('../../../../assets/figma/mobile/3aa03.svg')} />
       <Copy node="242:4823" box={[96, 330, 68, 29]} text={"Moderate"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":16,"lineHeight":20,"color":"#091727","textAlign":"left"}} />
       <Copy node="242:4824" box={[96, 355, 235, 29]} text={"Visible waste in one area"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":13,"lineHeight":16,"color":"#3f596b","textAlign":"left"}} />
-      <Surface node="242:4825" box={[337, 345, 20, 20]} fill={"#ffffff"} radius={10} />
-      <Surface node="242:4827" box={[24, 402, 345, 75]} fill={"#eaf8fb"} radius={13} />
+      <Surface node="242:4825" box={[337, 345, 20, 20]} fill={"#ffffff"} radius={10} stroke={[1,"#d8e5ec"]} />
+      <Surface node="242:4827" box={[24, 402, 345, 75]} fill={"#eaf8fb"} radius={13} stroke={[1,"#43c4d6"]} shadow={[0,3,9,0,"rgba(34,87,112,0.09)"]} />
       <Surface node="242:4828" box={[38, 417, 43, 43]} fill={"#fff2ec"} radius={22} />
       <Artwork node="242:4829" box={[49, 428, 22, 22]} source={require('../../../../assets/figma/mobile/30f7b.svg')} />
       <Copy node="242:4833" box={[96, 415, 33, 29]} text={"High"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":16,"lineHeight":20,"color":"#091727","textAlign":"left"}} />
       <Copy node="242:4834" box={[96, 440, 165, 29]} text={"Large amount or wildlife at risk"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":13,"lineHeight":16,"color":"#3f596b","textAlign":"left"}} />
       <Surface node="242:4835" box={[337, 430, 20, 20]} fill={"#0186a8"} radius={10} />
       <Surface node="242:4836" box={[343, 436, 8, 8]} fill={"#ffffff"} radius={4} />
-      <Surface node="242:4838" box={[24, 487, 345, 75]} fill={"#ffffff"} radius={13} />
+      <Surface node="242:4838" box={[24, 487, 345, 75]} fill={"#ffffff"} radius={13} stroke={[1,"#d8e5ec"]} />
       <Surface node="242:4839" box={[38, 502, 43, 43]} fill={"#ffedef"} radius={22} />
       <Artwork node="242:4840" box={[49, 513, 22, 22]} source={require('../../../../assets/figma/mobile/43ff6.svg')} />
       <Copy node="242:4843" box={[96, 500, 54, 29]} text={"Critical"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":16,"lineHeight":20,"color":"#091727","textAlign":"left"}} />
       <Copy node="242:4844" box={[96, 525, 183, 16]} text={"Immediate danger / hazardous spill"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":13,"lineHeight":16,"color":"#3f596b","textAlign":"left"}} />
-      <Surface node="242:4845" box={[337, 515, 20, 20]} fill={"#ffffff"} radius={10} />
+      <Surface node="242:4845" box={[337, 515, 20, 20]} fill={"#ffffff"} radius={10} stroke={[1,"#d8e5ec"]} />
       <Surface node="242:4847" box={[24, 593, 345, 72]} fill={"#a0dcf2"} radius={14} />
       <Surface node="242:4848" box={[36, 608, 42, 42]} fill={"#efefef"} radius={21} />
       <Artwork node="242:4849" box={[47, 618, 20, 20]} source={require('../../../../assets/figma/mobile/93212.svg')} />

@@ -7,20 +7,20 @@ export function Frame11UiEditProfileScreen() {
       <Surface node="666:4368" box={[121, 69, 151, 43]} fill={"#a5e0f2"} radius={20} />
       <Copy node="666:4375" box={[155, 77, 84, 27]} text={"Edit profile"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":20,"lineHeight":24.0,"color":"#3f596b","textAlign":"center"}} />
       <Artwork node="666:4369" box={[23, 69, 43, 43]} source={require('../../../../assets/figma/mobile/b0dc5.svg')} />
-      <Artwork node="666:4376" box={[153, 122, 88, 88]} source={require('../../../../assets/figma/mobile/5d65e.svg')} />
+      <Artwork node="666:4376" radius={44} box={[153, 122, 88, 88]} source={require('../../../../assets/figma/mobile/5d65e.svg')} />
       <Copy node="666:4377" box={[190.5, 151, 13, 31]} text={""} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":22.8799991607666,"lineHeight":27.46,"color":"#000000","textAlign":"center"}} />
       <Artwork node="666:4378" box={[211, 184, 28, 28]} source={require('../../../../assets/figma/mobile/c4dc2.svg')} />
       <Artwork node="666:4379" box={[218.58, 192.74, 12.76, 10.44]} source={require('../../../../assets/figma/mobile/090b8.svg')} />
       <Copy node="666:4381" box={[158, 222, 78, 19]} text={"Change photo"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":14,"lineHeight":16.8,"color":"#0186a8","textAlign":"center"}} />
       <Copy node="666:4382" box={[19, 258.01, 61, 21]} text={"Full name"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":16,"lineHeight":19.2,"color":"#3f596b","textAlign":"left"}} />
       <Artwork node="666:4383" box={[19, 282.5, 353, 42]} source={require('../../../../assets/figma/mobile/78243.svg')} />
-      <Copy node="666:4384" box={[33, 292, 36, 23]} text={"Full name"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":17,"lineHeight":20.4,"color":"#091727","textAlign":"left"}} />
+      <Copy node="666:4384" box={[33, 292, 320, 24]} text={"Full name"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":17,"lineHeight":20.4,"color":"#091727","textAlign":"left"}} />
       <Copy node="666:4385" box={[19, 339, 64, 21]} text={"Username"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":16,"lineHeight":19.2,"color":"#3f596b","textAlign":"left"}} />
       <Artwork node="666:4386" box={[19, 369.49, 353, 42]} source={require('../../../../assets/figma/mobile/78243.svg')} />
-      <Copy node="666:4387" box={[33, 378.99, 74, 23]} text={"Username"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":17,"lineHeight":20.4,"color":"#091727","textAlign":"left"}} />
+      <Copy node="666:4387" box={[33, 378.99, 320, 24]} text={"Username"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":17,"lineHeight":20.4,"color":"#091727","textAlign":"left"}} />
       <Copy node="666:4388" box={[19, 425.99, 54, 21]} text={"Location"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":16,"lineHeight":19.2,"color":"#3f596b","textAlign":"left"}} />
       <Artwork node="666:4389" box={[19, 456.49, 353, 42]} source={require('../../../../assets/figma/mobile/78243.svg')} />
-      <Copy node="666:4392" box={[57, 465.99, 126, 23]} text={"Location"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":17,"lineHeight":20.4,"color":"#091727","textAlign":"left"}} />
+      <Copy node="666:4392" box={[57, 465.99, 295, 24]} text={"Location"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":17,"lineHeight":20.4,"color":"#091727","textAlign":"left"}} />
       <Artwork node="666:4390" box={[35.08, 469.39, 11.93, 14.61]} source={require('../../../../assets/figma/mobile/1b0f6.svg')} />
       <Copy node="666:4397" box={[320, 620, 41, 16]} text={"78 / 150"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":14.4,"color":"#7b92a1","textAlign":"right"}} />
       <Copy node="666:4398" box={[22, 633, 54, 21]} text={"Interests"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":16,"lineHeight":19.2,"color":"#3f596b","textAlign":"left"}} />
@@ -41,6 +41,7 @@ export function Frame11UiEditProfileScreen() {
       <Copy node="666:4393" box={[19, 512.99, 20, 21]} text={"Bio"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":16,"lineHeight":19.2,"color":"#3f596b","textAlign":"left"}} />
       <Artwork node="666:4394" box={[18.5, 543.5, 353, 70]} source={require('../../../../assets/figma/mobile/1e09d.svg')} />
       <Copy node="666:4395" box={[32.5, 560, 325, 36]} text={"Bio"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":17,"lineHeight":18,"color":"#091727","textAlign":"left"}} />
+      <Copy node="removeAvatar" box={[270,222,99,24]} text={"Remove photo"} typeStyle={{fontFamily:"AfacadFlux_400Regular",fontSize:14,color:"#3f596b"}}/>
       <Link node="666:4369" box={[23, 69, 43, 43]} to="back" label={"Back"} />
       <Link node="666:4411" box={[20, 751, 353, 52]} to="666:3592" label={"10_UI_My_Profile_Eco_Impact"} />
     </Frame>

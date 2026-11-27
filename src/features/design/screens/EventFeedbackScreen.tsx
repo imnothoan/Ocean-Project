@@ -4,7 +4,6 @@ import { Artwork, Copy, Frame, Link, Surface } from '../components';
 export function EventFeedbackScreen() {
   return (
     <Frame id="258:1500" width={393.0} height={852} background={"#ffffff"}>
-      <Artwork node="258:1500" box={[0, 0, 393, 852]} source={require('../../../../assets/figma/mobile/58c51.svg')} />
       <Copy node="258:1502" box={[32.5, 144, 327, 32]} text={"How was your cleanup experience?"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":24,"lineHeight":28.8,"color":"#202326","textAlign":"center"}} />
       <Copy node="258:1503" box={[54, 182, 285, 21]} text={"Your feedback helps our community improve."} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":16,"lineHeight":19.2,"color":"#73787d","textAlign":"center"}} />
       <Copy node="258:1504" box={[20, 292, 182, 24]} text={"What did you enjoy most?"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":18,"lineHeight":21.6,"color":"#202326","textAlign":"left"}} />

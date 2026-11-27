@@ -4,7 +4,6 @@ import { Artwork, Copy, Frame, Link, Surface } from '../components';
 export function CreateEventStep1Screen() {
   return (
     <Frame id="258:1226" width={393.0} height={852} background={"#ffffff"}>
-      <Artwork node="258:1226" box={[0, 0, 393, 852]} source={require('../../../../assets/figma/mobile/58c51.svg')} />
       <Copy node="258:1228" box={[20, 124, 68, 21]} text={"Step 1 of 4"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":16,"lineHeight":19.2,"color":"#73787d","textAlign":"left"}} />
       <Artwork node="258:1229" box={[20, 149, 353, 4]} source={require('../../../../assets/figma/mobile/a6a33.svg')} />
       <Artwork node="258:1230" box={[20, 149, 89, 4]} source={require('../../../../assets/figma/mobile/106c4.svg')} />
@@ -27,7 +26,7 @@ export function CreateEventStep1Screen() {
       <Surface node="258:1248" box={[121, 69, 152, 43]} fill={"#a5e0f2"} radius={20} />
       <Artwork node="258:1249" box={[23, 69, 43, 43]} source={require('../../../../assets/figma/mobile/ecd92.svg')} />
       <Copy node="258:1252" box={[146, 77, 101, 27]} text={"Create Event"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":20,"lineHeight":24.0,"color":"#3f596b","textAlign":"left"}} />
-      <Surface node="258:1253" box={[20, 631, 353, 118]} fill={"#edfbff"} radius={10} />
+      <Surface node="258:1253" box={[20, 631, 353, 118]} fill={"#edfbff"} radius={10} stroke={[1,"#d7dadd"]} />
       <Copy node="258:1254" box={[34, 643, 148, 19]} text={"Goals and activity details..."} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":14,"lineHeight":16.8,"color":"#73787d","textAlign":"left"}} />
       <Artwork node="258:1256" box={[20, 431, 353, 151]} source={require('../../../../assets/figma/mobile/5016a.png')} radius={10} />
       <Link node="258:1245" box={[20, 768, 353, 50]} to="258:1279" label={"Create Event - Step 2"} />

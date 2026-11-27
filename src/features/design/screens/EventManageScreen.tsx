@@ -4,7 +4,6 @@ import { Artwork, Copy, Frame, Link, Surface } from '../components';
 export function EventManageScreen() {
   return (
     <Frame id="258:1389" width={393.0} height={852} background={"#ffffff"}>
-      <Artwork node="258:1389" box={[0, 0, 393, 852]} source={require('../../../../assets/figma/mobile/58c51.svg')} />
       <Copy node="258:1391" box={[70, 145, 254, 37]} text={"My Khe Beach Cleanup"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":28,"lineHeight":33.6,"color":"#202326","textAlign":"left"}} />
       <Copy node="258:1392" box={[120, 181, 154, 21]} text={"Oct 20 · 6:30 AM · Draft"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":16,"lineHeight":19.2,"color":"#73787d","textAlign":"left"}} />
       <Artwork node="258:1393" box={[19.5, 227.5, 112, 80]} source={require('../../../../assets/figma/mobile/4498f.svg')} />

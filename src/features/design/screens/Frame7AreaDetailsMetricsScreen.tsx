@@ -44,25 +44,25 @@ export function Frame7AreaDetailsMetricsScreen() {
       <Copy node="323:5540" box={[131.5, 651, 76.5, 15]} text={"Q2"} typeStyle={{"fontFamily":"Inter_400Regular","fontSize":12,"lineHeight":14.4,"color":"#000000b2","textAlign":"center"}} />
       <Copy node="323:5542" box={[208, 651, 76.5, 15]} text={"Q3"} typeStyle={{"fontFamily":"Inter_400Regular","fontSize":12,"lineHeight":14.4,"color":"#000000b2","textAlign":"center"}} />
       <Copy node="323:5544" box={[284.5, 651, 76.5, 15]} text={"Q4"} typeStyle={{"fontFamily":"Inter_400Regular","fontSize":12,"lineHeight":14.4,"color":"#000000b2","textAlign":"center"}} />
-      <Surface node="323:5415" box={[32, 258, 159, 82]} fill={"#f5fdff"} radius={10} />
+      <Surface node="323:5415" box={[32, 258, 159, 82]} fill={"#f5fdff"} radius={10} stroke={[1,"rgba(1,134,168,0.33)"]} />
       <Copy node="323:5417" box={[77, 284, 31, 19]} text={"94 PL"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":14,"lineHeight":16.8,"color":"#0186a8","textAlign":"left"}} />
       <Surface node="323:5418" box={[77, 308, 46, 20]} fill={"#ffb4a0"} radius={10} />
       <Copy node="323:5419" box={[84, 311, 32, 15]} text={"Critical"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":11,"lineHeight":13.2,"color":"#000000","textAlign":"center"}} />
       <Copy node="323:5420" box={[77, 265, 68, 16]} text={"Pollution Level"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":14.4,"color":"#091727","textAlign":"left"}} />
       <Artwork node="323:5460" box={[43, 270, 23, 16]} source={require('../../../../assets/figma/mobile/6c64c.svg')} />
-      <Surface node="323:5424" box={[32, 350, 159, 82]} fill={"#f5fdff"} radius={10} />
+      <Surface node="323:5424" box={[32, 350, 159, 82]} fill={"#f5fdff"} radius={10} stroke={[1,"rgba(1,134,168,0.33)"]} />
       <Artwork node="323:5425" box={[43, 357, 23, 23]} source={require('../../../../assets/figma/mobile/24bd2.svg')} />
       <Copy node="323:5426" box={[77, 376, 77, 19]} text={"Plastics - 45%"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":14,"lineHeight":16.8,"color":"#0186a8","textAlign":"left"}} />
       <Surface node="323:5427" box={[77, 400, 75, 20]} fill={"#ffb4a0"} radius={10} />
       <Copy node="323:5428" box={[85, 403, 60, 15]} text={"of total waste"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":11,"lineHeight":13.2,"color":"#01242d","textAlign":"center"}} />
       <Copy node="323:5429" box={[77, 357, 105, 16]} text={"Dominant Waste Type"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":14.4,"color":"#091727","textAlign":"left"}} />
-      <Surface node="323:5433" box={[202, 350, 159, 82]} fill={"#f5fdff"} radius={10} />
+      <Surface node="323:5433" box={[202, 350, 159, 82]} fill={"#f5fdff"} radius={10} stroke={[1,"rgba(1,134,168,0.33)"]} />
       <Copy node="323:5435" box={[247, 376, 29, 19]} text={"+ 5%"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":14,"lineHeight":16.8,"color":"#0186a8","textAlign":"left"}} />
       <Surface node="323:5436" box={[247, 400, 108, 20]} fill={"#ffb4a0"} radius={10} />
       <Copy node="323:5437" box={[255, 403, 92, 15]} text={"Improment expected"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":11,"lineHeight":13.2,"color":"#01242d","textAlign":"center"}} />
       <Copy node="323:5438" box={[247, 357, 40, 16]} text={"Forecast"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":14.4,"color":"#091727","textAlign":"left"}} />
       <Artwork node="323:5449" box={[212, 362, 23, 14]} source={require('../../../../assets/figma/mobile/71a77.svg')} />
-      <Surface node="323:5406" box={[202, 258, 159, 82]} fill={"#f5fdff"} radius={10} />
+      <Surface node="323:5406" box={[202, 258, 159, 82]} fill={"#f5fdff"} radius={10} stroke={[1,"rgba(1,134,168,0.33)"]} />
       <Copy node="323:5408" box={[247, 284, 53, 19]} text={"48 Events"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":14,"lineHeight":16.8,"color":"#0186a8","textAlign":"left"}} />
       <Surface node="323:5409" box={[247, 308, 37, 20]} fill={"#ffb4a0"} radius={10} />
       <Copy node="323:5410" box={[254, 311, 22, 15]} text={"Total"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":11,"lineHeight":13.2,"color":"#01242d","textAlign":"center"}} />

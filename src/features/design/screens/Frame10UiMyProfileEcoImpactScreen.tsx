@@ -64,7 +64,7 @@ export function Frame10UiMyProfileEcoImpactScreen() {
       <Artwork node="666:3989" box={[272.66, 282.66, 15.68, 15.68]} source={require('../../../../assets/figma/mobile/6c2c9.svg')} />
       <Copy node="666:3992" box={[271, 304, 17, 21]} text={"18"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":16,"lineHeight":19.2,"color":"#091727","textAlign":"left"}} />
       <Copy node="666:3993" box={[271, 330.5, 45, 16]} text={"Cleanups"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":14.4,"color":"#3f596b","textAlign":"left"}} />
-      <Surface node="721:272" box={[22, 509, 348, 238.42]} fill={"#edfbff"} radius={10} />
+      <Surface node="721:272" box={[22, 509, 348, 238.42]} fill={"#edfbff"} radius={10} stroke={[1,"#c9d5de"]} />
       <Copy node="721:273" box={[324, 519.68, 37, 16.46]} text={"Unit: kg"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":14.4,"color":"#2b2b2b","textAlign":"right"}} />
       <Copy node="721:274" box={[31, 517.62, 193, 20.57]} text={"Monthly Waste Collected (2026)"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":15,"lineHeight":18.0,"color":"#2b2b2b","textAlign":"left"}} />
       <Copy node="721:277" box={[112, 725.39, 17, 16.46]} text={"Jan"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":14.4,"color":"#2b2b2b","textAlign":"left"}} />
@@ -99,13 +99,13 @@ export function Frame10UiMyProfileEcoImpactScreen() {
       <Copy node="721:308" box={[42, 705.85, 7, 16.46]} text={"0"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":14.4,"color":"#2b2b2b","textAlign":"right"}} />
       <Artwork node="721:309" box={[28.5, 721.29, 332, 1]} source={require('../../../../assets/figma/mobile/309c4.svg')} />
       <Artwork node="721:310" box={[53, 545.91, 1, 186.17]} source={require('../../../../assets/figma/mobile/1d521.svg')} />
-      <Surface node="721:313" box={[24, 883.81, 349, 71.62]} fill={"#edfbff"} radius={10} />
-      <Surface node="721:314" box={[34, 892, 56, 56]} fill={"#a5e0f2"} radius={10} />
+      <Surface node="721:313" box={[24, 883.81, 349, 71.62]} fill={"#edfbff"} radius={10} stroke={[1,"#c9d5de"]} />
+      <Surface node="721:314" box={[34, 892, 56, 56]} fill={"#a5e0f2"} radius={10} stroke={[1,"#c9d5de"]} />
       <Copy node="721:315" box={[98, 896, 167, 23]} text={"Marine Wildlife Protector"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":17,"lineHeight":20.4,"color":"#3f596b","textAlign":"left"}} />
       <Copy node="721:316" box={[98, 922, 184, 19]} text={"Reported 5 rare marine sightlines"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":14,"lineHeight":16.8,"color":"#3f596b","textAlign":"left"}} />
       <Artwork node="721:317" box={[47, 905, 30, 31.91]} source={require('../../../../assets/figma/mobile/6df02.svg')} />
-      <Surface node="721:334" box={[24, 798.81, 349, 71.62]} fill={"#edfbff"} radius={10} />
-      <Surface node="721:335" box={[34, 807, 56, 56]} fill={"#a5e0f2"} radius={10} />
+      <Surface node="721:334" box={[24, 798.81, 349, 71.62]} fill={"#edfbff"} radius={10} stroke={[1,"#c9d5de"]} />
+      <Surface node="721:335" box={[34, 807, 56, 56]} fill={"#a5e0f2"} radius={10} stroke={[1,"#c9d5de"]} />
       <Artwork node="721:336" box={[46, 823, 32, 23]} source={require('../../../../assets/figma/mobile/2bc47.svg')} />
       <Copy node="721:337" box={[98, 811, 90, 23]} text={"Beach Knight"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":17,"lineHeight":20.4,"color":"#3f596b","textAlign":"left"}} />
       <Copy node="721:338" box={[315, 811, 47, 23]} text={"Level 3"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":17,"lineHeight":20.4,"color":"#3f596b","textAlign":"right"}} />

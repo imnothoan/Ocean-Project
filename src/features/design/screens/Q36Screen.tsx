@@ -5,33 +5,33 @@ export function Q36Screen() {
   return (
     <Frame id="692:477" width={393.0} height={1795} background={"#ffffff"}>
       <Surface node="737:943" box={[21, 64, 348, 1731]} fill={"#ffffff"} />
-      <Surface node="737:945" box={[21, 290, 168.54, 111]} fill={"#ffffff"} radius={12} />
-      <Surface node="737:947" box={[21, 170, 168.54, 111]} fill={"#ffffff"} radius={12} />
+      <Surface node="737:945" box={[21, 290, 168.54, 111]} fill={"#ffffff"} radius={12} stroke={[0.5,"rgba(0,0,0,0.2)"]} />
+      <Surface node="737:947" box={[21, 170, 168.54, 111]} fill={"#ffffff"} radius={12} stroke={[0.5,"rgba(0,0,0,0.2)"]} />
       <Copy node="737:949" box={[34.88, 179, 95.18, 38]} text={"New Reports \nToday"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":14,"lineHeight":16.8,"color":"#222222b2","textAlign":"left"}} />
       <Copy node="737:950" box={[34.88, 216, 46.6, 37]} text={"128"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":28,"lineHeight":33.6,"color":"#222222","textAlign":"left"}} />
-      <Copy node="737:951" box={[34.88, 252, 148.71, 16]} text={"↑ 12.8% vs. yesterday"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":12,"lineHeight":14.4,"color":"#188b72","textAlign":"left"}} />
+      <Copy node="737:951" box={[34.88, 252, 148.71, 16]} text={"↑ 12.8% vs. yesterday"} runs={[[0,7,"#188b72"],[7,21,"#222222"]]} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":12,"lineHeight":14.4,"color":"#188b72","textAlign":"left"}} />
       <Artwork node="737:952" box={[145.92, 181, 29.74, 30]} source={require('../../../../assets/figma/mobile/b24dc.svg')} />
-      <Surface node="737:955" box={[199.46, 170, 168.54, 111]} fill={"#ffffff"} radius={12} />
+      <Surface node="737:955" box={[199.46, 170, 168.54, 111]} fill={"#ffffff"} radius={12} stroke={[0.5,"rgba(0,0,0,0.2)"]} />
       <Copy node="737:958" box={[216.31, 179, 95.18, 19]} text={"Urgent Incidents"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":14,"lineHeight":16.8,"color":"#222222b2","textAlign":"left"}} />
       <Copy node="737:959" box={[216.31, 216, 46.6, 37]} text={"08"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":28,"lineHeight":33.6,"color":"#222222","textAlign":"left"}} />
-      <Copy node="737:960" box={[216.31, 252, 148.71, 16]} text={"5 pending review"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":12,"lineHeight":14.4,"color":"#ff0000","textAlign":"left"}} />
-      <Surface node="737:961" box={[327.35, 181, 29.74, 30]} fill={"rgba(220,103,77,0.6)"} radius={5} />
+      <Copy node="737:960" box={[216.31, 252, 148.71, 16]} text={"5 pending review"} runs={[[0,1,"#ff0000"],[1,16,"#222222"]]} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":12,"lineHeight":14.4,"color":"#ff0000","textAlign":"left"}} />
+      <Surface node="737:961" box={[327.35, 181, 29.74, 30]} fill={"rgba(220,103,77,0.6)"} radius={5} stroke={[1,"#dc674d"]} />
       <Artwork node="737:962" box={[333.26, 188.04, 17.74, 16.09]} source={require('../../../../assets/figma/mobile/ad0ef.svg')} />
-      <Surface node="737:963" box={[199.46, 290, 168.54, 111]} fill={"#ffffff"} radius={12} />
+      <Surface node="737:963" box={[199.46, 290, 168.54, 111]} fill={"#ffffff"} radius={12} stroke={[0.5,"rgba(0,0,0,0.2)"]} />
       <Copy node="737:965" box={[34.88, 299, 95.18, 38]} text={"Active Cleanup\nEvents"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":14,"lineHeight":16.8,"color":"#222222b2","textAlign":"left"}} />
       <Copy node="737:966" box={[34.88, 336, 46.6, 37]} text={"14"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":28,"lineHeight":33.6,"color":"#222222","textAlign":"left"}} />
-      <Copy node="737:967" box={[34.88, 372, 148.71, 16]} text={"312 active volunteers"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":12,"lineHeight":14.4,"color":"#fec968","textAlign":"left"}} />
-      <Surface node="737:968" box={[145.92, 301, 29.74, 30]} fill={"rgba(254,201,104,0.7)"} radius={5} />
+      <Copy node="737:967" box={[34.88, 372, 148.71, 16]} text={"312 active volunteers"} runs={[[0,3,"#fec968"],[3,21,"#222222"]]} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":12,"lineHeight":14.4,"color":"#fec968","textAlign":"left"}} />
+      <Surface node="737:968" box={[145.92, 301, 29.74, 30]} fill={"rgba(254,201,104,0.7)"} radius={5} stroke={[1,"rgba(254,201,104,0.6)"]} />
       <Artwork node="737:969" box={[152.83, 308.03, 15.93, 15.93]} source={require('../../../../assets/figma/mobile/0518f.svg')} />
       <Copy node="737:971" box={[216.31, 299, 95.18, 19]} text={"Waste Processed"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":14,"lineHeight":16.8,"color":"#222222b2","textAlign":"left"}} />
       <Copy node="737:972" box={[216.31, 336, 54.53, 37]} text={"24.8"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":28,"lineHeight":33.6,"color":"#222222","textAlign":"left"}} />
-      <Copy node="737:973" box={[216.31, 372, 148.71, 16]} text={"↑ 8.4% this month"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":12,"lineHeight":14.4,"color":"#0186a8","textAlign":"left"}} />
-      <Surface node="737:974" box={[327.35, 301, 29.74, 30]} fill={"rgba(67,196,214,0.7)"} radius={5} />
+      <Copy node="737:973" box={[216.31, 372, 148.71, 16]} text={"↑ 8.4% this month"} runs={[[0,6,"#0186a8"],[6,17,"#222222"]]} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":12,"lineHeight":14.4,"color":"#0186a8","textAlign":"left"}} />
+      <Surface node="737:974" box={[327.35, 301, 29.74, 30]} fill={"rgba(67,196,214,0.7)"} radius={5} stroke={[1,"#43c4d6"]} />
       <Artwork node="737:975" box={[335.26, 308.03, 12.84, 16.06]} source={require('../../../../assets/figma/mobile/7474c.svg')} />
-      <Surface node="737:977" box={[21, 420, 347, 314]} fill={"#ffffff"} radius={12} />
+      <Surface node="737:977" box={[21, 420, 347, 314]} fill={"#ffffff"} radius={12} stroke={[0.5,"rgba(0,0,0,0.2)"]} />
       <Copy node="737:979" box={[34.88, 432, 95.18, 24]} text={"Incident Map"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":18,"lineHeight":21.6,"color":"#222222e5","textAlign":"left"}} />
       <Copy node="737:980" box={[33.89, 454, 222.08, 16]} text={"Citywide incident overview"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":14.4,"color":"#222222e5","textAlign":"left"}} />
-      <Surface node="737:982" box={[21, 127, 111, 27]} fill={"#ffffff"} radius={8} />
+      <Surface node="737:982" box={[21, 127, 111, 27]} fill={"#ffffff"} radius={8} stroke={[0.5,"rgba(0,0,0,0.2)"]} />
       <Copy node="737:984" box={[45.79, 132, 80.31, 17]} text={" Da Nang City"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":13,"lineHeight":15.6,"color":"#222222e5","textAlign":"left"}} />
       <Artwork node="737:985" box={[28.93, 133.03, 13.94, 13.94]} source={require('../../../../assets/figma/mobile/a0e57.svg')} />
       <Artwork node="737:988" box={[21, 481, 350, 215]} source={require('../../../../assets/figma/mobile/a16d6.png')} />
@@ -50,7 +50,7 @@ export function Q36Screen() {
       <Copy node="737:1006" box={[148.01, 708, 15.86, 13]} text={"Low"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":10,"lineHeight":12.0,"color":"#2b2b2b","textAlign":"left"}} />
       <Artwork node="737:1007" box={[203.53, 709, 10.91, 11]} source={require('../../../../assets/figma/mobile/a791d.svg')} />
       <Copy node="737:1008" box={[221.16, 708, 72, 13]} text={"Cleaned Up"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":10,"lineHeight":12.0,"color":"#2b2b2b","textAlign":"left"}} />
-      <Surface node="737:1010" box={[21, 1431, 347, 320]} fill={"#ffffff"} radius={12} />
+      <Surface node="737:1010" box={[21, 1431, 347, 320]} fill={"#ffffff"} radius={12} stroke={[0.5,"rgba(0,0,0,0.2)"]} />
       <Artwork node="737:1011" box={[21, 1563.5, 348, 143.5]} source={require('../../../../assets/figma/mobile/45e10.svg')} />
       <Copy node="737:1017" box={[97, 1644, 255, 48]} text={"42 volunteers registered for the weekend cleanup.\r\n"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":14,"lineHeight":16,"color":"#222222e5","textAlign":"left"}} />
       <Copy node="737:1018" box={[97, 1678, 74, 16]} text={"10 minutes ago"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":14.4,"color":"#222222b2","textAlign":"left"}} />
@@ -65,7 +65,7 @@ export function Q36Screen() {
       <Copy node="737:1038" box={[34, 1448, 106, 24]} text={"Recent Activity"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":18,"lineHeight":21.6,"color":"#222222e5","textAlign":"left"}} />
       <Copy node="737:1039" box={[34, 1470.49, 128, 16]} text={"Latest operational updates"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":14.4,"color":"#222222e5","textAlign":"left"}} />
       <Copy node="737:1040" box={[306, 1451, 52, 17.08]} text={"View All →"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":12,"lineHeight":14.4,"color":"#0186a8","textAlign":"right"}} />
-      <Surface node="737:1042" box={[21, 1145, 347, 267]} fill={"#ffffff"} radius={12} />
+      <Surface node="737:1042" box={[21, 1145, 347, 267]} fill={"#ffffff"} radius={12} stroke={[0.5,"rgba(0,0,0,0.2)"]} />
       <Artwork node="737:1044" box={[61, 1259.12, 296.01, 79]} source={require('../../../../assets/figma/mobile/b4830.svg')} />
       <Artwork node="737:1050" box={[59, 1328.12, 5, 5]} source={require('../../../../assets/figma/mobile/140b3.svg')} />
       <Artwork node="737:1051" box={[108, 1315.12, 5, 5]} source={require('../../../../assets/figma/mobile/140b3.svg')} />
@@ -88,13 +88,13 @@ export function Q36Screen() {
       <Copy node="737:1073" box={[347, 1368.12, 17, 15]} text={"Sun"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":11,"lineHeight":13.2,"color":"#222222a6","textAlign":"left"}} />
       <Copy node="737:1075" box={[33, 1161, 112, 24]} text={"Pollution Trends"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":18,"lineHeight":21.6,"color":"#222222e5","textAlign":"left"}} />
       <Copy node="737:1076" box={[34, 1182.49, 117, 16]} text={"Report volume over time"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":14.4,"color":"#222222e5","textAlign":"left"}} />
-      <Surface node="737:1079" box={[261, 1167.12, 96, 27]} fill={"#edfbff"} radius={6} />
+      <Surface node="737:1079" box={[261, 1167.12, 96, 27]} fill={"#edfbff"} radius={6} stroke={[0.5,"rgba(1,134,168,0.1)"]} />
       <Copy node="737:1080" box={[318, 1172.12, 31, 16]} text={"Month"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":14.4,"color":"#0186a8","textAlign":"left"}} />
-      <Surface node="737:1082" box={[263, 1169.12, 45, 23]} fill={"#ffffff"} radius={6} />
+      <Surface node="737:1082" box={[263, 1169.12, 45, 23]} fill={"#ffffff"} radius={6} stroke={[0.5,"rgba(1,134,168,0.1)"]} />
       <Copy node="737:1083" box={[271, 1172.12, 27, 16]} text={"Week"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":12,"lineHeight":14.4,"color":"#0186a8","textAlign":"left"}} />
       <Copy node="737:1085" box={[34, 1210.12, 55, 32]} text={"1,284"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":24,"lineHeight":28.8,"color":"#222222e5","textAlign":"left"}} />
       <Copy node="737:1086" box={[98, 1222.12, 46, 16]} text={"↑ 12.6%"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":12,"lineHeight":14.4,"color":"#0186a8","textAlign":"left"}} />
-      <Surface node="737:1088" box={[21, 753, 347, 373]} fill={"#ffffff"} radius={12} />
+      <Surface node="737:1088" box={[21, 753, 347, 373]} fill={"#ffffff"} radius={12} stroke={[0.5,"rgba(0,0,0,0.2)"]} />
       <Copy node="737:1089" box={[107, 1092.9, 176, 21.74]} text={"View All Pending Reports →"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":16,"lineHeight":19.2,"color":"#0186a8","textAlign":"center"}} />
       <Artwork node="737:1091" box={[21, 1081.5, 347, 0.5]} source={require('../../../../assets/figma/mobile/b802c.svg')} />
       <Copy node="737:1093" box={[96, 1049, 44, 16]} text={"2 min ago"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":11,"lineHeight":13.2,"color":"#222222b2","textAlign":"left"}} />
@@ -114,7 +114,7 @@ export function Q36Screen() {
       <Copy node="737:1113" box={[54, 913, 79, 17]} text={"Water Pollution"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":13,"lineHeight":15.6,"color":"#222222b2","textAlign":"left"}} />
       <Copy node="737:1114" box={[54, 871, 146, 20]} text={"Oil Spill Near Han River"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":16,"lineHeight":19.2,"color":"#222222e5","textAlign":"left"}} />
       <Surface node="737:1115" box={[34, 876, 6, 79]} fill={"#a74a45"} radius={3} />
-      <Surface node="737:1117" box={[21, 821, 347, 37]} fill={"#fef2f2"} />
+      <Surface node="737:1117" box={[21, 821, 347, 37]} fill={"#fef2f2"} stroke={[1,"#ffdbdb"]} />
       <Copy node="737:1118" box={[47, 831, 99, 16]} text={"Urgent review queue"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":14.4,"color":"#222222e5","textAlign":"left"}} />
       <Artwork node="737:1119" box={[34, 836, 6, 6]} source={require('../../../../assets/figma/mobile/87b93.svg')} />
       <Copy node="737:1120" box={[311, 831, 47, 16]} text={"2 Pending"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":12,"lineHeight":14.4,"color":"#a74a45","textAlign":"right"}} />

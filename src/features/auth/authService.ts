@@ -11,3 +11,11 @@ export async function signUp(email: string, password: string) {
 export async function signOut() {
   return supabase.auth.signOut();
 }
+
+export function resendConfirmation(email: string) {
+  return supabase.auth.resend({ type: 'signup', email: email.trim() });
+}
+
+export function requestPasswordReset(email: string) {
+  return supabase.auth.resetPasswordForEmail(email.trim());
+}

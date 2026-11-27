@@ -4,7 +4,7 @@ import { Artwork, Copy, Frame, Link, Surface } from '../components';
 export function Frame8HeatmapDataOverviewScreen() {
   return (
     <Frame id="311:1093" width={393.0} height={852} background={"#ffffff"}>
-      <Surface node="323:5650" box={[28, 601, 334, 143]} fill={"#edfbff"} radius={10} />
+      <Surface node="323:5650" box={[28, 601, 334, 143]} fill={"#edfbff"} radius={10} stroke={[1,"#c9d5de"]} />
       <Copy node="323:5640" box={[101, 681.38, 87, 20]} text={"Can Gio Coast"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":15,"lineHeight":18.0,"color":"#3f596b","textAlign":"left"}} />
       <Copy node="323:5643" box={[101, 705.38, 45, 16]} text={"HCM City"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":14.4,"color":"#3f596b","textAlign":"left"}} />
       <Copy node="323:5644" box={[101, 719.38, 26, 16]} text={"87 PL"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":14.4,"color":"#3f596b","textAlign":"left"}} />
@@ -21,11 +21,11 @@ export function Frame8HeatmapDataOverviewScreen() {
       <Copy node="311:1131" box={[34, 558, 147, 27]} text={"Top Urgent Sectors"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":20,"lineHeight":24.0,"color":"#091727","textAlign":"left"}} />
       <Artwork node="323:5604" box={[23, 183, 350, 345]} source={require('../../../../assets/figma/mobile/ed729.png')} />
       <Artwork node="323:5634" box={[23, 192, 341, 336]} source={require('../../../../assets/figma/mobile/1926b.png')} />
-      <Surface node="311:1096" box={[211, 132, 160, 36]} fill={"#ffffff"} radius={20} />
+      <Surface node="311:1096" box={[211, 132, 160, 36]} fill={"#ffffff"} radius={20} stroke={[1,"rgba(201,213,222,0.4)"]} />
       <Copy node="311:1097" box={[259, 140, 50, 19]} text={"All Levels"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":14,"lineHeight":16.8,"color":"#3f596b","textAlign":"left"}} />
       <Artwork node="311:1098" box={[349, 147, 10.54, 6.25]} source={require('../../../../assets/figma/mobile/4abfc.svg')} />
       <Artwork node="311:1130" box={[225, 140, 20.01, 17.01]} source={require('../../../../assets/figma/mobile/8f1e1.svg')} />
-      <Surface node="311:1100" box={[22, 132, 160, 36]} fill={"#ffffff"} radius={20} />
+      <Surface node="311:1100" box={[22, 132, 160, 36]} fill={"#ffffff"} radius={20} stroke={[1,"rgba(201,213,222,0.4)"]} />
       <Copy node="311:1101" box={[64, 140, 61, 19]} text={"This month"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":14,"lineHeight":16.8,"color":"#3f596b","textAlign":"left"}} />
       <Artwork node="311:1102" box={[155, 147, 10.54, 6.25]} source={require('../../../../assets/figma/mobile/4abfc.svg')} />
       <Artwork node="311:1129" box={[35, 139, 20, 20]} source={require('../../../../assets/figma/mobile/4899e.svg')} />

@@ -4,8 +4,7 @@ import { Artwork, Copy, Frame, Link, Surface } from '../components';
 export function Frame5PollutionWasteTypeScreen() {
   return (
     <Frame id="230:1285" width={393.0} height={852} background={"#ffffff"}>
-      <Artwork node="230:1285" box={[0, 0, 393, 852]} source={require('../../../../assets/figma/mobile/58c51.svg')} />
-      <Surface node="242:4909" box={[24, 340, 345, 124]} fill={"#ffffff"} radius={14} />
+      <Surface node="242:4909" box={[24, 340, 345, 124]} fill={"#ffffff"} radius={14} stroke={[1,"#d8e5ec"]} shadow={[0,3,9,0,"rgba(34,87,112,0.09)"]} />
       <Artwork node="242:4930" box={[37, 353, 119, 98]} source={require('../../../../assets/figma/mobile/52b82.png')} radius={11} />
       <Copy node="242:4925" box={[169, 358, 179, 29]} text={"Plastic pollution"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":17,"lineHeight":21,"color":"#091727","textAlign":"left"}} />
       <Copy node="242:4926" box={[169, 387, 173, 52]} text={"Bottles, bags, packaging\nand containers."} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":13,"lineHeight":16,"color":"#3f596b","textAlign":"left"}} />
@@ -18,17 +17,17 @@ export function Frame5PollutionWasteTypeScreen() {
       <Copy node="242:4880" box={[24, 197, 235, 38]} text={"Select one or more visible pollution types."} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":14,"lineHeight":18,"color":"#3f596b","textAlign":"left"}} />
       <Surface node="242:4882" box={[24, 236, 94, 34]} fill={"#43c4d6"} radius={17} />
       <Copy node="242:4883" box={[29, 243, 84, 22]} text={"Plastic"} typeStyle={{"fontFamily":"AfacadFlux_600SemiBold","fontSize":14,"lineHeight":18,"color":"#ffffff","textAlign":"center"}} />
-      <Surface node="242:4891" box={[126, 236, 119, 34]} fill={"#ffffff"} radius={17} />
+      <Surface node="242:4891" box={[126, 236, 119, 34]} fill={"#ffffff"} radius={17} stroke={[1,"#d8e5ec"]} />
       <Copy node="242:4892" box={[131, 243, 109, 22]} text={"Fishing gear"} typeStyle={{"fontFamily":"AfacadFlux_600SemiBold","fontSize":14,"lineHeight":18,"color":"#3f596b","textAlign":"center"}} />
-      <Surface node="242:4894" box={[253, 236, 116, 34]} fill={"#ffffff"} radius={17} />
+      <Surface node="242:4894" box={[253, 236, 116, 34]} fill={"#ffffff"} radius={17} stroke={[1,"#d8e5ec"]} />
       <Copy node="242:4895" box={[258, 243, 106, 22]} text={"Oil / chemical"} typeStyle={{"fontFamily":"AfacadFlux_600SemiBold","fontSize":14,"lineHeight":18,"color":"#3f596b","textAlign":"center"}} />
-      <Surface node="242:4897" box={[24, 280, 80, 34]} fill={"#ffffff"} radius={17} />
+      <Surface node="242:4897" box={[24, 280, 80, 34]} fill={"#ffffff"} radius={17} stroke={[1,"#d8e5ec"]} />
       <Copy node="242:4898" box={[29, 287, 70, 22]} text={"Glass"} typeStyle={{"fontFamily":"AfacadFlux_600SemiBold","fontSize":14,"lineHeight":18,"color":"#3f596b","textAlign":"center"}} />
-      <Surface node="242:4900" box={[113, 280, 77, 34]} fill={"#ffffff"} radius={17} />
+      <Surface node="242:4900" box={[113, 280, 77, 34]} fill={"#ffffff"} radius={17} stroke={[1,"#d8e5ec"]} />
       <Copy node="242:4901" box={[118, 287, 67, 22]} text={"Metal"} typeStyle={{"fontFamily":"AfacadFlux_600SemiBold","fontSize":14,"lineHeight":18,"color":"#3f596b","textAlign":"center"}} />
-      <Surface node="242:4903" box={[199, 280, 79, 34]} fill={"#ffffff"} radius={17} />
+      <Surface node="242:4903" box={[199, 280, 79, 34]} fill={"#ffffff"} radius={17} stroke={[1,"#d8e5ec"]} />
       <Copy node="242:4904" box={[204, 287, 69, 22]} text={"Mixed"} typeStyle={{"fontFamily":"AfacadFlux_600SemiBold","fontSize":14,"lineHeight":18,"color":"#3f596b","textAlign":"center"}} />
-      <Surface node="242:4906" box={[287, 280, 82, 34]} fill={"#ffffff"} radius={17} />
+      <Surface node="242:4906" box={[287, 280, 82, 34]} fill={"#ffffff"} radius={17} stroke={[1,"#d8e5ec"]} />
       <Copy node="242:4907" box={[292, 287, 72, 22]} text={"Other"} typeStyle={{"fontFamily":"AfacadFlux_600SemiBold","fontSize":14,"lineHeight":18,"color":"#3f596b","textAlign":"center"}} />
       <Surface node="242:4931" box={[24, 485, 345, 70]} fill={"#eaf8fb"} radius={14} />
       <Surface node="242:4932" box={[36, 496, 42, 42]} fill={"#cff3fa"} radius={21} />

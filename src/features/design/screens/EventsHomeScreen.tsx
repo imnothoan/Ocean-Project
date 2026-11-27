@@ -4,8 +4,7 @@ import { Artwork, Copy, Footer, Frame, Link, Surface } from '../components';
 export function EventsHomeScreen() {
   return (
     <Frame id="258:426" width={393.0} height={852} background={"#ffffff"}>
-      <Artwork node="258:426" box={[0, 0, 393, 852]} source={require('../../../../assets/figma/mobile/58c51.svg')} />
-      <Surface node="258:428" box={[20, 152, 352, 195]} fill={"#edfbff"} radius={10} />
+      <Surface node="258:428" box={[20, 152, 352, 195]} fill={"#edfbff"} radius={10} stroke={[1,"#c9d5de"]} />
       <Copy node="258:429" box={[36, 164, 68, 13]} text={"FEATURED EVENT"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":10,"lineHeight":12.0,"color":"#3f596b","textAlign":"left"}} />
       <Copy node="258:430" box={[40, 292, 163, 24]} text={"My Khe Beach Cleanup"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":18,"lineHeight":21.6,"color":"#091727","textAlign":"left"}} />
       <Copy node="258:431" box={[40, 320, 156, 16]} text={"Sun, Oct 20 · 6:30 AM · Da Nang"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":14.4,"color":"#3f596b","textAlign":"left"}} />
@@ -48,7 +47,7 @@ export function EventsHomeScreen() {
       <Artwork node="258:469" box={[35, 187, 321, 97]} source={require('../../../../assets/figma/mobile/7e54a.jpg')} />
       <Artwork node="258:473" box={[30, 446, 149, 59]} source={require('../../../../assets/figma/mobile/fe3b6.jpg')} />
       <Artwork node="258:477" box={[214, 446, 149, 59]} source={require('../../../../assets/figma/mobile/5047d.jpg')} radius={10} />
-      <Surface node="258:480" box={[20, 85, 294, 40]} fill={"#ffffff"} radius={20} />
+      <Surface node="258:480" box={[20, 85, 294, 40]} fill={"#ffffff"} radius={20} stroke={[1,"#c9d5de"]} />
       <Copy node="258:481" box={[36, 96, 136, 19]} text={"Event name or location..."} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":14,"lineHeight":16.8,"color":"#3f596b","textAlign":"left"}} />
       <Artwork node="258:482" box={[283, 95, 19.88, 19.95]} source={require('../../../../assets/figma/mobile/ffcea.svg')} />
       <Artwork node="258:483" box={[333, 85, 40, 40]} source={require('../../../../assets/figma/mobile/7e25f.svg')} />
@@ -59,6 +58,9 @@ export function EventsHomeScreen() {
       <Link node="258:454" box={[20, 608, 353, 73]} to="1581:1458" label={"Frame 2 - Campaign Detail"} />
       <Link node="258:484" box={[343, 97, 20, 20]} to="258:516" label={"Events Search Filter"} />
       <Link node="258:510" box={[164, 760, 65, 65]} to="230:1093" label={"1. Report type"} />
+      <Copy node="eventsCalendar" box={[20,122,100,24]} text={"Calendar"} typeStyle={{fontFamily:"AfacadFlux_600SemiBold",fontSize:15,color:"#0186a8"}}/>
+      <Copy node="eventsOrganizer" box={[170,122,98,24]} text={"Organizer"} typeStyle={{fontFamily:"AfacadFlux_600SemiBold",fontSize:15,color:"#0186a8",textAlign:"center"}}/>
+      <Copy node="eventsMine" box={[270,122,100,24]} text={"My events"} typeStyle={{fontFamily:"AfacadFlux_600SemiBold",fontSize:15,color:"#0186a8",textAlign:"right"}}/>
       <Footer top={754}>
         <Surface node="258:506" box={[22, 779, 350, 49]} fill={"#a5e0f2"} radius={18} />
         <Surface node="258:507" box={[94, 779, 113, 49]} fill={"#a5e0f2"} radius={18} />

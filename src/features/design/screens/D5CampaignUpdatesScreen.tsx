@@ -10,20 +10,20 @@ export function D5CampaignUpdatesScreen() {
       <Surface node="1581:1812" box={[24, 180, 248, 12]} fill={"#43c4d6"} radius={6} />
       <Copy node="1581:1813" box={[320, 177, 40, 20]} text={"72%"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":12,"lineHeight":15,"color":"#3f596b","textAlign":"left"}} />
       <Copy node="1581:1814" box={[24, 227, 345, 26]} text={"Updates from the organization"} typeStyle={{"fontFamily":"AfacadFlux_600SemiBold","fontSize":18,"lineHeight":23,"color":"#091727","textAlign":"left"}} />
-      <Surface node="1581:1815" box={[24, 270, 345, 146]} fill={"#edfbff"} radius={12} />
-      <Surface node="1581:1816" box={[40, 286, 88, 82]} fill={"#a5e0f2"} radius={8} />
+      <Surface node="1581:1815" box={[24, 270, 345, 146]} fill={"#edfbff"} radius={12} stroke={[1,"#c9d5de"]} />
+      <Surface node="1581:1816" box={[40, 286, 88, 82]} fill={"#a5e0f2"} radius={8} stroke={[1,"#c9d5de"]} />
       <Copy node="1581:1817" box={[40, 318, 88, 20]} text={"PHOTO"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":12,"lineHeight":16,"color":"#3f596b","textAlign":"center"}} />
       <Copy node="1581:1818" box={[144, 286, 205, 20]} text={"12 Oct 2026"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":16,"color":"#3f596b","textAlign":"left"}} />
       <Copy node="1581:1819" box={[144, 309, 205, 24]} text={"Coral reef cleanup completed"} typeStyle={{"fontFamily":"AfacadFlux_600SemiBold","fontSize":16,"lineHeight":20,"color":"#091727","textAlign":"left"}} />
       <Copy node="1581:1820" box={[144, 337, 205, 20]} text={"We removed 320 kg of waste from the reef with our local volunteers."} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":16,"color":"#3f596b","textAlign":"left"}} />
-      <Surface node="1581:1821" box={[24, 440, 345, 146]} fill={"#edfbff"} radius={12} />
-      <Surface node="1581:1822" box={[40, 456, 88, 82]} fill={"#a5e0f2"} radius={8} />
+      <Surface node="1581:1821" box={[24, 440, 345, 146]} fill={"#edfbff"} radius={12} stroke={[1,"#c9d5de"]} />
+      <Surface node="1581:1822" box={[40, 456, 88, 82]} fill={"#a5e0f2"} radius={8} stroke={[1,"#c9d5de"]} />
       <Copy node="1581:1823" box={[40, 488, 88, 20]} text={"PHOTO"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":12,"lineHeight":16,"color":"#3f596b","textAlign":"center"}} />
       <Copy node="1581:1824" box={[144, 456, 205, 20]} text={"28 Sep 2026"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":16,"color":"#3f596b","textAlign":"left"}} />
       <Copy node="1581:1825" box={[144, 479, 205, 24]} text={"New cleanup area mapped"} typeStyle={{"fontFamily":"AfacadFlux_600SemiBold","fontSize":16,"lineHeight":20,"color":"#091727","textAlign":"left"}} />
       <Copy node="1581:1826" box={[144, 507, 205, 20]} text={"Our team identified a new high-priority area for the next cleanup."} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":16,"color":"#3f596b","textAlign":"left"}} />
-      <Surface node="1581:1827" box={[24, 610, 345, 146]} fill={"#edfbff"} radius={12} />
-      <Surface node="1581:1828" box={[40, 626, 88, 82]} fill={"#a5e0f2"} radius={8} />
+      <Surface node="1581:1827" box={[24, 610, 345, 146]} fill={"#edfbff"} radius={12} stroke={[1,"#c9d5de"]} />
+      <Surface node="1581:1828" box={[40, 626, 88, 82]} fill={"#a5e0f2"} radius={8} stroke={[1,"#c9d5de"]} />
       <Copy node="1581:1829" box={[40, 658, 88, 20]} text={"PHOTO"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":12,"lineHeight":16,"color":"#3f596b","textAlign":"center"}} />
       <Copy node="1581:1830" box={[144, 626, 205, 20]} text={"15 Sep 2026"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":16,"color":"#3f596b","textAlign":"left"}} />
       <Copy node="1581:1831" box={[144, 649, 205, 24]} text={"Thank you to our supporters"} typeStyle={{"fontFamily":"AfacadFlux_600SemiBold","fontSize":16,"lineHeight":20,"color":"#091727","textAlign":"left"}} />

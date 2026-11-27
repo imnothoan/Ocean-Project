@@ -4,56 +4,56 @@ import { Artwork, Copy, Frame, Link, Surface } from '../components';
 export function Frame1FundraisingCampaignsScreen() {
   return (
     <Frame id="1581:1359" width={393.0} height={852} background={"#ffffff"}>
-      <Surface node="1581:1363" box={[22, 652.78, 350, 184.45]} fill={"#edfbff"} radius={10} />
+      <Surface node="1581:1363" box={[22, 652.78, 350, 184.45]} fill={"#edfbff"} radius={10} stroke={[1,"#c9d5de"]} />
       <Copy node="1581:1364" box={[168, 672, 45, 20]} text={"Wildlife"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":15,"lineHeight":18.0,"color":"#3f596b","textAlign":"left"}} />
       <Copy node="1581:1365" box={[308, 672, 46, 21]} text={"Impact"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":16,"lineHeight":19.2,"color":"#3f596b","textAlign":"left"}} />
       <Copy node="1581:1366" box={[168, 736, 193, 24]} text={"by Wildlife Rescue Vietnam"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":18,"lineHeight":21.6,"color":"#3f596b","textAlign":"left"}} />
       <Copy node="1581:1367" box={[168, 791, 177, 21]} text={"$15,000 of $15,000 (100%)"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":16,"lineHeight":19.2,"color":"#3f596b","textAlign":"left"}} />
       <Copy node="1581:1368" box={[168, 810, 35, 21]} text={"Done"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":16,"lineHeight":19.2,"color":"#3f596b","textAlign":"left"}} />
       <Copy node="1581:1369" box={[169, 696, 202, 20]} text={"Save Coastal Sea Turtle"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":20,"lineHeight":20,"color":"#091727","textAlign":"left"}} />
-      <Surface node="1581:1371" box={[168, 767, 188, 17]} fill={"#a5e0f2"} radius={25} />
-      <Surface node="1581:1372" box={[168, 767, 188, 17]} fill={"#43c4d6"} radius={25} />
+      <Surface node="1581:1371" box={[168, 767, 188, 17]} fill={"#a5e0f2"} radius={25} stroke={[1,"#c9d5de"]} />
+      <Surface node="1581:1372" box={[168, 767, 188, 17]} fill={"#43c4d6"} radius={25} stroke={[1,"#c9d5de"]} />
       <Copy node="1581:1373" box={[323, 767, 28, 16]} text={"100%"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":14.4,"color":"#3f596b","textAlign":"left"}} />
       <Artwork node="1581:1374" box={[41, 670, 110, 151]} source={require('../../../../assets/figma/mobile/eaded.jpg')} radius={5} />
-      <Surface node="1581:1376" box={[22, 446.78, 350, 184.45]} fill={"#edfbff"} radius={10} />
+      <Surface node="1581:1376" box={[22, 446.78, 350, 184.45]} fill={"#edfbff"} radius={10} stroke={[1,"#c9d5de"]} />
       <Copy node="1581:1377" box={[168, 466, 51, 20]} text={"Cleanup"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":15,"lineHeight":18.0,"color":"#3f596b","textAlign":"left"}} />
       <Copy node="1581:1378" box={[168, 530, 171, 24]} text={"by Nha Trang XX-Group"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":18,"lineHeight":21.6,"color":"#3f596b","textAlign":"left"}} />
       <Copy node="1581:1379" box={[168, 585, 160, 21]} text={"$4,500 of $10,000 (45%)"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":16,"lineHeight":19.2,"color":"#3f596b","textAlign":"left"}} />
       <Copy node="1581:1380" box={[168, 604, 75, 21]} text={"24 days left"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":16,"lineHeight":19.2,"color":"#3f596b","textAlign":"left"}} />
       <Copy node="1581:1381" box={[169, 490, 202, 40]} text={"Nha Trang Coastline Cleanup"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":20,"lineHeight":20,"color":"#091727","textAlign":"left"}} />
-      <Surface node="1581:1383" box={[168, 561, 188, 17]} fill={"#a5e0f2"} radius={25} />
-      <Surface node="1581:1384" box={[168, 561, 75, 17]} fill={"#43c4d6"} radius={25} />
+      <Surface node="1581:1383" box={[168, 561, 188, 17]} fill={"#a5e0f2"} radius={25} stroke={[1,"#c9d5de"]} />
+      <Surface node="1581:1384" box={[168, 561, 75, 17]} fill={"#43c4d6"} radius={25} stroke={[1,"#c9d5de"]} />
       <Copy node="1581:1385" box={[216, 561, 22, 16]} text={"45%"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":14.4,"color":"#3f596b","textAlign":"left"}} />
       <Artwork node="1581:1386" box={[41, 464, 110, 151]} source={require('../../../../assets/figma/mobile/c3431.jpg')} radius={5} />
-      <Surface node="1581:1388" box={[22, 241.78, 350, 184.45]} fill={"#edfbff"} radius={10} />
+      <Surface node="1581:1388" box={[22, 241.78, 350, 184.45]} fill={"#edfbff"} radius={10} stroke={[1,"#c9d5de"]} />
       <Copy node="1581:1389" box={[168, 261, 88, 20]} text={"Reefs & Urgent"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":15,"lineHeight":18.0,"color":"#3f596b","textAlign":"left"}} />
       <Copy node="1581:1390" box={[168, 325, 118, 24]} text={"by XXX Vietnam"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":18,"lineHeight":21.6,"color":"#3f596b","textAlign":"left"}} />
       <Copy node="1581:1391" box={[168, 380, 169, 21]} text={"$14,400 of $20,000 (72%)"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":16,"lineHeight":19.2,"color":"#3f596b","textAlign":"left"}} />
       <Copy node="1581:1392" box={[168, 399, 75, 21]} text={"12 days left"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":16,"lineHeight":19.2,"color":"#3f596b","textAlign":"left"}} />
       <Copy node="1581:1393" box={[169, 285, 202, 40]} text={"Protect Phu Quoc Coral Reef"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":20,"lineHeight":20,"color":"#091727","textAlign":"left"}} />
-      <Surface node="1581:1395" box={[168, 356, 188, 17]} fill={"#a5e0f2"} radius={25} />
-      <Surface node="1581:1396" box={[168, 356, 133, 17]} fill={"#43c4d6"} radius={25} />
+      <Surface node="1581:1395" box={[168, 356, 188, 17]} fill={"#a5e0f2"} radius={25} stroke={[1,"#c9d5de"]} />
+      <Surface node="1581:1396" box={[168, 356, 133, 17]} fill={"#43c4d6"} radius={25} stroke={[1,"#c9d5de"]} />
       <Copy node="1581:1397" box={[271, 356, 22, 16]} text={"72%"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":14.4,"color":"#3f596b","textAlign":"left"}} />
       <Artwork node="1581:1398" box={[41, 259, 110, 151]} radius={5} />
-      <Surface node="1581:1403" box={[23, 186, 50, 32]} fill={"#43c4d6"} radius={25} />
+      <Surface node="1581:1403" box={[23, 186, 50, 32]} fill={"#43c4d6"} radius={25} stroke={[1,"#c9d5de"]} />
       <Copy node="1581:1404" box={[37, 191, 15, 20]} text={"All"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":15,"lineHeight":18.0,"color":"#091727","textAlign":"left"}} />
-      <Surface node="1581:1406" box={[83, 186, 101, 32]} fill={"#f2f4f5"} radius={25} />
+      <Surface node="1581:1406" box={[83, 186, 101, 32]} fill={"#f2f4f5"} radius={25} stroke={[1,"#c9d5de"]} />
       <Copy node="1581:1407" box={[105, 191, 57, 20]} text={"Cleanups"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":15,"lineHeight":18.0,"color":"#091727","textAlign":"center"}} />
-      <Surface node="1581:1409" box={[194, 186, 81, 32]} fill={"#f2f4f5"} radius={25} />
+      <Surface node="1581:1409" box={[194, 186, 81, 32]} fill={"#f2f4f5"} radius={25} stroke={[1,"#c9d5de"]} />
       <Copy node="1581:1410" box={[212, 191, 45, 20]} text={"Wildlife"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":15,"lineHeight":18.0,"color":"#091727","textAlign":"center"}} />
-      <Surface node="1581:1412" box={[285, 186, 62, 32]} fill={"#f2f4f5"} radius={25} />
+      <Surface node="1581:1412" box={[285, 186, 62, 32]} fill={"#f2f4f5"} radius={25} stroke={[1,"#c9d5de"]} />
       <Copy node="1581:1413" box={[301, 191, 33, 20]} text={"Reefs"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":15,"lineHeight":18.0,"color":"#091727","textAlign":"center"}} />
-      <Surface node="1581:1415" box={[357, 186, 62, 32]} fill={"#f2f4f5"} radius={25} />
+      <Surface node="1581:1415" box={[357, 186, 62, 32]} fill={"#f2f4f5"} radius={25} stroke={[1,"#c9d5de"]} />
       <Copy node="1581:1416" box={[371, 191, 37, 20]} text={"XXXX"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":15,"lineHeight":18.0,"color":"#091727","textAlign":"center"}} />
       <Artwork node="1581:1419" box={[345.5, 152.5, 15, 15]} source={require('../../../../assets/figma/mobile/9d6eb.svg')} />
       <Copy node="1581:1420" box={[314, 150, 28, 19]} text={"Filter"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":14,"lineHeight":16.8,"color":"#3f596b","textAlign":"left"}} />
-      <Surface node="1581:1422" box={[22, 141, 266, 36]} fill={"#ffffff"} radius={20} />
+      <Surface node="1581:1422" box={[22, 141, 266, 36]} fill={"#ffffff"} radius={20} stroke={[1,"rgba(201,213,222,0.4)"]} />
       <Artwork node="1581:1423" box={[40.76, 152.33, 15.32, 15.37]} source={require('../../../../assets/figma/mobile/cce71.svg')} />
       <Copy node="1581:1424" box={[64.22, 149, 210.06, 19]} text={"Search coastlines..."} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":14,"lineHeight":16.8,"color":"#3f596b","textAlign":"left"}} />
       <Surface node="1581:1426" box={[102, 69, 190, 43]} fill={"#a5e0f2"} radius={20} />
       <Artwork node="1581:1427" box={[23, 69, 43, 43]} source={require('../../../../assets/figma/mobile/9e88c.svg')} />
       <Copy node="1581:1430" box={[121, 77, 154, 26]} text={"Donate Campaigns"} typeStyle={{"fontFamily":"AfacadFlux_600SemiBold","fontSize":20,"lineHeight":25.4,"color":"#3f596b","textAlign":"left"}} />
-      <Surface node="1581:1432" box={[321, 74, 32, 32]} fill={"#ffffff"} radius={16} />
+      <Surface node="1581:1432" box={[321, 74, 32, 32]} fill={"#ffffff"} radius={16} stroke={[2,"#2b2b2b"]} />
       <Artwork node="1581:1433" box={[327, 80, 20, 20]} source={require('../../../../assets/figma/mobile/ddf08.svg')} />
       <Copy node="1581:1437" box={[288, 109, 91, 21]} text={"Your Donation"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":16,"lineHeight":19.2,"color":"#3f596b","textAlign":"right","fontStyle":"italic"}} />
       <Link node="1581:1365" box={[308, 672, 46, 21]} to="1581:1860" label={"D6 - Impact Report"} />

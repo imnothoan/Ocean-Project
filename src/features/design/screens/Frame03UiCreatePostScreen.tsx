@@ -13,7 +13,7 @@ export function Frame03UiCreatePostScreen() {
       <Copy node="115:448" box={[68, 148, 200, 16]} text={"Posting to Community"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":16,"color":"#7b92a1","textAlign":"left"}} />
       <Artwork node="115:449" box={[273, 132, 99, 25]} source={require('../../../../assets/figma/mobile/41d8c.svg')} />
       <Copy node="115:450" box={[308, 136, 29, 16]} text={"Public"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":12,"lineHeight":16,"color":"#3f596b","textAlign":"center"}} />
-      <Copy node="115:451" box={[21, 178, 350, 22]} text={"What would you like to share?"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":17,"lineHeight":22,"color":"#7b92a1","textAlign":"left"}} />
+      <Copy node="115:451" box={[21, 178, 350, 56]} text={"What would you like to share?"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":17,"lineHeight":22,"color":"#7b92a1","textAlign":"left"}} />
       <Copy node="115:452" box={[21, 206, 350, 19]} text={"A clean-up, a discovery, or a little win..."} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":14,"lineHeight":19,"color":"#7b92a1","textAlign":"left"}} />
       <Artwork node="115:453" box={[18.6, 239.6, 353.8, 0.8]} source={require('../../../../assets/figma/mobile/d1710.svg')} />
       <Copy node="115:454" box={[19, 250, 240, 22]} text={"Add photos"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":17,"lineHeight":22,"color":"#091727","textAlign":"left"}} />

@@ -5,7 +5,7 @@ export function D8DonationCertificateScreen() {
   return (
     <Frame id="1581:1986" width={393.0} height={852} background={"#ffffff"}>
       <Copy node="1581:1987" box={[24, 126, 345, 23]} text={"Your contribution is making a difference."} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":15,"lineHeight":20,"color":"#3f596b","textAlign":"left"}} />
-      <Surface node="1581:1988" box={[24, 168, 345, 420]} fill={"#edfbff"} radius={16} />
+      <Surface node="1581:1988" box={[24, 168, 345, 420]} fill={"#edfbff"} radius={16} stroke={[1,"#c9d5de"]} />
       <Surface node="1581:1989" box={[24, 168, 345, 8]} fill={"#43c4d6"} radius={4} />
       <Copy node="1581:1990" box={[48, 205, 297, 20]} text={"CERTIFICATE OF IMPACT"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":12,"lineHeight":16,"color":"#0186a8","textAlign":"center"}} />
       <Copy node="1581:1991" box={[48, 233, 297, 30]} text={"Thank you for giving back"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":22,"lineHeight":28,"color":"#091727","textAlign":"center"}} />
@@ -23,7 +23,7 @@ export function D8DonationCertificateScreen() {
       <Copy node="1581:2003" box={[48, 558, 297, 19]} text={"Verified donation impact"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":11,"lineHeight":15,"color":"#3f596b","textAlign":"center"}} />
       <Surface node="1581:2004" box={[24, 616, 345, 52]} fill={"#43c4d6"} radius={26} />
       <Copy node="1581:2005" box={[24, 632, 345, 24]} text={"Download PNG/PDF"} typeStyle={{"fontFamily":"AfacadFlux_600SemiBold","fontSize":16,"lineHeight":20,"color":"#ffffff","textAlign":"center"}} />
-      <Surface node="1581:2006" box={[24, 684, 345, 52]} fill={"#ffffff"} radius={26} />
+      <Surface node="1581:2006" box={[24, 684, 345, 52]} fill={"#ffffff"} radius={26} stroke={[1,"#0186a8"]} />
       <Copy node="1581:2007" box={[24, 700, 345, 24]} text={"Share"} typeStyle={{"fontFamily":"AfacadFlux_600SemiBold","fontSize":16,"lineHeight":20,"color":"#0186a8","textAlign":"center"}} />
       <Copy node="1581:2008" box={[24, 782, 345, 20]} text={"Share your impact with friends and community."} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":16,"color":"#3f596b","textAlign":"center"}} />
       <Surface node="1581:2010" box={[104, 69, 185, 43]} fill={"#a5e0f2"} radius={20} />

@@ -23,9 +23,9 @@ export function Frame6AreaComparisonScreen() {
       <Surface node="323:5362" box={[284.25, 653.41, 24, 82.81]} fill={"#55c4ae"} />
       <Copy node="323:5366" box={[51, 745, 155.5, 20]} text={"Dry Season"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":15,"lineHeight":18.0,"color":"#000000b2","textAlign":"center"}} />
       <Copy node="323:5368" box={[206.5, 745, 155.5, 20]} text={"Wet Season"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":15,"lineHeight":18.0,"color":"#000000b2","textAlign":"center"}} />
-      <Surface node="323:5374" box={[75, 774.5, 12, 12]} fill={"#706ee7"} />
+      <Surface node="323:5374" box={[75, 774.5, 12, 12]} fill={"#706ee7"} stroke={[1,"#ffffff"]} />
       <Copy node="323:5375" box={[91, 767, 75, 20]} text={"Ha Long Bay"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":15,"lineHeight":18.0,"color":"#000000b2","textAlign":"left"}} />
-      <Surface node="323:5379" box={[201, 774.5, 12, 12]} fill={"#55c4ae"} />
+      <Surface node="323:5379" box={[201, 774.5, 12, 12]} fill={"#55c4ae"} stroke={[1,"#ffffff"]} />
       <Copy node="323:5380" box={[217, 767, 87, 20]} text={"Can Gio Coast"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":15,"lineHeight":18.0,"color":"#000000b2","textAlign":"left"}} />
       <Copy node="311:876" box={[33, 559, 177, 20]} text={"Seasonal Trends Comparisons"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":15,"lineHeight":18.0,"color":"#3f596b","textAlign":"left"}} />
       <Copy node="311:877" box={[32, 291, 72, 20]} text={"94 (Critical)"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":15,"lineHeight":18.0,"color":"#3f596b","textAlign":"left"}} />

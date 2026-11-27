@@ -1,6 +1,6 @@
 import React, { createContext, isValidElement, useContext } from 'react';
 import { Image } from 'expo-image';
-import { Pressable, ScrollView, StyleSheet, Text, TextInput, View, useWindowDimensions, type TextStyle } from 'react-native';
+import { KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, Text, TextInput, View, useWindowDimensions, type TextStyle } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 type Box = [number, number, number, number];
@@ -28,20 +28,25 @@ export function Artwork({ node, box, source, radius = 0 }: Layer & { source?: nu
   const { scale } = useContext(Geometry);
   if (binding.hidden?.has(node)) return null;
   const replacement=binding.replacements?.[node];
-  if(replacement) return <View style={[style,{borderRadius:radius*scale,overflow:'hidden'}]}>{replacement}</View>;
+
   const uri = binding.images?.[node];
-  const content = uri || source ? <Image source={uri ? { uri } : source} accessible={false} contentFit={uri ? 'cover' : 'fill'} cachePolicy="memory-disk" style={[StyleSheet.absoluteFill, { borderRadius: radius*scale }]} /> : null;
+  const content = replacement ?? (uri || source ? <Image source={uri ? { uri } : source} accessible={false} contentFit={uri ? 'cover' : 'fill'} cachePolicy="memory-disk" style={[StyleSheet.absoluteFill, { borderRadius: radius*scale }]} /> : null);
   const action = binding.actions?.[node];
-  return action ? <Pressable accessibilityRole="button" accessibilityLabel={binding.labels?.[node] || 'Open'} onPress={action} style={style}>{content}</Pressable> :
-    <View pointerEvents="none" style={style}>{content}</View>;
+  return action ? <Pressable testID={node} accessibilityRole="button" accessibilityLabel={binding.labels?.[node] || 'Open'} onPress={action} style={style}>{content}</Pressable> :
+    <View pointerEvents={replacement?'auto':'none'} style={[style,{borderRadius:radius*scale,overflow:'hidden'}]}>{content}</View>;
 }
-export function Surface({ node, box, fill, radius=0 }: Layer & { fill: string; radius?: number }) {
+export function Surface({ node, box, fill, radius=0, stroke, shadow }: Layer & { fill: string; radius?: number; stroke?: [number,string]; shadow?: [number,number,number,number,string] }) {
   const style = usePlacement(box);
   const { scale } = useContext(Geometry);
   const binding = useContext(Interaction);
-  return binding.hidden?.has(node) ? null : <View pointerEvents="none" style={[style,{backgroundColor:binding.tint?.[node] || fill,borderRadius:radius*scale}]} />;
+  if (binding.hidden?.has(node)) return null;
+  const surface = [style, {backgroundColor:binding.tint?.[node] || fill,borderRadius:radius*scale,
+    borderColor:stroke?.[1],borderWidth:stroke?stroke[0]*scale:0,
+    boxShadow:shadow?[{offsetX:shadow[0]*scale,offsetY:shadow[1]*scale,blurRadius:shadow[2]*scale,spreadDistance:shadow[3]*scale,color:shadow[4]}]:undefined}];
+  const action = binding.actions?.[node];
+  return action ? <Pressable testID={node} accessibilityRole="button" accessibilityLabel={binding.labels?.[node] || 'Select'} onPress={action} style={surface}/> : <View pointerEvents="none" style={surface}/>;
 }
-export function Copy({ node, box, text, typeStyle }: Layer & { text: string; typeStyle: TextStyle }) {
+export function Copy({ node, box, text, typeStyle, runs }: Layer & { text: string; typeStyle: TextStyle; runs?: [number,number,string|null][] }) {
   const binding=useContext(Interaction);
   const { scale }=useContext(Geometry);
   const position=usePlacement(box);
@@ -50,19 +55,19 @@ export function Copy({ node, box, text, typeStyle }: Layer & { text: string; typ
   const style: TextStyle = { ...typeStyle, fontSize:(typeStyle.fontSize || 14)*scale, lineHeight:typeStyle.lineHeight ? typeStyle.lineHeight*scale : undefined,
     letterSpacing:(typeStyle.letterSpacing || 0)*scale, includeFontPadding:false, color:binding.tint?.[node] || typeStyle.color };
   const field=binding.fields?.[node];
-  if(field) return <TextInput accessibilityLabel={text} value={field.value} onChangeText={field.update} placeholder={field.placeholder ?? text}
-    placeholderTextColor={typeStyle.color} onSubmitEditing={field.onSubmit} returnKeyType={field.onSubmit?'send':undefined} keyboardType={field.keyboardType} multiline={field.multiline} allowFontScaling={false}
+  if(field) return <TextInput testID={node} accessibilityLabel={field.placeholder || text} value={field.value} onChangeText={field.update} placeholder={field.placeholder ?? text}
+    placeholderTextColor={typeStyle.color} onSubmitEditing={field.onSubmit} returnKeyType={field.onSubmit?'go':field.multiline?'default':'done'} keyboardType={field.keyboardType} multiline={field.multiline} allowFontScaling={false}
     style={[position,style,{padding:0,minHeight:Math.max(position.height,32*scale),textAlignVertical:'top'}]} />;
-  const content=<Text allowFontScaling={false} style={style}>{label}</Text>;
+  const content=<Text allowFontScaling={false} style={style}>{runs && label===text && !binding.tint?.[node] ? runs.map(([start,end,color])=><Text key={start} style={{color:color??style.color}}>{text.slice(start,end)}</Text>) : label}</Text>;
   const action=binding.actions?.[node];
-  return action ? <Pressable accessibilityRole="button" accessibilityLabel={label} onPress={action} hitSlop={5} style={position}>{content}</Pressable> :
+  return action ? <Pressable testID={node} accessibilityRole="button" accessibilityLabel={label} onPress={action} hitSlop={5} style={position}>{content}</Pressable> :
     <View pointerEvents="none" style={position}>{content}</View>;
 }
 export function Link({ node, box, to, label }: Layer & { to: string; label: string }) {
   const style=usePlacement(box);
   const binding=useContext(Interaction);
   if(binding.hidden?.has(node)) return null;
-  return <Pressable accessibilityRole="button" accessibilityLabel={binding.labels?.[node] || label}
+  return <Pressable testID={node} accessibilityRole="button" accessibilityLabel={binding.labels?.[node] || label}
     hitSlop={{left:Math.min(7,Math.max(0,(44-style.width)/2)),right:Math.min(7,Math.max(0,(44-style.width)/2)),top:Math.min(7,Math.max(0,(44-style.height)/2)),bottom:Math.min(7,Math.max(0,(44-style.height)/2))}} style={style} onPress={binding.actions?.[node] || (() => binding.navigate(to,node))} />;
 }
 export function Footer({ children }: { top: number; children: React.ReactNode }) { return <>{children}</>; }
@@ -77,13 +82,13 @@ export function Frame({ id, width, height, background, children }: { id:string; 
   const offset=logo?0:59;
   const bottom=footer?.props.top ?? 818;
   const bodyEnd=height>852 ? height : bottom;
-  return <View style={{flex:1,backgroundColor:background,paddingTop:logo?0:insets.top,paddingBottom:logo?0:insets.bottom,alignItems:'center'}}>
+  return <KeyboardAvoidingView testID={'frame-'+id} behavior={Platform.OS==='ios'?'padding':undefined} style={{flex:1,backgroundColor:background,paddingTop:logo?0:insets.top,paddingBottom:logo?0:insets.bottom,alignItems:'center'}}>
     <ScrollView key={id} style={{width:width*scale,flex:1}} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}
       contentContainerStyle={{minHeight:Math.max(0,(bodyEnd-offset)*scale)}}>
       <Geometry.Provider value={{scale,offset}}>{content}</Geometry.Provider>
     </ScrollView>
-    {footer && <View style={{width:width*scale,height:Math.max(0, (825-bottom)*scale)}}>
+    {footer && <View style={{width:width*scale,height:Math.max(0, (831-bottom)*scale)}}>
       <Geometry.Provider value={{scale,offset:bottom}}>{footer}</Geometry.Provider>
     </View>}
-  </View>;
+  </KeyboardAvoidingView>;
 }

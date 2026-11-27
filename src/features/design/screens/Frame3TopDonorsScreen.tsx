@@ -8,7 +8,7 @@ export function Frame3TopDonorsScreen() {
       <Surface node="1581:1521" box={[24.98, 169, 171.51, 32]} fill={"#43c4d6"} radius={25} />
       <Copy node="1581:1522" box={[55.89, 174, 106.7, 21]} text={"Individuals"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":16,"lineHeight":19.2,"color":"#ffffff","textAlign":"center"}} />
       <Copy node="1581:1523" box={[240.35, 174, 89, 21]} text={"Organizations"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":16,"lineHeight":19.2,"color":"#2b2b2b","textAlign":"center"}} />
-      <Surface node="1581:1525" box={[22, 214, 350, 191]} fill={"#edfbff"} radius={20} />
+      <Surface node="1581:1525" box={[22, 214, 350, 191]} fill={"#edfbff"} radius={20} stroke={[0.5,"#0186a8"]} />
       <Copy node="1581:1526" box={[134, 227, 125, 16]} text={"TOP ECO CONTRIBUTORS"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":12,"lineHeight":14.4,"color":"#272727","textAlign":"center"}} />
       <Artwork node="1581:1527" box={[86, 263, 38, 38]} />
       <Copy node="1581:1528" box={[101.5, 303, 6, 15]} text={"2"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":11,"lineHeight":13.2,"color":"#828282","textAlign":"center"}} />
@@ -21,7 +21,7 @@ export function Frame3TopDonorsScreen() {
       <Copy node="1581:1535" box={[284, 303, 6, 15]} text={"3"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":11,"lineHeight":13.2,"color":"#828282","textAlign":"center"}} />
       <Copy node="1581:1536" box={[259, 319, 57, 16]} text={"Community member"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":12,"lineHeight":14.4,"color":"#1d2a20","textAlign":"center"}} />
       <Copy node="1581:1537" box={[274.5, 334, 25, 16]} text={"$456"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":14.4,"color":"#000000","textAlign":"center"}} />
-      <Surface node="1581:1540" box={[23, 419.81, 349, 71.62]} fill={"#edfbff"} radius={10} />
+      <Surface node="1581:1540" box={[23, 419.81, 349, 71.62]} fill={"#edfbff"} radius={10} stroke={[1,"#c9d5de"]} />
       <Copy node="1581:1541" box={[96, 430, 56, 20]} text={"Community member"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":15,"lineHeight":18.0,"color":"#3f596b","textAlign":"left"}} />
       <Copy node="1581:1542" box={[321, 430, 40, 24]} text={"$400"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":15,"lineHeight":18.0,"color":"#3f596b","textAlign":"right"}} />
       <Copy node="1581:1543" box={[96, 455, 62, 16]} text={"Active Donor"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":14.4,"color":"#3f596b","textAlign":"left"}} />
@@ -29,7 +29,7 @@ export function Frame3TopDonorsScreen() {
       <Copy node="1581:1545" box={[44, 465, 34, 21]} text={"No. 4"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":16,"lineHeight":19.2,"color":"#3f596b","textAlign":"left"}} />
       <Artwork node="1581:1546" box={[41, 428, 40, 40]} />
       <Artwork node="1581:1547" box={[41, 428, 40, 40]} />
-      <Surface node="1581:1549" box={[23, 502.81, 349, 71.62]} fill={"#edfbff"} radius={10} />
+      <Surface node="1581:1549" box={[23, 502.81, 349, 71.62]} fill={"#edfbff"} radius={10} stroke={[1,"#c9d5de"]} />
       <Copy node="1581:1550" box={[96, 513, 58, 20]} text={"Community member"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":15,"lineHeight":18.0,"color":"#3f596b","textAlign":"left"}} />
       <Copy node="1581:1551" box={[321, 513, 40, 24]} text={"$320"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":15,"lineHeight":18.0,"color":"#3f596b","textAlign":"right"}} />
       <Copy node="1581:1552" box={[96, 538, 66, 16]} text={"Eco Supporter"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":14.4,"color":"#3f596b","textAlign":"left"}} />
@@ -37,7 +37,7 @@ export function Frame3TopDonorsScreen() {
       <Copy node="1581:1554" box={[44, 548, 34, 21]} text={"No. 5"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":16,"lineHeight":19.2,"color":"#3f596b","textAlign":"left"}} />
       <Artwork node="1581:1555" box={[41, 511, 40, 40]} />
       <Artwork node="1581:1556" box={[41, 511, 40, 40]} />
-      <Surface node="1581:1558" box={[23, 585.81, 349, 71.62]} fill={"#edfbff"} radius={10} />
+      <Surface node="1581:1558" box={[23, 585.81, 349, 71.62]} fill={"#edfbff"} radius={10} stroke={[1,"#c9d5de"]} />
       <Copy node="1581:1559" box={[96, 596, 59, 20]} text={"Community member"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":15,"lineHeight":18.0,"color":"#3f596b","textAlign":"left"}} />
       <Copy node="1581:1560" box={[321, 596, 40, 24]} text={"$314"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":15,"lineHeight":18.0,"color":"#3f596b","textAlign":"right"}} />
       <Copy node="1581:1561" box={[96, 621, 85, 16]} text={"Community Saver"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":14.4,"color":"#3f596b","textAlign":"left"}} />
@@ -45,7 +45,7 @@ export function Frame3TopDonorsScreen() {
       <Copy node="1581:1563" box={[44, 631, 34, 21]} text={"No. 6"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":16,"lineHeight":19.2,"color":"#3f596b","textAlign":"left"}} />
       <Artwork node="1581:1564" box={[41, 594, 40, 40]} />
       <Artwork node="1581:1565" box={[41, 594, 40, 40]} />
-      <Surface node="1581:1567" box={[23, 669.81, 349, 71.62]} fill={"#edfbff"} radius={10} />
+      <Surface node="1581:1567" box={[23, 669.81, 349, 71.62]} fill={"#edfbff"} radius={10} stroke={[1,"#c9d5de"]} />
       <Copy node="1581:1568" box={[96, 680, 76, 20]} text={"Community member"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":15,"lineHeight":18.0,"color":"#3f596b","textAlign":"left"}} />
       <Copy node="1581:1569" box={[321, 680, 40, 24]} text={"$300"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":15,"lineHeight":18.0,"color":"#3f596b","textAlign":"right"}} />
       <Copy node="1581:1570" box={[96, 705, 75, 16]} text={"Active Protector"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":14.4,"color":"#3f596b","textAlign":"left"}} />

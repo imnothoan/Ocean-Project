@@ -4,7 +4,6 @@ import { Artwork, Copy, Frame, Link, Surface } from '../components';
 export function CreateEventStep2Screen() {
   return (
     <Frame id="258:1279" width={393.0} height={852} background={"#ffffff"}>
-      <Artwork node="258:1279" box={[0, 0, 393, 852]} source={require('../../../../assets/figma/mobile/58c51.svg')} />
       <Copy node="258:1281" box={[20, 122, 68, 21]} text={"Step 2 of 4"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":16,"lineHeight":19.2,"color":"#73787d","textAlign":"left"}} />
       <Artwork node="258:1282" box={[20, 147, 353, 4]} source={require('../../../../assets/figma/mobile/a6a33.svg')} />
       <Artwork node="258:1283" box={[20, 147, 168, 4]} source={require('../../../../assets/figma/mobile/41645.svg')} />

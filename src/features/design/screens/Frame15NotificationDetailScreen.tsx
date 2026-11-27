@@ -4,7 +4,6 @@ import { Artwork, Copy, Frame, Link, Surface } from '../components';
 export function Frame15NotificationDetailScreen() {
   return (
     <Frame id="230:2052" width={393.0} height={852} background={"#ffffff"}>
-      <Artwork node="230:2052" box={[0, 0, 393, 852]} source={require('../../../../assets/figma/mobile/58c51.svg')} />
       <Copy node="230:2054" box={[46.5, 400, 11, 15]} text={"All"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":11,"lineHeight":13.2,"color":"#ffffff","textAlign":"center"}} />
       <Copy node="264:1113" box={[24, 135, 296, 36]} text={"High-severity report nearby"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":23,"lineHeight":28.75,"color":"#091727","textAlign":"left"}} />
       <Copy node="264:1114" box={[24, 171, 281, 35]} text={"A coastal community report was flagged."} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":14,"lineHeight":17.5,"color":"#3f596b","textAlign":"left"}} />
@@ -13,10 +12,10 @@ export function Frame15NotificationDetailScreen() {
       <Artwork node="264:1117" box={[45, 220, 19, 19]} source={require('../../../../assets/figma/mobile/897c5.svg')} />
       <Copy node="264:1120" box={[85, 206, 267, 30]} text={"HIGH SEVERITY"} typeStyle={{"fontFamily":"AfacadFlux_600SemiBold","fontSize":14,"lineHeight":17.5,"color":"#091727","textAlign":"left"}} />
       <Copy node="264:1121" box={[85, 229, 273, 30]} text={"Plastic waste near a coastal access point."} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":15,"color":"#3f596b","textAlign":"left"}} />
-      <Surface node="264:1122" box={[24, 271, 345, 38]} fill={"#ffffff"} radius={10} />
+      <Surface node="264:1122" box={[24, 271, 345, 38]} fill={"#ffffff"} radius={10} stroke={[1,"#d8e5ec"]} />
       <Artwork node="264:1123" box={[34, 280, 20, 20]} source={require('../../../../assets/figma/mobile/1bf9d.svg')} />
       <Copy node="264:1126" box={[65, 281, 286, 30]} text={"Search address or place"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":13,"lineHeight":16.25,"color":"#3f596b","textAlign":"left"}} />
-      <Surface node="264:1151" box={[24, 496, 345, 126]} fill={"#ffffff"} radius={13} />
+      <Surface node="264:1151" box={[24, 496, 345, 126]} fill={"#ffffff"} radius={13} stroke={[1,"#d8e5ec"]} />
       <Copy node="264:1152" box={[37, 508, 140, 26]} text={"Location"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":13,"lineHeight":16.25,"color":"#3f596b","textAlign":"left"}} />
       <Copy node="264:1153" box={[170, 507, 182, 27]} text={"Coastal area "} typeStyle={{"fontFamily":"AfacadFlux_600SemiBold","fontSize":14,"lineHeight":17.5,"color":"#091727","textAlign":"right"}} />
       <Surface node="264:1154" box={[39, 534, 316, 1]} fill={"#d8e5ec"} />

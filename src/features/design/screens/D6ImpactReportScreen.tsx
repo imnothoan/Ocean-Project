@@ -5,7 +5,7 @@ export function D6ImpactReportScreen() {
   return (
     <Frame id="1581:1860" width={393.0} height={852} background={"#ffffff"}>
       <Copy node="1581:1861" box={[24, 124, 345, 24]} text={"Save Coastal Sea Turtle"} typeStyle={{"fontFamily":"AfacadFlux_600SemiBold","fontSize":16,"lineHeight":21,"color":"#3f596b","textAlign":"left"}} />
-      <Surface node="1581:1862" box={[24, 161, 345, 130]} fill={"#edfbff"} radius={12} />
+      <Surface node="1581:1862" box={[24, 161, 345, 130]} fill={"#edfbff"} radius={12} stroke={[1,"#c9d5de"]} />
       <Copy node="1581:1863" box={[40, 177, 313, 22]} text={"Total impact"} typeStyle={{"fontFamily":"AfacadFlux_600SemiBold","fontSize":14,"lineHeight":18,"color":"#0186a8","textAlign":"left"}} />
       <Copy node="1581:1864" box={[40, 209, 96, 28]} text={"320 kg"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":20,"lineHeight":25,"color":"#091727","textAlign":"left"}} />
       <Copy node="1581:1865" box={[40, 241, 96, 19]} text={"waste removed"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":11,"lineHeight":15,"color":"#3f596b","textAlign":"left"}} />
@@ -14,8 +14,8 @@ export function D6ImpactReportScreen() {
       <Copy node="1581:1868" box={[248, 209, 96, 28]} text={"$14,400"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":20,"lineHeight":25,"color":"#091727","textAlign":"left"}} />
       <Copy node="1581:1869" box={[248, 241, 96, 19]} text={"funds used"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":11,"lineHeight":15,"color":"#3f596b","textAlign":"left"}} />
       <Copy node="1581:1870" box={[24, 318, 345, 26]} text={"Before & after"} typeStyle={{"fontFamily":"AfacadFlux_600SemiBold","fontSize":18,"lineHeight":23,"color":"#091727","textAlign":"left"}} />
-      <Surface node="1581:1871" box={[24, 354, 164, 126]} fill={"#a5e0f2"} radius={10} />
-      <Surface node="1581:1872" box={[205, 354, 164, 126]} fill={"#76d0c1"} radius={10} />
+      <Surface node="1581:1871" box={[24, 354, 164, 126]} fill={"#a5e0f2"} radius={10} stroke={[1,"#c9d5de"]} />
+      <Surface node="1581:1872" box={[205, 354, 164, 126]} fill={"#76d0c1"} radius={10} stroke={[1,"#c9d5de"]} />
       <Copy node="1581:1873" box={[45, 405, 122, 22]} text={"BEFORE"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":14,"lineHeight":18,"color":"#3f596b","textAlign":"center"}} />
       <Copy node="1581:1874" box={[226, 405, 122, 22]} text={"AFTER"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":14,"lineHeight":18,"color":"#0186a8","textAlign":"center"}} />
       <Copy node="1581:1875" box={[24, 488, 164, 20]} text={"Before cleanup"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":16,"color":"#3f596b","textAlign":"center"}} />

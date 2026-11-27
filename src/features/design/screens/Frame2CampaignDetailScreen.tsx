@@ -21,7 +21,7 @@ export function Frame2CampaignDetailScreen() {
       <Copy node="1581:1480" box={[40, 306, 216, 19]} text={"72% Raised / $14,400 of $20,000 Goal"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":14,"lineHeight":16.8,"color":"#091727","textAlign":"left"}} />
       <Copy node="1581:1481" box={[41, 343, 85, 19]} text={"542 Supporters"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":14,"lineHeight":16.8,"color":"#3f596b","textAlign":"left"}} />
       <Copy node="1581:1482" box={[284, 343, 66, 19]} text={"12 days left"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":14,"lineHeight":16.8,"color":"#3f596b","textAlign":"right"}} />
-      <Surface node="1581:1485" box={[23, 130, 349, 158]} fill={"#edfbff"} radius={10} />
+      <Surface node="1581:1485" box={[23, 130, 349, 158]} fill={"#edfbff"} radius={10} stroke={[1,"#c9d5de"]} />
       <Artwork node="1581:1486" box={[41, 148, 89, 121]} radius={5} />
       <Copy node="1581:1487" box={[147, 150, 88, 20]} text={"Reefs & Urgent"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":15,"lineHeight":18.0,"color":"#3f596b","textAlign":"left"}} />
       <Copy node="1581:1488" box={[147, 214, 118, 24]} text={"by XXX Vietnam"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":18,"lineHeight":21.6,"color":"#3f596b","textAlign":"left"}} />
