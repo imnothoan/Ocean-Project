@@ -1,3 +1,4 @@
+import { CodeDialog } from '../CheckInTools';
 import { Artwork, Copy, Frame, Link, Surface } from '../components';
 
 // Figma 258:1389 · Event Manage
@@ -45,6 +46,7 @@ export function EventManageScreen() {
       <Link node="1356:2950" box={[20, 711, 353, 50]} to="564:441" label={"Edit Event"} />
       <Link node="258:1421" box={[23, 69, 43, 43]} to="564:290" label={"Event Home - CTV"} />
       <Link node="258:1424" box={[324, 69, 43, 43]} to="258:1078" label={"Event Group Chat"} />
+      <CodeDialog/>
     </Frame>
   );
 }

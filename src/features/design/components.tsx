@@ -22,12 +22,12 @@ function usePlacement([x,y,w,h]: Box) {
   const { scale, offset } = useContext(Geometry);
   return { position: 'absolute' as const, left: x*scale, top: (y-offset)*scale, width: w*scale, height: h*scale };
 }
-export function Artwork({ node, box, source, radius = 0 }: Layer & { source?: number; radius?: number }) {
+export function Artwork({ node, box, source, radius = 0, content: custom }: Layer & { content?: React.ReactNode; source?: number; radius?: number }) {
   const style = usePlacement(box);
   const binding = useContext(Interaction);
   const { scale } = useContext(Geometry);
   if (binding.hidden?.has(node)) return null;
-  const replacement=binding.replacements?.[node];
+  const replacement=custom ?? binding.replacements?.[node];
 
   const uri = binding.images?.[node];
   const content = replacement ?? (uri || source ? <Image source={uri ? { uri } : source} accessible={false} contentFit={uri ? 'cover' : 'fill'} cachePolicy="memory-disk" style={[StyleSheet.absoluteFill, { borderRadius: radius*scale }]} /> : null);

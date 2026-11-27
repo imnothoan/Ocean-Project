@@ -20,6 +20,7 @@ import { events } from './events';
 import { donations } from './donations';
 import { useProjectData } from './useProjectData';
 import { action,type Controller,type Values } from './workflow';
+import { volunteer,lessons } from './volunteer';
 import { additionalBindings } from './interactions';
 import { LiveData } from './live';
 import { account, guideNames } from './account';
@@ -28,7 +29,7 @@ import { EventCalendarScreen } from './screens/EventCalendarScreen';
 type FrameId=keyof typeof frames;
 function isFrame(id:string):id is FrameId{return Object.prototype.hasOwnProperty.call(frames,id);}
 const tabs=new Set(['101:2769','258:426','230:1093','403:2759','666:3592']);
-const guarded=new Set(['666:4366','564:290','230:1379','230:2075','230:2052','1249:216','1253:343','1253:427','1253:517','258:792','258:906','258:1135','258:1078','258:1226','258:1279','708:684','700:264','258:1389','564:441','1356:347','1356:310','1581:1920']);
+const guarded=new Set(['1335:4347','1335:4104','1335:4216',...lessons,'666:4366','564:290','230:1379','230:2075','230:2052','1249:216','1253:343','1253:427','1253:517','258:792','258:906','258:1135','258:1078','258:1226','258:1279','708:684','700:264','258:1389','564:441','1356:347','1356:310','1581:1920']);
 const adminScreens=new Set(['292:4283','292:4198','292:4022','605:523','614:766','689:327','689:426','692:477','692:816','722:6967']);
 const receipts=new Set(['1581:1764','1581:1986','230:1402','258:1177','258:1450','1253:517','670:5193']);
 const intro:FrameId[]=['949:246','949:253','949:260','949:267','949:276'];
@@ -52,6 +53,8 @@ function Navigation(){
   const currentUser=useRef<string|null>(null);
   const uid=session?.user.id ?? null;
   const {data,error,refresh,loading}=useProjectData(session,values.eventId||'',id==='258:1078');
+  useEffect(()=>{if(['258:906','564:290','1356:347','230:1379','292:4022','605:523','1358:343','1335:4216','230:2075'].includes(id))refresh();},[id,refresh]);
+  useEffect(()=>{const sub=AppState.addEventListener('change',state=>{if(state==='active')refresh();});return ()=>sub.remove();},[refresh]);
   function setValue(key:string,value:string){
     if(currentUser.current!==uid)return;
     drafts.current={...drafts.current,[key]:value};setValues(drafts.current);
@@ -143,6 +146,7 @@ function Navigation(){
   donations(c,data.pledges);
   additionalBindings(c,data,setAuth,setNotice);
   review(c,data.reports);
+  volunteer(c,data);
   account(c,data,()=>setAuth(true));
   if(id==='666:3592')action(c,['721:360'],()=>session?setSaved(true):setAuth(true));
   if(fontError)return <View style={styles.center}><Text>{fontError.message}</Text></View>;

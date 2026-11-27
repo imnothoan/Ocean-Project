@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import type { Session } from '@supabase/supabase-js';
 import { supabase, loadReports, loadNotifications, loadEventMessages, loadImpactMetrics, type EventRecap, type OceanReport, type OceanEvent, type OceanNotification, type EventMessage, type ImpactMetric } from '../../lib/supabase';
 import { fetchFeed, fetchProfile, emptyProfile, type CommunityItem, type Profile } from './data';
+import type { VolunteerApplication } from './volunteer';
 import type { Registration } from './events';
 import type { Pledge } from './donations';
 import { result } from './workflow';
@@ -12,13 +13,13 @@ export type ProjectData = {
   reports: OceanReport[]; events: OceanEvent[]; registrations: Registration[];
   checkins: Attendance[]; notifications: OceanNotification[]; messages: EventMessage[];
   pledges: Pledge[]; metrics: ImpactMetric[];
-  recaps: EventRecap[];
+  applications: VolunteerApplication[]; recaps: EventRecap[];
   learning: {activity: string; completed_at: string}[];
   claims: {id: string; cost: number; claimed_at: string}[];
 };
 const empty: ProjectData = {
   avatarUrl:'', points: 0, saved: [], items: [], profile: emptyProfile, reports: [], events: [],
-  registrations: [], notifications: [], messages: [], pledges: [], metrics: [], checkins: [], recaps: [], learning: [], claims: []
+  registrations: [], notifications: [], messages: [], pledges: [], metrics: [], checkins: [], applications: [], recaps: [], learning: [], claims: []
 };
 
 async function readProject(session: Session | null, eventId: string, chat: boolean) {
@@ -45,6 +46,7 @@ async function readProject(session: Session | null, eventId: string, chat: boole
     messages: uid && chat && eventId ? loadEventMessages(eventId).then(result) : [],
     points: uid ? supabase.rpc('ocean_points').then(result).then(p => Number(p) || 0) : 0,
     saved: uid ? supabase.from('saved_guides').select('frame_id').eq('user_id', uid).then(result).then(rows => (rows ?? []).map(g => String(g.frame_id))) : [],
+    applications: uid ? supabase.from('volunteer_applications').select('*').order('submitted_at',{ascending:false}).then(result) : [],
     recaps: supabase.from('event_recaps').select('id,event_id,author_id,body,created_at,total_kg,recyclable_kg,photo_path').order('created_at',{ascending:false}).limit(100).then(result),
     learning: uid ? supabase.from('learning_progress').select('activity,completed_at').eq('user_id', uid).then(result) : [],
     claims: uid ? supabase.from('reward_claims').select('id,cost,claimed_at').eq('user_id', uid).then(result) : []

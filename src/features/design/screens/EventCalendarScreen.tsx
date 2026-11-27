@@ -30,7 +30,7 @@ export function EventCalendarScreen({events = [], onSelectEvent}: CalendarProps 
       <Text style={s.detail}>{new Date(event.event_date).toLocaleString(undefined,{month:'short', day:'numeric', hour:'numeric', minute:'2-digit'})} · {event.location}</Text>
     </Pressable>
   );
-  return <SafeAreaView style={s.page}><ScrollView contentContainerStyle={s.content}>
+  return <SafeAreaView testID="frame-258:614" style={s.page}><ScrollView contentContainerStyle={s.content}>
     <View style={s.header}>
       <Pressable style={s.back} accessibilityRole="button" accessibilityLabel="Back" onPress={() => interaction.navigate('back','258:698')}>
         <Image source={back} style={s.backIcon} />

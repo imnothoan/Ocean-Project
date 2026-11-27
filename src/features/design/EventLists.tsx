@@ -18,8 +18,9 @@ export function EventList({organizer=false}:{organizer?:boolean}){
       const checked=data.checkins.some(r=>r.event_id===e.id);
       return <ListRow key={e.id} title={e.title} description={[new Date(e.event_date).toLocaleString(),e.location,organizer?'':reg?.status].filter(Boolean).join(' · ')}>
         <View style={styles.actions}><SmallButton label={organizer?'Manage event':'View details'} onPress={()=>open(e,organizer?'258:1389':'258:735')}/>
+        {reg?.status==='approved' && <><SmallButton label="Checklist" onPress={()=>open(e,'258:842')}/><SmallButton label="Group chat" onPress={()=>open(e,'258:1078')}/></>}
         {reg?.status==='approved' && !checked && <SmallButton label="Check-in" onPress={()=>open(e,'258:1135')}/>}
-        {checked && <SmallButton label="Certificate" onPress={()=>open(e,'258:1450')}/>}
+        {checked && <><SmallButton label="Certificate" onPress={()=>open(e,'258:1450')}/><SmallButton label="Feedback" onPress={()=>open(e,'258:1500')}/></>}
         {!upcoming && <SmallButton label={organizer?'Post recap':'View recap'} onPress={()=>open(e,organizer?'1356:310':'1356:3049')}/>}
         </View></ListRow>;
     })}

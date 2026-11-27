@@ -35,9 +35,14 @@ export function additionalBindings(c:Controller,data:Data,setAuth:(value:boolean
  }
  if(id==='258:842'){
   const nodes=['258:848','258:852','258:856','258:860','258:864'];const items=(v['checklist:'+v.eventId]||'').split('|').filter(Boolean);
-  const titles=['Reusable gloves','Reusable water bottle','Sunscreen and a hat','Suitable footwear','Fully charged phone'];
-  nodes.forEach((node,i)=>{b.labels[node]=(items.includes(node)?'✓ ':'')+titles[i];action(c,[node],()=>c.setValue('checklist:'+v.eventId,(items.includes(node)?items.filter(n=>n!==node):[...items,node]).join('|')));});
-  b.labels['258:866']=items.length+' of 5 items prepared';
+  const selected=data.events.find(e=>e.id===v.eventId);const titles=selected?.preparation?.length?selected.preparation:['Reusable gloves','Reusable water bottle','Sunscreen and a hat','Suitable footwear','Fully charged phone'];
+  const notes=['258:849','258:853','258:857','258:861','258:865'];
+  nodes.forEach((node,i)=>{const group=Number(node.split(':')[1]);if(selected?.preparation?.length)b.labels[notes[i]]='';
+    if(i>=titles.length){for(let n=group-2;n<=group+1;n++)b.hidden.add('258:'+n);return;}
+    b.labels[node]=(items.includes(node)?'✓ ':'')+titles[i];const toggle=()=>c.setValue('checklist:'+v.eventId,(items.includes(node)?items.filter(n=>n!==node):[...items,node]).join('|'));action(c,[node,'258:'+(group-1),'258:'+(group-2)],toggle);});
+  for(const n of ['258:883','258:884','258:885'])b.hidden.add(n);
+  b.labels['258:866']=items.length+' of '+titles.length+' items prepared';b.labels['258:871']=selected?.safety||'Do not handle sharp objects or medical waste.';
+
  }
  if(id==='311:1506')action(c,['311:1571'],()=>share(data.metrics.map(m=>m.metric_date+': '+m.total_kg+' kg').join('\n') || 'Ocean Project · No recorded impact yet.'));
  if(id==='1581:1764')action(c,['1581:1776'],()=>share('My Ocean Project pledge: $'+(v.amount||'0')+' (awaiting payment).'));

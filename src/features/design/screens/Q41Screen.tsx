@@ -1,3 +1,4 @@
+import { VolunteerQuiz } from '../VolunteerLists';
 import { Artwork, Copy, Frame, Link, Surface } from '../components';
 
 // Figma 1335:4216 · Q - 41
@@ -52,6 +53,7 @@ export function Q41Screen() {
       <Surface node="1335:4327" box={[21, 849, 351, 60]} fill={"#43c4d6"} radius={24} />
       <Copy node="1335:4328" box={[157, 868, 79, 23]} text={"Start Quiz"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":20,"lineHeight":22.8,"color":"#ffffff","textAlign":"left"}} />
       <Link node="1335:4326" box={[21, 849, 351, 60]} to="1335:4425" label={"Q - 42"} />
+      <VolunteerQuiz/>
     </Frame>
   );
 }

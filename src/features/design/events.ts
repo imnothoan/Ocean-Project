@@ -129,9 +129,9 @@ export function events(c:Controller,events:OceanEvent[],registrations:Registrati
   }
   if(id==='258:1389'){
     Object.assign(b.labels,{'258:1391':selected?.title||'Your event','258:1392':eventDate(selected),'258:1394':String(attendees.length),'258:1397':String(attendees.filter(r=>r.status==='approved').length),
-      '258:1400':String(attendees.filter(r=>r.status==='pending').length),'258:1416':v['code:'+selected?.id]||'Get check-in code','258:1418':selected?.ended_at?'Event ended':v.endConfirm===selected?.id?'Confirm end event':'End event'});
+      '258:1400':String(attendees.filter(r=>r.status==='pending').length),'258:1416':'Show QR or share code','258:1418':selected?.ended_at?'Event ended':v.endConfirm===selected?.id?'Confirm end event':'End event'});
     action(c,['258:1394','258:1397','258:1399'],()=>c.go('1356:347'));
-    action(c,['258:1415','258:1416'],()=>c.run(async()=>{const code=result(await supabase.rpc('get_event_checkin_code',{target:eid()}));c.setValue('code:'+eid(),String(code));await Share.share({message:String(code)});},true));
+    action(c,['258:1415','258:1416'],()=>c.run(async()=>{const code=result(await supabase.rpc('get_event_checkin_code',{target:eid()}));c.setValue('code:'+eid(),String(code));c.setValue('codeOpen','yes');},true));
     action(c,['258:1418'],()=>c.run(async()=>{if(!owner||selected!.ended_at)return;if(v.endConfirm!==selected!.id){c.setValue('endConfirm',selected!.id);return;}
       result(await updateEvent(eid(),{ended_at:new Date().toISOString()}));c.setValue('endConfirm','');c.refresh();c.go('564:290');},true));
     action(c,['1356:2950'],()=>{if(!selected)return;const date=new Date(selected.event_date);for(const [key,value] of Object.entries({editName:selected.title,editDate:localDateKey(date),editTime:localTime(date),editPlace:selected.location,editCapacity:String(selected.capacity)}))c.setValue(key,value);c.go('564:441');});
