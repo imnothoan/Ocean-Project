@@ -52,11 +52,17 @@ alter default privileges in schema public grant all on sequences to anon,authent
 create function auth.jwt() returns jsonb language sql stable as $$select coalesce(nullif(current_setting('request.jwt.claims',true),''),'{{}}')::jsonb$$;
 create function auth.uid() returns uuid language sql stable as $$select coalesce(nullif(current_setting('request.jwt.claim.sub',true),''),auth.jwt()->>'sub')::uuid$$;
 create function auth.role() returns text language sql stable as $$select auth.jwt()->>'role'$$;
+alter function auth.jwt() owner to supabase_auth_admin;
+alter function auth.uid() owner to supabase_auth_admin;
+alter function auth.role() owner to supabase_auth_admin;
 """)
 mail=run([binaries/'mail/mailpit'],{'MP_UI_BIND_ADDR':'127.0.0.1:55325','MP_SMTP_BIND_ADDR':'127.0.0.1:55328'},'mail',work)
 check('http://127.0.0.1:55325/livez',mail)
-auth=run([binaries/'auth/auth'],{'GOTRUE_API_HOST':'127.0.0.1','GOTRUE_API_PORT':'55324','API_EXTERNAL_URL':'http://127.0.0.1:55321/auth/v1','GOTRUE_SITE_URL':'http://127.0.0.1:55321','GOTRUE_DB_DRIVER':'postgres','GOTRUE_DB_DATABASE_URL':uri('supabase_auth_admin'),'GOTRUE_JWT_SECRET':key,'GOTRUE_JWT_DEFAULT_GROUP_NAME':'authenticated','GOTRUE_JWT_ADMIN_ROLES':'service_role','GOTRUE_EXTERNAL_EMAIL_ENABLED':'true','GOTRUE_MAILER_AUTOCONFIRM':'false','GOTRUE_JWT_EXP':'3600','GOTRUE_MAILER_URLPATHS_CONFIRMATION':'/verify','GOTRUE_MAILER_URLPATHS_RECOVERY':'/verify','GOTRUE_SMTP_HOST':'127.0.0.1','GOTRUE_SMTP_PORT':'55328','GOTRUE_SMTP_ADMIN_EMAIL':'ocean@example.invalid','GOTRUE_SMTP_MAX_FREQUENCY':'1s'},'auth',binaries/'auth')
+auth=run([binaries/'auth/auth'],{'GOTRUE_API_HOST':'127.0.0.1','GOTRUE_API_PORT':'55324','API_EXTERNAL_URL':'http://127.0.0.1:55321/auth/v1','GOTRUE_SITE_URL':'http://127.0.0.1:55321','GOTRUE_DB_DRIVER':'postgres','GOTRUE_DB_DATABASE_URL':uri('supabase_auth_admin'),'GOTRUE_JWT_SECRET':key,'GOTRUE_JWT_DEFAULT_GROUP_NAME':'authenticated','GOTRUE_JWT_ADMIN_ROLES':'service_role','GOTRUE_EXTERNAL_EMAIL_ENABLED':'true','GOTRUE_MAILER_AUTOCONFIRM':'true','GOTRUE_JWT_EXP':'3600','GOTRUE_MAILER_URLPATHS_CONFIRMATION':'/verify','GOTRUE_MAILER_URLPATHS_RECOVERY':'/verify','GOTRUE_SMTP_HOST':'127.0.0.1','GOTRUE_SMTP_PORT':'55328','GOTRUE_SMTP_ADMIN_EMAIL':'ocean@example.invalid','GOTRUE_SMTP_MAX_FREQUENCY':'1s'},'auth',binaries/'auth')
 check('http://127.0.0.1:55324/health',auth)
+sql("""create or replace function auth.uid() returns uuid language sql stable as
+$$select coalesce(nullif(current_setting('request.jwt.claim.sub',true),''),auth.jwt()->>'sub')::uuid$$;
+create or replace function auth.role() returns text language sql stable as $$select auth.jwt()->>'role'$$;""")
 rest=run([binaries/'rest/postgrest'],{'PGRST_SERVER_HOST':'127.0.0.1','PGRST_SERVER_PORT':'55326','PGRST_DB_URI':uri('authenticator'),'PGRST_DB_SCHEMAS':'public','PGRST_DB_ANON_ROLE':'anon','PGRST_JWT_SECRET':key},'rest',work)
 check('http://127.0.0.1:55326/',rest)
 storage=run(['node','dist/start/server.js'],{'DATABASE_URL':uri('supabase_storage_admin'),'DATABASE_SEARCH_PATH':'storage,public','ANON_KEY':anon,'SERVICE_KEY':service,'PGRST_JWT_SECRET':key,'POSTGREST_URL':'http://127.0.0.1:55326','STORAGE_BACKEND':'file','FILE_STORAGE_BACKEND_PATH':str(work/'objects'),'TENANT_ID':'local','REGION':'local','GLOBAL_S3_BUCKET':'local','DB_INSTALL_ROLES':'false','DB_ANON_ROLE':'anon','DB_AUTHENTICATED_ROLE':'authenticated','DB_SERVICE_ROLE':'service_role','SERVER_HOST':'127.0.0.1','SERVER_PORT':'55327','FILE_SIZE_LIMIT':'10485760'},'storage',binaries/'storage')

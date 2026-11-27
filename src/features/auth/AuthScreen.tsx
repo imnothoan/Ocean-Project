@@ -25,7 +25,7 @@ import { colors, radii, spacing, typography } from '../../theme/tokens';
 type Mode =
   'quick' | 'emailLogin' | 'signIn' | 'signUp' | 'confirmation' | 'reset' | 'verify' | 'password';
 const headings: Record<Mode, string> = {
-  quick: 'Tạo tài khoản',
+  quick: 'Liên kết đăng nhập',
   emailLogin: 'Xác nhận email',
   signIn: 'Chào mừng trở lại',
   signUp: 'Tạo tài khoản',
@@ -35,7 +35,7 @@ const headings: Record<Mode, string> = {
   password: 'Chọn mật khẩu mới',
 };
 const submitLabels: Record<Mode, string> = {
-  quick: 'Đăng ký',
+  quick: 'Gửi liên kết',
   emailLogin: 'Xác nhận và tiếp tục',
   signIn: 'Đăng nhập',
   signUp: 'Đăng ký',
@@ -216,19 +216,21 @@ export function AuthScreen({
   }
 
   const subtitle =
-    mode === 'quick'
-      ? 'Nhập email để tạo tài khoản hoặc đăng nhập. Ocean Project sẽ gửi một liên kết đến hộp thư của bạn.'
-      : mode === 'verify'
-        ? 'Trong email khôi phục, nhấn giữ nút đặt lại mật khẩu để sao chép liên kết trước khi mở. Dán liên kết vào ô bên dưới hoặc nhập mã nếu email có mã.'
-        : confirmEmail
-          ? 'Kiểm tra thư gửi tới ' +
-            email +
-            '. Nhấn giữ nút xác nhận trong thư để sao chép liên kết rồi dán vào đây, hoặc nhập mã nếu thư có mã. Nếu đã mở liên kết, hãy quay lại đăng nhập.'
-          : mode === 'reset'
-            ? 'Nhập email của tài khoản để nhận liên kết đổi mật khẩu.'
-            : mode === 'password'
-              ? 'Đặt mật khẩu mới cho ' + email
-              : 'Đồng bộ báo cáo, sự kiện và tác động của bạn trên mọi thiết bị.';
+    mode === 'signUp'
+      ? 'Chọn email đăng nhập và mật khẩu cho tài khoản Ocean Project.'
+      : mode === 'quick'
+        ? 'Nhập email để tạo tài khoản hoặc đăng nhập. Ocean Project sẽ gửi một liên kết đến hộp thư của bạn.'
+        : mode === 'verify'
+          ? 'Trong email khôi phục, nhấn giữ nút đặt lại mật khẩu để sao chép liên kết trước khi mở. Dán liên kết vào ô bên dưới hoặc nhập mã nếu email có mã.'
+          : confirmEmail
+            ? 'Kiểm tra thư gửi tới ' +
+              email +
+              '. Nhấn giữ nút xác nhận trong thư để sao chép liên kết rồi dán vào đây, hoặc nhập mã nếu thư có mã. Nếu đã mở liên kết, hãy quay lại đăng nhập.'
+            : mode === 'reset'
+              ? 'Nhập email của tài khoản để nhận liên kết đổi mật khẩu.'
+              : mode === 'password'
+                ? 'Đặt mật khẩu mới cho ' + email
+                : 'Đồng bộ báo cáo, sự kiện và tác động của bạn trên mọi thiết bị.';
 
   function link(label: string, press: () => void) {
     return (
@@ -340,11 +342,11 @@ export function AuthScreen({
             </Pressable>
           )}
           {mode === 'quick' && link('Đăng ký bằng mật khẩu', () => changeMode('signUp'))}
-          {mode === 'signIn' && link('Tiếp tục chỉ với email', () => changeMode('quick'))}
+          {mode === 'signIn' && link('Đăng nhập bằng liên kết email', () => changeMode('quick'))}
           {mode === 'signIn' && link('Quên mật khẩu?', () => changeMode('reset'))}
           {mode === 'verify' && link('Yêu cầu email mới', () => changeMode('reset'))}
           {link(mode === 'signIn' ? 'Chưa có tài khoản? Đăng ký' : 'Đã có tài khoản? Đăng nhập', () =>
-            changeMode(mode === 'signIn' ? 'quick' : 'signIn'),
+            changeMode(mode === 'signIn' ? 'signUp' : 'signIn'),
           )}
         </ScrollView>
       </KeyboardAvoidingView>
