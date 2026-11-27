@@ -256,6 +256,7 @@ export function AuthScreen({
               <>
                 <Text style={styles.label}>EMAIL</Text>
                 <TextInput
+                  testID="auth-email"
                   accessibilityLabel="Email"
                   autoCapitalize="none"
                   autoCorrect={false}
@@ -274,6 +275,7 @@ export function AuthScreen({
                 <Text style={styles.label}>{mode === 'password' ? 'MẬT KHẨU MỚI' : 'MẬT KHẨU'}</Text>
                 <TextInput
                   key={mode}
+                  testID="auth-password"
                   accessibilityLabel="Mật khẩu"
                   secureTextEntry
                   editable={!busy}

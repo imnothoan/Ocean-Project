@@ -10,12 +10,12 @@ permissions:
 jobs:
   expo-go:
     runs-on: macos-15
-    timeout-minutes: 35
+    timeout-minutes: 65
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '24'
+          node-version: '26'
           cache: npm
       - run: npm ci
       - name: Install Maestro
@@ -26,6 +26,13 @@ jobs:
           unzip -q maestro.zip
           chmod +x maestro/bin/maestro
           echo "$RUNNER_TEMP/maestro/bin" >> "$GITHUB_PATH"
+      - name: Prepare isolated native services
+        run: |
+          if ! test -x "$(brew --prefix postgresql@17)/bin/postgres"; then brew install postgresql@17; fi
+          echo "$(brew --prefix postgresql@17)/bin" >> "$GITHUB_PATH"
+          tests/ios/backend/install.sh "$RUNNER_TEMP/ocean-services"
+      - name: Start test database and email inbox
+        run: python3 tests/ios/backend/start.py "$RUNNER_TEMP/ocean-data" "$RUNNER_TEMP/ocean-services"
       - run: tests/ios/run.sh
       - uses: actions/upload-artifact@v4
         if: always()

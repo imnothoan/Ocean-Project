@@ -1,0 +1,17 @@
+appId: host.exp.Exponent
+---
+- openLink: "exp://127.0.0.1:8081/--/frame/666-4366"
+- tapOn:
+    text: "Đã có tài khoản.*Đăng nhập"
+    optional: true
+- tapOn:
+    id: "auth-email"
+- inputText: ${QA_EMAIL}
+- tapOn:
+    id: "auth-password"
+- inputText: ${QA_PASSWORD}
+- pressKey: Enter
+- extendedWaitUntil:
+    visible:
+      id: "frame-666:4366"
+    timeout: 20000

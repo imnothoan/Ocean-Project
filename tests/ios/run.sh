@@ -44,3 +44,9 @@ curl --max-time 300 -fsS "$bundle" -o /dev/null
 xcrun simctl openurl "$device" exp://127.0.0.1:8081
 cd "$artifacts"
 maestro --device "$device" test --test-output-dir "$artifacts" "$repo/tests/ios/guest.yaml"
+
+if [[ -n "${QA_EMAIL:-}" && -n "${QA_PASSWORD:-}" ]]; then
+  maestro --device "$device" test -e QA_EMAIL="$QA_EMAIL" -e QA_PASSWORD="$QA_PASSWORD" "$repo/tests/ios/member.yaml"
+  python3 "$repo/tests/ios/sweep.py" "$scratch/sweep.yaml"
+  maestro --device "$device" test --test-output-dir "$artifacts" "$scratch/sweep.yaml"
+fi
