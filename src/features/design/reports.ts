@@ -55,10 +55,6 @@ export function reports(c:Controller,rows:OceanReport[],notifications:OceanNotif
   Object.assign(b.labels,{'264:1113':notification?.title||'No notification selected','264:1114':notification?.body||'','264:1120':'Report update','264:1121':notification?.body||'','264:1153':report?.location||'—','264:1156':report?.title||'—','264:1159':report?.status||'—'});
  }
  if(id==='230:2075'){
-  choices(c,'inboxFilter',{'255:964':'All','255:966':'Unread','255:968':'Alerts'});const list=notifications.filter(n=>v.inboxFilter!=='Unread'||!n.read_at);
-  [['255:985','255:986','255:987'],['255:1013','255:1014','255:1015'],['255:1021','255:1022','255:1023'],['255:1028','255:1029','255:1030']].forEach(([title,body,date],i)=>{
-   const n=list[i];b.labels[title]=n?.title??(i===0?'No notifications':'');b.labels[body]=n?.body??'';b.labels[date]=n?new Date(n.created_at).toLocaleDateString():'';
-   action(c,[title,body,...(i===0?['255:969']:[])],()=>c.run(async()=>{if(!n)return;if(!n.read_at)result(await markNotificationRead(n.id));c.setValue('notificationId',n.id);if(n.report_id)c.setValue('reportId',n.report_id);c.refresh();c.go('230:2052');},true));
-  });
+  choices(c,'inboxFilter',{'255:964':'All','255:966':'Unread','255:968':'Alerts'});
  }
 }

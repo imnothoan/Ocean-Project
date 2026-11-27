@@ -20,6 +20,9 @@ import { events } from './events';
 import { donations } from './donations';
 import { useProjectData } from './useProjectData';
 import { action,type Controller,type Values } from './workflow';
+import { impactBindings } from './Impact';
+import { fundraising } from './Fundraising';
+import { learning } from './Learning';
 import { volunteer,lessons } from './volunteer';
 import { additionalBindings } from './interactions';
 import { LiveData } from './live';
@@ -101,7 +104,7 @@ function Navigation(){
     return ()=>{active=false;subscription.unsubscribe();sub.remove();if(Platform.OS!=='web')supabase.auth.stopAutoRefresh();};
   },[]);
   const introIndex=intro.indexOf(id);
-  useEffect(()=>{if(introIndex<0||!loaded)return;const t=setTimeout(()=>setStack([intro[introIndex+1]||'403:2759']),introIndex===4?450:180);return ()=>clearTimeout(t);},[introIndex,loaded]);
+  useEffect(()=>{if(introIndex<0||!loaded||auth)return;const t=setTimeout(()=>setStack(old=>old[old.length-1]===id?[intro[introIndex+1]||'403:2759']:old),introIndex===4?450:180);return ()=>clearTimeout(t);},[introIndex,loaded,auth,id]);
 
   function go(to:string){
     if(currentUser.current!==uid)return;
@@ -147,6 +150,9 @@ function Navigation(){
   additionalBindings(c,data,setAuth,setNotice);
   review(c,data.reports);
   volunteer(c,data);
+  learning(c,data);
+  impactBindings(c,data);
+  fundraising(c,data);
   account(c,data,()=>setAuth(true));
   if(id==='666:3592')action(c,['721:360'],()=>session?setSaved(true):setAuth(true));
   if(fontError)return <View style={styles.center}><Text>{fontError.message}</Text></View>;
@@ -168,6 +174,7 @@ function Navigation(){
         <Text style={styles.title}>My saved guides</Text>
         {data.saved.length===0 && <Text>Save a guide while reading to find it here.</Text>}
         {data.saved.map(frame=><Pressable key={frame} accessibilityRole="button" onPress={()=>{setSaved(false);go(frame);}}><Text style={styles.option}>{guideNames[frame]}</Text></Pressable>)}
+        <Pressable accessibilityRole="button" onPress={()=>{setSaved(false);go('244:550');}}><Text style={styles.option}>Browse guides</Text></Pressable>
         <Pressable accessibilityRole="button" onPress={()=>setSaved(false)}><Text style={styles.option}>Close</Text></Pressable>
       </View></View>
     </Modal>

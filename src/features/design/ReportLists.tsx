@@ -2,7 +2,8 @@ import { Text, View } from 'react-native';
 import { FlowSection,ListRow,SmallButton,styles,useLiveData } from './live';
 import { ReportEvidence } from './ReportEvidence';
 import { matchesQuery } from './communityView';
-import type { OceanReport } from '../../lib/supabase';
+import { result } from './workflow';
+import { markNotificationRead,type OceanReport } from '../../lib/supabase';
 
 export function ReportHistory({moderation=false}:{moderation?:boolean}) {
   const {c,data,loading}=useLiveData();
@@ -36,4 +37,13 @@ export function ReportTimeline() {
     {(report.report_followups||[]).map((f,i)=><ListRow key={f.created_at+i} title={f.note||'Photo update'} description={new Date(f.created_at).toLocaleString()}>
       {!!f.evidence_path && <View style={{height:140}}><ReportEvidence path={f.evidence_path}/></View>}</ListRow>)}
   </FlowSection>;
+}
+
+export function ReportInbox(){
+  const {c,data,loading}=useLiveData();const filter=c.values.inboxFilter;
+  const rows=data.notifications.filter(n=>filter==='Unread'?!n.read_at:filter==='Alerts'?!!n.report_id:true);
+  return <FlowSection top={267}>{rows.map(n=><ListRow key={n.id} title={n.title} description={n.body+' · '+new Date(n.created_at).toLocaleDateString()+(n.read_at?'':' · Unread')} onPress={()=>c.run(async()=>{
+    if(!n.read_at)result(await markNotificationRead(n.id));c.setValue('notificationId',n.id);c.setValue('reportId',n.report_id||'');c.refresh();
+    if(n.title==='Volunteer application'){const own=data.applications.find(a=>a.user_id===c.user?.id);c.go(own?.status==='approved'?'1335:4216':'1335:4104');}else c.go('230:2052');
+  },true)}/>)}{!rows.length && <Text style={styles.body}>{loading?'Loading notifications…':'No notifications in this view.'}</Text>}</FlowSection>;
 }

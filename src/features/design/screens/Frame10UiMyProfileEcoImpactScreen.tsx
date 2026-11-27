@@ -1,3 +1,4 @@
+import { MonthlyChart } from '../Learning';
 import { Artwork, Copy, Footer, Frame, Link, Surface } from '../components';
 
 // Figma 666:3592 · 10_UI_My_Profile_Eco_Impact
@@ -6,8 +7,8 @@ export function Frame10UiMyProfileEcoImpactScreen() {
     <Frame id="666:3592" width={393.0} height={1189.4} background={"#ffffff"}>
       <Artwork node="666:3896" box={[29, 59, 68, 68]} source={require('../../../../assets/figma/mobile/393ba.svg')} />
       <Copy node="666:3897" box={[57.5, 79.32, 10, 24]} text={"H"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":17.68000030517578,"lineHeight":21.22,"color":"#000000","textAlign":"center"}} />
-      <Copy node="666:3898" box={[111, 64, 40, 25]} text={"Community member"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":19,"lineHeight":22.8,"color":"#091727","textAlign":"left"}} />
-      <Copy node="666:3899" box={[111, 93.5, 98, 16]} text={"Eco Explorer · Level 4"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":14.4,"color":"#3f596b","textAlign":"left"}} />
+      <Copy node="666:3898" box={[111, 64, 157, 26]} text={"Community member"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":19,"lineHeight":22.8,"color":"#091727","textAlign":"left"}} />
+      <Copy node="666:3899" box={[111, 93, 158, 19]} text={"Eco Explorer · Level 4"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":14.4,"color":"#3f596b","textAlign":"left"}} />
       <Artwork node="666:3900" box={[111, 115, 102, 24]} source={require('../../../../assets/figma/mobile/c2f6b.svg')} />
       <Copy node="666:3901" box={[136.5, 120.73, 51, 16]} text={"Edit profile"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":12,"lineHeight":14.4,"color":"#3f596b","textAlign":"center"}} />
       <Artwork node="666:3902" box={[278, 70, 94, 25]} source={require('../../../../assets/figma/mobile/803e2.svg')} />
@@ -37,7 +38,7 @@ export function Frame10UiMyProfileEcoImpactScreen() {
       <Copy node="666:3931" box={[271, 330.5, 45, 16]} text={"Cleanups"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":14.4,"color":"#3f596b","textAlign":"left"}} />
       <Artwork node="666:3959" box={[29, 59, 68, 68]} source={require('../../../../assets/figma/mobile/393ba.svg')} />
       <Copy node="666:3960" box={[58, 81, 10, 24]} text={"H"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":17.68000030517578,"lineHeight":21.22,"color":"#000000","textAlign":"center"}} />
-      <Copy node="666:3961" box={[111, 93.5, 98, 16]} text={"Eco Explorer · Level 4"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":14.4,"color":"#3f596b","textAlign":"left"}} />
+      <Copy node="666:3961" box={[111, 93, 158, 19]} text={"Eco Explorer · Level 4"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":14.4,"color":"#3f596b","textAlign":"left"}} />
       <Artwork node="666:3962" box={[111, 115, 102, 24]} source={require('../../../../assets/figma/mobile/c2f6b.svg')} />
       <Copy node="666:3963" box={[137, 119, 51, 16]} text={"Edit profile"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":12,"lineHeight":14.4,"color":"#3f596b","textAlign":"center"}} />
       <Artwork node="666:3964" box={[278, 70, 94, 25]} source={require('../../../../assets/figma/mobile/803e2.svg')} />
@@ -67,37 +68,6 @@ export function Frame10UiMyProfileEcoImpactScreen() {
       <Surface node="721:272" box={[22, 509, 348, 238.42]} fill={"#edfbff"} radius={10} stroke={[1,"#c9d5de"]} />
       <Copy node="721:273" box={[324, 519.68, 37, 16.46]} text={"Unit: kg"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":14.4,"color":"#2b2b2b","textAlign":"right"}} />
       <Copy node="721:274" box={[31, 517.62, 193, 20.57]} text={"Monthly Waste Collected (2026)"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":15,"lineHeight":18.0,"color":"#2b2b2b","textAlign":"left"}} />
-      <Copy node="721:277" box={[112, 725.39, 17, 16.46]} text={"Jan"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":14.4,"color":"#2b2b2b","textAlign":"left"}} />
-      <Copy node="721:278" box={[137, 725.39, 17, 16.46]} text={"Feb"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":14.4,"color":"#2b2b2b","textAlign":"left"}} />
-      <Copy node="721:279" box={[162, 725.39, 20, 16.46]} text={"Mar"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":14.4,"color":"#2b2b2b","textAlign":"left"}} />
-      <Copy node="721:280" box={[190, 725.39, 17, 16.46]} text={"Apr"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":14.4,"color":"#2b2b2b","textAlign":"left"}} />
-      <Copy node="721:281" box={[215, 725.39, 21, 16.46]} text={"May"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":14.4,"color":"#2b2b2b","textAlign":"left"}} />
-      <Copy node="721:282" box={[244, 725.39, 17, 16.46]} text={"Jun"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":14.4,"color":"#2b2b2b","textAlign":"left"}} />
-      <Copy node="721:283" box={[269, 725.39, 13, 16.46]} text={"Jul"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":14.4,"color":"#2b2b2b","textAlign":"left"}} />
-      <Copy node="721:284" box={[290, 725.39, 19, 16.46]} text={"Aug"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":14.4,"color":"#2b2b2b","textAlign":"left"}} />
-      <Copy node="721:285" box={[317, 725.39, 18, 16.46]} text={"Sep"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":14.4,"color":"#2b2b2b","textAlign":"left"}} />
-      <Copy node="721:286" box={[343, 725.39, 18, 16.46]} text={"Oct"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":14.4,"color":"#2b2b2b","textAlign":"left"}} />
-      <Copy node="721:287" box={[56, 725.39, 20, 16.46]} text={"Nov"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":14.4,"color":"#2b2b2b","textAlign":"left"}} />
-      <Copy node="721:288" box={[84, 725.39, 20, 16.46]} text={"Dec"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":14.4,"color":"#2b2b2b","textAlign":"left"}} />
-      <Surface node="721:290" box={[58, 658.53, 17, 63.77]} fill={"#a5e0f2"} />
-      <Surface node="721:291" box={[84, 630.76, 17, 91.54]} fill={"#a5e0f2"} />
-      <Surface node="721:292" box={[110, 686.3, 17, 36]} fill={"#a5e0f2"} />
-      <Surface node="721:293" box={[136, 594.76, 17, 127.54]} fill={"#a5e0f2"} />
-      <Surface node="721:294" box={[162, 654.42, 17, 67.88]} fill={"#a5e0f2"} />
-      <Surface node="721:295" box={[188, 634.88, 17, 87.43]} fill={"#a5e0f2"} />
-      <Surface node="721:296" box={[214, 673.96, 17, 48.34]} fill={"#a5e0f2"} />
-      <Surface node="721:297" box={[240, 578.31, 17, 144]} fill={"#a5e0f2"} />
-      <Surface node="721:298" box={[266, 642.08, 17, 80.23]} fill={"#a5e0f2"} />
-      <Surface node="721:299" box={[292, 663.68, 17, 58.63]} fill={"#a5e0f2"} />
-      <Surface node="721:300" box={[318, 610.19, 17, 112.11]} fill={"#a5e0f2"} />
-      <Surface node="721:301" box={[344, 626.65, 17, 95.65]} fill={"#a5e0f2"} />
-      <Copy node="721:303" box={[36, 546.42, 13, 16.46]} text={"50"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":14.4,"color":"#2b2b2b","textAlign":"right"}} />
-      <Copy node="721:304" box={[36, 578.31, 13, 16.46]} text={"40"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":14.4,"color":"#2b2b2b","textAlign":"right"}} />
-      <Copy node="721:305" box={[36, 610.19, 13, 16.46]} text={"30"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":14.4,"color":"#2b2b2b","textAlign":"right"}} />
-      <Copy node="721:306" box={[36, 642.08, 13, 16.46]} text={"20"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":14.4,"color":"#2b2b2b","textAlign":"right"}} />
-      <Copy node="721:307" box={[36, 673.96, 13, 16.46]} text={"10"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":14.4,"color":"#2b2b2b","textAlign":"right"}} />
-      <Copy node="721:308" box={[42, 705.85, 7, 16.46]} text={"0"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":14.4,"color":"#2b2b2b","textAlign":"right"}} />
-      <Artwork node="721:309" box={[28.5, 721.29, 332, 1]} source={require('../../../../assets/figma/mobile/309c4.svg')} />
       <Artwork node="721:310" box={[53, 545.91, 1, 186.17]} source={require('../../../../assets/figma/mobile/1d521.svg')} />
       <Surface node="721:313" box={[24, 883.81, 349, 71.62]} fill={"#edfbff"} radius={10} stroke={[1,"#c9d5de"]} />
       <Surface node="721:314" box={[34, 892, 56, 56]} fill={"#a5e0f2"} radius={10} stroke={[1,"#c9d5de"]} />
@@ -148,6 +118,7 @@ export function Frame10UiMyProfileEcoImpactScreen() {
       <Link node="759:521" box={[278, 70, 94, 25]} to="238:299" label={"14_UI_Leaderboard"} />
       <Link node="759:523" box={[51, 163, 48, 45]} to="263:2756" label={"15_UI_Points_History"} />
       <Link node="759:548" box={[174, 163, 42, 45]} to="670:5000" label={"18_UI_Daily_Mission"} />
+      <Artwork node="monthChart" box={[33,548,324,185]} content={<MonthlyChart/>}/>
       <Link node="721:275" box={[29, 546, 333, 196]} to="311:1412" label={"Frame 11 - Eco History Log"} />
       <Link node="721:342" box={[22, 997, 353, 45]} to="218:2549" label={"12_UI_Achievements_Badges"} />
       <Link node="721:348" box={[22, 1046, 353, 45]} to="263:2756" label={"15_UI_Points_History"} />

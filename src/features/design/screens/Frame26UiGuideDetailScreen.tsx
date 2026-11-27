@@ -50,6 +50,7 @@ export function Frame26UiGuideDetailScreen() {
       <Artwork node="759:595" box={[20, 70, 43, 43]} source={require('../../../../assets/figma/mobile/7e84c.svg')} />
       <Link node="682:5622" box={[131, 736, 241, 52]} to="682:5379" label={"25_UI_Green_Living_Tips"} />
       <Link node="759:595" box={[20, 70, 43, 43]} to="682:5379" label={"25_UI_Green_Living_Tips"} />
+      <Copy node="guideSave" box={[292,77,80,28]} text={"Save guide"} typeStyle={{fontFamily:"AfacadFlux_700Bold",fontSize:15,color:"#0186a8",textAlign:"center",backgroundColor:"#edfbff"}}/>
     </Frame>
   );
 }

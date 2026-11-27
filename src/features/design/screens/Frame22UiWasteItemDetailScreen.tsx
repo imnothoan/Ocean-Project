@@ -45,6 +45,7 @@ export function Frame22UiWasteItemDetailScreen() {
       <Copy node="269:179" box={[64, 742, 141, 23]} text={"Find a recycling point"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":17,"lineHeight":20.4,"color":"#ffffff","textAlign":"left"}} />
       <Artwork node="269:201" box={[148, 180, 103, 107]} source={require('../../../../assets/figma/mobile/558ab.svg')} />
       <Link node="269:127" box={[23, 69, 43, 43]} to="263:2582" label={"21_UI_Waste_Sorting_Guide"} />
+      <Copy node="guideSave" box={[292,77,80,28]} text={"Save guide"} typeStyle={{fontFamily:"AfacadFlux_700Bold",fontSize:15,color:"#0186a8",textAlign:"center",backgroundColor:"#edfbff"}}/>
     </Frame>
   );
 }

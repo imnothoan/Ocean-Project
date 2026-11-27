@@ -49,6 +49,7 @@ export function Frame24UiSpeciesDetailScreen() {
       <Copy node="274:353" box={[146, 781.5, 99, 16]} text={"Explore more species"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":12,"lineHeight":14.4,"color":"#0186a8","textAlign":"center"}} />
       <Link node="274:300" box={[23, 69, 43, 43]} to="272:204" label={"23_UI_Species_Library"} />
       <Link node="274:353" box={[146, 782, 99, 16]} to="272:204" label={"23_UI_Species_Library"} />
+      <Copy node="guideSave" box={[292,77,80,28]} text={"Save guide"} typeStyle={{fontFamily:"AfacadFlux_700Bold",fontSize:15,color:"#0186a8",textAlign:"center",backgroundColor:"#edfbff"}}/>
     </Frame>
   );
 }

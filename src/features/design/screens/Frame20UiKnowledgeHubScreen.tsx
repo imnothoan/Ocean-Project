@@ -1,3 +1,4 @@
+import { KnowledgeTopics } from '../Learning';
 import { Artwork, Copy, Frame, Link, Surface } from '../components';
 
 // Figma 244:550 · 20_UI_Knowledge_Hub
@@ -34,28 +35,10 @@ export function Frame20UiKnowledgeHubScreen() {
       <Copy node="244:613" box={[150, 705, 83, 16]} text={"Small habits for a"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":14.4,"color":"#3f596b","textAlign":"left"}} />
       <Copy node="244:614" box={[150, 721, 123, 16]} text={"lighter everyday footprint."} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":14.4,"color":"#3f596b","textAlign":"left"}} />
       <Copy node="244:615" box={[150, 739, 52, 16]} text={"Read more"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":12,"lineHeight":14.4,"color":"#0186a8","textAlign":"left"}} />
-      <Artwork node="759:564" box={[382, 393, 172, 92]} source={require('../../../../assets/figma/mobile/18cc8.svg')} />
-      <Copy node="759:565" box={[438, 410, 76, 16]} text={"Green living tips"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":12,"lineHeight":14.4,"color":"#091727","textAlign":"left"}} />
-      <Copy node="759:566" box={[395, 445.2, 112, 16]} text={"Know what goes where"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":14.4,"color":"#3f596b","textAlign":"left"}} />
-      <Artwork node="759:567" box={[534.06, 454.56, 5.5, 9.88]} source={require('../../../../assets/figma/mobile/0ddf7.svg')} />
-      <Artwork node="759:573" box={[410.17, 411.18, 16.78, 17.73]} source={require('../../../../assets/figma/mobile/a26d2.svg')} />
-      <Artwork node="244:580" box={[32, 404, 36, 36]} source={require('../../../../assets/figma/mobile/0fd9f.svg')} />
-      <Artwork node="244:579" box={[20, 393, 172, 92]} source={require('../../../../assets/figma/mobile/18cc8.svg')} />
-      <Copy node="244:581" box={[76, 410, 65, 16]} text={"Waste sorting"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":12,"lineHeight":14.4,"color":"#091727","textAlign":"left"}} />
-      <Copy node="244:582" box={[33, 445.2, 112, 16]} text={"Know what goes where"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":14.4,"color":"#3f596b","textAlign":"left"}} />
-      <Artwork node="244:583" box={[172.06, 454.56, 5.5, 9.88]} source={require('../../../../assets/figma/mobile/0ddf7.svg')} />
-      <Artwork node="244:586" box={[213, 404, 36, 36]} source={require('../../../../assets/figma/mobile/0fd9f.svg')} />
-      <Artwork node="244:585" box={[201, 393, 172, 92]} source={require('../../../../assets/figma/mobile/beec7.svg')} />
-      <Artwork node="244:587" box={[222.84, 413.34, 16.78, 17.73]} source={require('../../../../assets/figma/mobile/e896a.svg')} />
-      <Copy node="244:590" box={[214, 445.2, 103, 16]} text={"Discover local wildlife"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":12,"lineHeight":14.4,"color":"#3f596b","textAlign":"left"}} />
-      <Copy node="244:589" box={[257, 410, 69, 16]} text={"Species library"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":12,"lineHeight":14.4,"color":"#091727","textAlign":"left"}} />
-      <Artwork node="244:591" box={[353.06, 454.56, 5.5, 9.88]} source={require('../../../../assets/figma/mobile/795b1.svg')} />
       <Link node="244:553" box={[23, 69, 43, 43]} to="666:3592" label={"10_UI_My_Profile_Eco_Impact"} />
       <Link node="1230:541" box={[20, 527, 353, 112]} to="272:204" label={"23_UI_Species_Library"} />
       <Link node="244:594" box={[20, 527, 353, 112]} to="272:204" label={"23_UI_Species_Library"} />
-      <Link node="759:563" box={[382, 393, 172, 92]} to="682:5379" label={"25_UI_Green_Living_Tips"} />
-      <Link node="759:555" box={[20, 393, 172, 92]} to="263:2582" label={"21_UI_Waste_Sorting_Guide"} />
-      <Link node="759:557" box={[201, 393, 172, 92]} to="272:204" label={"23_UI_Species_Library"} />
+      <Artwork node="knowledgeTopics" box={[0,393,393,92]} content={<KnowledgeTopics/>}/>
     </Frame>
   );
 }

@@ -1,14 +1,14 @@
 import { supabase } from '../../lib/supabase';
 import type { Session } from '@supabase/supabase-js';
 
-export type Profile = { display_name:string; handle:string | null; bio:string; location:string; interests:string[] };
+export type Profile = { display_name:string; handle:string | null; bio:string; location:string; public_ranking?:boolean; interests:string[] };
 export const emptyProfile: Profile = { display_name:'',handle:null,bio:'',location:'',interests:[] };
 export type Post = { id:string; author_id:string; body:string; topic:string; created_at:string; location:string; mention:string; photo_paths?:string[] };
 export type Comment = { id:string; body:string; author_id:string; created_at:string };
 export type CommunityItem = { post:Post; profile:Profile | null; likes:number; liked:boolean; comments:Comment[] };
 export async function fetchProfile(session:Session | null) {
   if(!session) return emptyProfile;
-  const {data,error}=await supabase.from('ocean_profiles').select('display_name,handle,bio,location,interests').eq('id',session.user.id).maybeSingle();
+  const {data,error}=await supabase.from('ocean_profiles').select('display_name,handle,bio,location,interests,public_ranking').eq('id',session.user.id).maybeSingle();
   if(error) throw error;
   return (data as Profile | null) ?? emptyProfile;
 }

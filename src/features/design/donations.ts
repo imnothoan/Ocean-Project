@@ -1,3 +1,4 @@
+import { randomUUID } from 'expo-crypto';
 import { createDonation } from '../../lib/supabase';
 import { action,choices,field,result,required,type Controller } from './workflow';
 export type Pledge={id:string;amount:number;campaign:string;status:string;created_at:string};
@@ -19,9 +20,14 @@ export function donations(c:Controller,pledges:Pledge[]){
   b.labels['1581:1734']='Save pledge';b.labels['1581:1735']='Records a pledge only. No money will be charged.';
   action(c,['1581:1733','1581:1734'],()=>c.run(async()=>{
    if(!Number.isFinite(amount)||amount<=0)throw new Error('Nhập số tiền hợp lệ.');
-   const pledge=result(await createDonation(v.anonymous==='yes'?'Anonymous':(c.user?.email?.split('@')[0]||'Supporter'),amount,'Protect Phu Quoc Coral Reef',v.donationNote||''));
+   const campaign=v.campaign||'Protect Phu Quoc Coral Reef';
+   const fingerprint=JSON.stringify([campaign,amount,v.donationNote||'',v.anonymous||'']);
+   if(v.pledgeId && v.lastPledge===fingerprint){c.go('1581:1764');return;}
+   const requestId=v.pendingPledge===fingerprint && v.pledgeRequestId?v.pledgeRequestId:randomUUID();
+   c.setValue('pendingPledge',fingerprint);c.setValue('pledgeRequestId',requestId);
+   const pledge=result(await createDonation(v.anonymous==='yes'?'Anonymous':'Ocean Project supporter',amount,campaign,v.donationNote||'',requestId));
    if(!pledge)throw new Error('Chưa lưu được cam kết.');
-   c.setValue('pledgeId',pledge.id);c.refresh();c.go('1581:1764');
+   c.setValue('lastPledge',fingerprint);c.setValue('pledgeId',pledge.id);c.refresh();c.go('1581:1764');
   },true));
  }
  if(id==='1581:1764'){

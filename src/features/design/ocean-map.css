@@ -1,0 +1,20 @@
+/* Positions the Leaflet 1.9 tile, vector, tooltip and control layers used by OceanMap. */
+.leaflet-container { overflow: hidden; background: #e8f3f5; font: 12px system-ui, sans-serif; isolation: isolate; touch-action: none; }
+.leaflet-pane, .leaflet-tile, .leaflet-tile-container, .leaflet-pane > svg, .leaflet-tooltip { position: absolute; top: 0; left: 0; }
+.leaflet-tile { user-select: none; -webkit-user-drag: none; visibility: hidden; border: 0; max-width: none; }
+.leaflet-tile-loaded { visibility: visible; }
+.leaflet-tile-pane { z-index: 2; }
+.leaflet-overlay-pane { z-index: 4; }
+.leaflet-tooltip-pane { z-index: 6; }
+.leaflet-tooltip { background: white; padding: 4px 8px; white-space: nowrap; border-radius: 6px; pointer-events: none; }
+.leaflet-interactive { cursor: pointer; pointer-events: auto; }
+.leaflet-top, .leaflet-bottom { position: absolute; z-index: 8; pointer-events: none; }
+.leaflet-top { top: 0; }
+.leaflet-bottom { bottom: 0; }
+.leaflet-left { left: 0; }
+.leaflet-right { right: 0; }
+.leaflet-control { pointer-events: auto; }
+.leaflet-control-zoom { margin: 10px; border: 1px solid #b7d5d8; border-radius: 6px; overflow: hidden; }
+.leaflet-control-zoom a { display: block; width: 28px; height: 28px; line-height: 27px; text-align: center; text-decoration: none; background: white; color: #145069; font-size: 20px; }
+.leaflet-control-attribution { background: #ffffffe6; color: #294552; padding: 2px 4px; font-size: 10px; }
+.leaflet-control-attribution a { color: #145069; }

@@ -366,7 +366,7 @@ export async function loadEventRecaps(eventId: string) {
   return supabase.from('event_recaps').select('id, event_id, author_id, body, created_at').eq('event_id', eventId).order('created_at', { ascending: false });
 }
 
-export async function createDonation(donorName: string, amount: number, campaign: string, note = '') {
+export async function createDonation(donorName: string, amount: number, campaign: string, note = '', requestId?:string) {
   if (!isSupabaseConfigured) {
     return { data: null, error: new Error('Supabase is not configured.') };
   }
@@ -376,9 +376,10 @@ export async function createDonation(donorName: string, amount: number, campaign
     return { data: null, error: userError ?? new Error('You must be signed in to record a donation.') };
   }
 
-  return supabase
-    .from('donations')
-    .insert({ donor_name: donorName, amount, campaign, note, status: 'pending', donor_id: userData.user.id })
-    .select()
-    .single();
+  const saved=await supabase.from('donations')
+    .insert({...(requestId?{id:requestId}:{}),donor_name:donorName,amount,campaign,note,status:'pending',donor_id:userData.user.id}).select().single();
+  if(saved.error?.code==='23505' && requestId){
+    return supabase.from('donations').select().eq('id',requestId).eq('donor_id',userData.user.id).single();
+  }
+  return saved;
 }
