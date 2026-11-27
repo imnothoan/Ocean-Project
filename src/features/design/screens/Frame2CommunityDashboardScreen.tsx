@@ -48,6 +48,7 @@ export function Frame2CommunityDashboardScreen() {
       <Artwork node="1593:2084" box={[23, 69, 43, 43]} source={require('../../../../assets/figma/mobile/3496f.svg')} />
       <Copy node="1593:2087" box={[123, 77, 149, 26]} text={"Network Overview"} typeStyle={{"fontFamily":"AfacadFlux_600SemiBold","fontSize":20,"lineHeight":25.4,"color":"#3f596b","textAlign":"left"}} />
       <Link node="311:4423" box={[22, 712, 349, 72]} to="311:1159" label={"Frame 9 - Campaign Impact Stats"} />
+      <Copy node="networkMapLink" box={[23,284,185,24]} text={"Open activity map"} typeStyle={{fontFamily:"AfacadFlux_600SemiBold", fontSize:16, color:"#0186a8"}} />
       <Link node="311:4496" box={[23, 310, 350, 345]} to="311:1093" label={"Frame 8 - Heatmap Data Overview"} />
       <Link node="311:556" box={[292, 284, 81, 20]} to="311:579" label={"Frame 3 - Area Rankings"} />
       <Link node="1593:2084" box={[23, 69, 43, 43]} to="666:3592" label={"10_UI_My_Profile_Eco_Impact"} />

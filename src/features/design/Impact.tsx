@@ -1,6 +1,9 @@
 import { Text, View } from 'react-native';
 import { FlowSection, ListRow, SmallButton, styles, useLiveData } from './live';
-import { action, choices, field, type Controller } from './workflow';
+import { Image } from 'expo-image';
+import Svg, { Circle } from 'react-native-svg';
+import { eventPhotoUrl } from './eventPhotos';
+import { action, field, type Controller } from './workflow';
 import type { ProjectData } from './useProjectData';
 import { levelFor } from './activity';
 import { matchesQuery } from './communityView';
@@ -37,6 +40,94 @@ export function coastlines(data: ProjectData) {
   for (const r of data.reports) ensure(r.location).reports++;
   return [...byArea.entries()].map(([location, counts]) => ({ location, ...counts }));
 }
+function AreaMap({ reportsOnly = false }: { reportsOnly?: boolean }) {
+  const { c, data } = useLiveData();
+  const places = coastlines(data).flatMap((a) => {
+    const coordinate = parseReportCoordinates(a.location);
+    if (!coordinate || (reportsOnly && !a.reports)) return [];
+    return [{ id: a.location, title: a.location + ' · ' + a.reports + ' reports', coordinate }];
+  });
+  return (
+    <View style={{ flex: 1, overflow: 'hidden', borderRadius: 10 }}>
+      <OceanMap
+        places={places}
+        onSelect={(location) => {
+          c.setValue('area', location);
+          c.go('311:942');
+        }}
+      />
+    </View>
+  );
+}
+
+const chartColors = ['#706ee7', '#ff928a', '#55c4ae', '#ffae4c'];
+function CompositionChart({ shares }: { shares: number[] }) {
+  let offset = 0;
+  const circumference = 2 * Math.PI * 40;
+  return (
+    <Svg width="100%" height="100%" viewBox="0 0 100 100" accessibilityLabel="Waste composition">
+      <Circle cx={50} cy={50} r={40} stroke="#e5ecef" strokeWidth={14} fill="none" />
+      {shares.map((share, i) => {
+        if (!share) return null;
+        const start = offset;
+        const length = circumference * share;
+        offset += length;
+        return (
+          <Circle
+            key={chartColors[i]}
+            cx={50}
+            cy={50}
+            r={40}
+            fill="none"
+            strokeWidth={14}
+            stroke={chartColors[i]}
+            strokeDasharray={[length, circumference - length]}
+            strokeDashoffset={-start}
+            rotation={-90}
+            origin="50,50"
+          />
+        );
+      })}
+    </Svg>
+  );
+}
+
+function RecapPhotos({ cover, recap }: { cover?: string | null; recap?: string | null }) {
+  const photos = [
+    [cover, 'Event cover'],
+    [recap, 'Recap photo'],
+  ].filter(([path]) => path);
+  return (
+    <View
+      style={{
+        flexDirection: 'row',
+        flex: 1,
+        gap: 6,
+        alignItems: 'stretch',
+        backgroundColor: '#edfbff',
+        borderRadius: 10,
+        overflow: 'hidden',
+      }}
+    >
+      {photos.length ? (
+        photos.map(([path, label]) => (
+          <Image
+            key={label}
+            accessibilityLabel={label!}
+            source={{ uri: eventPhotoUrl(path) }}
+            contentFit="cover"
+            style={{ flex: 1 }}
+          />
+        ))
+      ) : (
+        <Text style={[styles.body, { alignSelf: 'center', flex: 1, textAlign: 'center' }]}>
+          No event photos yet.
+        </Text>
+      )}
+    </View>
+  );
+}
+
 export function AreaList({ overview = false }: { overview?: boolean }) {
   const { c, data, loading } = useLiveData();
   const areas = coastlines(data)
@@ -46,15 +137,11 @@ export function AreaList({ overview = false }: { overview?: boolean }) {
     c.setValue('area', location);
     c.go('311:942');
   };
-  const places = areas.flatMap((a) => {
-    const coordinate = parseReportCoordinates(a.location);
-    return coordinate ? [{ id: a.location, title: a.location, coordinate }] : [];
-  });
   return (
     <FlowSection top={overview ? 139 : 250}>
       {overview && (
         <View style={{ height: 260, borderRadius: 16, overflow: 'hidden' }}>
-          <OceanMap places={places} onSelect={pick} />
+          <AreaMap />
         </View>
       )}
       <Text style={styles.heading}>{overview ? 'Reported locations' : 'Coastlines'}</Text>
@@ -62,9 +149,7 @@ export function AreaList({ overview = false }: { overview?: boolean }) {
         <ListRow
           key={a.location}
           title={a.location}
-          description={
-            a.reports + ' visible reports · ' + a.events + ' events · ' + a.kg + ' kg recorded'
-          }
+          description={a.reports + ' visible reports · ' + a.events + ' events · ' + a.kg + ' kg recorded'}
           onPress={() => pick(a.location)}
         />
       ))}
@@ -78,15 +163,11 @@ export function AreaDetail({ compare = false }: { compare?: boolean }) {
   const { c, data } = useLiveData();
   const areas = coastlines(data);
   const selected = areas.find((a) => a.location === c.values.area) ?? areas[0];
-  const second = areas.find(
-    (a) => a.location === c.values.compareArea && a.location !== selected?.location,
-  );
+  const second = areas.find((a) => a.location === c.values.compareArea && a.location !== selected?.location);
   const card = (a: NonNullable<typeof selected>) => (
     <ListRow
       title={a.location}
-      description={
-        a.events + ' events\n' + a.reports + ' visible reports\n' + a.kg + ' kg in event recaps'
-      }
+      description={a.events + ' events\n' + a.reports + ' visible reports\n' + a.kg + ' kg in event recaps'}
     />
   );
   return (
@@ -131,9 +212,7 @@ export function Trends() {
         <ListRow key={m.metric_date} title={m.metric_date} description={m.total_kg + ' kg recorded'} />
       ))}
       {!data.metrics.length && (
-        <Text style={styles.body}>
-          {loading ? 'Loading measurements…' : 'No measurements recorded.'}
-        </Text>
+        <Text style={styles.body}>{loading ? 'Loading measurements…' : 'No measurements recorded.'}</Text>
       )}
     </FlowSection>
   );
@@ -244,6 +323,22 @@ export function impactBindings(c: Controller, data: ProjectData) {
       '311:4358': String(data.events.length),
       '311:501': 'Latest activities',
     });
+    b.replacements['311:4374'] = <AreaMap />;
+    for (const n of [
+      '311:4394',
+      '311:4395',
+      '311:4419',
+      '311:4399',
+      '311:4403',
+      '311:4407',
+      '311:4411',
+      '311:4415',
+      '1683:645',
+      '1683:646',
+      '311:4496',
+    ])
+      b.hidden.add(n);
+    action(c, ['networkMapLink'], () => c.go('311:1093'));
     const recent = data.recaps.slice(0, 2);
     [
       ['311:4427', '311:4428', '311:4429', '311:4445'],
@@ -258,9 +353,15 @@ export function impactBindings(c: Controller, data: ProjectData) {
         [e]: r?.total_kg != null ? r.total_kg + ' kg recorded' : '',
       });
     });
-    action(c, ['311:4423'], () => {
-      if (recent[0]) c.setValue('eventId', recent[0].event_id);
-      c.go('311:1159');
+    ['311:4423', '311:4457'].forEach((n, i) => {
+      if (!recent[i]) {
+        if (i === 1) for (const empty of ['311:4457', '311:4458', '311:4463']) b.hidden.add(empty);
+        return;
+      }
+      action(c, [n], () => {
+        c.setValue('eventId', recent[i].event_id);
+        c.go('311:1159');
+      });
     });
   }
   if (id === '311:579') {
@@ -273,6 +374,7 @@ export function impactBindings(c: Controller, data: ProjectData) {
   if (id === '311:1159') {
     const r = data.recaps.find((r) => r.event_id === v.eventId) ?? data.recaps[0];
     const event = data.events.find((e) => e.id === r?.event_id);
+    b.replacements['323:5664'] = <RecapPhotos cover={event?.cover_path} recap={r?.photo_path} />;
     Object.assign(b.labels, {
       '311:1162': r ? 'Recorded' : 'Awaiting recap',
       '311:1166': event?.title || 'Event impact',
@@ -322,16 +424,37 @@ export function impactBindings(c: Controller, data: ProjectData) {
     action(c, ['727:465'], () => c.go('666:2965'));
   }
   if (id === '292:4198') {
-    const pending = data.reports.filter(
-      (r) => r.status === 'submitted' || r.status === 'reviewing',
-    ).length;
+    const pending = data.reports.filter((r) => r.status === 'submitted' || r.status === 'reviewing').length;
     Object.assign(b.labels, {
+      '292:4209': 'All locations',
       '292:4212': 'All time',
+      '292:4222': 'Open reports',
+      '292:4227': 'Resolved',
+      '292:4232': 'Reported locations',
+      '292:4243': 'Visible reports with coordinates',
+      '292:4244': '',
       '292:4218': total.total + ' kg',
       '292:4219': 'Recorded metrics',
       '292:4223': String(pending),
       '292:4228': String(data.reports.filter((r) => r.status === 'resolved').length),
       '292:4229': data.reports.length + ' visible reports',
     });
+    const amounts = [
+      total.plastic,
+      total.organic,
+      total.other,
+      Math.max(0, total.total - total.plastic - total.organic - total.other),
+    ];
+    const sum = amounts.reduce((a, b) => a + b, 0);
+    const shares = amounts.map((value) => (sum ? value / sum : 0));
+    ['Plastics', 'Organic', 'Other', 'Unclassified'].forEach((name, i) => {
+      b.labels[['1692:713', '1692:717', '1692:721', '1692:725'][i]] = name;
+      b.labels[['1692:714', '1692:718', '1692:722', '1692:726'][i]] = Math.round(shares[i] * 100) + '%';
+      b.tint[['1692:715', '1692:719', '1692:723', '1692:727'][i]] = chartColors[i];
+    });
+    b.hidden.add('292:4248');
+    b.hidden.add('292:4249');
+    b.replacements['1692:728'] = <CompositionChart shares={shares} />;
+    b.replacements['292:4234'] = <AreaMap reportsOnly />;
   }
 }

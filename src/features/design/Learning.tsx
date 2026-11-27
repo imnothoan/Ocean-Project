@@ -73,11 +73,7 @@ export function ActivityHistory({ top = 315 }: { top?: number }) {
           key={r.date + i}
           title={r.title}
           description={
-            new Date(r.date).toLocaleDateString() +
-            ' · ' +
-            (r.points > 0 ? '+' : '') +
-            r.points +
-            ' points'
+            new Date(r.date).toLocaleDateString() + ' · ' + (r.points > 0 ? '+' : '') + r.points + ' points'
           }
         />
       ))}
@@ -169,10 +165,7 @@ export function MonthlyChart() {
       style={{ flex: 1, flexDirection: 'row', alignItems: 'flex-end', padding: 3, gap: 3 }}
     >
       {amounts.map((kg, i) => (
-        <View
-          key={i}
-          style={{ flex: 1, height: '100%', justifyContent: 'flex-end', alignItems: 'center' }}
-        >
+        <View key={i} style={{ flex: 1, height: '100%', justifyContent: 'flex-end', alignItems: 'center' }}>
           <Text style={{ fontSize: 8, color: '#37586b' }}>{kg || ''}</Text>
           <View
             style={{
@@ -187,6 +180,19 @@ export function MonthlyChart() {
     </View>
   );
 }
+function ProgressBar({ fraction }: { fraction: number }) {
+  return (
+    <View style={{ flex: 1, borderRadius: 7, backgroundColor: '#d7ecee', overflow: 'hidden' }}>
+      <View
+        style={{
+          height: '100%',
+          backgroundColor: '#35b7ce',
+          width: `${Math.max(0, Math.min(1, fraction)) * 100}%`,
+        }}
+      />
+    </View>
+  );
+}
 export function learning(c: Controller, data: ProjectData) {
   const { id, binding: b, user, values: v } = c;
   if (id in guideNames) {
@@ -195,9 +201,7 @@ export function learning(c: Controller, data: ProjectData) {
     action(c, ['guideSave', '682:5575', '682:5577'], () =>
       c.run(async () => {
         if (saved)
-          result(
-            await supabase.from('saved_guides').delete().eq('user_id', user!.id).eq('frame_id', id),
-          );
+          result(await supabase.from('saved_guides').delete().eq('user_id', user!.id).eq('frame_id', id));
         else {
           const response = await supabase.from('saved_guides').insert({ frame_id: id });
           if (response.error?.code !== '23505') result(response);
@@ -236,7 +240,7 @@ export function learning(c: Controller, data: ProjectData) {
   const verified = data.reports.filter((r) => r.owner_id === user?.id && r.status === 'resolved');
   const completed = data.checkins.length,
     read = data.learning.length,
-    posts = data.items.filter((r) => r.post.author_id === user?.id).length;
+    posts = data.postCount;
   const streak = dayStreak(activity);
   const badges = [
     activity.length > 0,
@@ -279,6 +283,8 @@ export function learning(c: Controller, data: ProjectData) {
       ' pts';
   }
   if (id === '240:442') {
+    b.replacements['240:460'] = <ProgressBar fraction={level.target ? xp / level.target : 1} />;
+    b.hidden.add('240:461');
     Object.assign(b.labels, {
       '240:457': 'Level ' + level.number,
       '240:458': level.name,
@@ -294,15 +300,56 @@ export function learning(c: Controller, data: ProjectData) {
     ['240:471', '240:477', '240:484', '240:491', '240:498'].forEach(
       (n, i) => (b.labels[n] = level.number === i + 1 ? 'Now' : level.number > i + 1 ? 'Done' : 'Next'),
     );
+    action(c, ['240:457', '240:458', '240:459', '240:462', 'levelProgressLink'], () => c.go('670:5193'));
     action(c, ['240:507', '759:542'], () => c.go('670:4692'));
   }
   if (id === '218:2549') {
+    const filter = v.badgeCategory || 'All';
+    const categories = ['Community', 'Cleanup', 'Cleanup', 'Knowledge', 'Community', 'Community'];
+    const tiles = [
+      [2577, 2581, 2623],
+      [2582, 2586, 2635],
+      [2587, 2591, 2626],
+      [2592, 2596, 2629],
+      [2597, 2601, 2632],
+      [2602, 2608, 2611],
+    ];
+    const chips = ['All', 'Community', 'Cleanup', 'Knowledge'];
+    chips.forEach((category, i) => {
+      const background = '218:' + (2567 + 2 * i),
+        text = '218:' + (2568 + 2 * i);
+      const selected = category === filter;
+      b.replacements[background] = (
+        <View style={{ flex: 1, borderRadius: 16, backgroundColor: selected ? '#0186a8' : '#edfbff' }} />
+      );
+      b.tint[text] = selected ? '#fff' : '#3f596b';
+      b.labels[background] = category;
+      action(c, [background, text], () => c.setValue('badgeCategory', category));
+    });
+    const visible = categories.map((cat, i) => filter === 'All' || cat === filter);
+    const destinations = ['263:2756', '230:1379', '670:4529', '244:550', '670:5000', '101:2769'];
+    tiles.forEach(([first, last, icon], i) => {
+      const nodes = Array.from({ length: last - first + 1 }, (_, index) => '218:' + (first + index)).concat(
+        '218:' + icon,
+      );
+      if (!visible[i]) {
+        for (const n of nodes) b.hidden.add(n);
+        return;
+      }
+      action(c, nodes, () => c.go(destinations[i]));
+    });
+    if (!visible[2]) b.hidden.add('759:535');
+    if (filter !== 'All') b.labels['218:2575'] = filter;
+    b.replacements['218:2565'] = <ProgressBar fraction={badges.filter(Boolean).length / 6} />;
+    b.hidden.add('218:2566');
+    b.replacements['218:2617'] = <ProgressBar fraction={Math.min(3, posts) / 3} />;
+    b.hidden.add('218:2618');
     Object.assign(b.labels, {
       '218:2563': badges.filter(Boolean).length + ' of 6 badges',
-      '218:2576': badges.filter(Boolean).length + ' earned',
+      '218:2576': badges.filter((earned, i) => earned && visible[i]).length + ' earned',
       '218:2583': 'Report Guardian',
       '218:2584': 'Verify 3 reports',
-      '218:2594': 'Complete 2 learning activities',
+      '218:2594': 'Finish 2 guides',
       '218:2604': 'Community Builder',
       '218:2605': 'Share 3 posts',
       '218:2620': Math.min(3, posts) + ' / 3 posts',
@@ -312,7 +359,14 @@ export function learning(c: Controller, data: ProjectData) {
       (n, i) => (b.labels[n] = badges[i] ? 'EARNED' : 'LOCKED'),
     );
   }
-  if (id === '670:4529')
+  if (id === '670:4529') {
+    action(c, ['670:4576'], () => c.go('218:2549'));
+    for (const [n, at] of [
+      ['670:4553', 1],
+      ['670:4559', 2],
+      ['670:4565', 3],
+    ] as const)
+      if (completed < at) b.hidden.add(n);
     Object.assign(b.labels, {
       '670:4571': String(completed),
       '670:4572': 'events attended',
@@ -326,22 +380,38 @@ export function learning(c: Controller, data: ProjectData) {
       '670:4573': '50 pts',
       '670:4574': 'per check-in',
     });
-  if (id === '670:5193')
+  }
+  if (id === '670:5193') {
+    b.replacements['670:5219'] = <ProgressBar fraction={level.target ? xp / level.target : 1} />;
+    b.replacements['670:5245'] = <ProgressBar fraction={level.target ? xp / level.target : 1} />;
+    b.hidden.add('670:5220');
+    b.hidden.add('670:5246');
+    action(c, ['670:5228', '670:5229'], () => c.go('670:4692'));
+    action(c, ['670:5234', '670:5235'], () => c.go('218:2549'));
+    action(c, ['670:5240', '670:5241'], () => c.go('244:550'));
     Object.assign(b.labels, {
+      '670:5202': 'Your level',
+      '670:5216': 'LEVEL',
       '670:5217': 'Level ' + level.number,
+      '670:5218': level.name,
+      '670:5228': 'Rewards',
+      '670:5229': data.claims.length + ' claimed',
+      '670:5234': 'Badges',
+      '670:5235': badges.filter(Boolean).length + ' earned',
+      '670:5240': 'Guides',
+      '670:5241': data.saved.length + ' saved',
       '670:5221': xp + ' XP',
-      '670:5222': level.name,
+      '670:5222': 'Earned to date',
       '670:5223': 'Your level progress',
       '670:5243': level.next || level.name,
       '670:5244': level.remaining + ' XP to go',
     });
+  }
   if (id === '670:5000') {
     const date = new Date().toLocaleDateString(),
       isToday = (d: string) => new Date(d).toLocaleDateString() === date;
     const own = data.reports.filter((r) => r.owner_id === user?.id);
-    const supported = data.items.filter(
-      (x) => x.liked || x.comments.some((n) => n.author_id === user?.id),
-    ).length;
+    const supported = data.supportedToday;
     const done = [
       own.some((r) => isToday(r.created_at)),
       data.learning.some((r) => isToday(r.completed_at)),
@@ -351,14 +421,18 @@ export function learning(c: Controller, data: ProjectData) {
     b.labels['670:5012'] = streak + ' days';
     b.labels['670:5013'] = done + ' of 4 activities complete';
     b.labels['670:5044'] = done + ' / 4 done';
-    b.labels['670:5069'] = 'Liked or commented · ' + Math.min(3, supported) + ' / 3';
+    b.labels['670:5068'] = 'Comment on 3 posts';
+    b.labels['670:5069'] = 'Commented today · ' + Math.min(3, supported) + ' / 3';
     b.labels['670:5053'] = 'Report';
+    action(c, ['670:5056', '670:5058', '670:5059'], () => c.go('263:2582'));
+    action(c, ['670:5071', '670:5072'], () => c.go('101:2769'));
+    action(c, ['670:5080', '670:5081'], () => c.go('258:426'));
     action(c, ['670:5053'], () => c.go('230:1093'));
     Object.assign(b.labels, {
-      '670:5051': '+30 pts when verified',
+      '670:5051': '+30 pts',
       '670:5060': '+10 pts',
-      '670:5070': 'Community',
-      '670:5079': '+50 pts at check-in',
+      '670:5070': '',
+      '670:5079': '+50 pts',
       '670:5089': completed + ' events attended',
       '670:5088': 'Attend a community cleanup',
       '670:5083': 'Your progress',

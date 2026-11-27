@@ -13,7 +13,7 @@ import {
 import { action, choices, field, required, result, type Controller } from './workflow';
 import { eventStart, localDateKey, localTime } from './eventDates';
 import { pickPhoto, type Photo } from './media';
-import { withEventPhoto } from './eventPhotos';
+import { eventPhotoUrl, withEventPhoto } from './eventPhotos';
 import { matchesQuery } from './communityView';
 import type { Attendance } from './useProjectData';
 
@@ -26,8 +26,6 @@ export type Registration = {
   volunteer_role: string;
 };
 const eventDate = (e?: OceanEvent) => (e ? new Date(e.event_date).toLocaleString() : '');
-const eventPhoto = (path?: string | null) =>
-  path ? supabase.storage.from('event-photos').getPublicUrl(path).data.publicUrl : '';
 const draftKeys = [
   'eventName',
   'eventDescription',
@@ -74,11 +72,7 @@ export function events(
     const now = new Date();
     const list = events.filter((e) => {
       const date = new Date(e.event_date);
-      if (
-        e.ended_at ||
-        date < now ||
-        !matchesQuery(v.eventSearch || '', e.title, e.location, e.description)
-      )
+      if (e.ended_at || date < now || !matchesQuery(v.eventSearch || '', e.title, e.location, e.description))
         return false;
       if (
         v.eventCategory &&
@@ -102,7 +96,7 @@ export function events(
         const e = list[i];
         b.labels[title] = e?.title || (!i ? 'No upcoming events' : '');
         b.labels[sub] = e ? [eventDate(e), e.location].join(' · ') : '';
-        const url = eventPhoto(e?.cover_path);
+        const url = eventPhotoUrl(e?.cover_path);
         if (url) b.images[image] = url;
         if (!e) b.hidden.add(image);
         action(c, [title, sub, image, ...(i === 0 ? ['258:428'] : [])], () => open(e, '258:735'));
@@ -182,7 +176,7 @@ export function events(
               : 'Register for event',
     });
     for (const n of ['712:756', '712:757', '258:749', '258:750']) b.hidden.add(n);
-    const image = eventPhoto(selected?.cover_path);
+    const image = eventPhotoUrl(selected?.cover_path);
     if (image) b.images['258:763'] = image;
     action(c, ['258:751', '258:752'], () =>
       open(
@@ -212,16 +206,14 @@ export function events(
         const email = required(v.participantEmail ?? c.user?.email, 'Nhập email.');
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) throw new Error('Email chưa hợp lệ.');
         if (!mine) {
-          const request = await supabase
-            .from('event_registrations')
-            .insert({
-              owner_id: c.user!.id,
-              event_id: target,
-              participant_name: name,
-              participant_email: email,
-              phone: v.participantPhone || '',
-              volunteer_role: v.role || 'Collect waste',
-            });
+          const request = await supabase.from('event_registrations').insert({
+            owner_id: c.user!.id,
+            event_id: target,
+            participant_name: name,
+            participant_email: email,
+            phone: v.participantPhone || '',
+            volunteer_role: v.role || 'Collect waste',
+          });
           if (request.error?.code === '23505') {
             const existing = result(
               await supabase
@@ -317,9 +309,7 @@ export function events(
               category: v.activityType || 'Cleanup',
               duration_minutes: v.duration ? Number(v.duration) : null,
               safety: v.safety || '',
-              preparation: [
-                ...new Set([...bring, ...(v.extraItem?.trim() ? [v.extraItem.trim()] : [])]),
-              ],
+              preparation: [...new Set([...bring, ...(v.extraItem?.trim() ? [v.extraItem.trim()] : [])])],
               cover_path: path,
               event_date: start.toISOString(),
               capacity,
@@ -432,10 +422,7 @@ export function events(
       c.run(async () => {
         const target = eid();
         const attendance = result(
-          await recordEventCheckIn(
-            target,
-            required(v.checkinCode, 'Nhập mã do người tổ chức cung cấp.'),
-          ),
+          await recordEventCheckIn(target, required(v.checkinCode, 'Nhập mã do người tổ chức cung cấp.')),
         );
         c.setValue('checkedEvent', target);
         c.setValue('attendanceId', String(attendance));
@@ -478,9 +465,7 @@ export function events(
       c.run(async () => {
         const rating = Number(v.rating);
         if (!rating) throw new Error('Chọn số sao trước khi gửi.');
-        result(
-          await submitEventFeedback(eid(), rating, v.feedback || '', v.enjoyed || '', v.again || ''),
-        );
+        result(await submitEventFeedback(eid(), rating, v.feedback || '', v.enjoyed || '', v.again || ''));
         c.go('1356:3049');
       }, true),
     );
@@ -506,8 +491,7 @@ export function events(
           recycled = v[k + 'recycled'] ? Number(v[k + 'recycled']) : null;
         if (
           (kg !== null && (!Number.isFinite(kg) || kg < 0)) ||
-          (recycled !== null &&
-            (!Number.isFinite(recycled) || recycled < 0 || kg === null || recycled > kg))
+          (recycled !== null && (!Number.isFinite(recycled) || recycled < 0 || kg === null || recycled > kg))
         )
           throw new Error('Kiểm tra khối lượng tổng và tái chế.');
         await withEventPhoto(c.user!.id, photo, async (path) =>

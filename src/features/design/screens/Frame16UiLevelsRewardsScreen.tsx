@@ -67,6 +67,7 @@ export function Frame16UiLevelsRewardsScreen() {
       <Artwork node="240:519" box={[57, 466, 96, 97]} source={require('../../../../assets/figma/mobile/17224.png')} />
       <Artwork node="1278:243" box={[298, 100, 95, 100]} source={require('../../../../assets/figma/mobile/2d12f.svg')} />
       <Artwork node="1278:261" box={[307, 130, 66, 66]} source={require('../../../../assets/figma/mobile/99c5d.svg')} />
+      <Link node="levelProgressLink" box={[21,137,348,136]} to="670:5193" label={"Your level progress"} />
       <Link node="240:445" box={[23, 69, 43, 43]} to="back" label={"Back"} />
       <Link node="759:542" box={[202, 454, 171, 222]} to="670:4692" label={"17_UI_Redeem_Reward"} />
     </Frame>

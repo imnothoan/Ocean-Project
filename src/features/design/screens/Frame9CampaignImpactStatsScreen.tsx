@@ -26,8 +26,7 @@ export function Frame9CampaignImpactStatsScreen() {
       <Artwork node="323:5680" box={[38, 493, 32, 32]} source={require('../../../../assets/figma/mobile/940df.svg')} />
       <Copy node="323:5681" box={[77, 525, 91, 19]} text={"Waste Collected"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":14,"lineHeight":16.8,"color":"#3f596b","textAlign":"center"}} />
       <Copy node="323:5684" box={[77, 497, 49, 20]} text={"2,4 Tons"} typeStyle={{"fontFamily":"AfacadFlux_400Regular","fontSize":15,"lineHeight":18.0,"color":"#091727","textAlign":"left"}} />
-      <Artwork node="323:5668" box={[127, 234, 281, 187]} source={require('../../../../assets/figma/mobile/44f12.png')} radius={10} />
-      <Artwork node="323:5664" box={[-17, 234, 281, 187]} source={require('../../../../assets/figma/mobile/6bf73.png')} radius={10} />
+      <Artwork node="323:5664" box={[24, 234, 345, 187]} radius={10} />
       <Copy node="311:1183" box={[31, 196, 164, 27]} text={"Before - After Impact"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":20,"lineHeight":24.0,"color":"#2b2b2b","textAlign":"left"}} />
       <Copy node="311:1184" box={[108, 432, 178, 21]} text={"88PL → 32PL : -56 PL Points"} typeStyle={{"fontFamily":"AfacadFlux_700Bold","fontSize":16,"lineHeight":19.2,"color":"#091727","textAlign":"left"}} />
       <Surface node="311:1161" box={[211, 132, 160, 36]} fill={"#ffffff"} radius={20} stroke={[1,"rgba(201,213,222,0.4)"]} />

@@ -3,6 +3,10 @@ import { supabase } from '../../lib/supabase';
 import { fileBytes, type Photo } from './media';
 import { result } from './workflow';
 
+export function eventPhotoUrl(path?: string | null) {
+  return path ? supabase.storage.from('event-photos').getPublicUrl(path).data.publicUrl : '';
+}
+
 export async function withEventPhoto<T>(
   user: string,
   photo: Photo | undefined,

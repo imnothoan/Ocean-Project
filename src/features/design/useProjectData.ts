@@ -22,6 +22,8 @@ import { result } from './workflow';
 export type Attendance = { id: string; event_id: string; created_at: string };
 export type ProjectData = {
   avatarUrl: string;
+  postCount: number;
+  supportedToday: number;
   points: number;
   saved: string[];
   items: CommunityItem[];
@@ -41,6 +43,8 @@ export type ProjectData = {
 };
 const empty: ProjectData = {
   avatarUrl: '',
+  postCount: 0,
+  supportedToday: 0,
   points: 0,
   saved: [],
   items: [],
@@ -70,7 +74,27 @@ async function readProject(session: Session | null, eventId: string, chat: boole
     const signed = result(await bucket.createSignedUrl(uid + '/avatar', 3600));
     return signed!.signedUrl + '&v=' + encodeURIComponent(file.updated_at || file.id || '');
   }
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
   const queries = {
+    postCount: uid
+      ? supabase
+          .from('community_posts')
+          .select('id', { count: 'exact', head: true })
+          .eq('author_id', uid)
+          .then((response) => {
+            result(response);
+            return response.count ?? 0;
+          })
+      : 0,
+    supportedToday: uid
+      ? supabase
+          .from('post_comments')
+          .select('post_id')
+          .eq('author_id', uid)
+          .gte('created_at', today.toISOString())
+          .then((response) => new Set(result(response)?.map((r) => r.post_id)).size)
+      : 0,
     avatarUrl: ownAvatar(),
     items: fetchFeed(session),
     profile: fetchProfile(session),
@@ -133,11 +157,7 @@ async function readProject(session: Session | null, eventId: string, chat: boole
       .limit(100)
       .then(result),
     learning: uid
-      ? supabase
-          .from('learning_progress')
-          .select('activity,completed_at')
-          .eq('user_id', uid)
-          .then(result)
+      ? supabase.from('learning_progress').select('activity,completed_at').eq('user_id', uid).then(result)
       : [],
     claims: uid
       ? supabase.from('reward_claims').select('id,cost,claimed_at').eq('user_id', uid).then(result)
@@ -203,10 +223,6 @@ export function useProjectData(session: Session | null, eventId: string, chat: b
     };
   }, [uid, reload, chatId]);
   const own = snapshot.uid === uid;
-  const data = !own
-    ? empty
-    : snapshot.chatId === chatId
-      ? snapshot.data
-      : { ...snapshot.data, messages: [] };
+  const data = !own ? empty : snapshot.chatId === chatId ? snapshot.data : { ...snapshot.data, messages: [] };
   return { data, error: own ? snapshot.error : '', refresh, loading };
 }
